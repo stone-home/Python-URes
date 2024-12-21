@@ -30,7 +30,7 @@ repos:
     hooks:
       - id: run-ut
         name: Run Pytest Tests with Coverage
-        entry: poetry run pytest --cov=src --cov-report=term-missing
+        entry: poetry run pytest --cov=ures --cov-report=term-missing
         language: system
         types: [python]
         always_run: true
