@@ -67,45 +67,29 @@ jobs:
 
   ut:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        python-version: [ 3.11, 3.12 ]  # Specify the Python versions you want to test against
-
+        python-version: [3.11, 3.12] # Specify the Python versions you want to test against
+        poetry-version: ["latest", "main", "1.8.5"]
     steps:
       # 1. Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       # 2. Set up Python environment
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
-      # 3. Install Poetry
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "${HOME}/.local/bin" >> $GITHUB_PATH
-
-      # 4. Cache Poetry dependencies
-      - name: Cache Poetry dependencies
-        uses: actions/cache@v3
+      # 3. Run poetry image
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
         with:
-          path: |
-            ~/.cache/pypoetry
-            ~/.cache/pip
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-poetry-
-
-      # 5. Install dependencies using Poetry
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-ansi
-
-      # 6. Run Pytest
-      - name: Run tests with Pytest
-        run: poetry run pytest
+          poetry-version: ${{ matrix.poetry-version }}
+      # 4. Install dependencies
+      - name: Install the project dependencies
+        run: poetry install
+      # 5. Run the tests
+      - name: Run the tests
+        run: poetry run pytest -v
