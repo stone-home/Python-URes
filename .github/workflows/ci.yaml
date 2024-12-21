@@ -13,17 +13,17 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: '16'
       - name: Install commitlint
         run: |
           npm install --save-dev @commitlint/{cli,config-conventional}
 
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
-        run: npx commitlint --last --verbose
+        run: npx commitlint --verbose
 
       - name: Validate PR commits with commitlint
         if: github.event_name == 'pull_request'
