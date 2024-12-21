@@ -45,8 +45,25 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Configure 1Password Service Account
+        uses: 1password/load-secrets-action/configure@v2
+        with:
+          # Persist the 1Password Service Account Authorization token
+          # for next steps.
+          # Keep in mind that every single step in the job is now
+          # able to access the token.
+          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Load Docker credentials
+        id: load-docker-credentials
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: false
+        env:
+          GITHUB_TOKEN: "op://DevOps/Git PAT - StoneHome - Action/credential"
+
       - name: Super-linter
         uses: super-linter/super-linter@v7.2.1 # x-release-please-version
         env:
           # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ steps.load-docker-credentials.outputs.GITHUB_TOKEN }}
