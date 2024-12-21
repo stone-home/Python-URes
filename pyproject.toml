@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "ures"
+version = "0.1.0"
+description = "The project is designed to provide standard utilization functions for improving the reusability of frequently used functions."
+authors = ["stone <github@stone-bo.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/stone-home/Python-URes"
+keywords = [
+    "utilization",
+    "Research Tool",
+    "Python"
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+]
+packages = [
+    { include = "ures"},
+]
+exclude = [
+    "tests",
+    "docs",
+    "examples",
+    "dist",
+    "build",
+    "ures.egg-info",
+    ".git",
+    ".gitignore",
+    ".github",
+    ".pre-commit-config.yaml",
+    "commitlint.config.js",
+    "run_ut.sh",
+    ".env"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-q --cache-clear"
+testpaths = [
+    "tests",
+]
