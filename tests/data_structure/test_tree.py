@@ -1,7 +1,7 @@
 import pytest
 from typing import Iterator
 from unittest.mock import patch
-from src.data_structure import TreeNode
+from ures.data_structure import TreeNode
 
 
 class TestTreeNodeproperties:

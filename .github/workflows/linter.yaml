@@ -1,4 +1,4 @@
-name: CodeLinter
+name: CodeQuality
 
 on: [push, pull_request]
 
@@ -64,3 +64,48 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_GIT_COMMITLINT: true
           VALIDATE_GIT_MERGE_CONFLICT_MARKERS: true
+
+  ut:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [ 3.11, 3.12 ]  # Specify the Python versions you want to test against
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Set up Python environment
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # 3. Install Poetry
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
+
+      # 4. Cache Poetry dependencies
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      # 5. Install dependencies using Poetry
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-ansi
+
+      # 6. Run Pytest
+      - name: Run tests with Pytest
+        run: poetry run pytest
