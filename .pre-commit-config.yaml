@@ -17,6 +17,15 @@ repos:
     rev: 24.10.0
     hooks:
     -   id: black
+-   repo: https://github.com/openstack/bashate
+    rev: 2.1.1
+    hooks:
+      - id: bashate
+        name: bashate
+        description: This hook runs bashate for linting shell scripts
+        entry: bashate
+        language: python
+        types: [shell]
 -   repo: local
     hooks:
       - id: run-ut

@@ -62,6 +62,5 @@ jobs:
           VALIDATE_GITLEAKS: true
           VALIDATE_ENV: true
           VALIDATE_DOCKERFILE_HADOLINT: true
-          VALIDATE_BASH: true
           VALIDATE_GIT_COMMITLINT: true
           VALIDATE_GIT_MERGE_CONFLICT_MARKERS: true
