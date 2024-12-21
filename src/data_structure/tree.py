@@ -1,9 +1,6 @@
 from __future__ import annotations
-
 import uuid
 from typing import Any, AnyStr, Dict, Iterator, List, Optional
-
-from six import Iterator
 
 
 class TreeNode:
