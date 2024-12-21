@@ -23,5 +23,5 @@ repos:
         name: Run Pytest Tests with Coverage
         entry: run_ut.sh
         language: script
-        stages: [pre-push]
+        stages: [push]
         verbose: true
