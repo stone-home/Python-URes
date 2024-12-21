@@ -3,32 +3,6 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  commitlint:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Install commitlint
-        run: |
-          npm install --save-dev @commitlint/{cli,config-conventional}
-          echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
-
-      - name: Validate current commit (last commit) with commitlint
-        if: github.event_name == 'push'
-        run: npx commitlint --last --verbose
-
-      - name: Validate PR commits with commitlint
-        if: github.event_name == 'pull_request'
-        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
   superlint:
     name: Lint
     runs-on: ubuntu-latest
@@ -77,3 +51,5 @@ jobs:
           VALIDATE_ENV: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_BASH: true
+          VALIDATE_GIT_COMMITLINT: true
+          VALIDATE_GIT_MERGE_CONFLICT_MARKERS: true
