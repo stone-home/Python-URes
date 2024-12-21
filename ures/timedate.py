@@ -19,6 +19,7 @@ def datetime_converter(
     else:
         return time.strftime(format)
 
+
 def timestamp_converter(
     timestamp: int, iso8601: bool = True, format: str = "%Y%m%d-%H%M%S"
 ) -> str:
@@ -33,9 +34,12 @@ def timestamp_converter(
         str: the time in expected format
     """
     return datetime_converter(
-        datetime.datetime.fromtimestamp(timestamp), iso8601=iso8601, format=format
+        datetime.datetime.fromtimestamp(timestamp),
+        iso8601=iso8601,
+        format=format,
         # datetime.datetime.utcfromtimestamp(timestamp), iso8601=iso8601, format=format
     )
+
 
 def time_now(iso8601: bool = True, format: str = "%Y%m%d-%H%M%S") -> str:
     """Generate a current time in iso8601 format or custom format.
