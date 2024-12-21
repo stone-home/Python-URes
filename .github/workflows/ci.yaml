@@ -20,6 +20,7 @@ jobs:
       - name: Install commitlint
         run: |
           npm install --save-dev @commitlint/{cli,config-conventional}
+          echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
 
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
@@ -67,3 +68,12 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ steps.load-docker-credentials.outputs.GITHUB_TOKEN }}
+          VALIDATE_YAML: true
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_JUPYTER_NBQA_BLACK: true
+          VALIDATE_JSON: true
+          VALIDATE_JSON_PRETTIER: true
+          VALIDATE_GITLEAKS: true
+          VALIDATE_ENV: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_BASH: true
