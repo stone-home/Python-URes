@@ -1,10 +1,22 @@
-name: CI
+name: CodeLinter
 
 on: [push, pull_request]
 
 jobs:
-  superlint:
-    name: Lint
+  secretCheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --results=verified,unknown
+
+  superLint:
+    name: Liters
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,7 +50,7 @@ jobs:
           GITHUB_TOKEN: "op://DevOps/Git PAT - StoneHome - Action/credential"
 
       - name: Super-linter
-        uses: super-linter/super-linter@v7.2.1 # x-release-please-version
+        uses: super-linter/super-linter/slim@v7.2.1 # x-release-please-version
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ steps.load-docker-credentials.outputs.GITHUB_TOKEN }}
