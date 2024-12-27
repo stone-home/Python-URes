@@ -1,0 +1,44 @@
+name: CodeQuality
+
+on: [push, pull_request]
+
+jobs:
+  ut:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: [3.11, 3.12] # Specify the Python versions you want to test against
+        poetry-version: ["1.8.5"]
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # 2. Set up Python environment
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      # 3. Run poetry image
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      # 4. Setup a local virtual environment (if no poetry.toml file)
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      # 5. Cache the virtual environment based on the dependencies lock file
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+      # 6. Install dependencies
+      - name: Install the project dependencies
+        run: poetry install --with test
+      # 7. Run the tests
+      - name: Run the tests
+        run: poetry run pytest -v
