@@ -1,4 +1,4 @@
-name: CodeQuality
+name: Code Testing
 
 on: [push, pull_request]
 

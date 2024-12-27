@@ -1,4 +1,4 @@
-name: CodeQuality
+name: Linter
 
 on: [push, pull_request]
 
