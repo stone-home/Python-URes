@@ -1,13 +1,4 @@
 repos:
-  - repo: local
-    hooks:
-      - id: prettier
-        name: Run Prettier
-        entry: npx prettier --write
-        language: system
-        files: \.json$|\.md$|\.yaml$|\.yml$
-        types: [file]
-        pass_filenames: true
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
     hooks:
@@ -20,6 +11,15 @@ repos:
         args: ["--fix=lf"]
       - id: pretty-format-json
         args: ["--autofix"]
+  - repo: local
+    hooks:
+      - id: prettier
+        name: Run Prettier
+        entry: npx prettier --write
+        language: system
+        files: \.json$|\.md$|\.yaml$|\.yml$
+        types: [file]
+        pass_filenames: true
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
