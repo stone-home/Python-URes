@@ -24,7 +24,7 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
       - name: Cache Super-Linter data
-        uses: actions/cache/v4
+        uses: actions/cache@v4
         with:
           path: /tmp/super-linter-cache
           key: ${{ runner.os }}-docker-${{ github.ref_name }}
