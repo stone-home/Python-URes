@@ -1,8 +1,8 @@
 name: Release
-"on":
-  push:
-    branches:
-      - trunk
+on: workflow_dispatch
+#  push:
+#    branches:
+#      - trunk
 permissions:
   contents: read # for checkout
 jobs:
