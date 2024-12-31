@@ -52,7 +52,6 @@ class MarkdownDocument:
 
         with open(file_path, "r", encoding="utf-8") as f:
             post = frontmatter.load(f)
-
         return cls(content=post.content, metadata=deepcopy(post.metadata))
 
     @property
@@ -463,35 +462,3 @@ class MarkdownDocument:
         if missing_fields:
             missing = ", ".join(missing_fields)
             raise ValueError(f"Missing mandatory front matter fields: {missing}")
-
-
-if __name__ == "__main__":
-    # Initialize a new MarkdownDocument with content and metadata
-    doc = MarkdownDocument(
-        content="# Welcome to My Document\n\nThis is the introduction.",
-        metadata={
-            "title": "My First Document",
-            "date": "2024-05-01",
-            "tags": ["introduction", "markdown"],
-        },
-    )
-
-    # Add additional content
-    doc.add_content("\n## Additional Section\n\nMore information here.")
-
-    # Set nested front matter
-    doc.set_frontmatter("author.name", "Jane Doe")
-    doc.set_frontmatter("author.contact.email", "jane.doe@example.com")
-
-    # Add a list of sections with nested dictionaries
-    doc.set_frontmatter("sections.0.title", "Introduction")
-    doc.set_frontmatter("sections.0.content", "Welcome to the introduction section.")
-    doc.set_frontmatter("sections.1.title", "Conclusion")
-    doc.set_frontmatter("sections.1.content", "Wrapping up the document.")
-
-    # Add keywords without overwriting existing ones
-    doc.set_frontmatter("metadata.keywords", ["python", "markdown"], overwrite=True)
-    doc.set_frontmatter("metadata.keywords", "frontmatter", overwrite=False)
-
-    # Save to a file
-    doc.save_to_file("my_first_document.md")
