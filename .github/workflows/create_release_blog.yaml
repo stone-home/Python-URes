@@ -1,0 +1,36 @@
+name: Release Processing Workflow
+
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  process-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Fetch release information
+        id: release
+        run: |
+          echo "RELEASE_SUBJECT=${{ github.event.release.name }}" >> $GITHUB_ENV
+          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
+          echo "${{ github.event.release.body }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Generate new file
+        run: |
+          echo "${{ env.RELEASE_SUBJECT }}"
+          echo "${{ env.RELEASE_BODY }}"
