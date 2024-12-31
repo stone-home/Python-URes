@@ -1,5 +1,5 @@
 import frontmatter
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, List, AnyStr
 import os
 from copy import deepcopy
 
@@ -11,6 +11,8 @@ class MarkdownDocument:
     This class provides methods to add and modify Markdown content and front matter,
     supporting nested structures in front matter (e.g., dictionaries within YAML front matter).
     """
+
+    MANDATORY_FIELDS: List[AnyStr] = []
 
     def __init__(self, content: str = "", metadata: Optional[Dict[str, Any]] = None):
         """
@@ -359,6 +361,9 @@ class MarkdownDocument:
         Returns:
             str: The complete Markdown content with front matter.
 
+        ERROR:
+            ValueError: If the front matter is missing mandatory fields.
+
         Example:
             >>> doc = MarkdownDocument(
             ...     content="# Hello World",
@@ -374,6 +379,7 @@ class MarkdownDocument:
 
             # Hello World
         """
+        self.validation_frontmatter()
         return frontmatter.dumps(self.post)
 
     def save(self, file_path: str) -> None:
@@ -444,6 +450,19 @@ class MarkdownDocument:
             {}
         """
         self.post.metadata = {}
+
+    def validation_frontmatter(self):
+        """
+        Validate the frontmatter metadata against the mandatory fields.
+        """
+        missing_fields = []
+        for field in self.MANDATORY_FIELDS:
+            if self.get_frontmatter(field) is None:
+                missing_fields.append(field)
+
+        if missing_fields:
+            missing = ", ".join(missing_fields)
+            raise ValueError(f"Missing mandatory front matter fields: {missing}")
 
 
 if __name__ == "__main__":
