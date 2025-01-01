@@ -55,7 +55,7 @@ class ReleasePostMetadata:
         return {
             "date": time_now(iso8601=False, format="%Y-%m-%dT%H:%M:%SZ"),
             "draft": self.is_draft,
-            "title": self.release_version,
+            "title": f"{self.project_name} {self.release_version}",
             "description": f"Release notes for {self.project_name} version {self.release_version}",
             "menu": self.create_sidebar_config(),
             "tags": self.post_tags,
