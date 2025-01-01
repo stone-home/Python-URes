@@ -1,11 +1,11 @@
-name: Release Processing Workflow
+name: Release Blog
 
 on:
   release:
     types: [published, edited]
 
 jobs:
-  process-release:
+  post-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
+          poetry install --no-root
 
       - name: Fetch release information
         id: release
@@ -29,8 +30,39 @@ jobs:
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "${{ github.event.release.body }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          echo "RELEASE_URL=${{ github.event.release.html_url }}" >> $GITHUB_ENV
+
+      - name: Configure 1Password Service Account
+        uses: 1password/load-secrets-action/configure@v2
+        with:
+          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Load Docker credentials
+        id: load-docker-credentials
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: false
+        env:
+          PERSON_PAT: "op://DevOps/Git PAT - Personal - GitHub Action"
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: stonebo/stone-journey.github.io.git
+          token: ${{ steps.load-docker-credentials.outputs.PERSON_PAT }}
+          path: hugo_blog
 
       - name: Generate new file
         run: |
-          echo "${{ env.RELEASE_SUBJECT }}"
-          echo "${{ env.RELEASE_BODY }}"
+          python .github/scripts/release_blog.py -p "URes" -v "${{ env.RELEASE_SUBJECT }}" -n "${{ env.RELEASE_BODY }}" -u "${{ env.RELEASE_URL }}" -o "hugo_blog"
+
+      - name: Commit changes
+        run: |
+          cd hugo_blog
+          git config --global user.email "github@stone-bo.com"
+          git config --global user.name "Post Release Bot"
+          git add ./content/posts/project
+          git commit -m "docs(project): add new blog for ${{ env.RELEASE_SUBJECT }} of ures"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ steps.load-docker-credentials.outputs.PERSON_PAT }}
