@@ -12,17 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root
-
       - name: Fetch release information
         id: release
         run: |
@@ -38,23 +27,42 @@ jobs:
           service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load Docker credentials
-        id: load-docker-credentials
+        id: load-credentials
         uses: 1password/load-secrets-action@v2
         with:
-          export-env: false
+          export-env: true
         env:
-          PERSON_PAT: "op://DevOps/Git PAT - Personal - GitHub Action"
+          GITHUB_TOKEN: "op://DevOps/Git PAT - Personal - GitHub Action/credential"
 
       - name: Checkout target repository
         uses: actions/checkout@v4
         with:
-          repository: stonebo/stone-journey.github.io.git
-          token: ${{ steps.load-docker-credentials.outputs.PERSON_PAT }}
+          repository: stonebo/stone-journey.github.io
+          token: ${{ env.GITHUB_TOKEN }}
           path: hugo_blog
+          ref: trunk
 
-      - name: Generate new file
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.8.5"
+
+      - name: Setup a local virtual environment (if no poetry.toml file)
         run: |
-          python .github/scripts/release_blog.py -p "URes" -v "${{ env.RELEASE_SUBJECT }}" -n "${{ env.RELEASE_BODY }}" -u "${{ env.RELEASE_URL }}" -o "hugo_blog"
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Install dependency and generate new file
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:${{ github.workspace }}"
+          python -m pip install --upgrade pip
+          poetry install
+          poetry run python .github/scripts/release_blog.py -p "URes" -v "${{ env.RELEASE_SUBJECT }}" -n "${{ env.RELEASE_BODY }}" -u "${{ env.RELEASE_URL }}" -o "hugo_blog"
 
       - name: Commit changes
         run: |
@@ -65,4 +73,4 @@ jobs:
           git commit -m "docs(project): add new blog for ${{ env.RELEASE_SUBJECT }} of ures"
           git push
         env:
-          GITHUB_TOKEN: ${{ steps.load-docker-credentials.outputs.PERSON_PAT }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
