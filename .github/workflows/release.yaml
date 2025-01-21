@@ -7,39 +7,6 @@ permissions:
   contents: read # for checkout
 jobs:
   release:
-    permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-    name: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Configure 1Password Service Account
-        uses: 1password/load-secrets-action/configure@v2
-        with:
-          # Persist the 1Password Service Account Authorization token
-          # for next steps.
-          # Keep in mind that every single step in the job is now
-          # able to access the token.
-          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-
-      - name: Load GitHub credentials
-        id: load-credentials
-        uses: 1password/load-secrets-action@v2
-        with:
-          export-env: false
-        env:
-          GITHUB_TOKEN: "op://DevOps/Git PAT - StoneHome - Action/credential"
-
-      - run: npx semantic-release@21.0.2
-        env:
-          GITHUB_TOKEN: ${{ steps.load-credentials.outputs.GITHUB_TOKEN }}
+    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/release.yaml@trunk
+    secrets:
+      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
