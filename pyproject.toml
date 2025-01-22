@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ures"
-version = "0.2.0"
+version = "1.4.1"
 description = "The project is designed to provide standard utilization functions for improving the reusability of frequently used functions."
 authors = ["stone <github@stone-bo.com>"]
 license = "MIT"
