@@ -12,5 +12,6 @@ jobs:
       release-body: ${{ github.event.release.body }} # Body of the release
       release-url: ${{ github.event.release.html_url }} # URL of the release
       python-version: "3.11" # Python version to use
+      project-name: "URes"
     secrets:
       onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }} # 1Password service account token
