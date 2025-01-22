@@ -1,9 +1,8 @@
-name: Testing
+name: Poetry Publish
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
 
 jobs:
   publish:
@@ -11,6 +10,6 @@ jobs:
     with:
       python-version: "3.11"
       poetry-version: "1.8.5"
-      version-id: ${{ github.ref_name }}
+      version-id: ${{ github.event.release.name }}
     secrets:
       onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
