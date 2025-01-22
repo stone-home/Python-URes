@@ -7,70 +7,11 @@ on:
 jobs:
   post-release:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Fetch release information
-        id: release
-        run: |
-          echo "RELEASE_SUBJECT=${{ github.event.release.name }}" >> $GITHUB_ENV
-          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
-          echo "${{ github.event.release.body }}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "RELEASE_URL=${{ github.event.release.html_url }}" >> $GITHUB_ENV
-
-      - name: Configure 1Password Service Account
-        uses: 1password/load-secrets-action/configure@v2
-        with:
-          service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-
-      - name: Load Docker credentials
-        id: load-credentials
-        uses: 1password/load-secrets-action@v2
-        with:
-          export-env: true
-        env:
-          GITHUB_TOKEN: "op://DevOps/Git PAT - Personal - GitHub Action/credential"
-
-      - name: Checkout target repository
-        uses: actions/checkout@v4
-        with:
-          repository: stonebo/stone-journey.github.io
-          token: ${{ env.GITHUB_TOKEN }}
-          path: hugo_blog
-          ref: trunk
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: "1.8.5"
-
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Install dependency and generate new file
-        run: |
-          export PYTHONPATH="${PYTHONPATH}:${{ github.workspace }}"
-          python -m pip install --upgrade pip
-          poetry install
-          poetry run python .github/scripts/release_blog.py -p "URes" -v "${{ env.RELEASE_SUBJECT }}" -n "${{ env.RELEASE_BODY }}" -u "${{ env.RELEASE_URL }}" -o "hugo_blog"
-
-      - name: Commit changes
-        run: |
-          cd hugo_blog
-          git config --global user.email "github@stone-bo.com"
-          git config --global user.name "Post Release Bot"
-          git add ./content/posts/project
-          git commit -m "docs(project): add new blog for ${{ env.RELEASE_SUBJECT }} of ures"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/create_release_blog.yaml@trunk
+    with:
+      release-subject: ${{ github.event.release.name }}
+      release-body: ${{ github.event.release.body }}
+      release-url: ${{ github.event.release.html_url }}
+      python-version: "3.11"
+    secrets:
+      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
