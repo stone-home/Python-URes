@@ -1,17 +1,16 @@
-name: Release Blog
+name: Publish Release Blog
 
 on:
   release:
-    types: [published, edited]
+    types: [published]
 
 jobs:
-  post-release:
-    runs-on: ubuntu-latest
-    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/create_release_blog.yaml@trunk
+  blog-creating:
+    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/create_release_blog.yaml@trunk # Action to create release blog post
     with:
-      release-subject: ${{ github.event.release.name }}
-      release-body: ${{ github.event.release.body }}
-      release-url: ${{ github.event.release.html_url }}
-      python-version: "3.11"
+      release-subject: ${{ github.event.release.name }} # Subject of the release
+      release-body: ${{ github.event.release.body }} # Body of the release
+      release-url: ${{ github.event.release.html_url }} # URL of the release
+      python-version: "3.11" # Python version to use
     secrets:
-      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }} # 1Password service account token
