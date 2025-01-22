@@ -8,7 +8,7 @@ on:
 
 jobs:
   superLint:
-    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/linter.yaml@trunk
+    uses: stone-home/Action-Stone-DevOps/.github/workflows/linter.yaml@trunk
     with:
       python: true
     secrets:
