@@ -1,8 +1,5 @@
 name: Release
 on: workflow_dispatch
-#  push:
-#    branches:
-#      - trunk
 permissions:
   contents: read # for checkout
 jobs:

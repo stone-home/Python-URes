@@ -1,0 +1,16 @@
+name: Testing
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    uses: stone-home/Action-Stone-Dev-Convention/.github/workflows/poetry-publish.yaml@trunk
+    with:
+      python-version: "3.11"
+      poetry-version: "1.8.5"
+      version-id: ${{ github.ref_name }}
+    secrets:
+      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
