@@ -1,7 +1,7 @@
 import os
 from typing import Optional
 from ures.timedate import time_now
-from ures.string import unique_id
+from ures.string import zettelkasten_id
 from .manipulator import MarkdownDocument, frontmatter
 
 
@@ -48,7 +48,7 @@ class Zettelkasten(MarkdownDocument):
             raise ValueError("Aliases must be a list.")
 
         _metadata = {
-            "id": unique_id(),
+            "id": zettelkasten_id(),
             "create": time_now(),
         }
         super().__init__(metadata=_metadata)

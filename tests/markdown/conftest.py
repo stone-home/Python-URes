@@ -14,7 +14,7 @@ def mock_time_now(monkeypatch):
 def mock_unique_id(monkeypatch):
     mock_id = "unique-id-12345"
     # Patch 'unique_id' in the 'ures.markdown.zettelkasten' module's namespace
-    monkeypatch.setattr("ures.markdown.zettelkasten.unique_id", lambda: mock_id)
+    monkeypatch.setattr("ures.markdown.zettelkasten.zettelkasten_id", lambda: mock_id)
     return mock_id
 
 
