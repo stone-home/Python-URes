@@ -1,6 +1,7 @@
-import frontmatter
-from typing import Any, Dict, Optional, List, AnyStr
 import os
+import frontmatter
+from pathlib import Path
+from typing import Any, Dict, Optional, List, AnyStr, Union
 from copy import deepcopy
 
 
@@ -32,8 +33,16 @@ class MarkdownDocument:
             metadata = {}
         self.post = frontmatter.Post(content, **metadata)
 
+    @staticmethod
+    def path_preprocess(input_path: Union[str, Path]) -> Path:
+        if isinstance(input_path, str):
+            output_path = Path(input_path)
+        else:
+            output_path = input_path
+        return output_path
+
     @classmethod
-    def from_file(cls, file_path: str) -> "MarkdownDocument":
+    def from_file(cls, file_path: Union[Path, str]) -> "MarkdownDocument":
         """
         Creates a MarkdownDocument instance by loading a Markdown file.
 
@@ -47,7 +56,8 @@ class MarkdownDocument:
             FileNotFoundError: If the specified file does not exist.
             frontmatter.InvalidFrontMatterError: If the front matter is malformed.
         """
-        if not os.path.isfile(file_path):
+        file_path = cls.path_preprocess(file_path)
+        if not file_path.is_file():
             raise FileNotFoundError(f"The file '{file_path}' does not exist.")
 
         with open(file_path, "r", encoding="utf-8") as f:
@@ -381,7 +391,7 @@ class MarkdownDocument:
         self.validation_frontmatter()
         return frontmatter.dumps(self.post)
 
-    def save(self, file_path: str) -> None:
+    def save(self, file_path: Union[Path, str]) -> None:
         """
         Saves the MarkdownDocument to a specified file.
 
@@ -395,11 +405,12 @@ class MarkdownDocument:
             ... )
             >>> doc.save_to_file("greeting.md")
         """
+        file_path = self.path_preprocess(file_path)
         markdown_str = self.to_markdown()
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(markdown_str)
 
-    def load_from_file(self, file_path: str) -> None:
+    def load_from_file(self, file_path: Union[Path, str]) -> None:
         """
         Loads Markdown content and front matter from a specified file into the current instance.
 
@@ -414,6 +425,7 @@ class MarkdownDocument:
             >>> doc = MarkdownDocument()
             >>> doc.load_from_file("existing.md")
         """
+        file_path = self.path_preprocess(file_path)
         if not os.path.isfile(file_path):
             raise FileNotFoundError(f"The file '{file_path}' does not exist.")
 
