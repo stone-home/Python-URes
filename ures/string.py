@@ -44,3 +44,17 @@ def format_memory(nbytes: int) -> str:
         return f"{nbytes * 1.0 / KB:.2f} KB"
     else:
         return str(nbytes) + " B"
+
+
+def capitalize_string(string: str, separator: str = " ") -> str:
+    """Capitalize a string.
+
+    Args:
+        string (str): the string to be capitalized
+        separator (str): the separator to split the string
+
+    Returns:
+        str: the capitalized string
+
+    """
+    return f"{separator}".join([item.capitalize() for item in string.split(separator)])
