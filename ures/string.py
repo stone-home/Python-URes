@@ -33,6 +33,9 @@ def format_memory(nbytes: int) -> str:
 
     **The function is copied from PyTorch source code.**
     """
+    if nbytes is None:
+        return "0 bytes"
+
     KB = 1024
     MB = 1024 * KB
     GB = 1024 * MB

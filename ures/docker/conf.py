@@ -14,7 +14,9 @@ class BuildConfig(BaseModel):
         description="Base image for the container",
     )
     platform: Optional[str] = Field(
-        default=None, title="Platform", description="Platform for the base image in format os[/arch[/variant]]"
+        default=None,
+        title="Platform",
+        description="Platform for the base image in format os[/arch[/variant]]",
     )
     python_deps_manager: Optional[str] = Field(
         default="pip",
@@ -66,6 +68,11 @@ class BuildConfig(BaseModel):
         title="Context Directory",
         description="Directory for the build context",
     )
+    docker_filename: str = Field(
+        default="Dockerfile",
+        title="Dockerfile",
+        description="Name of the Dockerfile",
+    )
 
     def add_label(self, key: str, value: str):
         logger.info(f"Adding label {key} with value {value}")
@@ -92,3 +99,31 @@ class BuildConfig(BaseModel):
         if not context_dir.is_dir():
             raise ValueError(f"Context directory {context_dir} is not a directory")
         self.context_dir = context_dir
+
+    def add_python_dependency(self, dependency: str):
+        """Adds a Python dependency."""
+        logger.info(f"Adding Python dependency: '{dependency}'")
+        if self.python_dependencies is None:
+            self.python_dependencies = []
+        self.python_dependencies.append(dependency)
+
+    def add_system_dependency(self, dependency: str):
+        """Adds a system dependency."""
+        logger.info(f"Adding system dependency: '{dependency}'")
+        if self.sys_dependencies is None:
+            self.sys_dependencies = []
+        self.sys_dependencies.append(dependency)
+
+    def set_entrypoint(self, entrypoint: Union[str, List[str]]):
+        """Sets the entrypoint for the container."""
+        if isinstance(entrypoint, str):
+            entrypoint = [entrypoint]
+        logger.info(f"Setting entrypoint to: '{entrypoint}'")
+        self.entrypoint = entrypoint
+
+    def set_cmd(self, cmd: Union[str, List[str]]):
+        """Sets the command for the container."""
+        if isinstance(cmd, str):
+            cmd = [cmd]
+        logger.info(f"Setting command to: '{cmd}'")
+        self.cmd = cmd
