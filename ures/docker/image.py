@@ -158,64 +158,129 @@ class ImageConstructor:
 
 
 class Image:
+    """Represents a Docker image, providing methods to manage and manipulate images.
+
+    Attributes:
+        _image_name (str): The name of the Docker image.
+        _tag (str): The tag of the Docker image, default is "latest".
+        _client (docker.DockerClient): The Docker client instance.
+        _image (Optional[DockerImage]): The Docker image object.
+    """
+
     def __init__(self, image_name: str, tag: Optional[str] = None):
+        """Initializes an Image instance.
+
+        Args:
+            image_name (str): The name of the Docker image.
+            tag (Optional[str], optional): The image tag. Defaults to "latest".
+        """
         self._image_name = image_name
         self._tag = tag or "latest"
         self._client = docker.from_env()
         self._image: Optional[DockerImage] = None
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """Gets the name of the image.
+
+        Returns:
+            str: The name of the image.
+        """
         return self._image_name
 
     @property
-    def tag(self):
+    def tag(self) -> str:
+        """Gets the tag of the image.
+
+        Returns:
+            str: The tag of the image.
+        """
         return self._tag
 
     @property
     def exist(self) -> bool:
+        """Checks whether the image exists locally.
+
+        Returns:
+            bool: True if the image exists, False otherwise.
+        """
         return self.get_image() is not None
 
     @property
     def image(self) -> Optional[DockerImage]:
+        """Gets the Docker image object if it exists.
+
+        Returns:
+            Optional[DockerImage]: The Docker image object or None if not found.
+        """
         return self._image
 
     @property
     @check_instance_variable("image")
-    def id(self):
+    def id(self) -> str:
+        """Gets the ID of the image.
+
+        Returns:
+            str: The image ID.
+        """
         return self.image.id
 
     @property
     @check_instance_variable("image")
     def architecture(self) -> str:
+        """Gets the architecture of the image.
+
+        Returns:
+            str: The image architecture.
+        """
         return self.image.attrs["Architecture"]
 
     @property
     @check_instance_variable("image")
     def image_size(self) -> int:
-        """
-        get the size of the image in MB
-        :return: int
+        """Gets the size of the image in MB.
+
+        Returns:
+            int: The image size in MB.
         """
         return int(self.image.attrs["Size"])
 
     @property
     @check_instance_variable("image")
     def labels(self) -> dict:
+        """Gets the labels associated with the image.
+
+        Returns:
+            dict: A dictionary containing image labels.
+        """
         return self.image.labels
 
     def get_fullname(self, tag: Optional[str] = None) -> str:
+        """Gets the full name of the image including the tag.
+
+        Args:
+            tag (Optional[str], optional): The image tag. Defaults to the instance's tag.
+
+        Returns:
+            str: The full image name with the tag.
+        """
         if tag is None:
             tag = self._tag
         return f"{self._image_name}:{tag}"
 
     def get_image(self, tag: Optional[str] = None) -> Optional[DockerImage]:
+        """Retrieves the Docker image from the local repository.
+
+        Args:
+            tag (Optional[str], optional): The tag of the image. Defaults to the instance's tag.
+
+        Returns:
+            Optional[DockerImage]: The Docker image object if found, otherwise None.
+        """
         image_name = self.get_fullname(tag=tag)
         logger.info(f"Getting image {image_name}")
         try:
             image = self._client.images.get(image_name)
-            # Due to input tag may be different with self._tag,
-            # the function only store image when tag matches to self._tag
             if tag is None or tag == self._tag:
                 self._image = image
             return image
@@ -226,6 +291,14 @@ class Image:
             return None
 
     def pull_image(self, tag: Optional[str] = None) -> Optional[DockerImage]:
+        """Pulls the Docker image from a remote repository.
+
+        Args:
+            tag (Optional[str], optional): The image tag to pull. Defaults to the instance's tag.
+
+        Returns:
+            Optional[DockerImage]: The pulled Docker image object if successful, otherwise None.
+        """
         tag = tag or self._tag
         logger.info(f"Pulling image {self.get_fullname(tag=tag)}")
         try:
@@ -241,8 +314,17 @@ class Image:
         build_context: Union[str, Path],
         build_config: BuildConfig,
         dest: Union[str, Path],
-        force: bool = False,
     ) -> DockerImage:
+        """Builds a Docker image from a specified build context.
+
+        Args:
+            build_context (Union[str, Path]): The path to the build context.
+            build_config (BuildConfig): The build configuration settings.
+            dest (Union[str, Path]): The destination where the Dockerfile is saved.
+
+        Returns:
+            DockerImage: The built Docker image.
+        """
         build_context = Path(build_context)
         dest = Path(dest)
         builder = ImageConstructor(build_config)
@@ -253,9 +335,8 @@ class Image:
             "path": str(build_context),
             "tag": image_name,
             "dockerfile": str(docker_path),
+            "nocache": True,
         }
-        if force:
-            args["noncache"] = True
 
         logger.info(
             f"Building image {image_name} with dockerfile {docker_path} in context {build_context}"
@@ -271,12 +352,37 @@ class Image:
             logger.info(f"Image {image_name} is built successfully!")
             self._image = image
 
-        # log all build information
         for line in build_log:
             logger.debug(line)
         return image
 
+    def remove(
+        self, tag: Optional[str] = None, force: bool = False, noprune: bool = False
+    ):
+        """Removes the specified Docker image.
+
+        Args:
+            tag (Optional[str], optional): The image tag to remove. Defaults to the instance's tag.
+            force (bool, optional): Whether to force remove the image. Defaults to False.
+        """
+        image_name = self.get_fullname(tag=tag)
+        args = {
+            "image": image_name,
+            "force": force,
+            "noprune": noprune,
+        }
+        try:
+            self._client.images.remove(**args)
+        except docker.errors.APIError as e:
+            logger.error(f"Failed to remove image {image_name}")
+        finally:
+            if self.exist is True:
+                logger.error(f"Removing image {image_name} failed")
+            else:
+                logger.info(f"Removing image {image_name} succeeded")
+
     def info(self):
+        """Prints detailed information about the image."""
         print(
             f"\033[1;33m====================================== Image Info ===============================================\033[0m"
         )
@@ -288,6 +394,11 @@ class Image:
 
 
 if __name__ == "__main__":
-    image = Image(image_name="hello-world")
-    image.get_image()
-    image.info()
+    config = BuildConfig(
+        python_dependencies=["fire~=0.7.0"],
+        sys_dependencies=["curl"],
+        cmd=["echo", "$PATH"],
+    )
+
+    image = Image(image_name="test", tag="1.2.2")
+    image._client.images.prune()
