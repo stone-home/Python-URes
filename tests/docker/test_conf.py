@@ -1,6 +1,9 @@
 import pytest
 from pathlib import Path
-from ures.docker.conf import BuildConfig  # Assuming your code is in build_config.py
+from ures.docker.conf import (
+    BuildConfig,
+    RuntimeConfig,
+)  # Assuming your code is in build_config.py
 
 
 class TestBuildConfig:
@@ -109,3 +112,83 @@ class TestBuildConfig:
         assert config.entrypoint == ["python", "/app/main.py"]
         assert config.cmd == ["--config", "/app/config.ini"]
         test_dir.rmdir()
+
+
+class TestRuntimeConfig:
+    def test_defaults(self):
+        config = RuntimeConfig()
+        assert config.image_name == "model-runner"
+        assert config.name is None
+        assert config.platform is None
+        assert config.detach is True
+        assert config.user is None
+        assert config.remove is False
+        assert config.cpus is None
+        assert config.gpus is None
+        assert config.memory is None
+        assert config.entrypoint is None
+        assert config.command is None
+        assert config.env is None
+        assert config.volumes is None
+        assert config.subnet is None
+        assert config.ipv4 is None
+        assert config.network_mode == "bridge"
+        config.out_dir.mkdir(exist_ok=True, parents=True)
+        assert config.out_dir.exists()
+
+    def test_custom_values(self):
+        custom_config = RuntimeConfig(
+            image_name="custom-image",
+            name="custom-container",
+            platform="linux/amd64",
+            detach=False,
+            user="testuser",
+            remove=True,
+            cpus=4,
+            gpus=["0", "1"],
+            memory="4g",
+            entrypoint=["/bin/sh"],
+            command=["-c", "echo hello"],
+            env={"VAR1": "value1"},
+            volumes={"/host/path": {"bind": "/container/path", "mode": "rw"}},
+            subnet="192.168.1.0/24",
+            ipv4="192.168.1.100",
+            network_mode="host",
+            out_dir=Path("/tmp/runtime_out"),
+        )
+
+        assert custom_config.image_name == "custom-image"
+        assert custom_config.name == "custom-container"
+        assert custom_config.platform == "linux/amd64"
+        assert custom_config.detach is False
+        assert custom_config.user == "testuser"
+        assert custom_config.remove is True
+        assert custom_config.cpus == 4
+        assert custom_config.gpus == ["0", "1"]
+        assert custom_config.memory == "4g"
+        assert custom_config.entrypoint == ["/bin/sh"]
+        assert custom_config.command == ["-c", "echo hello"]
+        assert custom_config.env == {"VAR1": "value1"}
+        assert custom_config.volumes == {
+            "/host/path": {"bind": "/container/path", "mode": "rw"}
+        }
+        assert custom_config.subnet == "192.168.1.0/24"
+        assert custom_config.ipv4 == "192.168.1.100"
+        assert custom_config.network_mode == "host"
+        assert custom_config.out_dir == Path("/tmp/runtime_out")
+
+    def test_invalid_values(self):
+        with pytest.raises(ValueError):
+            RuntimeConfig(cpus="four")  # Invalid type for cpus
+        with pytest.raises(ValueError):
+            RuntimeConfig(memory=1024)  # Invalid type for memory
+        with pytest.raises(ValueError):
+            RuntimeConfig(gpus="gpu0")  # Invalid type for gpus
+
+    def test_methods(self):
+        config = RuntimeConfig()
+        config.add_env("NEW_VAR", "new_value")
+        assert config.env == {"NEW_VAR": "new_value"}
+
+        config.add_volume("/host/dir", "/container/dir")
+        assert config.volumes == {"/host/dir": {"bind": "/container/dir", "mode": "rw"}}
