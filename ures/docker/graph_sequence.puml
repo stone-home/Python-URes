@@ -1,0 +1,36 @@
+@startuml
+actor User
+participant BuildConfig
+participant ImageConstructor
+participant Image
+participant RuntimeConfig
+participant Container
+participant DockerEngine
+
+User -> BuildConfig : Initialize BuildConfig
+User -> ImageConstructor : Create ImageConstructor
+ImageConstructor -> ImageConstructor : Generate Dockerfile
+ImageConstructor -> Image : Save Dockerfile
+
+User -> Image : Initialize Image
+Image -> DockerEngine : Build Docker Image
+DockerEngine -> Image : Image Built Successfully
+
+User -> RuntimeConfig : Initialize RuntimeConfig
+User -> Container : Create Container
+Container -> DockerEngine : Start Container
+DockerEngine -> Container : Container Running
+
+User -> Container : Check Status
+Container -> DockerEngine : Get Status
+DockerEngine -> Container : Return Status
+
+User -> Container : Stop Container
+Container -> DockerEngine : Stop Container
+DockerEngine -> Container : Container Stopped
+
+User -> Container : Remove Container
+Container -> DockerEngine : Remove Container
+DockerEngine -> Container : Container Removed
+
+@enduml

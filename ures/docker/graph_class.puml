@@ -1,0 +1,118 @@
+@startuml
+metaclass BuildConfig {
+    - base_image
+    - platform
+    - python_deps_manager
+    - python_dependencies
+    - sys_deps_manager
+    - sys_dependencies
+    - labels
+    - uid
+    - user
+    - entrypoint
+    - cmd
+    - environment
+    - copies
+    - context_dir
+    - docker_filename
+    + add_label(key, value)
+    + add_copy(src, dest)
+    + add_environment(key, value)
+    + set_context_dir(context_dir)
+    + add_python_dependency(dependency)
+    + add_system_dependency(dependency)
+    + set_entrypoint(entrypoint)
+    + set_cmd(cmd)
+}
+
+metaclass RuntimeConfig {
+    - image_name
+    - name
+    - platform
+    - detach
+    - user
+    - remove
+    - cpus
+    - gpus
+    - gpu_driver
+    - memory
+    - entrypoint
+    - command
+    - env
+    - volumes
+    - subnet
+    - ipv4
+    - subnet_mask
+    - subnet_gateway
+    - network_mode
+    - out_dir
+    + add_volume(host_path, container_path, mode)
+    + add_env(key, value)
+}
+
+class ImageConstructor {
+    - _config
+    - _dockerfile_content
+    + home_dir()
+    + content()
+    + save(dest)
+    - _set_base_image()
+    - _set_labels()
+    - _set_user_and_workdir()
+    - _set_system_dependencies()
+    - _set_python_dependencies()
+    - _set_copies()
+    - _set_environment()
+    - _set_entrypoint()
+    - _set_cmd()
+    - _build_dockerfile()
+}
+
+class Image {
+    - _image_name
+    - _tag
+    - _client
+    - _image
+    + name()
+    + tag()
+    + exist()
+    + image()
+    + id()
+    + architecture()
+    + image_size()
+    + labels()
+    + get_fullname(tag)
+    + get_image(tag)
+    + pull_image(tag)
+    + build_image(build_context, build_config, dest)
+    + remove(tag, force, noprune)
+    + info()
+}
+
+class Container {
+    - _image
+    - _client
+    - _container
+    + image_name()
+    + is_created()
+    + status()
+    + exit_code()
+    + is_running()
+    - _construct_build_params(config)
+    - _create_subnet(config)
+    - _connect_to_network(contain, config)
+    + create(config, tag)
+    + stop()
+    + remove()
+    + logs()
+    + wait()
+    + run()
+}
+
+BuildConfig *-- ImageConstructor   : creates
+BuildConfig *-- Image              : defines
+RuntimeConfig *-- Container        : configures
+ImageConstructor *-- Image         : builds
+Image o-- Container                : dependency
+
+@enduml
