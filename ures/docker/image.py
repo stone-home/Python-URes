@@ -7,7 +7,7 @@ from typing import Optional, Union, List
 from docker.models.images import Image as DockerImage
 from ures.tools.decorator import check_instance_variable
 from ures.string import format_memory
-from ures.docker.conf import BuildConfig
+from .conf import BuildConfig
 
 logger = logging.getLogger(__name__)
 
@@ -167,7 +167,12 @@ class Image:
         _image (Optional[DockerImage]): The Docker image object.
     """
 
-    def __init__(self, image_name: str, tag: Optional[str] = None):
+    def __init__(
+        self,
+        image_name: str,
+        tag: Optional[str] = None,
+        client: docker.DockerClient = None,
+    ):
         """Initializes an Image instance.
 
         Args:
@@ -176,7 +181,7 @@ class Image:
         """
         self._image_name = image_name
         self._tag = tag or "latest"
-        self._client = docker.from_env()
+        self._client = client or docker.from_env()
         self._image: Optional[DockerImage] = None
 
     @property
@@ -374,7 +379,7 @@ class Image:
         try:
             self._client.images.remove(**args)
         except docker.errors.APIError as e:
-            logger.error(f"Failed to remove image {image_name}")
+            logger.error(f"Failed to remove image {image_name}. Msg: {e}")
         finally:
             if self.exist is True:
                 logger.error(f"Removing image {image_name} failed")
@@ -391,14 +396,3 @@ class Image:
         print(f"Architecture: {self.architecture}")
         print(f"Image Size: {format_memory(self.image_size)}")
         print(f"Labels: {self.labels}")
-
-
-if __name__ == "__main__":
-    config = BuildConfig(
-        python_dependencies=["fire~=0.7.0"],
-        sys_dependencies=["curl"],
-        cmd=["echo", "$PATH"],
-    )
-
-    image = Image(image_name="test", tag="1.2.2")
-    image._client.images.prune()

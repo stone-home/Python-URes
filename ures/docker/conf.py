@@ -1,7 +1,9 @@
 import logging
+from enum import Enum
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Tuple, Union
+from ures.files import get_temp_folder
 
 
 logger = logging.getLogger(__name__)
@@ -127,3 +129,119 @@ class BuildConfig(BaseModel):
             cmd = [cmd]
         logger.info(f"Setting command to: '{cmd}'")
         self.cmd = cmd
+
+
+class RuntimeConfig(BaseModel):
+    image_name: str = Field(
+        default="model-runner",
+        title="Image Name",
+        description="Name of the image in form of image:tag",
+    )
+    name: Optional[str] = Field(
+        default=None, title="Name", description="Name of the container"
+    )
+    platform: Optional[str] = Field(
+        default=None, title="Platform", description="Platform for the base image"
+    )
+    detach: bool = Field(
+        default=True, title="Detach", description="Run the container in detached mode"
+    )
+    user: Optional[str] = Field(
+        default=None, title="User", description="User for the container"
+    )
+    remove: bool = Field(
+        default=False,
+        title="Remove",
+        description="Remove the container after it is stopped",
+    )
+    # for parameter cpus, the type is Optional[int] because the number of CPUs can be None
+    cpus: Optional[int] = Field(
+        default=None,
+        title="CPUs",
+        description="Number of CPUs to allocate to the container. "
+        "CPUs in which to allow execution (0-3, 0,1)",
+    )
+    # for parameter gpus, the type is List[str] because the GPU IDs are strings, for example ["0", "1"]
+    gpus: Optional[List[str]] = Field(
+        default=None,
+        title="GPUs",
+        description="List of GPUs to allocate to the container",
+    )
+    gpu_driver: str = Field(
+        default="nvidia",
+        title="GPU Driver",
+        description="The driver to use for the GPUs, defaults to nvidia",
+    )
+    # for parameter memory, the type is Optional[str] because the memory can be None, for example "2g"
+    memory: Optional[str] = Field(
+        default=None, title="Memory", description="Memory to allocate to the container"
+    )
+    entrypoint: Optional[List[Union[str, float, int, Path]]] = Field(
+        default=None, title="Entrypoint", description="Entrypoint for the container"
+    )
+    command: Optional[List[Union[int, float, str, Path]]] = Field(
+        default=None, title="Command", description="Command for the container"
+    )
+    env: Optional[Dict[str, str]] = Field(
+        default=None,
+        title="Environment",
+        description="Environment variables for the container",
+    )
+    volumes: Optional[Dict[str, Dict[str, str]]] = Field(
+        default=None, title="Volumes", description="Volumes to mount to the container"
+    )
+    subnet: Optional[str] = Field(
+        default=None, title="Subnet", description="Subnet for the container"
+    )
+    ipv4: Optional[str] = Field(
+        default=None, title="IPv4", description="Specified IPv4 for the container"
+    )
+    subnet_mask: Optional[str] = Field(
+        default="172.17.0.0/16", title="IPv4", description="IPv4 Mask for Subnet"
+    )
+    subnet_gateway: Optional[str] = Field(
+        default="172.17.0.1",
+        title="Subnet Gateway",
+        description="Subnet Gateway for the container",
+    )
+    network_mode: Optional[str] = Field(
+        default="bridge",
+        title="Network Mode",
+        description="Network mode for the container",
+    )
+    out_dir: Path = Field(
+        default=Path(get_temp_folder()),
+        title="Cache Directory",
+        description="Directory for the cache",
+    )
+
+    @property
+    def log_dir(self) -> Path:
+        log_dir = self.out_dir.joinpath("log")
+        if log_dir.is_dir() is False:
+            log_dir.mkdir(parents=True, exist_ok=True)
+        return log_dir
+
+    @property
+    def cache(self) -> Path:
+        cache_dir = self.out_dir.joinpath("cache")
+        if cache_dir.is_dir() is False:
+            cache_dir.mkdir(parents=True, exist_ok=True)
+        return cache_dir
+
+    def add_volume(
+        self,
+        host_path: Union[str, Path],
+        container_path: Union[str, Path],
+        mode: str = "rw",
+    ):
+        logger.info(f"Adding volume {host_path} to {container_path} with mode {mode}")
+        if self.volumes is None:
+            self.volumes = {}
+        self.volumes[str(host_path)] = {"bind": str(container_path), "mode": mode}
+
+    def add_env(self, key: str, value: str):
+        logger.info(f"Adding environment variable {key} with value {value}")
+        if self.env is None:
+            self.env = {}
+        self.env[key] = value
