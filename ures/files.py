@@ -35,7 +35,7 @@ def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> List
     Returns:
         List[str]: a list of file paths
     """
-    file_paths = fetch_file_paths(directory)
+    file_paths = get_file_paths(directory)
     if fuzz:
         return [
             str(file_path)
