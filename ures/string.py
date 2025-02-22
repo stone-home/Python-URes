@@ -2,36 +2,60 @@ import uuid
 
 
 def zettelkasten_id() -> str:
-    """Generate an id used for zettelkasten note-taking system only.
+    """
+    Generate a Zettelkasten identifier.
+
+    This function creates a unique identifier suitable for a Zettelkasten note-taking system.
+    It generates a UUID, then formats the hexadecimal string by taking the first 9 characters,
+    appending a dot, and then the last 11 characters of the UUID.
 
     Returns:
-        str: a zettelkasten id
+        str: A formatted unique identifier (e.g., "abc123def.ghi45678901").
 
+    Example:
+        >>> id_str = zettelkasten_id()
+        >>> isinstance(id_str, str)
+        True
     """
     _id = uuid.uuid4().hex
     return f"{_id[:9]}.{_id[-11:]}"
 
 
 def unique_id() -> str:
-    """generate a unique id.
+    """
+    Generate a unique identifier.
+
+    This function returns a unique identifier as a hexadecimal string generated from a UUID.
 
     Returns:
-        str: a unique id
+        str: A unique hexadecimal identifier (e.g., "3f8a7c2d1e9b4a6f8d0e2c1b3a5f7e9d").
 
+    Example:
+        >>> uid = unique_id()
+        >>> len(uid) == 32
+        True
     """
     return uuid.uuid4().hex
 
 
 def format_memory(nbytes: int) -> str:
-    """Format memory size in human-readable format.
+    """
+    Format a memory size into a human-readable string.
+
+    Converts a memory size in bytes into a formatted string using appropriate units (B, KB, MB, or GB)
+    with two decimal places of precision. If the provided value is None, it returns "0 bytes".
 
     Args:
-        nbytes (int): the memory size in bytes
+        nbytes (int): The memory size in bytes.
 
     Returns:
-        str: the memory size in human-readable format
+        str: The memory size in a human-readable format.
 
-    **The function is copied from PyTorch source code.**
+    Example:
+        >>> format_memory(1024)
+        '1.00 KB'
+        >>> format_memory(1048576)
+        '1.00 MB'
     """
     if nbytes is None:
         return "0 bytes"
@@ -50,14 +74,24 @@ def format_memory(nbytes: int) -> str:
 
 
 def capitalize_string(string: str, separator: str = " ") -> str:
-    """Capitalize a string.
+    """
+    Capitalize each word in a string using a specified separator.
+
+    Splits the input string by the given separator, capitalizes the first letter of each part,
+    and then joins the parts back together using the same separator.
 
     Args:
-        string (str): the string to be capitalized
-        separator (str): the separator to split the string
+        string (str): The string to be capitalized.
+        separator (str, optional): The separator to use for splitting and joining the string.
+                                   Defaults to " ".
 
     Returns:
-        str: the capitalized string
+        str: The capitalized string.
 
+    Example:
+        >>> capitalize_string("hello world")
+        'Hello World'
+        >>> capitalize_string("john-doe", separator="-")
+        'John-Doe'
     """
-    return f"{separator}".join([item.capitalize() for item in string.split(separator)])
+    return separator.join([item.capitalize() for item in string.split(separator)])
