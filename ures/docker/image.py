@@ -316,9 +316,9 @@ class Image:
 
     def build_image(
         self,
-        build_context: Union[str, Path],
         build_config: BuildConfig,
         dest: Union[str, Path],
+        build_context: Optional[Union[str, Path]] = None,
     ) -> DockerImage:
         """Builds a Docker image from a specified build context.
 
@@ -330,6 +330,7 @@ class Image:
         Returns:
             DockerImage: The built Docker image.
         """
+        build_context = build_context or build_config.context_dir
         build_context = Path(build_context)
         dest = Path(dest)
         builder = ImageConstructor(build_config)
