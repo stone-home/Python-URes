@@ -261,7 +261,7 @@ class TestImage:
         build_context = tmp_path / "context"
         build_context.mkdir()
         built_image = test_image.build_image(
-            build_context, build_config_image, tmp_path
+            build_config=build_config_image, dest=tmp_path, build_context=build_context
         )
         assert built_image is mock_image
         docker_client.images.build.assert_called()
