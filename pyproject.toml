@@ -4,7 +4,7 @@ version = "0.2.0"
 description = "The project is designed to provide standard utilization functions for improving the reusability of frequently used functions."
 authors = ["stone <github@stone-bo.com>"]
 license = "MIT"
-readme = "README.md"
+readme = "docs/index.md"
 repository = "https://github.com/stone-home/Python-URes"
 keywords = [
     "utilization",
@@ -50,6 +50,10 @@ pydantic = "^2.10.6"
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
+mkdocs = "^1.6.1"
+mkdocstrings-python = "^1.16.1"
+mkdocs-material = "^9.6.5"
+
 
 
 

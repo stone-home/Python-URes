@@ -1,0 +1,3 @@
+# String Module
+
+::: ures.string
