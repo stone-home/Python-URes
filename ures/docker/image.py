@@ -3,7 +3,7 @@ import json
 import docker
 import docker.errors
 from pathlib import Path
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Dict
 from docker.models.images import Image as DockerImage
 from ures.tools.decorator import check_instance_variable
 from ures.string import format_memory
@@ -397,3 +397,13 @@ class Image:
         print(f"Architecture: {self.architecture}")
         print(f"Image Size: {format_memory(self.image_size)}")
         print(f"Labels: {self.labels}")
+
+
+class ImageOrchestrator:
+    def __init__(self, client: Optional[docker.DockerClient] = None):
+        self._client = client or docker.from_env()
+        self._images: Dict[str, Dict[str, Optional[object]]] = {}
+
+    @property
+    def images(self) -> Dict[str, Dict[str, Optional[object]]]:
+        return self._images
