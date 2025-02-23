@@ -3,95 +3,178 @@ from typing import List, Optional
 
 
 class EnumManipulator:
-    """A class to manipulate Enum object."""
+    """
+    A class to manipulate and query an Enum object.
+
+    This class provides helper methods to fetch keys, retrieve members and their values,
+    check for key existence, and filter keys based on a keyword search.
+    """
 
     def __init__(self, input_enum: EnumMeta):
-        """initialize the class.
+        """
+        Initialize the EnumManipulator instance with a given Enum.
 
         Args:
-            input_enum (EnumMeta): an Enum object
+            input_enum (EnumMeta): An Enum class to be manipulated.
+
+        Example:
+            >>> from enum import Enum
+            >>> class Color(Enum):
+            ...     RED = 1
+            ...     GREEN = 2
+            >>> manipulator = EnumManipulator(Color)
         """
         self._enum = input_enum
 
     @property
     def fetch_enums(self) -> EnumMeta:
-        """Get the Enum object."""
+        """
+        Retrieve the underlying Enum class.
+
+        Returns:
+            EnumMeta: The Enum class provided during initialization.
+
+        Example:
+            >>> from enum import Enum
+            >>> class Color(Enum):
+            ...     RED = 1
+            ...     GREEN = 2
+            >>> manipulator = EnumManipulator(Color)
+            >>> enums = manipulator.fetch_enums
+            >>> isinstance(enums, type)  # Enum classes are types
+            True
+        """
         return self._enum
 
     def fetch_keys(self) -> List[str]:
-        """Get all keys in the Enum object."""
+        """
+        Get a list of all key names (member names) from the Enum.
+
+        Returns:
+            List[str]: A list of key names defined in the Enum.
+
+        Example:
+            >>> from enum import Enum
+            >>> class Color(Enum):
+            ...     RED = 1
+            ...     BLUE = 3
+            >>> manipulator = EnumManipulator(Color)
+            >>> manipulator.fetch_keys()
+            ['RED', 'BLUE']
+        """
         return self.fetch_enums._member_names_
 
     def fetch_enum(self, key_name: str) -> Optional[Enum]:
-        """Fetch the Enum object by key name.
+        """
+        Retrieve an Enum member by its key name (case-insensitive).
 
         Args:
-            key_name (str): the key name
+            key_name (str): The key name to fetch.
 
         Returns:
-            Optional[Enum]: the Enum object or None if the key does not exist
+            Optional[Enum]: The Enum member if found; otherwise, None.
 
+        Example:
+            >>> from enum import Enum
+            >>> class Color(Enum):
+            ...     RED = 1
+            ...     GREEN = 2
+            >>> manipulator = EnumManipulator(Color)
+            >>> member = manipulator.fetch_enum("red")
+            >>> member.value
+            1
         """
-        key = None
         for _key in self.fetch_keys():
             if key_name.lower() == str(_key).lower():
-                key = self.fetch_enums[_key]
-                break
-        return key
+                return self.fetch_enums[_key]
+        return None
 
     def check_key(self, key_name: str) -> bool:
-        """Check if the key exists in the Enum object.
+        """
+        Check whether a given key exists in the Enum.
 
         Args:
-            key_name (str): the key name
+            key_name (str): The key name to check.
 
         Returns:
-            bool: True if the key exists, False otherwise
+            bool: True if the key exists; otherwise, False.
 
+        Example:
+            >>> from enum import Enum
+            >>> class Color(Enum):
+            ...     RED = 1
+            ...     BLUE = 3
+            >>> manipulator = EnumManipulator(Color)
+            >>> manipulator.check_key("RED")
+            True
+            >>> manipulator.check_key("GREEN")
+            False
         """
-        return False if self.fetch_enum(key_name) is None else True
+        return self.fetch_enum(key_name) is not None
 
     def fetch_value(self, key_name: str):
-        """Fetch the value of the Enum object by key name.
+        """
+        Retrieve the value associated with a given key in the Enum.
 
         Args:
-            key_name (str): the key name
+            key_name (str): The key name for which to fetch the value.
 
         Returns:
-            any: the value of the Enum object or None if the key does not exist
+            any: The value corresponding to the key if found; otherwise, None.
 
+        Example:
+            >>> from enum import Enum
+            >>> class Status(Enum):
+            ...     SUCCESS = "ok"
+            ...     FAILURE = "error"
+            >>> manipulator = EnumManipulator(Status)
+            >>> manipulator.fetch_value("FAILURE")
+            'error'
         """
-        key = self.fetch_enum(key_name)
-        value = None
-        if key is not None:
-            value = key.value
-        return value
+        member = self.fetch_enum(key_name)
+        if member is not None:
+            return member.value
+        return None
 
     def filter_by(self, keyword: str, field: str = None) -> list:
-        """Fetch the key when the keyword is found in the field of the Enum object.
-        If the field is None, the keyword is compared with the value of the Enum object.
+        """
+        Filter and return keys from the Enum where the specified keyword matches.
+
+        If no field is provided, the keyword is compared to the string representation
+        of the Enum member's value. Otherwise, the specified attribute (field) of the member's
+        value is used for comparison.
 
         Args:
-            keyword (str): the keyword to search
-            field (str): the field to search. Defaults to None. if not none, the field points to the attribute of the value.
+            keyword (str): The keyword to search for.
+            field (str, optional): The attribute of the Enum member's value to search within.
+                Defaults to None.
 
         Returns:
-            list: a list of keys
+            list: A list of keys for which the keyword was found.
 
+        Example:
+            >>> from enum import Enum
+            >>> class Fruit(Enum):
+            ...     APPLE = "red"
+            ...     BANANA = "yellow"
+            ...     GRAPE = "purple"
+            >>> manipulator = EnumManipulator(Fruit)
+            >>> manipulator.filter_by("red")
+            ['APPLE']
         """
-        keys = self.fetch_keys()
         result = []
-        for key in keys:
-            _value = self.fetch_enums[key].value
+        for key in self.fetch_keys():
+            member_value = self.fetch_enums[key].value
             if field is None:
-                if keyword == str(_value):
+                if keyword == str(member_value):
                     result.append(key)
             else:
-                _field_value = getattr(_value, field)
-                if isinstance(_field_value, str):
-                    if keyword.lower() in _field_value.lower():
+                # Assume the member_value has an attribute named field.
+                field_value = getattr(member_value, field, None)
+                if isinstance(field_value, str):
+                    if keyword.lower() in field_value.lower():
                         result.append(key)
-                elif isinstance(_field_value, list):
-                    if keyword.lower() in [str(_).lower() for _ in _field_value]:
+                elif isinstance(field_value, list):
+                    if keyword.lower() in [str(item).lower() for item in field_value]:
                         result.append(key)
         return result

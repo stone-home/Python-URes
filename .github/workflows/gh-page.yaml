@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  blog-creating:
+  gh-publish:
     uses: stone-home/Action-Stone-DevOps/.github/workflows/gh_page_publish.yaml@trunk # Action to create release blog post
     with:
       mkdocs-page: true
