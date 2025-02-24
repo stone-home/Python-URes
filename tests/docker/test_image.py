@@ -99,7 +99,7 @@ class TestImageConstructor:
         constructor = ImageConstructor(config)
         expected = [
             "FROM python:3.9",
-            "RUN pip install --upgrade pip && pip install --no-cache-dir requests  && rm -rf /tmp/* /var/tmp/*",
+            "RUN pip install --upgrade pip && pip install --no-cache-dir requests && rm -rf /tmp/* /var/tmp/*",
         ]
         assert constructor.content == expected
 
