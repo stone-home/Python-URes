@@ -99,6 +99,10 @@ def time_now(iso8601: bool = True, format: str = "%Y%m%d-%H%M%S") -> str:
         >>> time_now(iso8601=False, format="%H:%M:%S")
         '14:35:22'
     """
-    return datetime_converter(
-        datetime.datetime.now(datetime.UTC), iso8601=iso8601, format=format
-    )
+    import sys
+
+    if sys.version_info[:2] == (3, 10):
+        _time = datetime.datetime.now(datetime.timezone.utc)
+    else:
+        _time = datetime.datetime.now(datetime.UTC)
+    return datetime_converter(_time, iso8601=iso8601, format=format)
