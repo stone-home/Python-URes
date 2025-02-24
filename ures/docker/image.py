@@ -161,7 +161,9 @@ class ImageConstructor:
             self._add_command(f"ARG USER_NAME={user}")
             if uid:
                 self._add_command(f"ARG UID={uid}")
-                self._add_command(f"RUN useradd -m -u $UID -s /bin/bash -d $HOME_DIR $USER_NAME")
+                self._add_command(
+                    f"RUN useradd -m -u $UID -s /bin/bash -d $HOME_DIR $USER_NAME"
+                )
                 self._add_command(f"RUN chown -R $USER_NAME:$USER_NAME $HOME_DIR")
             self._add_command(f"USER $USER_NAME")
             self._add_command(f"WORKDIR $HOME_DIR")
@@ -302,7 +304,12 @@ class Image:
         _image (Optional[DockerImage]): The Docker image object if available.
     """
 
-    def __init__(self, image_name: str, tag: Optional[str] = None, client: docker.DockerClient = None):
+    def __init__(
+        self,
+        image_name: str,
+        tag: Optional[str] = None,
+        client: docker.DockerClient = None,
+    ):
         """
         Initializes an Image instance.
 
@@ -551,7 +558,9 @@ class Image:
             "dockerfile": str(docker_path),
             "nocache": True,
         }
-        logger.info(f"Building image {image_name} with dockerfile {docker_path} in context {build_context}")
+        logger.info(
+            f"Building image {image_name} with dockerfile {docker_path} in context {build_context}"
+        )
         try:
             image, build_log = self._client.images.build(**args)
         except docker.errors.BuildError as e:
@@ -566,7 +575,9 @@ class Image:
             logger.debug(line)
         return image
 
-    def remove(self, tag: Optional[str] = None, force: bool = False, noprune: bool = False):
+    def remove(
+        self, tag: Optional[str] = None, force: bool = False, noprune: bool = False
+    ):
         """
         Removes the Docker image from the local repository.
 
@@ -635,7 +646,9 @@ class ImageOrchestrator:
             >>> orchestrator = ImageOrchestrator()
         """
         self._client = client or docker.from_env()
-        self._images: Dict[str, Dict[str, Union[Optional[Image], BuildConfig, str]]] = {}
+        self._images: Dict[str, Dict[str, Union[Optional[Image], BuildConfig, str]]] = (
+            {}
+        )
 
     @property
     def images(self) -> Dict[str, Dict[str, Union[Optional[Image], BuildConfig, str]]]:
@@ -680,7 +693,7 @@ class ImageOrchestrator:
             "image": image,
             "config": config,
             "base": base,
-            "status": "init"
+            "status": "init",
         }
         return image.get_fullname() in self._images.keys()
 
@@ -733,7 +746,9 @@ class ImageOrchestrator:
             >>> orchestrator.build_all()
         """
         build_sorted_list = self._topological_sort()
-        tmp_dir = Path(get_temp_dir_with_specific_path(f"Bulk-Image-Build-{unique_id()}"))
+        tmp_dir = Path(
+            get_temp_dir_with_specific_path(f"Bulk-Image-Build-{unique_id()}")
+        )
         logger.info(f"Building images in temporary directory: {tmp_dir}")
         for image_key in tqdm(build_sorted_list):
             image: Image = self._images[image_key]["image"]
@@ -747,7 +762,9 @@ class ImageOrchestrator:
                 config.add_label("BaseImage", base.get_fullname())
             target_dir = tmp_dir.joinpath(image.get_fullname().replace(":", "-"))
             if image.exist:
-                logger.warning(f"Image {image.get_fullname()} already exists, removing it for rebuild")
+                logger.warning(
+                    f"Image {image.get_fullname()} already exists, removing it for rebuild"
+                )
                 image.remove()
             image.build_image(build_config=config, dest=target_dir)
             if not image.exist:
@@ -755,5 +772,3 @@ class ImageOrchestrator:
                 raise RuntimeError(f"Failed to build image {image.get_fullname()}")
             else:
                 self._images[image_key]["status"] = "success"
-
-

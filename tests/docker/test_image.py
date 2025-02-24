@@ -286,8 +286,9 @@ class TestImage:
             test_image.info()
             assert mock_print.called
 
+
 class TestImageOrchestrator:
-    def test_image_orchestrator_add_and_sort(self, docker_client , build_config_image):
+    def test_image_orchestrator_add_and_sort(self, docker_client, build_config_image):
         orch = ImageOrchestrator(client=docker_client)
         img1 = Image("baseapp", tag="v1", client=docker_client)
         img2 = Image("childapp", tag="v1", client=docker_client)
@@ -297,4 +298,6 @@ class TestImageOrchestrator:
         orch.add_image(img2, build_config_image, base=img1)
         sorted_list = orch._topological_sort()
         # Base image should come before child image
-        assert sorted_list.index(img1.get_fullname()) < sorted_list.index(img2.get_fullname())
+        assert sorted_list.index(img1.get_fullname()) < sorted_list.index(
+            img2.get_fullname()
+        )
