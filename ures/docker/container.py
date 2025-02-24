@@ -13,26 +13,82 @@ from ures.tools.decorator import check_instance_variable
 from .image import Image
 from .conf import RuntimeConfig
 
-
 logger = logging.getLogger(__name__)
 
 
 class Container:
+    """
+    A class to manage a Docker container.
+
+    This class provides methods to create a container with specified runtime configurations,
+    manage network connections, and control the container's lifecycle (start, stop, remove,
+    logs, wait).
+
+    Attributes:
+        _image (Image): The Docker image object to be used.
+        _client (docker.DockerClient): The Docker client instance.
+        _container (Optional[DockerContainer]): The underlying Docker container object.
+    """
+
     def __init__(self, image: Image, client: Optional[docker.DockerClient] = None):
+        """
+        Initialize a Container instance.
+
+        Args:
+            image (Image): The Image object that provides the Docker image details.
+            client (Optional[docker.DockerClient]): An optional Docker client instance. If not provided,
+                docker.from_env() is used.
+
+        Example:
+            >>> from ures.image import Image
+            >>> img = Image("myapp")
+            >>> container = Container(img)
+        """
         self._image: Image = image
         self._client: docker.DockerClient = client or docker.from_env()
         self._container: Optional[DockerContainer] = None
 
     @property
     def image_name(self) -> str:
+        """
+        Retrieve the full image name (including tag).
+
+        Returns:
+            str: The full image name.
+
+        Example:
+            >>> container.image_name
+            'myapp:latest'
+        """
         return self._image.get_fullname()
 
     @property
     def is_created(self) -> bool:
-        return not self._container is None
+        """
+        Check whether the container has been created.
+
+        Returns:
+            bool: True if the container exists, False otherwise.
+
+        Example:
+            >>> container.is_created
+            False
+        """
+        return self._container is not None
 
     @property
-    def status(self):
+    def status(self) -> str:
+        """
+        Get the current status of the container.
+
+        Returns:
+            str: The container status. If not found, returns "removed".
+
+        Example:
+            >>> status = container.status
+            >>> status in ["created", "running", "exited", "removed"]
+            True
+        """
         try:
             status = self._client.containers.get(self._container.id).status
         except docker.errors.NotFound:
@@ -41,6 +97,17 @@ class Container:
 
     @property
     def exit_code(self):
+        """
+        Retrieve the exit code of the container's last run.
+
+        Returns:
+            int or None: The exit code if available, otherwise None.
+
+        Example:
+            >>> code = container.exit_code
+            >>> isinstance(code, int) or code is None
+            True
+        """
         try:
             exit_code = self._client.containers.get(self._container.id).attrs["State"][
                 "ExitCode"
@@ -50,16 +117,39 @@ class Container:
         return exit_code
 
     @property
-    def is_running(self):
+    def is_running(self) -> bool:
+        """
+        Check if the container is currently running.
+
+        Returns:
+            bool: True if running, False otherwise.
+
+        Example:
+            >>> container.is_running
+            True
+        """
         return self.status == "running"
 
     def _construct_build_params(self, config: RuntimeConfig) -> dict:
+        """
+        Construct runtime parameters for creating the container from the given configuration.
+
+        Args:
+            config (RuntimeConfig): The runtime configuration for the container.
+
+        Returns:
+            dict: A dictionary of parameters to be passed to Docker for container creation.
+
+        Example:
+            >>> params = container._construct_build_params(config)
+            >>> isinstance(params, dict)
+            True
+        """
         _config: RuntimeConfig = config
         _params = {
             "image": _config.image_name,
             "auto_remove": _config.remove,
             "detach": _config.detach,
-            # "user": f"{os.getuid()}:{os.getgid()}",
         }
         if _config.cpus is not None:
             _params["cpuset_cpus"] = _config.cpus
@@ -74,11 +164,9 @@ class Container:
         if _config.memory is not None:
             _params["mem_limit"] = _config.memory
         if _config.entrypoint is not None:
-            _params["entrypoint"] = [
-                str(_entrypoint) for _entrypoint in _config.entrypoint
-            ]
+            _params["entrypoint"] = [str(entry) for entry in _config.entrypoint]
         if _config.command is not None:
-            _params["command"] = [str(_command) for _command in _config.command]
+            _params["command"] = [str(cmd) for cmd in _config.command]
         if _config.volumes is not None:
             _params["volumes"] = _config.volumes
         if _config.env is not None:
@@ -90,6 +178,23 @@ class Container:
         return _params
 
     def _create_subnet(self, config: RuntimeConfig) -> docker.models.networks.Network:
+        """
+        Create a new Docker network (subnet) based on the provided configuration.
+
+        Args:
+            config (RuntimeConfig): The runtime configuration containing subnet parameters.
+
+        Returns:
+            docker.models.networks.Network: The created Docker network.
+
+        Raises:
+            RuntimeError: If the subnet creation fails.
+
+        Example:
+            >>> net = container._create_subnet(config)
+            >>> net.name == config.subnet
+            True
+        """
         submask_list = config.subnet_mask.split("/")
         assert is_valid_ip_netmask(ip=submask_list[0], netmask=submask_list[1])
         assert verify_ip_in_subnet(ip=config.subnet_gateway, subnet=config.subnet_mask)
@@ -111,11 +216,24 @@ class Container:
             return network
 
     def _connect_to_network(self, contain: DockerContainer, config: RuntimeConfig):
+        """
+        Connect the container to a Docker network based on the provided configuration.
+
+        Args:
+            contain (DockerContainer): The Docker container object to connect.
+            config (RuntimeConfig): The runtime configuration with network details.
+
+        Returns:
+            None
+
+        Example:
+            >>> container._connect_to_network(docker_container, config)
+        """
         if config.subnet is not None:
             try:
                 net = self._client.networks.get(config.subnet)
             except docker.errors.NotFound as e:
-                logger.warning(f"Could not found network: {config.subnet} with msg {e}")
+                logger.warning(f"Could not find network: {config.subnet} with msg {e}")
                 net = self._create_subnet(config=config)
             finally:
                 verify_ip_in_subnet(
@@ -124,6 +242,21 @@ class Container:
                 net.connect(contain, ipv4_address=config.ipv4)
 
     def create(self, config: RuntimeConfig, tag: Optional[str] = None):
+        """
+        Create a Docker container using the provided runtime configuration.
+
+        Args:
+            config (RuntimeConfig): The runtime configuration for the container.
+            tag (Optional[str]): An optional image tag override. Defaults to None.
+
+        Returns:
+            None
+
+        Example:
+            >>> container.create(runtime_config)
+            >>> container.is_created
+            True
+        """
         if config.image_name != self.image_name or tag != self._image.tag:
             config.image_name = self._image.get_fullname(tag=tag)
             logger.warning(f"The image name is updated to {config.image_name}")
@@ -135,26 +268,80 @@ class Container:
 
     @check_instance_variable("_container")
     def stop(self):
+        """
+        Stop the running container.
+
+        Returns:
+            None
+
+        Example:
+            >>> container.stop()
+        """
         logger.debug("Stopping container")
         self._container.stop()
 
     @check_instance_variable("_container")
     def remove(self):
+        """
+        Remove the container.
+
+        Returns:
+            None
+
+        Example:
+            >>> container.remove()
+        """
         logger.debug("Removing container")
         self._container.remove()
         self._container = None
 
     @check_instance_variable("_container")
     def logs(self):
-        logger.debug("Get Logs from container")
+        """
+        Retrieve logs from the container.
+
+        Returns:
+            bytes: The log output from the container.
+
+        Example:
+            >>> logs = container.logs()
+            >>> isinstance(logs, bytes)
+            True
+        """
+        logger.debug("Getting logs from container")
         return self._container.logs()
 
     @check_instance_variable("_container")
     def wait(self):
-        logger.debug("Waiting container")
+        """
+        Wait for the container to finish execution.
+
+        Returns:
+            dict: The container's exit information.
+
+        Example:
+            >>> exit_info = container.wait()
+            >>> "StatusCode" in exit_info
+            True
+        """
+        logger.debug("Waiting for container to finish")
         self._container.wait()
 
     def run(self):
+        """
+        Start the container if it has been created and is not already running.
+
+        Raises:
+            RuntimeError: If the container has not been created or is already running.
+
+        Returns:
+            None
+
+        Example:
+            >>> container.run()
+            >>> container.is_running
+            True
+        """
         if self.is_created is True and self.is_running is False:
             self._container.start()
             logger.debug("Started container")
