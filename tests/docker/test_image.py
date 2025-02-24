@@ -2,7 +2,7 @@ import json
 import docker
 from unittest.mock import patch
 from pathlib import Path
-from ures.docker.image import ImageConstructor
+from ures.docker.image import ImageConstructor, ImageOrchestrator, Image
 
 
 class TestImageConstructor:
@@ -285,3 +285,16 @@ class TestImage:
         with patch("builtins.print") as mock_print:
             test_image.info()
             assert mock_print.called
+
+class TestImageOrchestrator:
+    def test_image_orchestrator_add_and_sort(self, docker_client , build_config_image):
+        orch = ImageOrchestrator(client=docker_client)
+        img1 = Image("baseapp", tag="v1", client=docker_client)
+        img2 = Image("childapp", tag="v1", client=docker_client)
+        # Add base image first
+        orch.add_image(img1, build_config_image)
+        # For child, set base image to img1
+        orch.add_image(img2, build_config_image, base=img1)
+        sorted_list = orch._topological_sort()
+        # Base image should come before child image
+        assert sorted_list.index(img1.get_fullname()) < sorted_list.index(img2.get_fullname())
