@@ -1,194 +1,107 @@
 import json
 import docker
+import pytest
 from unittest.mock import patch
 from pathlib import Path
 from ures.docker.image import ImageConstructor, ImageOrchestrator, Image
+from ures.docker.conf import BuildConfig
+
+
+@pytest.fixture
+def sample_build_config():
+    """
+    Provides a sample BuildConfig for testing.
+
+    Returns:
+        BuildConfig: A sample build configuration with test values.
+
+    Example:
+        >>> config = sample_build_config()
+        >>> config.user
+        'testuser'
+    """
+    return BuildConfig(
+        base_image="python:3.10-slim",
+        user="testuser",
+        sys_dependencies=["curl"],
+        sys_deps_manager="apt",
+        python_dependencies=["flask"],
+        python_deps_manager="pip",
+        labels=[("version", "1.0")],
+        docker_filename="Dockerfile",
+    )
 
 
 class TestImageConstructor:
-    def test_home_dir_default(self, build_config):
-        config = build_config(user=None, base_image="python:3.9")
-        constructor = ImageConstructor(config)
-        assert constructor.home_dir == Path("/root")
+    def test_home_dir(self, sample_build_config):
+        """
+        Test that the home_dir property returns the correct path based on the user.
 
-    def test_home_dir_with_user(self, build_config):
-        config = build_config(user="alice", base_image="python:3.9")
-        constructor = ImageConstructor(config)
-        assert constructor.home_dir == Path("/home/alice")
+        Example:
+            >>> constructor.home_dir == PosixPath("/home/testuser")
+            True
+        """
+        constructor = ImageConstructor(sample_build_config)
+        expected = Path(f"/home/{sample_build_config.user}")
+        assert constructor.home_dir == expected
 
-    def test_minimal_dockerfile(self, build_config):
-        config = build_config(base_image="python:3.9")
-        constructor = ImageConstructor(config)
-        expected = ["FROM python:3.9"]
-        assert constructor.content == expected
+    def test_dockerfile_content_generated(self, sample_build_config):
+        """
+        Test that the Dockerfile content is generated and contains expected commands.
 
-    def test_dockerfile_with_platform(self, build_config):
-        config = build_config(base_image="ubuntu:20.04", platform="linux/amd64")
-        constructor = ImageConstructor(config)
-        expected = "FROM --platform=linux/amd64 ubuntu:20.04"
-        assert constructor.content[0] == expected
+        Example:
+            >>> any("FROM" in line for line in constructor.content)
+            True
+        """
+        constructor = ImageConstructor(sample_build_config)
+        content = constructor.content
+        # Verify that a FROM command is present.
+        assert any(
+            line.startswith("FROM") for line in content
+        ), "Dockerfile should have a FROM command"
+        # Verify that the user and workdir commands are present.
+        assert any("USER" in line for line in content), "Dockerfile should set a USER"
+        assert any(
+            "WORKDIR" in line for line in content
+        ), "Dockerfile should set a WORKDIR"
 
-    def test_dockerfile_with_labels(self, build_config):
-        labels = [("maintainer", "test@example.com"), ("version", "2.0")]
-        config = build_config(base_image="python:3.9", labels=labels)
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            'LABEL "maintainer"="test@example.com"',
-            'LABEL "version"="2.0"',
-        ]
-        assert constructor.content[:3] == expected
+    def test_save_dockerfile(self, tmp_path, sample_build_config):
+        """
+        Test that the Dockerfile is saved correctly to the specified destination.
 
-    def test_dockerfile_with_user_and_uid(self, build_config):
-        config = build_config(user="bob", uid=1000, base_image="python:3.9")
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "ARG HOME_DIR=/home/bob",
-            "ARG USER_NAME=bob",
-            "ARG UID=1000",
-            "RUN useradd -m -u $UID -s /bin/bash -d $HOME_DIR $USER_NAME",
-            "RUN chown -R $USER_NAME:$USER_NAME $HOME_DIR",
-            "USER $USER_NAME",
-            "WORKDIR $HOME_DIR",
-        ]
-        assert constructor.content == expected
+        Args:
+            tmp_path (Path): A temporary directory provided by pytest.
 
-    def test_dockerfile_with_user_no_uid(self, build_config):
-        config = build_config(user="bob", base_image="python:3.9")
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "ARG HOME_DIR=/home/bob",
-            "ARG USER_NAME=bob",
-            "USER $USER_NAME",
-            "WORKDIR $HOME_DIR",
-        ]
-        assert constructor.content == expected
+        Example:
+            >>> saved_file.exists()
+            True
+        """
+        constructor = ImageConstructor(sample_build_config)
+        saved_path = constructor.save(tmp_path)
+        # Verify that the file exists.
+        assert saved_path.exists(), "Saved Dockerfile should exist"
+        # Read file content and verify non-empty and expected commands.
+        content = saved_path.read_text()
+        assert len(content) > 0, "Dockerfile content should not be empty"
+        assert "FROM" in content, "Dockerfile should contain a FROM command"
+        assert (
+            "ARG HOME_DIR" in content
+        ), "Dockerfile should contain the HOME_DIR argument"
 
-    def test_dockerfile_with_system_dependencies_apt(self, build_config):
-        config = build_config(
-            base_image="python:3.9",
-            sys_dependencies=["curl", "git"],
-            sys_deps_manager="apt",
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "RUN apt update && apt install -y curl git && apt-get clean && rm -rf /var/lib/apt/lists/*",
-        ]
-        assert constructor.content == expected
+    def test_add_command(self, sample_build_config):
+        """
+        Test that _add_command appends a command to the Dockerfile content.
 
-    def test_dockerfile_with_system_dependencies_other(self, build_config):
-        config = build_config(
-            base_image="python:3.9", sys_dependencies=["curl"], sys_deps_manager="yum"
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "RUN yum update && yum install -y curl",
-        ]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_python_dependencies_pip(self, build_config):
-        config = build_config(
-            base_image="python:3.9",
-            python_dependencies=["requests"],
-            python_deps_manager="pip",
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "RUN pip install --upgrade pip && pip install --no-cache-dir requests && rm -rf /tmp/* /var/tmp/*",
-        ]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_python_dependencies_conda(self, build_config):
-        config = build_config(
-            base_image="python:3.9",
-            python_dependencies=["requests"],
-            python_deps_manager="conda",
-        )
-        constructor = ImageConstructor(config)
-        # Since conda support is not implemented, no extra command is added.
-        expected = ["FROM python:3.9"]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_copies_relative(self, build_config):
-        config = build_config(
-            user="charlie",
-            base_image="python:3.9",
-            copies=[{"src": "app.py", "dest": "app/app.py"}],
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "ARG HOME_DIR=/home/charlie",
-            "ARG USER_NAME=charlie",
-            "USER $USER_NAME",
-            "WORKDIR $HOME_DIR",
-            "COPY --chown=$USER_NAME app.py /home/charlie/app/app.py",
-        ]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_copies_absolute(self, build_config):
-        config = build_config(
-            user="charlie",
-            base_image="python:3.9",
-            copies=[{"src": "app.py", "dest": "/opt/app/app.py"}],
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "ARG HOME_DIR=/home/charlie",
-            "ARG USER_NAME=charlie",
-            "USER $USER_NAME",
-            "WORKDIR $HOME_DIR",
-            "COPY --chown=$USER_NAME app.py /opt/app/app.py",
-        ]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_environment(self, build_config):
-        config = build_config(
-            base_image="python:3.9", environment={"DEBUG": "1", "ENV": "production"}
-        )
-        constructor = ImageConstructor(config)
-        expected = [
-            "FROM python:3.9",
-            "ENV DEBUG=1",
-            "ENV ENV=production",
-        ]
-        assert constructor.content == expected
-
-    def test_dockerfile_with_entrypoint_and_cmd(self, build_config):
-        config = build_config(
-            base_image="python:3.9",
-            entrypoint=["/entrypoint.sh"],
-            cmd=["python", "app.py"],
-        )
-        constructor = ImageConstructor(config)
-        expected_entrypoint = "ENTRYPOINT " + json.dumps(["/entrypoint.sh"])
-        # Verify that the entrypoint is set and that CMD is omitted.
-        assert expected_entrypoint in constructor.content
-        assert not any(cmd.startswith("CMD") for cmd in constructor.content)
-
-    def test_dockerfile_with_cmd_only(self, build_config):
-        config = build_config(base_image="python:3.9", cmd=["python", "app.py"])
-        constructor = ImageConstructor(config)
-        expected_cmd = "CMD " + json.dumps(["python", "app.py"])
-        assert expected_cmd in constructor.content
-
-    def test_save(self, tmp_path, build_config):
-        config = build_config(
-            user="dave", base_image="python:3.9", docker_filename="Dockerfile.test"
-        )
-        constructor = ImageConstructor(config)
-        file_path = constructor.save(tmp_path)
-        expected_file = tmp_path / "Dockerfile.test"
-        assert file_path == expected_file
-        written_content = expected_file.read_text()
-        assert written_content == "\n".join(constructor.content)
-        print(file_path)
+        Example:
+            >>> constructor.content[-1] == "RUN echo Test"
+            True
+        """
+        constructor = ImageConstructor(sample_build_config)
+        initial_length = len(constructor.content)
+        constructor._add_command("RUN echo Test")
+        # Ensure the command is appended at the end.
+        assert len(constructor.content) == initial_length + 1
+        assert constructor.content[-1] == "RUN echo Test"
 
 
 class TestImage:

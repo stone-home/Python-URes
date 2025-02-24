@@ -29,6 +29,9 @@ class ImageConstructor:
         Args:
             config (BuildConfig): The build configuration settings.
 
+        Returns:
+            None
+
         Example:
             >>> from ures.conf import BuildConfig
             >>> config = BuildConfig(base_image="python:3.10-slim", user="appuser")
@@ -47,6 +50,7 @@ class ImageConstructor:
             Path: The home directory path (e.g. /home/{user} if user is specified, else /root).
 
         Example:
+            >>> from ures.conf import BuildConfig
             >>> config = BuildConfig(user="appuser")
             >>> constructor = ImageConstructor(config)
             >>> constructor.home_dir
@@ -64,7 +68,8 @@ class ImageConstructor:
             List[str]: The Dockerfile content lines.
 
         Example:
-            >>> constructor.content  # Might include commands like 'FROM ...'
+            >>> constructor = ImageConstructor(BuildConfig())
+            >>> constructor.content  # Might include commands like 'FROM python:3.10-slim'
         """
         return self._dockerfile_content
 
@@ -79,6 +84,7 @@ class ImageConstructor:
             None
 
         Example:
+            >>> constructor = ImageConstructor(BuildConfig())
             >>> constructor._add_command("RUN echo Hello")
         """
         logger.debug(f"Adding command: {command}")
@@ -98,6 +104,7 @@ class ImageConstructor:
             Path: The full path where the Dockerfile was saved.
 
         Example:
+            >>> constructor = ImageConstructor(BuildConfig(docker_filename="Dockerfile"))
             >>> saved_path = constructor.save("/tmp")
             >>> saved_path.name  # Should be 'Dockerfile'
         """
@@ -120,6 +127,7 @@ class ImageConstructor:
             None
 
         Example:
+            >>> constructor = ImageConstructor(BuildConfig(base_image="python:3.10-slim"))
             >>> constructor._set_base_image()
         """
         base_image = self._config.base_image
@@ -135,6 +143,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(labels=[("version", "1.0")])
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_labels()
         """
         if self._config.labels:
@@ -152,21 +162,23 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(user="appuser", uid=1001)
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_user_and_workdir()
         """
         user = self._config.user
         uid = self._config.uid
+        self._add_command(f"ARG HOME_DIR={self.home_dir}")
         if user:
-            self._add_command(f"ARG HOME_DIR={self.home_dir}")
             self._add_command(f"ARG USER_NAME={user}")
             if uid:
                 self._add_command(f"ARG UID={uid}")
                 self._add_command(
-                    f"RUN useradd -m -u $UID -s /bin/bash -d $HOME_DIR $USER_NAME"
+                    "RUN id -u $USER_NAME >/dev/null 2>&1 || useradd -m -u $UID -s /bin/bash -d $HOME_DIR $USER_NAME"
                 )
                 self._add_command(f"RUN chown -R $USER_NAME:$USER_NAME $HOME_DIR")
             self._add_command(f"USER $USER_NAME")
-            self._add_command(f"WORKDIR $HOME_DIR")
+        self._add_command(f"WORKDIR $HOME_DIR")
 
     def _set_system_dependencies(self):
         """
@@ -176,6 +188,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(sys_dependencies=["curl"], sys_deps_manager="apt")
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_system_dependencies()
         """
         sys_deps = self._config.sys_dependencies
@@ -195,6 +209,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(python_dependencies=["flask"], python_deps_manager="pip")
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_python_dependencies()
         """
         python_deps = self._config.python_dependencies
@@ -221,6 +237,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(copies=[{"src": "app.py", "dest": "/app/app.py"}])
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_copies()
         """
         if self._config.copies:
@@ -229,7 +247,10 @@ class ImageConstructor:
                 dest = Path(copy_spec["dest"])
                 if not dest.is_absolute():
                     dest = self.home_dir.joinpath(dest)
-                self._add_command(f"COPY --chown=$USER_NAME {src} {dest}")
+                if self._config.user is None:
+                    self._add_command(f"COPY {src} {dest}")
+                else:
+                    self._add_command(f"COPY --chown=$USER_NAME {src} {dest}")
 
     def _set_environment(self):
         """
@@ -239,6 +260,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(environment={"DEBUG": "true"})
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_environment()
         """
         if self._config.environment:
@@ -253,6 +276,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(entrypoint=["python", "app.py"])
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_entrypoint()
         """
         if self._config.entrypoint:
@@ -266,6 +291,8 @@ class ImageConstructor:
             None
 
         Example:
+            >>> config = BuildConfig(cmd=["python", "-m", "app"])
+            >>> constructor = ImageConstructor(config)
             >>> constructor._set_cmd()
         """
         if self._config.cmd and not self._config.entrypoint:
@@ -279,14 +306,14 @@ class ImageConstructor:
             None
 
         Example:
-            >>> constructor = ImageConstructor(config)
+            >>> constructor = ImageConstructor(BuildConfig())
             >>> constructor.content  # Contains all Dockerfile commands
         """
         self._set_base_image()
         self._set_labels()
-        self._set_user_and_workdir()
         self._set_system_dependencies()
         self._set_python_dependencies()
+        self._set_user_and_workdir()
         self._set_copies()
         self._set_environment()
         self._set_entrypoint()
@@ -759,13 +786,10 @@ class ImageOrchestrator:
                 config.base_image = base.get_fullname()
                 config.python_deps_manager = base_config.python_deps_manager
                 config.sys_deps_manager = base_config.sys_deps_manager
+                config.user = base_config.user
+                config.uid = base_config.uid
                 config.add_label("BaseImage", base.get_fullname())
             target_dir = tmp_dir.joinpath(image.get_fullname().replace(":", "-"))
-            if image.exist:
-                logger.warning(
-                    f"Image {image.get_fullname()} already exists, removing it for rebuild"
-                )
-                image.remove()
             image.build_image(build_config=config, dest=target_dir)
             if not image.exist:
                 self.images[image_key]["status"] = "failed"

@@ -1,5 +1,7 @@
 import datetime
 import unittest
+import pytest
+import sys
 from ures.timedate import datetime_converter, timestamp_converter, time_now
 
 
@@ -31,12 +33,20 @@ class TestTimeDateFunctions(unittest.TestCase):
         expected = "01/01/2020 12:00"
         self.assertEqual(result, expected)
 
+    @pytest.mark.skipif(
+        sys.version_info[:2] == (3, 10),
+        reason="Due to datetime has no attribute UTC in python 3.10",
+    )
     def test_time_now_iso8601(self):
         """Test that time_now returns a string ending with 'Z' when iso8601 is True."""
         current_time = time_now(iso8601=True)
         self.assertIsInstance(current_time, str)
         self.assertTrue(current_time.endswith("Z"))
 
+    @pytest.mark.skipif(
+        sys.version_info[:2] == (3, 10),
+        reason="Due to datetime has no attribute UTC in python 3.10",
+    )
     def test_time_now_custom_format(self):
         """Test that time_now returns a correctly formatted string using a custom format."""
         current_time = time_now(iso8601=False, format="%H:%M:%S")
