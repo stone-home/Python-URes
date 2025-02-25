@@ -40,7 +40,7 @@ class Container:
                 docker.from_env() is used.
 
         Example:
-            >>> from ures.image import Image
+            >>> from ures.docker.image import Image
             >>> img = Image("myapp")
             >>> container = Container(img)
         """
@@ -151,9 +151,12 @@ class Container:
             "auto_remove": _config.remove,
             "detach": _config.detach,
         }
+        logger.debug(f"Creating container with configuration: {json.dumps(_params)}")
         if _config.cpus is not None:
+            logger.debug(f"Setting cpuset_cpus to {_config.cpus}")
             _params["cpuset_cpus"] = _config.cpus
         if _config.gpus is not None:
+            logger.debug(f"Setting device_requests to {_config.gpus}")
             _params["device_requests"] = [
                 docker.types.DeviceRequest(
                     driver=_config.gpu_driver,
@@ -162,18 +165,25 @@ class Container:
                 )
             ]
         if _config.memory is not None:
+            logger.debug(f"Setting mem_limit to {_config.memory}")
             _params["mem_limit"] = _config.memory
         if _config.entrypoint is not None:
+            logger.debug(f"Setting entrypoint to {_config.entrypoint}")
             _params["entrypoint"] = [str(entry) for entry in _config.entrypoint]
         if _config.command is not None:
+            logger.debug(f"Setting command to {_config.command}")
             _params["command"] = [str(cmd) for cmd in _config.command]
         if _config.volumes is not None:
+            logger.debug(f"Setting volumes to {_config.volumes}")
             _params["volumes"] = _config.volumes
         if _config.env is not None:
+            logger.debug(f"Setting environment to {_config.env}")
             _params["environment"] = _config.env
         if _config.name is not None:
+            logger.debug(f"Setting name to {_config.name}")
             _params["name"] = _config.name
         if _config.user is not None:
+            logger.debug(f"Setting user to {_config.user}")
             _params["user"] = _config.user
         return _params
 
@@ -199,6 +209,12 @@ class Container:
         assert is_valid_ip_netmask(ip=submask_list[0], netmask=submask_list[1])
         assert verify_ip_in_subnet(ip=config.subnet_gateway, subnet=config.subnet_mask)
         try:
+            logger.debug(
+                f"Creating IPAM for docker network with mask {config.subnet_mask} and gateway {config.subnet_gateway}"
+            )
+            logger.debug(
+                f"Create network with name {config.subnet}, driver {config.network_mode}"
+            )
             ipam_pool = docker.types.IPAMPool(
                 subnet=config.subnet_mask, gateway=config.subnet_gateway
             )
@@ -231,6 +247,7 @@ class Container:
         """
         if config.subnet is not None:
             try:
+                logger.info(f"Connecting container to network: {config.subnet}")
                 net = self._client.networks.get(config.subnet)
             except docker.errors.NotFound as e:
                 logger.warning(f"Could not find network: {config.subnet} with msg {e}")
@@ -239,6 +256,7 @@ class Container:
                 verify_ip_in_subnet(
                     ip=config.ipv4, subnet=net.attrs["IPAM"]["Config"][0]["Subnet"]
                 )
+                logger.debug(f"Connecting container to network with IP {config.ipv4}")
                 net.connect(contain, ipv4_address=config.ipv4)
 
     def create(self, config: RuntimeConfig, tag: Optional[str] = None):
@@ -261,7 +279,9 @@ class Container:
             config.image_name = self._image.get_fullname(tag=tag)
             logger.warning(f"The image name is updated to {config.image_name}")
         run_params = self._construct_build_params(config)
-        logger.debug(f"Running Configuration: {json.dumps(run_params)}")
+        logger.debug(
+            f"Create {self.image_name} with running Configuration: {json.dumps(run_params)}"
+        )
         _container = self._client.containers.create(**run_params)
         self._connect_to_network(_container, config)
         self._container = _container
@@ -277,7 +297,7 @@ class Container:
         Example:
             >>> container.stop()
         """
-        logger.debug("Stopping container")
+        logger.debug(f"Stopping container: {self.image_name}")
         self._container.stop()
 
     @check_instance_variable("_container")
@@ -291,7 +311,7 @@ class Container:
         Example:
             >>> container.remove()
         """
-        logger.debug("Removing container")
+        logger.debug(f"Removing container: {self.image_name}")
         self._container.remove()
         self._container = None
 
@@ -308,7 +328,7 @@ class Container:
             >>> isinstance(logs, bytes)
             True
         """
-        logger.debug("Getting logs from container")
+        logger.debug(f"Retrieving logs from container: {self.image_name}")
         return self._container.logs()
 
     @check_instance_variable("_container")
@@ -324,7 +344,7 @@ class Container:
             >>> "StatusCode" in exit_info
             True
         """
-        logger.debug("Waiting for container to finish")
+        logger.debug(f"Waiting for container to finish: {self.image_name}")
         self._container.wait()
 
     def run(self):
@@ -344,7 +364,7 @@ class Container:
         """
         if self.is_created is True and self.is_running is False:
             self._container.start()
-            logger.debug("Started container")
+            logger.debug(f"Container started: {self.image_name}")
         else:
             if self.is_created is False:
                 raise RuntimeError(f"Container has not been created: {self.image_name}")
