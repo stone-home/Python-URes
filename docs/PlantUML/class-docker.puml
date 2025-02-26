@@ -201,7 +201,6 @@ Container *-- RuntimeConfig : configures with
 Containers o-- Image : init
 Containers o-- Container : manages
 Containers *-- RuntimeConfig : creates default config
-Containers *-l- Runtime : leverages
-
+Containers *-l- Runtime : run on
 
 @enduml
