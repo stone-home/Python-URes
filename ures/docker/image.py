@@ -33,7 +33,7 @@ class ImageConstructor:
             None
 
         Example:
-            >>> from ures.conf import BuildConfig
+            >>> from ures.docker.conf import BuildConfig
             >>> config = BuildConfig(base_image="python:3.10-slim", user="appuser")
             >>> constructor = ImageConstructor(config)
         """
@@ -50,7 +50,7 @@ class ImageConstructor:
             Path: The home directory path (e.g. /home/{user} if user is specified, else /root).
 
         Example:
-            >>> from ures.conf import BuildConfig
+            >>> from ures.docker.conf import BuildConfig
             >>> config = BuildConfig(user="appuser")
             >>> constructor = ImageConstructor(config)
             >>> constructor.home_dir
