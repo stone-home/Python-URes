@@ -623,6 +623,7 @@ class Image:
         image_name = self.get_fullname(tag=tag)
         args = {"image": image_name, "force": force, "noprune": noprune}
         try:
+            logger.info(f"Removing image {image_name} with {args}")
             self._client.images.remove(**args)
         except docker.errors.APIError as e:
             logger.error(f"Failed to remove image {image_name}. Msg: {e}")
@@ -713,9 +714,14 @@ class ImageOrchestrator:
         assert isinstance(image, Image)
         assert isinstance(config, BuildConfig)
         assert image.get_image() not in self.images.keys()
+        logger.info(f"Adding image {image.get_fullname()} to orchestrator")
+        logger.info(f"{image.get_fullname()} image config: {config}")
         if base:
             assert isinstance(base, Image)
             assert base.get_fullname() in self.images.keys()
+            logger.info(
+                f"The image {image.get_fullname()} depends on base image {base.get_fullname()}"
+            )
         self._images[image.get_fullname()] = {
             "image": image,
             "config": config,
@@ -760,6 +766,7 @@ class ImageOrchestrator:
         for key in self._images:
             if key not in permanent_marks:
                 visit(key)
+        logger.debug(f"After topological sort: {sorted_list}")
         return sorted_list
 
     def build_all(self):
@@ -781,7 +788,9 @@ class ImageOrchestrator:
             image: Image = self._images[image_key]["image"]
             config: BuildConfig = self._images[image_key]["config"]
             base: Optional[Image] = self._images[image_key]["base"]
+            logger.debug(f"starting build for {image.get_fullname()}")
             if base is not None:
+                logger.debug(f"Original config: {config}")
                 base_config: BuildConfig = self._images[base.get_fullname()]["config"]
                 config.base_image = base.get_fullname()
                 config.python_deps_manager = base_config.python_deps_manager
@@ -789,7 +798,10 @@ class ImageOrchestrator:
                 config.user = base_config.user
                 config.uid = base_config.uid
                 config.add_label("BaseImage", base.get_fullname())
+                logger.debug(f"Config after inheritance: {config}")
+
             target_dir = tmp_dir.joinpath(image.get_fullname().replace(":", "-"))
+            logger.info(f"The Dockerfile will be saved to {target_dir}")
             image.build_image(build_config=config, dest=target_dir)
             if not image.exist:
                 self.images[image_key]["status"] = "failed"
