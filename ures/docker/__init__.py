@@ -1,6 +1,7 @@
 from .conf import BuildConfig, RuntimeConfig
 from .container import Container
-from .image import Image
+from .containers import Containers
+from .image import Image, ImageOrchestrator
 
 
 __all__ = [
@@ -8,4 +9,6 @@ __all__ = [
     "RuntimeConfig",
     "Image",
     "Container",
+    "Containers",
+    "ImageOrchestrator",
 ]
