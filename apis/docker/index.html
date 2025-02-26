@@ -1373,7 +1373,27 @@ logs, wait).</p>
 <span class="normal">349</span>
 <span class="normal">350</span>
 <span class="normal">351</span>
-<span class="normal">352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container</span><span class="p">:</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to manage a Docker container.</span>
 
@@ -1397,7 +1417,7 @@ logs, wait).</p>
 <span class="sd">                docker.from_env() is used.</span>
 
 <span class="sd">        Example:</span>
-<span class="sd">            &gt;&gt;&gt; from ures.image import Image</span>
+<span class="sd">            &gt;&gt;&gt; from ures.docker.image import Image</span>
 <span class="sd">            &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
 <span class="sd">            &gt;&gt;&gt; container = Container(img)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1508,9 +1528,12 @@ logs, wait).</p>
             <span class="s2">&quot;auto_remove&quot;</span><span class="p">:</span> <span class="n">_config</span><span class="o">.</span><span class="n">remove</span><span class="p">,</span>
             <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="n">_config</span><span class="o">.</span><span class="n">detach</span><span class="p">,</span>
         <span class="p">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating container with configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">cpus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting cpuset_cpus to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">cpus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;cpuset_cpus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">cpus</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">gpus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting device_requests to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">gpus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;device_requests&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">docker</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">DeviceRequest</span><span class="p">(</span>
                     <span class="n">driver</span><span class="o">=</span><span class="n">_config</span><span class="o">.</span><span class="n">gpu_driver</span><span class="p">,</span>
@@ -1519,18 +1542,25 @@ logs, wait).</p>
                 <span class="p">)</span>
             <span class="p">]</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">memory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting mem_limit to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">memory</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;mem_limit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">memory</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting entrypoint to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;entrypoint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting command to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">_config</span><span class="o">.</span><span class="n">command</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">volumes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting volumes to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">volumes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;volumes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">volumes</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting environment to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">env</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;environment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">env</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting name to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">name</span>
         <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting user to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">user</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">user</span>
         <span class="k">return</span> <span class="n">_params</span>
 
@@ -1556,6 +1586,12 @@ logs, wait).</p>
         <span class="k">assert</span> <span class="n">is_valid_ip_netmask</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">submask_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">netmask</span><span class="o">=</span><span class="n">submask_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">assert</span> <span class="n">verify_ip_in_subnet</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span><span class="p">,</span> <span class="n">subnet</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Creating IPAM for docker network with mask </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="si">}</span><span class="s2"> and gateway </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Create network with name </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2">, driver </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">network_mode</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
             <span class="n">ipam_pool</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">IPAMPool</span><span class="p">(</span>
                 <span class="n">subnet</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="p">,</span> <span class="n">gateway</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span>
             <span class="p">)</span>
@@ -1588,6 +1624,7 @@ logs, wait).</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">subnet</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting container to network: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">NotFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find network: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2"> with msg </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1596,6 +1633,7 @@ logs, wait).</p>
                 <span class="n">verify_ip_in_subnet</span><span class="p">(</span>
                     <span class="n">ip</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="p">,</span> <span class="n">subnet</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;IPAM&quot;</span><span class="p">][</span><span class="s2">&quot;Config&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Subnet&quot;</span><span class="p">]</span>
                 <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting container to network with IP </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">net</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">contain</span><span class="p">,</span> <span class="n">ipv4_address</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -1618,7 +1656,9 @@ logs, wait).</p>
             <span class="n">config</span><span class="o">.</span><span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The image name is updated to </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">run_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_build_params</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running Configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">run_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with running Configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">run_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="n">_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">run_params</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect_to_network</span><span class="p">(</span><span class="n">_container</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="n">_container</span>
@@ -1634,7 +1674,7 @@ logs, wait).</p>
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; container.stop()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopping container&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
     <span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
@@ -1648,7 +1688,7 @@ logs, wait).</p>
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; container.remove()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Removing container&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -1665,7 +1705,7 @@ logs, wait).</p>
 <span class="sd">            &gt;&gt;&gt; isinstance(logs, bytes)</span>
 <span class="sd">            True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting logs from container&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieving logs from container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">logs</span><span class="p">()</span>
 
     <span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
@@ -1681,7 +1721,7 @@ logs, wait).</p>
 <span class="sd">            &gt;&gt;&gt; &quot;StatusCode&quot; in exit_info</span>
 <span class="sd">            True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for container to finish&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Waiting for container to finish: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1701,7 +1741,7 @@ logs, wait).</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_created</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Started container&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Container started: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_created</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Container has not been created: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2070,7 +2110,7 @@ docker.from_env() is used.</p>
   <blockquote>
 <blockquote>
 <blockquote>
-<p>from ures.image import Image
+<p>from ures.docker.image import Image
 img = Image("myapp")
 container = Container(img)</p>
 </blockquote>
@@ -2105,7 +2145,7 @@ container = Container(img)</p>
 <span class="sd">            docker.from_env() is used.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; from ures.image import Image</span>
+<span class="sd">        &gt;&gt;&gt; from ures.docker.image import Image</span>
 <span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; container = Container(img)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2213,23 +2253,7 @@ container = Container(img)</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
 <span class="normal">237</span>
@@ -2237,7 +2261,25 @@ container = Container(img)</p>
 <span class="normal">239</span>
 <span class="normal">240</span>
 <span class="normal">241</span>
-<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_connect_to_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contain</span><span class="p">:</span> <span class="n">DockerContainer</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">):</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_connect_to_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contain</span><span class="p">:</span> <span class="n">DockerContainer</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Connect the container to a Docker network based on the provided configuration.</span>
 
@@ -2253,6 +2295,7 @@ container = Container(img)</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">subnet</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting container to network: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">NotFound</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find network: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2"> with msg </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2261,6 +2304,7 @@ container = Container(img)</p>
             <span class="n">verify_ip_in_subnet</span><span class="p">(</span>
                 <span class="n">ip</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="p">,</span> <span class="n">subnet</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;IPAM&quot;</span><span class="p">][</span><span class="s2">&quot;Config&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Subnet&quot;</span><span class="p">]</span>
             <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting container to network with IP </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">net</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">contain</span><span class="p">,</span> <span class="n">ipv4_address</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">ipv4</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2395,7 +2439,17 @@ True</p>
 <span class="normal">175</span>
 <span class="normal">176</span>
 <span class="normal">177</span>
-<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_construct_build_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_construct_build_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Construct runtime parameters for creating the container from the given configuration.</span>
 
@@ -2416,9 +2470,12 @@ True</p>
         <span class="s2">&quot;auto_remove&quot;</span><span class="p">:</span> <span class="n">_config</span><span class="o">.</span><span class="n">remove</span><span class="p">,</span>
         <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="n">_config</span><span class="o">.</span><span class="n">detach</span><span class="p">,</span>
     <span class="p">}</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating container with configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">cpus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting cpuset_cpus to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">cpus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;cpuset_cpus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">cpus</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">gpus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting device_requests to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">gpus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;device_requests&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">docker</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">DeviceRequest</span><span class="p">(</span>
                 <span class="n">driver</span><span class="o">=</span><span class="n">_config</span><span class="o">.</span><span class="n">gpu_driver</span><span class="p">,</span>
@@ -2427,18 +2484,25 @@ True</p>
             <span class="p">)</span>
         <span class="p">]</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">memory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting mem_limit to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">memory</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;mem_limit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">memory</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting entrypoint to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;entrypoint&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">_config</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting command to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">_config</span><span class="o">.</span><span class="n">command</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">volumes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting volumes to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">volumes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;volumes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">volumes</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting environment to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">env</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;environment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">env</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting name to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">name</span>
     <span class="k">if</span> <span class="n">_config</span><span class="o">.</span><span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting user to </span><span class="si">{</span><span class="n">_config</span><span class="o">.</span><span class="n">user</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">user</span>
     <span class="k">return</span> <span class="n">_params</span>
 </code></pre></div></td></tr></table></div>
@@ -2552,17 +2616,7 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">190</span>
 <span class="normal">191</span>
 <span class="normal">192</span>
 <span class="normal">193</span>
@@ -2588,7 +2642,23 @@ True</p>
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
-<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_create_subnet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">docker</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_create_subnet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">docker</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a new Docker network (subnet) based on the provided configuration.</span>
 
@@ -2610,6 +2680,12 @@ True</p>
     <span class="k">assert</span> <span class="n">is_valid_ip_netmask</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">submask_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">netmask</span><span class="o">=</span><span class="n">submask_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">assert</span> <span class="n">verify_ip_in_subnet</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span><span class="p">,</span> <span class="n">subnet</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Creating IPAM for docker network with mask </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="si">}</span><span class="s2"> and gateway </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Create network with name </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">subnet</span><span class="si">}</span><span class="s2">, driver </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">network_mode</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="n">ipam_pool</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">IPAMPool</span><span class="p">(</span>
             <span class="n">subnet</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_mask</span><span class="p">,</span> <span class="n">gateway</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">subnet_gateway</span>
         <span class="p">)</span>
@@ -2728,30 +2804,32 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">262</span>
 <span class="normal">263</span>
 <span class="normal">264</span>
 <span class="normal">265</span>
 <span class="normal">266</span>
-<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">RuntimeConfig</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Docker container using the provided runtime configuration.</span>
 
@@ -2771,7 +2849,9 @@ True</p>
         <span class="n">config</span><span class="o">.</span><span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The image name is updated to </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">run_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_build_params</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running Configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">run_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Create </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with running Configuration: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">run_params</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
     <span class="n">_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">run_params</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_connect_to_network</span><span class="p">(</span><span class="n">_container</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="n">_container</span>
@@ -2831,21 +2911,21 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">logs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieve logs from the container.</span>
@@ -2858,7 +2938,7 @@ True</p>
 <span class="sd">        &gt;&gt;&gt; isinstance(logs, bytes)</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting logs from container&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieving logs from container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">logs</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2914,20 +2994,20 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Remove the container.</span>
@@ -2938,7 +3018,7 @@ True</p>
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; container.remove()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Removing container&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
@@ -3020,29 +3100,29 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
-<span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">350</span>
 <span class="normal">351</span>
-<span class="normal">352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Start the container if it has been created and is not already running.</span>
 
@@ -3059,7 +3139,7 @@ True</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_created</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Started container&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Container started: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_created</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Container has not been created: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -3119,19 +3199,19 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stop the running container.</span>
@@ -3142,7 +3222,7 @@ True</p>
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; container.stop()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Stopping container&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping container: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3200,21 +3280,21 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/container.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;_container&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wait for the container to finish execution.</span>
@@ -3227,7 +3307,7 @@ True</p>
 <span class="sd">        &gt;&gt;&gt; &quot;StatusCode&quot; in exit_info</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Waiting for container to finish&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Waiting for container to finish: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3686,7 +3766,8 @@ True</p>
 <span class="normal">650</span>
 <span class="normal">651</span>
 <span class="normal">652</span>
-<span class="normal">653</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Image</span><span class="p">:</span>
+<span class="normal">653</span>
+<span class="normal">654</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Image</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents and manages a Docker image.</span>
 
@@ -3989,6 +4070,7 @@ True</p>
         <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
         <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="n">force</span><span class="p">,</span> <span class="s2">&quot;noprune&quot;</span><span class="p">:</span> <span class="n">noprune</span><span class="p">}</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to remove image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">. Msg: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -5164,8 +5246,7 @@ img.info()</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/image.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">635</span>
-<span class="normal">636</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">636</span>
 <span class="normal">637</span>
 <span class="normal">638</span>
 <span class="normal">639</span>
@@ -5182,7 +5263,8 @@ img.info()</p>
 <span class="normal">650</span>
 <span class="normal">651</span>
 <span class="normal">652</span>
-<span class="normal">653</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">653</span>
+<span class="normal">654</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prints detailed information about the Docker image.</span>
 
@@ -5482,7 +5564,8 @@ img.remove()</p>
 <span class="normal">630</span>
 <span class="normal">631</span>
 <span class="normal">632</span>
-<span class="normal">633</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span>
+<span class="normal">633</span>
+<span class="normal">634</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">noprune</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -5503,6 +5586,7 @@ img.remove()</p>
     <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="n">force</span><span class="p">,</span> <span class="s2">&quot;noprune&quot;</span><span class="p">:</span> <span class="n">noprune</span><span class="p">}</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to remove image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">. Msg: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -7669,8 +7753,7 @@ saved_path.name  # Should be 'Dockerfile'</p>
 
               <details class="quote">
                 <summary>Source code in <code>ures/docker/image.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">656</span>
-<span class="normal">657</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">657</span>
 <span class="normal">658</span>
 <span class="normal">659</span>
 <span class="normal">660</span>
@@ -7811,7 +7894,19 @@ saved_path.name  # Should be 'Dockerfile'</p>
 <span class="normal">795</span>
 <span class="normal">796</span>
 <span class="normal">797</span>
-<span class="normal">798</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageOrchestrator</span><span class="p">:</span>
+<span class="normal">798</span>
+<span class="normal">799</span>
+<span class="normal">800</span>
+<span class="normal">801</span>
+<span class="normal">802</span>
+<span class="normal">803</span>
+<span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
+<span class="normal">810</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageOrchestrator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Orchestrates the building of multiple Docker images considering their dependencies.</span>
 
@@ -7871,9 +7966,14 @@ saved_path.name  # Should be 'Dockerfile'</p>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">BuildConfig</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">image</span><span class="o">.</span><span class="n">get_image</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> to orchestrator&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> image config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">base</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
             <span class="k">assert</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> depends on base image </span><span class="si">{</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span>
             <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
@@ -7918,6 +8018,7 @@ saved_path.name  # Should be 'Dockerfile'</p>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">permanent_marks</span><span class="p">:</span>
                 <span class="n">visit</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;After topological sort: </span><span class="si">{</span><span class="n">sorted_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sorted_list</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">build_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -7939,7 +8040,9 @@ saved_path.name  # Should be 'Dockerfile'</p>
             <span class="n">image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;image&quot;</span><span class="p">]</span>
             <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
             <span class="n">base</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;base&quot;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;starting build for </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">base_config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">base_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">python_deps_manager</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">python_deps_manager</span>
@@ -7947,7 +8050,10 @@ saved_path.name  # Should be 'Dockerfile'</p>
                 <span class="n">config</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">user</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">uid</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">&quot;BaseImage&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">())</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config after inheritance: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
             <span class="n">target_dir</span> <span class="o">=</span> <span class="n">tmp_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The Dockerfile will be saved to </span><span class="si">{</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">image</span><span class="o">.</span><span class="n">build_image</span><span class="p">(</span><span class="n">build_config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">target_dir</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">exist</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;failed&quot;</span>
@@ -8082,8 +8188,7 @@ orch.images  # Initially empty dictionary</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/image.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">665</span>
-<span class="normal">666</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">666</span>
 <span class="normal">667</span>
 <span class="normal">668</span>
 <span class="normal">669</span>
@@ -8095,7 +8200,8 @@ orch.images  # Initially empty dictionary</p>
 <span class="normal">675</span>
 <span class="normal">676</span>
 <span class="normal">677</span>
-<span class="normal">678</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docker</span><span class="o">.</span><span class="n">DockerClient</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="normal">678</span>
+<span class="normal">679</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docker</span><span class="o">.</span><span class="n">DockerClient</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initializes the ImageOrchestrator.</span>
 
@@ -8187,13 +8293,7 @@ orch.images  # Initially empty dictionary</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/image.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">727</span>
-<span class="normal">728</span>
-<span class="normal">729</span>
-<span class="normal">730</span>
-<span class="normal">731</span>
-<span class="normal">732</span>
-<span class="normal">733</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">733</span>
 <span class="normal">734</span>
 <span class="normal">735</span>
 <span class="normal">736</span>
@@ -8223,7 +8323,14 @@ orch.images  # Initially empty dictionary</p>
 <span class="normal">760</span>
 <span class="normal">761</span>
 <span class="normal">762</span>
-<span class="normal">763</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_topological_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="normal">763</span>
+<span class="normal">764</span>
+<span class="normal">765</span>
+<span class="normal">766</span>
+<span class="normal">767</span>
+<span class="normal">768</span>
+<span class="normal">769</span>
+<span class="normal">770</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_topological_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs a topological sort of images based on their dependency relationships.</span>
 
@@ -8259,6 +8366,7 @@ orch.images  # Initially empty dictionary</p>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">permanent_marks</span><span class="p">:</span>
             <span class="n">visit</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;After topological sort: </span><span class="si">{</span><span class="n">sorted_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sorted_list</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -8381,8 +8489,7 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/image.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">694</span>
-<span class="normal">695</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">695</span>
 <span class="normal">696</span>
 <span class="normal">697</span>
 <span class="normal">698</span>
@@ -8412,7 +8519,13 @@ True</p>
 <span class="normal">722</span>
 <span class="normal">723</span>
 <span class="normal">724</span>
-<span class="normal">725</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="normal">725</span>
+<span class="normal">726</span>
+<span class="normal">727</span>
+<span class="normal">728</span>
+<span class="normal">729</span>
+<span class="normal">730</span>
+<span class="normal">731</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds an image and its build configuration to the orchestrator.</span>
 
@@ -8434,9 +8547,14 @@ True</p>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">BuildConfig</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">image</span><span class="o">.</span><span class="n">get_image</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> to orchestrator&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> image config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">base</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> depends on base image </span><span class="si">{</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span>
         <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
@@ -8498,14 +8616,7 @@ True</p>
 </details>
             <details class="quote">
               <summary>Source code in <code>ures/docker/image.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">765</span>
-<span class="normal">766</span>
-<span class="normal">767</span>
-<span class="normal">768</span>
-<span class="normal">769</span>
-<span class="normal">770</span>
-<span class="normal">771</span>
-<span class="normal">772</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">772</span>
 <span class="normal">773</span>
 <span class="normal">774</span>
 <span class="normal">775</span>
@@ -8531,7 +8642,19 @@ True</p>
 <span class="normal">795</span>
 <span class="normal">796</span>
 <span class="normal">797</span>
-<span class="normal">798</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">798</span>
+<span class="normal">799</span>
+<span class="normal">800</span>
+<span class="normal">801</span>
+<span class="normal">802</span>
+<span class="normal">803</span>
+<span class="normal">804</span>
+<span class="normal">805</span>
+<span class="normal">806</span>
+<span class="normal">807</span>
+<span class="normal">808</span>
+<span class="normal">809</span>
+<span class="normal">810</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Builds all registered images in the correct order based on dependencies.</span>
 
@@ -8550,7 +8673,9 @@ True</p>
         <span class="n">image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;image&quot;</span><span class="p">]</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
         <span class="n">base</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;base&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;starting build for </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">base_config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
             <span class="n">config</span><span class="o">.</span><span class="n">base_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>
             <span class="n">config</span><span class="o">.</span><span class="n">python_deps_manager</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">python_deps_manager</span>
@@ -8558,7 +8683,10 @@ True</p>
             <span class="n">config</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">user</span>
             <span class="n">config</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">uid</span>
             <span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">&quot;BaseImage&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">())</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config after inheritance: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="n">target_dir</span> <span class="o">=</span> <span class="n">tmp_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The Dockerfile will be saved to </span><span class="si">{</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">image</span><span class="o">.</span><span class="n">build_image</span><span class="p">(</span><span class="n">build_config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">target_dir</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">exist</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;failed&quot;</span>
