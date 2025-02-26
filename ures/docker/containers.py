@@ -1,10 +1,12 @@
 import docker
 from pathlib import Path
 from typing import Optional, Dict, Union, List, Tuple
-from ures.docker import Container, Image, RuntimeConfig
 from ures.string import unique_id
 from ures.files import get_temp_dir_with_specific_path
 from .runtime import Runtime, SimpleRuntime
+from .image import Image
+from .container import Container
+from .conf import RuntimeConfig
 
 
 class Containers:

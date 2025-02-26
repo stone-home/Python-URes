@@ -1,5 +1,4 @@
 import logging
-from enum import Enum
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Tuple, Union
@@ -350,7 +349,9 @@ class RuntimeConfig(BaseModel):
         description="The driver to use for the GPUs, defaults to nvidia",
     )
     memory: Optional[str] = Field(
-        default=None, title="Memory", description="Memory to allocate to the container"
+        default=None,
+        title="Memory",
+        description="Memory to allocate to the container with a units identification char (100000b, 1000k, 128m, 1g)",
     )
     entrypoint: Optional[List[Union[str, float, int, Path]]] = Field(
         default=None, title="Entrypoint", description="Entrypoint for the container"
