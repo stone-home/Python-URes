@@ -1,8 +1,8 @@
 from copy import deepcopy
 from abc import ABC, abstractmethod
 from typing import Union, Optional
-from .data_structure.memory import AbsMemoryBlock
-from .string import format_memory
+from ures.data_structure.memory import AbsMemoryBlock
+from ures.string import format_memory
 
 
 class MemoryBlock(AbsMemoryBlock, ABC):
