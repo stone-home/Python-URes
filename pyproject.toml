@@ -50,7 +50,7 @@ tqdm = "^4.67.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
+pytest-cov = "^6.1.0"
 mkdocs = "^1.6.1"
 mkdocstrings-python = "^1.16.1"
 mkdocs-material = "^9.6.5"
