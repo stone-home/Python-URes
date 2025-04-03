@@ -32,7 +32,6 @@ class MemoryBlock(AbsMemoryBlock, ABC):
         pass
 
 
-
 class MemoryOperator:
     def __init__(self, blocks: list[MemoryBlock]):
         self.blocks = blocks
@@ -56,7 +55,11 @@ class MemoryOperator:
             shifted_memory_blocks.append(shifted_block)
 
         # Calculate the maximum display time: use the maximum release time among all memory blocks with release times, and extend the display range if there is permanent allocation
-        free_times = [block.free_time for block in shifted_memory_blocks if block.free_time is not None]
+        free_times = [
+            block.free_time
+            for block in shifted_memory_blocks
+            if block.free_time is not None
+        ]
         max_free_time = max(free_times) if free_times else 0
         max_alloc_time = max(block.alloc_time for block in shifted_memory_blocks)
         max_time = max(max_free_time, max_alloc_time) + 2  # Add some margin
@@ -71,16 +74,29 @@ class MemoryOperator:
             free = block.free_time if block.free_time is not None else max_time
             size = block.bytes
             # Use different colors to distinguish between permanent and non-permanent allocation: skyblue for those with release times, lightgreen for those without (permanent)
-            color = 'skyblue' if block.free_time is not None else 'lightgreen'
+            color = "skyblue" if block.free_time is not None else "lightgreen"
 
             # Create a rectangle, with the bottom-left corner at (alloc, i), width (free - alloc), and fixed height
-            rect = patches.Rectangle((alloc, i), free - alloc, rect_height,
-                                     facecolor=color, edgecolor='black', alpha=0.8)
+            rect = patches.Rectangle(
+                (alloc, i),
+                free - alloc,
+                rect_height,
+                facecolor=color,
+                edgecolor="black",
+                alpha=0.8,
+            )
             ax.add_patch(rect)
 
             # Annotate the memory size in the middle of the rectangle
-            ax.text((alloc + free) / 2, i + rect_height / 2, f"Size: {format_memory(size)}",
-                    ha='center', va='center', fontsize=10, color='black')
+            ax.text(
+                (alloc + free) / 2,
+                i + rect_height / 2,
+                f"Size: {format_memory(size)}",
+                ha="center",
+                va="center",
+                fontsize=10,
+                color="black",
+            )
 
         # Set the x-axis range
         ax.set_xlim(0, max_time)
@@ -95,6 +111,6 @@ class MemoryOperator:
         ax.set_yticklabels([f"{i.comment}" for i in shifted_memory_blocks])
 
         # Draw x-axis grid lines
-        ax.grid(axis='x', linestyle='--', alpha=0.7)
+        ax.grid(axis="x", linestyle="--", alpha=0.7)
 
         plt.show()

@@ -25,7 +25,7 @@ class AbsMemoryBlock(ABC):
 
     @property
     def type(self) -> str:
-        return 'not used'
+        return "not used"
 
     @property
     def duration(self) -> Optional[Union[int, float]]:
