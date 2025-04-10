@@ -1,0 +1,206 @@
+@startuml
+'========================================================================
+' Legend:
+' <|--  : Extension (specialization)
+' <|..  : Implementation (interface realization)
+' *--   : Composition (part cannot exist without whole)
+' o--   : Aggregation (part can exist independently)
+' -->   : Dependency (the object uses another object)
+' ..>   : Weaker Dependency
+'========================================================================
+
+'-------------------------------
+' Inheritance: Runtime is extended by SimpleRuntime
+'-------------------------------
+abstract class Runtime {
+  - containers: List<Container>
+  - interval: float
+  + run()
+  + stop()
+  + remove()
+  + logs(output_dir: Union<String, Path>)
+  - _regular_delay()
+}
+class SimpleRuntime {
+  + run()
+  + stop()
+  + remove()
+  + logs(output_dir: Union<String, Path>)
+}
+
+'-------------------------------
+' Configuration classes
+'-------------------------------
+class BuildConfig {
+  + base_image: String
+  + platform: Optional<String>
+  + python_deps_manager: Optional<String>
+  + python_dependencies: Optional<List<String>>
+  + sys_deps_manager: Optional<String>
+  + sys_dependencies: Optional<List<String>>
+  + labels: Optional<List<Tuple<String, String>>>
+  + uid: Optional<int>
+  + user: Optional<String>
+  + entrypoint: Optional<List<String>>
+  + cmd: Optional<List<String>>
+  + environment: Optional<Map<String, String>>
+  + copies: Optional<List<Map<String, String>>>
+  + context_dir: Union<String, Path>
+  + docker_filename: String
+  + add_label(key: String, value: String)
+  + add_copy(src: String, dest: String)
+  + add_environment(key: String, value: String)
+  + set_context_dir(context_dir: Union<String, Path>)
+  + add_python_dependency(dependency: String)
+  + add_system_dependency(dependency: String)
+  + set_entrypoint(entrypoint: Union<String, List<String>>)
+  + set_cmd(cmd: Union<String, List<String>>)
+}
+
+class RuntimeConfig {
+  + image_name: String
+  + name: Optional<String>
+  + platform: Optional<String>
+  + detach: bool
+  + user: Optional<String>
+  + remove: bool
+  + cpus: Optional<int>
+  + gpus: Optional<List<String>>
+  + gpu_driver: String
+  + memory: Optional<String>
+  + entrypoint: Optional<List<Union<String, int, float, Path>>>
+  + command: Optional<List<Union<String, int, float, Path>>>
+  + env: Optional<Map<String, String>>
+  + volumes: Optional<Map<String, Map<String, String>>>
+  + subnet: Optional<String>
+  + ipv4: Optional<String>
+  + subnet_mask: Optional<String>
+  + subnet_gateway: Optional<String>
+  + network_mode: Optional<String>
+  + out_dir: Path
+  + log_dir: Path
+  + cache: Path
+  + add_volume(host_path: Union<String, Path>, container_path: Union<String, Path>, mode: String = "rw")
+  + add_env(key: String, value: String)
+}
+
+'-------------------------------
+' Containers Manager: uses Image, RuntimeConfig, and Container
+'-------------------------------
+class Containers {
+  - _client: DockerClient
+  - _image: Image
+  - _runtime_history: Map<String, Map<String, Object>>
+  - _runtime: Runtime
+  + get_container(new: bool): List
+  + _default_config(): RuntimeConfig
+  + _construct_config(**kwargs): RuntimeConfig
+  + _add_record(container: Container, config: RuntimeConfig)
+  + create(**kwargs): Container
+  + run(): List
+  + stop(log_dir: Optional<Union<String, Path>>): List
+}
+
+' Containers depends on Image, RuntimeConfig, and Container
+
+'-------------------------------
+' ImageConstructor: depends on BuildConfig
+'-------------------------------
+class ImageConstructor {
+  - _config: BuildConfig
+  - _dockerfile_content: List<String>
+  + home_dir: Path
+  + content: List<String>
+  + _add_command(command: String)
+  + save(dest: Union<String, Path]): Path
+  + _set_base_image()
+  + _set_labels()
+  + _set_user_and_workdir()
+  + _set_system_dependencies()
+  + _set_python_dependencies()
+  + _set_copies()
+  + _set_environment()
+  + _set_entrypoint()
+  + _set_cmd()
+  + _build_dockerfile()
+}
+
+
+'-------------------------------
+' Image: depends on BuildConfig
+'-------------------------------
+class Image {
+  - _image_name: String
+  - _tag: String
+  - _client: DockerClient
+  - _image: DockerImage
+  + name: String
+  + tag: String
+  + exist: bool
+  + image: DockerImage
+  + id: String
+  + architecture: String
+  + image_size: int
+  + labels: Map<String, String>
+  + get_fullname(tag: Optional<String>): String
+  + get_image(tag: Optional<String>): DockerImage
+  + pull_image(tag: Optional<String>): DockerImage
+  + build_image(build_config: BuildConfig, dest: Union<String, Path>, build_context: Optional<Union<String, Path>>): DockerImage
+  + remove(tag: Optional<String>, force: bool, noprune: bool)
+  + info()
+}
+
+
+'-------------------------------
+' ImageOrchestrator: orchestrates Images and uses BuildConfig
+'-------------------------------
+class ImageOrchestrator {
+  - _client: DockerClient
+  - _images: Map<String, Map<String, Object>>
+  + images: Map<String, Map<String, Object>>
+  + add_image(image: Image, config: BuildConfig, base: Image = null): bool
+  + _topological_sort(): List<String>
+  + build_all()
+}
+
+'-------------------------------
+' Container: depends on Image and RuntimeConfig
+'-------------------------------
+class Container {
+  - _image: Image
+  - _client: DockerClient
+  - _container: DockerContainer
+  + image_name: String
+  + is_created: bool
+  + status: String
+  + exit_code: int
+  + is_running: bool
+  + _construct_build_params(config: RuntimeConfig): Map<String, Object>
+  + _create_subnet(config: RuntimeConfig): Network
+  + _connect_to_network(contain: DockerContainer, config: RuntimeConfig)
+  + create(config: RuntimeConfig, tag: Optional<String>)
+  + stop()
+  + remove()
+  + logs(): byte[]
+  + wait()
+  + run()
+}
+
+
+
+
+
+
+
+Runtime <|-- SimpleRuntime: implements
+Image *-- BuildConfig : builds with
+Image *-- ImageConstructor : constructs with
+ImageOrchestrator o-- Image : orchestrates
+Container o-- Image : wraps
+Container *-- RuntimeConfig : configures with
+Containers o-- Image : init
+Containers o-- Container : manages
+Containers *-- RuntimeConfig : creates default config
+Containers *-l- Runtime : run on
+
+@enduml
