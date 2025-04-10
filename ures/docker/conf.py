@@ -98,6 +98,12 @@ class BuildConfig(BaseModel):
         description="Name of the Dockerfile",
     )
 
+    run_commands: Optional[List[str]] = Field(
+        default=None,
+        title="System Commands",
+        description="Commands for running extra commands in the container, suck as installation of nightly pytorch",
+    )
+
     def add_label(self, key: str, value: str):
         """
         Add a label to the build configuration.
@@ -233,6 +239,27 @@ class BuildConfig(BaseModel):
         if self.sys_dependencies is None:
             self.sys_dependencies = []
         self.sys_dependencies.append(dependency)
+
+    def add_run_command(self, command: str):
+        """
+        Add a command to be run during the build process.
+
+        Args:
+            command (str): The command to run (e.g., "apt-get update").
+
+        Returns:
+            None
+
+        Example:
+            >>> config = BuildConfig()
+            >>> config.add_run_command("apt-get update")
+            >>> "apt-get update" in config.run_commands
+            True
+        """
+        logger.info(f"Adding run command: '{command}'")
+        if self.run_commands is None:
+            self.run_commands = []
+        self.run_commands.append(command)
 
     def set_entrypoint(self, entrypoint: Union[str, List[str]]):
         """
