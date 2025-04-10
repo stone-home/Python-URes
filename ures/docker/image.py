@@ -229,6 +229,22 @@ class ImageConstructor:
             else:
                 logger.warning(f"Unsupported python package manager: {manager}")
 
+    def _set_run_commands(self):
+        """
+        Adds RUN commands to the Dockerfile for each command in the build configuration.
+
+        Returns:
+            None
+
+        Example:
+            >>> config = BuildConfig(run_commands=["echo Hello"])
+            >>> constructor = ImageConstructor(config)
+            >>> constructor._set_run_commands()
+        """
+        if self._config.run_commands:
+            for command in self._config.run_commands:
+                self._add_command(f"RUN {command}")
+
     def _set_copies(self):
         """
         Adds COPY commands to the Dockerfile for each file copy instruction in the build configuration.
@@ -313,6 +329,7 @@ class ImageConstructor:
         self._set_labels()
         self._set_system_dependencies()
         self._set_python_dependencies()
+        self._set_run_commands()
         self._set_user_and_workdir()
         self._set_copies()
         self._set_environment()
