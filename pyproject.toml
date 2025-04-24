@@ -42,12 +42,13 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-python-frontmatter = "^1.1.0"
-docker = "^7.1.0"
-pydantic = "^2.10.6"
-tqdm = "^4.67.1"
-matplotlib = "^3.10.1"
-plotly = "^6.0.1"
+python-frontmatter = "^1.0.0"
+docker = "^7.0.0"
+pydantic = "^2.0.3"
+tqdm = "^4.60.0"
+matplotlib = "^3.0.1"
+plotly = "^6.0.0"
+sortedcontainers = "^2.0.0"
 
 
 [tool.poetry.group.test.dependencies]

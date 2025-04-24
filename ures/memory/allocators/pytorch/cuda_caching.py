@@ -3,12 +3,12 @@ import logging
 import sys
 import copy
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 from sortedcontainers import SortedSet
 from typing import List, Optional, Dict, Union, Set
 from pydantic import BaseModel, Field
-from perf_estimator.data_structure import NonCircularDoublyLinkedNode as BiDirection
-from perf_estimator.utilis.utilis import format_memory
+from ures.data_structure.bi_directional_links import BiDirection
+from ures.memory.allocators.interface import AllocatorInterface
+from ures.string import format_memory
 from ._C2Python.llvm import *
 
 logger = logging.getLogger(__name__)
@@ -474,7 +474,7 @@ class Trace:
         self._record(block, "free_completed", True)
 
 
-class CachingAllocator:
+class CachingAllocator(AllocatorInterface):
     kLargeBuffer = 20971520
     kMinBlockSize = 512
     kSmallSize = 1048576
@@ -482,12 +482,12 @@ class CachingAllocator:
     kMinLargeAlloc = 10485760
     kRoundLarge = 2097152
 
-    def __init__(self, allowed_memory_maximum: Optional[int] = None):
+    def __init__(self, max_memory: Optional[int] = None):
         self.small_pool: BlockPool = BlockPool(small=True)
         self.large_pool: BlockPool = BlockPool(small=False)
         self.active_blocks: Set[Block] = set()
         self.total_allocated_memory: int = 0
-        self.allowed_memory_maximum: int = allowed_memory_maximum or 16 * 1024**3
+        self.allowed_memory_maximum: int = max_memory or 16 * 1024**3
         self.stats = Stats()
         self._cuda_config = CUDAAllocatorConfig(conf={})
         self.stats.max_split_size = self._cuda_config.max_split_size
@@ -755,77 +755,3 @@ class CachingAllocator:
             self._segments.add(block)
         return block
 
-    def get_segment_stats(self):
-        seg_stats = []
-        for seg in self._segments:
-            if seg.prev is not None:
-                print(f"Segment {seg.seg_id} is not head")
-                continue
-            else:
-                total_blocks = []
-                block = seg
-                while block is not None:
-                    total_blocks.append(block)
-                    block = block.next
-
-                _stats = {
-                    "index": seg.seg_id,
-                    "total": sum([block.size for block in total_blocks]),
-                    "free": sum(
-                        [
-                            block.size
-                            for block in total_blocks
-                            if block.is_allocated is False
-                        ]
-                    ),
-                    "active": sum(
-                        [
-                            block.size
-                            for block in total_blocks
-                            if block.is_allocated is True
-                        ]
-                    ),
-                    "blocks": total_blocks,
-                }
-                seg_stats.append(_stats)
-        return seg_stats
-
-    def plot(self, file_name: Optional[str] = None):
-        plot_memory_stats(self.get_segment_stats(), filename=file_name)
-
-    def plot_memory_change(self):
-        tensor_trace = self._trace.max_usage_changes
-        segment_trace = self._trace.max_segment_changes
-
-        # Create a new figure
-        fig = go.Figure()
-
-        # Add traces for tensor and segment memory usage
-        fig.add_trace(
-            go.Scatter(
-                x=list(range(len(tensor_trace))),
-                y=tensor_trace,
-                mode="lines",
-                name="Tensor Memory",
-            )
-        )
-        fig.add_trace(
-            go.Scatter(
-                x=list(range(len(segment_trace))),
-                y=segment_trace,
-                mode="lines",
-                name="Segment Memory",
-            )
-        )
-
-        # Update the layout with axis labels and title
-        fig.update_layout(
-            title="Memory Usage Over Time",
-            xaxis_title="Time",
-            yaxis_title="Memory Usage",
-            width=1000,
-            height=500,
-        )
-
-        # Display the figure
-        fig.show()
