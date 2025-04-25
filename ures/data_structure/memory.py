@@ -24,10 +24,6 @@ class AbsMemoryBlock(ABC):
         pass
 
     @property
-    def type(self) -> str:
-        return "not used"
-
-    @property
     def duration(self) -> Optional[Union[int, float]]:
         return (
             (self.free_time - self.alloc_time) if self.free_time is not None else None
