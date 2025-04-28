@@ -7,14 +7,14 @@ from .devices.interface import DeviceInterface
 
 
 class MemoryBlock(AbsMemoryBlock):
-    def __init__(self, byte: int, device: DeviceInterface):
+    def __init__(self, byte: int, device: DeviceInterface, **kwargs):
         self._request_bytes: int = byte
         self._device: DeviceInterface = device
-        self._actual_bytes: Optional[int] = None
-        self._address: Optional[str] = None
-        self._alloc_time: Optional[Union[int, float]] = None
-        self._free_time: Optional[Union[int, float]] = None
-        self._comment: str = ""
+        self._actual_bytes: Optional[int] = kwargs.get("actual_bytes", None)
+        self._address: Optional[str] = kwargs.get("address", None)
+        self._alloc_time: Optional[Union[int, float]] = kwargs.get("alloc_time", None)
+        self._free_time: Optional[Union[int, float]] = kwargs.get("free_time", None)
+        self._comment: str = kwargs.get("comment", "")
 
     @property
     def bytes(self) -> int:
