@@ -754,4 +754,3 @@ class CachingAllocator(AllocatorInterface):
         if segment_replace_need:
             self._segments.add(block)
         return block
-

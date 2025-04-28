@@ -38,6 +38,7 @@ class MemoryBlock(AbsMemoryBlock):
         return self._alloc_time
 
     @alloc_time.setter
+    @type_check
     def alloc_time(self, value: Optional[Union[int, float]]):
         if value is None:
             self._alloc_time = time.time_ns()

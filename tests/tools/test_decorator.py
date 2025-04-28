@@ -1,5 +1,15 @@
 import pytest
-from typing import Callable, Any, Type, Dict, Union, get_type_hints, Optional, List, Tuple
+from typing import (
+    Callable,
+    Any,
+    Type,
+    Dict,
+    Union,
+    get_type_hints,
+    Optional,
+    List,
+    Tuple,
+)
 from ures.tools.decorator import type_check, check_instance_variable
 
 
@@ -123,20 +133,24 @@ class TestCorrectUsage:
         @type_check()
         def my_function(data: List[int]) -> None:
             pass
-        my_function([1,2,3])
+
+        my_function([1, 2, 3])
 
     def test_correct_usage_tuple(self):
         @type_check()
         def my_function(point: Tuple[int, int]) -> None:
             pass
-        my_function((1,2))
+
+        my_function((1, 2))
 
     def test_correct_usage_union(self):
         @type_check()
         def my_function(value: Union[int, float]) -> None:
             pass
+
         my_function(1)
         my_function(1.2)
+
 
 class TestIncorrectUsage:
     def test_incorrect_usage_basic(self):
@@ -171,6 +185,7 @@ class TestIncorrectUsage:
         with pytest.raises(TypeError):
             my_function((1, "2"))
 
+
 class TestSkipArgs:
     def test_skip_args(self):
         @type_check(skip_args=["age"])
@@ -190,9 +205,11 @@ class TestSkipArgs:
         with pytest.raises(TypeError):
             my_function("Alice", "30", "abc")
 
+
 class TestWrongInput:
     def test_wrong_skip_args(self):
         with pytest.raises(ValueError):
+
             @type_check(skip_args=[123])
             def my_function(value: Union[int, float]) -> None:
                 pass
