@@ -9,6 +9,13 @@ class AbcDevice(ABC):
     This interface defines the basic properties and operations that a memory-aware device should provide.
     """
 
+    def __init__(self, device_id: str, name: str, total_memory: int):
+        self._device_id = device_id
+        self._name = name
+        self._total_memory = total_memory
+        self._available_memory = total_memory
+        self._allocated_blocks: Dict[str, int] = {} # Store ptr -> size
+
     def __init__(self, algorithm: AbcAlgorithm):
         """
         Initializes the device with a specific memory allocation algorithm.
