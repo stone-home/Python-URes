@@ -1,12 +1,22 @@
 from abc import ABC, abstractmethod
 from typing import Optional
+from ..algorithms.abc import AbcAlgorithm
 
 
-class DeviceInterface(ABC):
+class AbcDevice(ABC):
     """
     Interface for representing a hardware device that can have memory allocated to it.
     This interface defines the basic properties and operations that a memory-aware device should provide.
     """
+
+    def __init__(self, algorithm: AbcAlgorithm):
+        """
+        Initializes the device with a specific memory allocation algorithm.
+
+        Args:
+            algorithm (AbcAlgorithm): The memory allocation algorithm to be used by the device.
+        """
+        self._algorithm = algorithm
 
     @property
     @abstractmethod
