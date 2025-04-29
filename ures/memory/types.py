@@ -14,43 +14,80 @@ logger = logging.getLogger(__name__)
 
 
 class SegmentMemoryBlock(NonCircularBiDirection, MemoryBlockInterface):
+    """
+    Represents a contiguous block of memory within a larger segment,
+    managed as a node in a non-circular doubly linked list.
+
+    This block can be either allocated or free (tracked by `is_allocated`).
+    It delegates memory-specific details (bytes, address, timings)
+    to an underlying `Memory` object stored in the `value` attribute
+    inherited from `NonCircularBiDirection`.
+    """
+
     def __init__(self, memory: Memory):
         """
-        Initialize a SegmentMemoryBlock with a Memory object.
+        Initialize a SegmentMemoryBlock, typically representing a free segment.
 
         Args:
-            memory (Memory): The Memory object to be associated with this block.
+            memory (Memory): The Memory object describing the segment's initial
+                             address, size, and allocation time.
         """
-        super().__init__(memory)
-        self.is_allocated = False
+        super().__init__(memory)  # Store Memory object in self.value
+        self.is_allocated: bool = False  # Blocks are initially considered free wrappers
+        logger.debug(
+            f"SegmentMemoryBlock created: {self}, allocated={self.is_allocated}"
+        )
 
     @property
     def memory(self) -> Memory:
+        """Returns the underlying Memory object associated with this block."""
         return self.value
 
     @property
     def bytes(self) -> int:
+        """Returns the size of the memory segment in bytes."""
         return self.memory.bytes
 
     @property
-    def address(self) -> str:
+    def address(self) -> int:  # Changed type hint to int based on Memory placeholder
+        """Returns the starting address of the memory segment."""
         return self.memory.address
 
     @property
+    def address_hex(self) -> Optional[str]:
+        return self.memory.address_hex
+
+    @property
     def alloc_time(self) -> Union[int, float]:
+        """Returns the timestamp when the underlying memory was allocated."""
         return self.memory.alloc_time
 
     @property
     def free_time(self) -> Optional[Union[int, float]]:
+        """
+        Returns the timestamp when the underlying memory was freed,
+        or None if still allocated or never freed.
+        """
         return self.memory.free_time
 
     @property
     def duration(self) -> Optional[Union[int, float]]:
-        return self.free_time - self.alloc_time if self.free_time is not None else None
+        """
+        Calculates the duration the memory was allocated for.
+
+        Returns:
+            Optional[Union[int, float]]: Duration in nanoseconds (or other time unit)
+                                         if free_time is set, otherwise None.
+        """
+        if self.free_time is not None:
+            # Ensure consistent types if mixing int/float, though time_ns gives int
+            return self.free_time - self.alloc_time
+        return None
 
     @property
     def is_permanent(self) -> bool:
-        return self.duration is None
+        """Checks if the memory allocation has a defined end (free_time)."""
+        return self.free_time is None  # Or self.duration is None
 
     def splice(self, size: int) -> "SegmentMemoryBlock":
         """
@@ -138,21 +175,76 @@ class SegmentMemoryBlock(NonCircularBiDirection, MemoryBlockInterface):
             return new_block
 
     def coalesce(self) -> "SegmentMemoryBlock":
-        if self.is_allocated is True:
+        """
+        Merges this *free* block with adjacent *free* blocks (previous and/or next).
+
+        Modifies the current block (`self`) in-place to represent the combined
+        free segment. If merged with the previous block, the current block's
+        address and size are updated. If merged with the next block, only the
+        size is updated. The adjacent free blocks involved are removed from
+        the linked list.
+
+        Returns:
+            SegmentMemoryBlock: The current block (`self`), now potentially larger
+                                and starting at an earlier address.
+
+        Raises:
+            MemoryError: If this block is currently allocated.
+        """
+        if self.is_allocated:
             raise MemoryError(
-                "Cannot coalesce an allocated memory block. Please free it first."
+                f"Cannot coalesce an allocated memory block {self.address}. Please free it first."
             )
-        if self.prev is not None and self.prev.is_allocated is False:
-            logger.info(f"start coalescing {self.prev} and {self}")
-            _p_memory = self.prev
-            self.prev.remove()
-            self.memory.bytes += _p_memory.bytes
-            self.memory.address = _p_memory.address
-        if self.next is not None and self.next.is_allocated is False:
-            logger.info(f"start coalescing {self} and {self.next}")
-            _n_memory = self.next
-            self.next.remove()
-            self.memory.bytes += _n_memory.bytes
+
+        coalesced = False
+        # --- Try Coalesce Backward ---
+        if (
+            self.prev is not None
+            and isinstance(self.prev, SegmentMemoryBlock)
+            and not self.prev.is_allocated
+        ):
+            _prev_block = self.prev  # Correct variable name
+            logger.info(f"Coalescing backward: Merging {_prev_block} into {self}")
+
+            # Store data before removing prev block
+            prev_bytes = _prev_block.bytes
+            prev_address = _prev_block.address
+
+            # Remove previous block from list (updates pointers)
+            _prev_block.remove()  # Assumes this handles list pointers correctly
+
+            # Update current block's memory
+            self.memory.bytes += prev_bytes
+            self.memory.address = (
+                prev_address  # Address becomes the previous block's address
+            )
+            coalesced = True
+            logger.debug(f"After backward coalesce: {self}")
+
+        # --- Try Coalesce Forward ---
+        if (
+            self.next is not None
+            and isinstance(self.next, SegmentMemoryBlock)
+            and not self.next.is_allocated
+        ):
+            _next_block = self.next  # Correct variable name
+            logger.info(f"Coalescing forward: Merging {_next_block} into {self}")
+
+            # Store data before removing next block
+            next_bytes = _next_block.bytes
+
+            # Remove next block from list (updates pointers)
+            _next_block.remove()  # Assumes this handles list pointers correctly
+
+            # Update current block's memory
+            self.memory.bytes += next_bytes
+            coalesced = True
+            logger.debug(f"After forward coalesce: {self}")
+
+        if coalesced:
+            logger.info(f"Coalesce complete. Final state: {self}")
+        else:
+            logger.debug(f"No adjacent free blocks found to coalesce with {self}")
 
         # todo: maybe create another function to ensure all states are correct
         if self.alloc_time is not None:
@@ -167,7 +259,7 @@ class SegmentMemoryBlock(NonCircularBiDirection, MemoryBlockInterface):
         return self
 
     def __str__(self):
-        return f"{self.address}({self.bytes} bytes)"
+        return f"{self.address_hex}({self.bytes} bytes)"
 
 
 class Device(ABC):

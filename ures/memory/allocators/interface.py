@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from ..type import MemoryBlock
+from ..types import MemoryBlock
 
 
 class AllocatorInterface(ABC):

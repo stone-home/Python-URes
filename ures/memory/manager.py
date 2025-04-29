@@ -2,7 +2,7 @@ import copy
 import logging
 from typing import Optional, Dict, Union
 from collections import OrderedDict
-from .type import MemoryBlock
+from .types import MemoryBlock
 from .sequence import AbsSequence, MemorySequence
 from ..tools.decorator import type_check
 

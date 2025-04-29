@@ -2,7 +2,7 @@ from collections import defaultdict
 from typing import Generator, List, Tuple
 from abc import ABC, abstractmethod
 from enum import Enum
-from .type import MemoryBlock
+from .types import MemoryBlock
 
 
 class AbsSequence(ABC):
@@ -33,7 +33,9 @@ class MemorySequence(AbsSequence):
             time_based_blocks[alloc_time].append((MemoryOperations.ALLOCATE.value, mb))
 
             if mb.free_time is not None:
-                time_based_blocks[mb.free_time].append((MemoryOperations.FREE.value, mb))
+                time_based_blocks[mb.free_time].append(
+                    (MemoryOperations.FREE.value, mb)
+                )
 
         # Yield operations sorted by timestamp
         # Iterate through timestamps in ascending order
@@ -41,6 +43,3 @@ class MemorySequence(AbsSequence):
             # Yield all operations scheduled for this timestamp
             # Using yield from simplifies yielding all elements from the inner list
             yield from time_based_blocks[timestamp]
-
-
-
