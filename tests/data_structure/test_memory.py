@@ -22,17 +22,21 @@ class TestMemoryInitialization:
 
     def test_memory_creation_all_fields_int_time(self):
         """Test creating a Memory instance with all fields, using integer times."""
-        mem = Memory(bytes=2048, address="0x1000", alloc_time=100, free_time=250)
+        memory = "0x1000"
+        mem = Memory(bytes=2048, address=int(memory, 16), alloc_time=100, free_time=250)
         assert mem.bytes == 2048
-        assert mem.address == "0x1000"
+        assert mem.address == int(memory, 16)
         assert mem.alloc_time == 100
         assert mem.free_time == 250
 
     def test_memory_creation_all_fields_float_time(self):
         """Test creating a Memory instance with all fields, using float times."""
-        mem = Memory(bytes=4096, address="0x2000", alloc_time=100.5, free_time=250.75)
+        memory = "0x2000"
+        mem = Memory(
+            bytes=4096, address=int(memory, 16), alloc_time=100.5, free_time=250.75
+        )
         assert mem.bytes == 4096
-        assert mem.address == "0x2000"
+        assert mem.address == int(memory, 16)
         assert mem.alloc_time == approx(100.5)
         assert mem.free_time == approx(250.75)
 
@@ -43,7 +47,7 @@ class TestMemoryValidation:
     def test_memory_creation_missing_bytes(self):
         """Test that creating a Memory instance without 'bytes' raises ValidationError."""
         with pytest.raises(ValidationError) as excinfo:
-            Memory(address="0x3000")
+            Memory(address=int("0x3000", 16))
         errors = excinfo.value.errors()
         assert len(errors) == 1
         assert errors[0]["loc"] == ("bytes",)
@@ -63,11 +67,11 @@ class TestMemoryValidation:
     def test_memory_creation_invalid_address_type(self):
         """Test that creating a Memory instance with non-string 'address' raises ValidationError."""
         with pytest.raises(ValidationError) as excinfo:
-            Memory(bytes=100, address=12345)  # Address should be Optional[str]
+            Memory(bytes=100, address="0x8721")  # Address should be Optional[str]
         errors = excinfo.value.errors()
         assert len(errors) == 1
         assert errors[0]["loc"] == ("address",)
-        assert errors[0]["type"] == "string_type"
+        assert errors[0]["type"] == "int_parsing"
 
     def test_memory_creation_invalid_time_type(self):
         """Test that creating a Memory instance with non-numeric times raises ValidationError."""
@@ -134,16 +138,18 @@ class TestMemoryRepr:
 
     def test_repr_all_data(self):
         """Test the __repr__ output with all data."""
-        mem = Memory(bytes=1024, address="0xA000", alloc_time=10, free_time=25.5)
+        memory = "0xa000"
+        mem = Memory(bytes=1024, address=int(memory, 16), alloc_time=10, free_time=25.5)
         # Duration is 15.5
-        expected = "Memory(0xA000)|1024 bytes|10->25.5|dur: 15.5"
+        expected = f"Memory({memory})|1024 bytes|10->25.5|dur: 15.5"
         assert repr(mem) == expected
 
     def test_repr_not_freed(self):
         """Test the __repr__ output when the block is not freed."""
-        mem = Memory(bytes=2048, address="0xB000", alloc_time=50)
+        memory = "0xb000"
+        mem = Memory(bytes=2048, address=int(memory, 16), alloc_time=50)
         # Duration is None
-        expected = "Memory(0xB000)|2048 bytes|50->None|dur: None"
+        expected = f"Memory({memory})|2048 bytes|50->None|dur: None"
         assert repr(mem) == expected
 
 

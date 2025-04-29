@@ -304,11 +304,11 @@ class TestNodeSearch:
         found_node = node.search(10)
         assert found_node is None
 
-    def test_search_does_not_go_backwards(self, three_node_list):
+    def test_search_from_start_of_list(self, three_node_list):
         """Test that search only proceeds forward (using next)."""
         node1, node2, node3 = three_node_list
         found_node = node3.search(1)  # Try to find node1 starting from node3
-        assert found_node is None  # Should not find it by going backwards
+        assert found_node is node1  # Should not find it by going backwards
 
 
 class TestNodeRepresentations:

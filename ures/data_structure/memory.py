@@ -4,9 +4,41 @@ from typing import Union, Optional
 from pydantic import BaseModel, Field
 
 
+class MemoryBlockInterface(ABC):
+    @property
+    @abstractmethod
+    def bytes(self) -> int:
+        pass
+
+    @property
+    @abstractmethod
+    def address(self) -> int:
+        pass
+
+    @property
+    @abstractmethod
+    def alloc_time(self) -> Union[int, float]:
+        pass
+
+    @property
+    @abstractmethod
+    def free_time(self) -> Optional[Union[int, float]]:
+        pass
+
+    @property
+    @abstractmethod
+    def duration(self) -> Optional[Union[int, float]]:
+        pass
+
+    @property
+    @abstractmethod
+    def is_permanent(self) -> bool:
+        pass
+
+
 class Memory(BaseModel):
     bytes: int = Field(..., description="The size of the memory block in bytes.")
-    address: Optional[str] = Field(
+    address: Optional[int] = Field(
         None, description="The starting address of the memory block."
     )
     alloc_time: Optional[Union[int, float]] = Field(
@@ -15,6 +47,10 @@ class Memory(BaseModel):
     free_time: Optional[Union[int, float]] = Field(
         None, description="The time when the memory block was freed."
     )
+
+    @property
+    def address_hex(self) -> Optional[str]:
+        return hex(self.address) if self.address is not None else None
 
     @property
     def duration(self) -> Optional[Union[int, float]]:
@@ -39,36 +75,4 @@ class Memory(BaseModel):
         return self.free_time is None
 
     def __repr__(self):
-        return f"Memory({self.address})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"
-
-
-class MemoryBlockInterface(ABC):
-    @property
-    @abstractmethod
-    def bytes(self) -> int:
-        pass
-
-    @property
-    @abstractmethod
-    def address(self) -> str:
-        pass
-
-    @property
-    @abstractmethod
-    def alloc_time(self) -> Union[int, float]:
-        pass
-
-    @property
-    @abstractmethod
-    def free_time(self) -> Optional[Union[int, float]]:
-        pass
-
-    @property
-    @abstractmethod
-    def duration(self) -> Optional[Union[int, float]]:
-        pass
-
-    @property
-    @abstractmethod
-    def is_permanent(self) -> bool:
-        pass
+        return f"Memory({self.address_hex})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"

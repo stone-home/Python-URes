@@ -1,9 +1,39 @@
 from __future__ import annotations
 import uuid
+from abc import abstractmethod, ABC
 from typing import Any, Optional
 
 
-class BiDirection:
+class BiDirectionInterface(ABC):
+    @property
+    @abstractmethod
+    def prev(self) -> BiDirectionInterface:
+        """Get the previous node."""
+        pass
+
+    @property
+    @abstractmethod
+    def next(self) -> BiDirectionInterface:
+        """Get the next node."""
+        pass
+
+    @abstractmethod
+    def insert_after(self, node: BiDirectionInterface) -> None:
+        """Insert a node after the current node."""
+        pass
+
+    @abstractmethod
+    def insert_before(self, node: BiDirectionInterface) -> None:
+        """Insert a node before the current node."""
+        pass
+
+    @abstractmethod
+    def remove(self) -> None:
+        """Remove the current node from the linked structure."""
+        pass
+
+
+class BiDirection(BiDirectionInterface):
     def __init__(self, value: Any):
         """
         Create a bi-directional linked node.
@@ -246,10 +276,7 @@ class BiDirection:
         return f"BiDirection({self.value})"
 
 
-# linked_list_node.py
-
-
-class NonCircularBiDirection:
+class NonCircularBiDirection(BiDirectionInterface):
     def __init__(self, value: Any):
         """Create a non-circular doubly linked list node.
 
@@ -344,6 +371,10 @@ class NonCircularBiDirection:
             Optional[NonCircularBiDirection]: The node with the value if found, else None.
         """
         node = self
+        # Move to the start of the list
+        while node.prev is not None:
+            node = node.prev
+
         while node:
             if node.value == value:
                 return node
