@@ -247,7 +247,6 @@ class BiDirection:
 
 
 # linked_list_node.py
-from typing import Any, Optional
 
 
 class NonCircularBiDirection:

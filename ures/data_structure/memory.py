@@ -1,4 +1,4 @@
-import warnings
+from warnings import warn
 from abc import ABC, abstractmethod
 from typing import Union, Optional
 from pydantic import BaseModel, Field
@@ -16,6 +16,7 @@ class Memory(BaseModel):
         None, description="The time when the memory block was freed."
     )
 
+    @property
     def duration(self) -> Optional[Union[int, float]]:
         """
         Calculate the duration of the memory block's allocation.
@@ -27,6 +28,7 @@ class Memory(BaseModel):
             (self.free_time - self.alloc_time) if self.free_time is not None else None
         )
 
+    @property
     def is_permanent(self) -> bool:
         """
         Check if the memory block is permanent (not freed).
@@ -40,10 +42,14 @@ class Memory(BaseModel):
         return f"Memory({self.address})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"
 
 
-@warnings.deprecated(
-    "This class will be removed in future versions. Using Memory class instead."
-)
 class AbsMemoryBlock(ABC):
+    def __init__(self):
+        warn(
+            f"This class({self.__class__.__name__}) will be removed in future versions. Using Memory class instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
     @property
     @abstractmethod
     def bytes(self) -> int:
@@ -75,4 +81,4 @@ class AbsMemoryBlock(ABC):
         return self.free_time is not None
 
     def __repr__(self):
-        return f"Memory({self.address}): {self.bytes} bytes, start: {self.alloc_time}, end: {self.free_time}, duration: {self.duration}"
+        return f"Memory({self.address})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"
