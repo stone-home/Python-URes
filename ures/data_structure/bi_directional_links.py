@@ -244,3 +244,120 @@ class BiDirection:
             'BiDirection(World)'
         """
         return f"BiDirection({self.value})"
+
+
+# linked_list_node.py
+from typing import Any, Optional
+
+
+class NonCircularBiDirection:
+    def __init__(self, value: Any):
+        """Create a non-circular doubly linked list node.
+
+        Args:
+            value (Any): The value of the node.
+        """
+        self._prev: Optional[NonCircularBiDirection] = None
+        self._next: Optional[NonCircularBiDirection] = None
+        self._value: Any = value
+
+    @property
+    def prev(
+        self,
+    ) -> Optional["NonCircularBiDirection"]:  # Use quotes for forward reference
+        return self._prev
+
+    @property
+    def next(
+        self,
+    ) -> Optional["NonCircularBiDirection"]:  # Use quotes for forward reference
+        return self._next
+
+    @property
+    def value(self) -> Any:
+        return self._value
+
+    def insert_after(
+        self, node: "NonCircularBiDirection"
+    ):  # Use quotes for forward reference
+        """Insert a node after the current node.
+
+        Args:
+            node (NonCircularBiDirection): The node to be inserted.
+
+        Returns:
+            None
+        """
+        # Ensure the node being inserted is not already linked elsewhere unexpectedly
+        # Optional: Add checks or detachment logic if needed
+        # node.remove() # Example: uncomment if you want inserted nodes to be detached first
+
+        node._prev = self
+        node._next = self._next
+        if self._next:
+            self._next._prev = node
+        self._next = node
+
+    def insert_before(
+        self, node: "NonCircularBiDirection"
+    ):  # Use quotes for forward reference
+        """Insert a node before the current node.
+
+        Args:
+            node (NonCircularBiDirection): The node to be inserted.
+
+        Returns:
+            None
+        """
+        # Ensure the node being inserted is not already linked elsewhere unexpectedly
+        # Optional: Add checks or detachment logic if needed
+        # node.remove() # Example: uncomment if you want inserted nodes to be detached first
+
+        node._next = self
+        node._prev = self._prev
+        if self._prev:
+            self._prev._next = node
+        self._prev = node
+
+    def remove(self):
+        """Remove the current node from the list.
+
+        Returns:
+            None
+        """
+        if self._prev:
+            self._prev._next = self._next
+        if self._next:
+            self._next._prev = self._prev
+        # Clear the current node's links
+        self._prev = None
+        self._next = None
+
+    def search(
+        self, value: Any
+    ) -> Optional["NonCircularBiDirection"]:  # Use quotes for forward reference
+        """Search a node by value starting from the current node, moving forward.
+
+        Args:
+            value (Any): The value to be searched.
+
+        Returns:
+            Optional[NonCircularBiDirection]: The node with the value if found, else None.
+        """
+        node = self
+        while node:
+            if node.value == value:
+                return node
+            node = node.next
+        return None
+
+    def __str__(self):
+        """Return the string representation of the node."""
+        return str(self.value)
+
+    def __repr__(self):
+        """Return the detailed string representation of the node."""
+        # Use str(node) for prev/next to avoid overly long reprs in lists
+        prev_val = str(self._prev.value) if self._prev else "None"
+        next_val = str(self._next.value) if self._next else "None"
+        return f"Node({self.value}| Prev:{prev_val}| Next:{next_val})"
