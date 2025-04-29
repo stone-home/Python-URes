@@ -1,7 +1,8 @@
 # test_memory_model.py
 import pytest
+from typing import Union, Optional
 from pydantic import ValidationError
-from ures.data_structure.memory import Memory
+from ures.data_structure.memory import Memory, MemoryBlockInterface
 
 
 # Define pytest approx for float comparisons
@@ -144,3 +145,107 @@ class TestMemoryRepr:
         # Duration is None
         expected = "Memory(0xB000)|2048 bytes|50->None|dur: None"
         assert repr(mem) == expected
+
+
+# ------------------------- TestCases for MemoryBlockInterface ------------------------- #
+class ConcreteMemoryBlockV2(MemoryBlockInterface):
+    """A concrete implementation of the fully abstract interface."""
+
+    def __init__(
+        self,
+        b: int,
+        addr: str,
+        alloc_t: Union[int, float],
+        free_t: Optional[Union[int, float]] = None,
+    ):
+        self._b = b
+        self._addr = addr
+        self._alloc_t = alloc_t
+        self._free_t = free_t
+
+    @property
+    def bytes(self) -> int:
+        return self._b
+
+    @property
+    def address(self) -> str:
+        return self._addr
+
+    @property
+    def alloc_time(self) -> Union[int, float]:
+        return self._alloc_t
+
+    @property
+    def free_time(self) -> Optional[Union[int, float]]:
+        return self._free_t
+
+    # --- Must implement duration and is_permanent now ---
+    @property
+    def duration(self) -> Optional[Union[int, float]]:
+        # Example implementation consistent with previous logic
+        if self._alloc_t is None or self._free_t is None:
+            return None
+        if isinstance(self._alloc_t, (int, float)) and isinstance(
+            self._free_t, (int, float)
+        ):
+            return self._free_t - self._alloc_t
+        return None  # Should not happen with valid inputs
+
+    @property
+    def is_permanent(self) -> bool:
+        # Example implementation consistent with previous logic
+        return self._free_t is None
+
+
+class TestInterfaceAbstractness:
+    """Tests the abstract nature of the MemoryBlockInterface."""
+
+    def test_cannot_instantiate_abc_directly(self):
+        """Verify that the ABC itself cannot be instantiated."""
+        with pytest.raises(TypeError) as excinfo:
+            MemoryBlockInterface()  # Attempt to instantiate the ABC
+        assert "Can't instantiate abstract class" in str(excinfo.value)
+        # Check for at least one of the newly abstract methods
+        assert "duration" in str(excinfo.value) or "is_permanent" in str(excinfo.value)
+
+    def test_can_instantiate_concrete_class(self):
+        """Verify a correctly implemented concrete class can be instantiated."""
+        try:
+            block = ConcreteMemoryBlockV2(b=100, addr="0x1", alloc_t=10, free_t=20)
+            assert isinstance(block, MemoryBlockInterface)
+            # Check if properties are accessible
+            assert block.bytes == 100
+            assert block.duration == 10
+            assert block.is_permanent is False
+        except Exception as e:
+            pytest.fail(f"Failed to instantiate or use ConcreteMemoryBlockV2: {e}")
+
+    def test_concrete_class_missing_method_fails(self):
+        """Verify a concrete class missing an abstract method raises TypeError on instantiation."""
+
+        class IncompleteBlock(MemoryBlockInterface):
+            # Missing 'bytes' implementation
+            @property
+            def address(self):
+                return "0xINC"
+
+            @property
+            def alloc_time(self):
+                return 10
+
+            @property
+            def free_time(self):
+                return None
+
+            @property
+            def duration(self):
+                return None
+
+            @property
+            def is_permanent(self):
+                return True
+
+        with pytest.raises(TypeError) as excinfo:
+            IncompleteBlock()
+        assert "Can't instantiate abstract class" in str(excinfo.value)
+        assert "bytes" in str(excinfo.value)  # Specifically missing 'bytes'

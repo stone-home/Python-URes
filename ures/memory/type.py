@@ -1,82 +1,143 @@
 import time
+import logging
+from pydantic import BaseModel, Field
+from abc import ABC, abstractmethod
 from typing import Optional, Union
 from ures.tools.decorator import type_check
 from ures.data_structure.memory import AbsMemoryBlock
 from ures.string import format_memory
-from .devices.interface import DeviceInterface
+
+logger = logging.getLogger(__name__)
 
 
-class MemoryBlock(AbsMemoryBlock):
-    def __init__(self, byte: int, device: DeviceInterface, **kwargs):
-        self._request_bytes: int = byte
-        self._device: DeviceInterface = device
-        self._actual_bytes: Optional[int] = kwargs.get("actual_bytes", None)
-        self._address: Optional[str] = kwargs.get("address", None)
-        self._alloc_time: Optional[Union[int, float]] = kwargs.get("alloc_time", None)
-        self._free_time: Optional[Union[int, float]] = kwargs.get("free_time", None)
-        self._comment: str = kwargs.get("comment", "")
+# -------------- Classes are related with essential memory ------------------
+
+
+class DeviceMemoryBlock(BaseModel):
+    request_bytes: int = Field(
+        ..., description="The requested size of the memory block in bytes."
+    )
+    actual_bytes: Optional[int] = Field(
+        None, description="The actual allocated size of the memory block in bytes."
+    )
+    address: Optional[str] = Field(None, description="The address of the memory block.")
+    alloc_time: Optional[Union[int, float]] = Field(
+        None, description="The time when the memory block was allocated."
+    )
+    free_time: Optional[Union[int, float]] = Field(
+        None, description="The time when the memory block was freed."
+    )
+    comment: str = Field(
+        "", description="A comment or description for the memory block."
+    )
+
+
+class SegmentBlock(DeviceMemoryBlock):
+    allocated_blocks: list[DeviceMemoryBlock] = Field(
+        default=[], description="List of allocated memory blocks."
+    )
+
+
+class AbcMemoryAlgorithm(ABC):
+    @abstractmethod
+    def malloc(self, size: int, **kwargs) -> Optional[DeviceMemoryBlock]:
+        """Allocate memory of size bytes and return a MemoryBlock object."""
+        pass
+
+    @abstractmethod
+    def free(self, ptr, **kwargs) -> Optional[DeviceMemoryBlock]:
+        """Free the memory block."""
+        pass
+
+
+class Device(AbcMemoryAlgorithm):
+    """
+    Interface for representing a hardware device that can have memory allocated to it.
+    This interface defines the basic properties and operations that a memory-aware device should provide.
+    """
+
+    def __init__(
+        self,
+        algorithm: AbcMemoryAlgorithm,
+        name: str,
+        device_id: str,
+        total_memory: int,
+    ):
+        """
+        Initializes the device with a specific memory allocation algorithm.
+
+        Args:
+            algorithm (AbcAlgorithm): The memory allocation algorithm to be used by the device.
+        """
+        self._algorithm: AbcMemoryAlgorithm = algorithm
+        self._name: str = name
+        self._device_id: str = device_id
+        self._total_memory: int = total_memory
+        self._available_memory: int = total_memory
+        self._allocated_memory: int = 0
 
     @property
-    def bytes(self) -> int:
-        return self._request_bytes
+    def device_id(self) -> str:
+        return self._device_id
 
     @property
-    def allocated_size(self) -> Optional[int]:
-        return self._actual_bytes
+    def name(self) -> str:
+        """
+        The name or identifier of the device. This should be a unique string.
+        """
+        return self._name
 
     @property
-    def address(self) -> Optional[str]:
-        return self._address
-
-    @address.setter
-    @type_check
-    def address(self, value: Optional[str]):
-        self._address = value
+    def total_memory(self) -> int:
+        """
+        The total memory capacity of the device in bytes.
+        """
+        return self._total_memory
 
     @property
-    def alloc_time(self) -> Optional[Union[int, float]]:
-        return self._alloc_time
+    def available_memory(self) -> int:
+        """
+        The currently available memory on the device in bytes.
+        """
+        return self._available_memory
 
-    @alloc_time.setter
-    @type_check
-    def alloc_time(self, value: Optional[Union[int, float]]):
-        if value is None:
-            self._alloc_time = time.time_ns()
+    @property
+    def allocated_memory(self) -> int:
+        """
+        The currently allocated memory on the device in bytes.
+        """
+        return self._allocated_memory
+
+    def malloc(self, size: int, **kwargs) -> Optional[DeviceMemoryBlock]:
+        """
+        Allocates a block of memory of the specified size on the device.
+
+        Args:
+            size (int): The size of the memory block to allocate in bytes.
+
+        Returns:
+            Optional[str]: The starting address or a handle to the allocated memory block on the device,
+                           or None if allocation fails.
+        """
+        memory_block = self._algorithm.malloc(size)
+        if memory_block is None:
+            logger.error(f"Memory allocation failed: {size} bytes")
         else:
-            self._alloc_time = value
+            self._allocated_memory += memory_block.allocated_size
+            self._available_memory -= memory_block.allocated_size
+        return memory_block
 
-    @property
-    def free_time(self) -> Optional[Union[int, float]]:
-        return self._free_time
+    def free(self, ptr: str, **kwargs) -> Optional[DeviceMemoryBlock]:
+        """
+        Deallocates the memory block at the specified address on the device.
 
-    @free_time.setter
-    @type_check
-    def free_time(self, value: Optional[Union[int, float]]):
-        if value is None:
-            self._free_time = time.time_ns()
+        Args:
+            ptr (str): The starting address or handle of the memory block to deallocate.
+        """
+        memory_block = self._algorithm.free(ptr)
+        if memory_block is None:
+            logger.error(f"Memory deallocation failed: {ptr}")
         else:
-            self._free_time = value
-
-    @property
-    def comment(self) -> str:
-        return self._comment
-
-    @comment.setter
-    @type_check
-    def comment(self, value: str):
-        self._comment = value
-
-    @property
-    def device(self) -> DeviceInterface:
-        return self._device
-
-    @device.setter
-    @type_check
-    def device(self, device: DeviceInterface):
-        self._device = device
-
-    def __repr__(self):
-        return f"{self.device.name}|{self.address}|{self.comment}|{self.bytes}|{self.alloc_time}|{self.free_time}"
-
-    def __str__(self):
-        return f"{format_memory(self.bytes)} in Address {self.address} ({self.comment})"
+            self._allocated_memory -= memory_block.allocated_size
+            self._available_memory += memory_block.allocated_size
+        return memory_block

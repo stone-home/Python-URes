@@ -42,14 +42,7 @@ class Memory(BaseModel):
         return f"Memory({self.address})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"
 
 
-class AbsMemoryBlock(ABC):
-    def __init__(self):
-        warn(
-            f"This class({self.__class__.__name__}) will be removed in future versions. Using Memory class instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
+class MemoryBlockInterface(ABC):
     @property
     @abstractmethod
     def bytes(self) -> int:
@@ -71,14 +64,11 @@ class AbsMemoryBlock(ABC):
         pass
 
     @property
+    @abstractmethod
     def duration(self) -> Optional[Union[int, float]]:
-        return (
-            (self.free_time - self.alloc_time) if self.free_time is not None else None
-        )
+        pass
 
     @property
-    def is_freed(self) -> bool:
-        return self.free_time is not None
-
-    def __repr__(self):
-        return f"Memory({self.address})|{self.bytes} bytes|{self.alloc_time}->{self.free_time}|dur: {self.duration}"
+    @abstractmethod
+    def is_permanent(self) -> bool:
+        pass
