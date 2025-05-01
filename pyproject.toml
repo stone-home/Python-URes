@@ -49,6 +49,7 @@ tqdm = "^4.60.0"
 matplotlib = "^3.0.1"
 plotly = "^6.0.0"
 sortedcontainers = "^2.0.0"
+pandas = "^2.0.0"
 
 
 [tool.poetry.group.test.dependencies]
