@@ -236,6 +236,7 @@ def test_zettelkasten_to_markdown(valid_zettelkasten):
 
 def test_zettelkasten_save_and_load(valid_zettelkasten, tmp_path):
     zk = valid_zettelkasten
+    zk.metadata["extra-metadata"] = "extra-value"
     file_path = tmp_path / "zettelkasten.md"
 
     # Save the document
@@ -252,6 +253,7 @@ def test_zettelkasten_save_and_load(valid_zettelkasten, tmp_path):
     assert loaded_zk.aliases == zk.aliases
     assert loaded_zk.metadata["id"] == zk.metadata["id"]
     assert loaded_zk.metadata["create"] == zk.metadata["create"]
+    assert loaded_zk.metadata["extra-metadata"] == "extra-value"
     assert loaded_zk.content == zk.content
 
 
