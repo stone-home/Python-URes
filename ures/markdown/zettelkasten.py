@@ -24,6 +24,7 @@ class Zettelkasten(MarkdownDocument):
         url: Optional[str] = None,
         tags: Optional[list] = None,
         aliases: Optional[list] = None,
+        **kwargs,
     ):
         """
         Initialize a Zettelkasten object
@@ -48,15 +49,17 @@ class Zettelkasten(MarkdownDocument):
             raise ValueError("Aliases must be a list.")
 
         _metadata = {
+            "title": title,
+            "type": n_type,
+            "url": url or "",
+            "tags": tags or [],
+            "aliases": aliases or [],
             "id": zettelkasten_id(),
             "create": time_now(),
         }
+        if len(kwargs) > 0:
+            _metadata.update(kwargs)
         super().__init__(metadata=_metadata)
-        self.title = title
-        self.type = n_type
-        self.url = url or ""
-        self.tags = tags or []
-        self.aliases = aliases or []
 
     @classmethod
     def from_file(cls, file_path: str) -> "MarkdownDocument":
@@ -78,15 +81,22 @@ class Zettelkasten(MarkdownDocument):
 
         with open(file_path, "r", encoding="utf-8") as f:
             post = frontmatter.load(f)
+
+        _params = dict(post.metadata)
+        n_type = _params.get("type", None)
+        del _params["type"]
+        _params["n_type"] = n_type
+
+        keywords = ["title", "n_type", "url", "tags", "aliases"]
+        for keyword in keywords:
+            if keyword not in _params.keys():
+                _params[keyword] = None
+
         zk = cls(
-            title=post.metadata.get("title", None),
-            n_type=post.metadata.get("type", None),
-            url=post.metadata.get("url", None),
-            tags=post.metadata.get("tags", None),
-            aliases=post.metadata.get("aliases", None),
+            **_params,
         )
-        zk.metadata["id"] = post.metadata.get("id", zk.metadata["id"])
-        zk.metadata["create"] = post.metadata.get("create", zk.metadata["create"])
+        # zk.metadata["id"] = post.metadata.get("id", zk.metadata["id"])
+        # zk.metadata["create"] = post.metadata.get("create", zk.metadata["create"])
         zk.add_content(post.content)
         return zk
 
