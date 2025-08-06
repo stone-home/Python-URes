@@ -41,11 +41,20 @@ exclude = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.11,<4.0"
 python-frontmatter = "^1.1.0"
 docker = "^7.1.0"
 pydantic = "^2.10.6"
 tqdm = "^4.67.1"
+seaborn = "^0.13.2"
+polars = "^1.32.0"
+scipy = "^1.16.1"
+datashader = "^0.18.2"
+holoviews = "^1.21.0"
+panel = "^1.7.5"
+pyarrow = "^21.0.0"
+statsmodels = "^0.14.5"
+scikit-learn = "^1.7.1"
 
 
 [tool.poetry.group.test.dependencies]
