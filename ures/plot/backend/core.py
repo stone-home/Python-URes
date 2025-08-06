@@ -1,8 +1,9 @@
+import polars as pl
+import numpy as np
+import warnings
 from typing import Dict, List, Tuple, Optional, Union, Any
 from dataclasses import dataclass, field
 from enum import Enum
-import polars as pl
-import warnings
 from abc import ABC, abstractmethod
 from .deps import HAS_STATSMODELS
 
@@ -277,6 +278,24 @@ class PlotBackend(ABC):
         pass
 
     # Extended plots (with default fallback implementations)
+    def create_cdf_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, **kwargs
+    ):
+        validate_dataframe(df, required_cols=[x_col])
+        # a. Sort the data to get the x-values
+        sorted_x_values = df[x_col].sort()
+        # b. Calculate the corresponding cumulative probabilities for the y-values
+        cdf_probabilities = np.arange(1, len(sorted_x_values) + 1) / len(
+            sorted_x_values
+        )
+        _df = pl.DataFrame(
+            {
+                x_col: sorted_x_values,
+                "cdf": cdf_probabilities,
+            }
+        )
+        return self.create_line_plot(_df, config, x_col, "cdf", **kwargs)
+
     def create_box_plot(
         self,
         df: pl.DataFrame,
@@ -295,7 +314,7 @@ class PlotBackend(ABC):
         if x_col and y_col:
             return self.create_scatter_plot(df, config, x_col, y_col, **kwargs)
         elif y_col:
-            df_with_index = df.with_row_count("index")
+            df_with_index = df.with_row_index("index")
             return self.create_scatter_plot(
                 df_with_index, config, "index", y_col, **kwargs
             )
@@ -389,21 +408,25 @@ class PlotBackend(ABC):
         validate_dataframe(df, required_cols=[x_col, y_col])
         return self.create_scatter_plot(df, config, x_col, y_col, **kwargs)
 
-    def create_residual_plot(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_residual_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create residual plot - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement residual_plot. Using scatter fallback."
         )
         validate_dataframe(df)
-        return self.create_scatter_plot(df, config, **kwargs)
+        return self.create_scatter_plot(df, config, x_col, y_col, **kwargs)
 
-    def create_qq_plot(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_qq_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create Q-Q plot - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement qq_plot. Using scatter fallback."
         )
         validate_dataframe(df)
-        return self.create_scatter_plot(df, config, **kwargs)
+        return self.create_scatter_plot(df, config, x_col, y_col, **kwargs)
 
     def create_density_plot(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
         """Create density plot - fallback implementation"""
@@ -413,21 +436,25 @@ class PlotBackend(ABC):
         validate_dataframe(df)
         return self.create_histogram(df, config, **kwargs)
 
-    def create_cdf_plot(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_cdf_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create CDF plot - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement cdf_plot. Using line fallback."
         )
         validate_dataframe(df)
-        return self.create_line_plot(df, config, **kwargs)
+        return self.create_line_plot(df, config, x_col, y_col, **kwargs)
 
-    def create_subplots_grid(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_subplots_grid(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create subplots grid - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement subplots_grid. Using single plot fallback."
         )
         validate_dataframe(df)
-        return self.create_line_plot(df, config, **kwargs)
+        return self.create_line_plot(df, config, x_col, y_col, **kwargs)
 
     def create_pair_plot(
         self, df: pl.DataFrame, config: PlotConfig, columns: List[str], **kwargs
@@ -437,33 +464,40 @@ class PlotBackend(ABC):
             f"{self.__class__.__name__} does not implement pair_plot. Using scatter fallback."
         )
         validate_dataframe(df, required_cols=columns)
-        return self.create_scatter_plot(df, config, **kwargs)
+        kwargs.update({"columns": columns})
+        return self.create_scatter_plot(
+            df, config, x_col=columns[0], y_col=columns[0], **kwargs
+        )
 
-    def create_facet_grid(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_facet_grid(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create facet grid - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement facet_grid. Using single plot fallback."
         )
         validate_dataframe(df)
-        return self.create_line_plot(df, config, **kwargs)
+        return self.create_line_plot(df, config, x_col, y_col, **kwargs)
 
     def create_time_series_decomposition(
-        self, df: pl.DataFrame, config: PlotConfig, **kwargs
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
     ):
         """Create time series decomposition - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement time_series_decomposition. Using line fallback."
         )
         validate_dataframe(df)
-        return self.create_line_plot(df, config, **kwargs)
+        return self.create_line_plot(df, config, x_col, y_col, **kwargs)
 
-    def create_acf_pacf_plot(self, df: pl.DataFrame, config: PlotConfig, **kwargs):
+    def create_acf_pacf_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, y_col: str, **kwargs
+    ):
         """Create ACF/PACF plot - fallback implementation"""
         warnings.warn(
             f"{self.__class__.__name__} does not implement acf_pacf_plot. Using line fallback."
         )
         validate_dataframe(df)
-        return self.create_line_plot(df, config, **kwargs)
+        return self.create_line_plot(df, config, x_col, y_col, **kwargs)
 
 
 # ============================================================================

@@ -241,6 +241,34 @@ class ResearchBackend(PlotBackend):
         return self.fig
 
     # ====== EXTENDED IMPLEMENTATIONS ======
+    def create_cdf_plot(
+        self, df: pl.DataFrame, config: PlotConfig, x_col: str, **kwargs
+    ):
+        validate_dataframe(df, required_cols=[x_col])
+        if HAS_SEABORN:
+            self.ax = sns.ecdfplot(
+                data=df.to_pandas(),
+                x=x_col,
+                hue=x_col,
+                palette=config.color_config.get_colors(),
+            )
+        else:
+            sorted_x_values = df[x_col].sort()
+            # b. Calculate the corresponding cumulative probabilities for the y-values
+            cdf_probabilities = np.arange(1, len(sorted_x_values) + 1) / len(
+                sorted_x_values
+            )
+            _df = pl.DataFrame(
+                {
+                    x_col: sorted_x_values,
+                    "cdf": cdf_probabilities,
+                }
+            )
+            return self.create_line_plot(_df, config, x_col, "cdf", **kwargs)
+
+        self.apply_annotations(self.fig, config)
+        self.apply_styling(self.fig, config)
+        return self.fig
 
     def create_box_plot(
         self,
@@ -261,7 +289,6 @@ class ResearchBackend(PlotBackend):
                 y=y_col,
                 hue=x_col,  # Assign x_col to hue
                 palette=config.color_config.get_colors(),
-                legend=False,  # Add this to remove the legend
                 ax=self.ax,
             )
         else:
