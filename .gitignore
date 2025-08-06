@@ -173,3 +173,6 @@ cython_debug/
 
 # MkDocs documentation
 site/
+
+# Playgrounds
+playground/
