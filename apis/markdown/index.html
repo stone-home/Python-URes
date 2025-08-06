@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -108,11 +108,13 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -144,6 +146,7 @@
     </div>
   </div>
 </div>
+      
     
     
   </nav>
@@ -192,6 +195,7 @@
       <a href="../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
     
@@ -212,6 +216,7 @@
     <li class="md-nav__item">
       <a href="../../api/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     API
@@ -490,6 +495,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -516,6 +522,7 @@
         <p>A low-level class for manipulating Markdown files with front matter.</p>
 <p>This class provides methods to add and modify Markdown content and front matter,
 supporting nested structures in front matter (e.g., dictionaries within YAML front matter).</p>
+
 
 
 
@@ -1505,7 +1512,7 @@ supporting nested structures in front matter (e.g., dictionaries within YAML fro
       <tbody>
           <tr class="doc-section-item">
 <td><code>str</code></td>            <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1528,7 +1535,8 @@ doc.content
 </blockquote>
 </blockquote>
 </blockquote>
-</details>    </div>
+</details>
+    </div>
 
 </div>
 
@@ -1563,7 +1571,7 @@ doc.content
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]</code>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1586,7 +1594,8 @@ doc.metadata
 </blockquote>
 </blockquote>
 </blockquote>
-</details>    </div>
+</details>
+    </div>
 
 </div>
 
@@ -1622,7 +1631,7 @@ doc.metadata
                 <code>content</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1638,7 +1647,7 @@ doc.metadata
                 <code>metadata</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1666,6 +1675,7 @@ doc.metadata
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
@@ -1737,7 +1747,7 @@ doc.metadata
                 <code>content</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1753,7 +1763,7 @@ doc.metadata
                 <code>append</code>
             </td>
             <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1781,6 +1791,7 @@ doc.add_content("Some introductory text.", append=True)</p>
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
@@ -1863,6 +1874,7 @@ print(doc.content)
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">438</span>
@@ -1922,6 +1934,7 @@ print(doc.metadata)
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">450</span>
@@ -1991,7 +2004,7 @@ print(doc.metadata)
                 <code>file_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2017,7 +2030,7 @@ print(doc.metadata)
       <tbody>
           <tr class="doc-section-item">
 <td><code>MarkdownDocument</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="ures.markdown.manipulator.MarkdownDocument" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code>
+                  <code><a class="autorefs autorefs-internal" title="MarkdownDocument (ures.markdown.manipulator.MarkdownDocument)" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2040,7 +2053,7 @@ print(doc.metadata)
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code>FileNotFoundError</code>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2060,6 +2073,7 @@ print(doc.metadata)
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
@@ -2143,7 +2157,7 @@ including list indices.</p>
                 <code>key_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2206,6 +2220,7 @@ doc.get_frontmatter("sections.1.content")
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">261</span>
@@ -2345,7 +2360,7 @@ doc.get_frontmatter("sections.1.content")
                 <code>file_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2371,7 +2386,7 @@ doc.get_frontmatter("sections.1.content")
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code>FileNotFoundError</code>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2404,6 +2419,7 @@ doc.load_from_file("existing.md")</p>
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">413</span>
@@ -2490,7 +2506,7 @@ including list indices.</p>
                 <code>key_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2530,6 +2546,7 @@ True</p>
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">313</span>
@@ -2671,7 +2688,7 @@ True</p>
                 <code>file_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2700,6 +2717,7 @@ doc.save_to_file("greeting.md")</p>
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">394</span>
@@ -2774,7 +2792,7 @@ including mixed types such as dictionaries within lists.</p>
                 <code>key_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2807,7 +2825,7 @@ including mixed types such as dictionaries within lists.</p>
                 <code>overwrite</code>
             </td>
             <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2839,6 +2857,7 @@ doc.set_frontmatter("sections.1.content", "Wrapping up.")</p>
 </blockquote>
 </blockquote>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">150</span>
@@ -3091,7 +3110,7 @@ doc.set_frontmatter("sections.1.content", "Wrapping up.")</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>str</code></td>            <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3129,6 +3148,7 @@ tags:
 <hr />
 <h4 id="ures.markdown.manipulator.MarkdownDocument.to_markdown--hello-world">Hello World</h4>
 </details>
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">366</span>
@@ -3203,6 +3223,7 @@ tags:
 
         <p>Validate the frontmatter metadata against the mandatory fields.</p>
 
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/manipulator.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">465</span>
@@ -3265,6 +3286,7 @@ tags:
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -3287,13 +3309,14 @@ tags:
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="ures.markdown.manipulator.MarkdownDocument" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="MarkdownDocument (ures.markdown.manipulator.MarkdownDocument)" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code></p>
 
 
         <p>Class for handling Zettelkasten markdown files. In my case, a list of mandatory fields is defined in a class
 variable.</p>
 <p>In Zettelkasten note-taking system, only three types of notes are supported: 'fleeting', 'literature', 'permanent',
 but I added 'atom' type for my own use.</p>
+
 
 
 
@@ -3651,6 +3674,7 @@ Args:
     tags (list): The tags of the note.
     aliases</p>
 
+
             <details class="quote">
               <summary>Source code in <code>ures/markdown/zettelkasten.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
@@ -3778,7 +3802,7 @@ Args:
                 <code>file_path</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3804,7 +3828,7 @@ Args:
       <tbody>
           <tr class="doc-section-item">
 <td><code>MarkdownDocument</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="ures.markdown.manipulator.MarkdownDocument" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code>
+                  <code><a class="autorefs autorefs-internal" title="MarkdownDocument (ures.markdown.manipulator.MarkdownDocument)" href="#ures.markdown.manipulator.MarkdownDocument">MarkdownDocument</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3827,7 +3851,7 @@ Args:
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code>FileNotFoundError</code>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3847,6 +3871,7 @@ Args:
           </tr>
       </tbody>
     </table>
+
 
             <details class="quote">
               <summary>Source code in <code>ures/markdown/zettelkasten.py</code></summary>
@@ -3993,10 +4018,12 @@ Args:
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
       
     
   </body>
