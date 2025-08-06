@@ -55,6 +55,8 @@ panel = "^1.7.5"
 pyarrow = "^21.0.0"
 statsmodels = "^0.14.5"
 scikit-learn = "^1.7.1"
+kaleido = "^1.0.0"
+plotly = "^6.2.0"
 
 
 [tool.poetry.group.test.dependencies]
@@ -64,6 +66,10 @@ mkdocs = "^1.6.1"
 mkdocstrings-python = "^1.16.1"
 mkdocs-material = "^9.6.5"
 pre-commit = "^4.2.0"
+pytest-time = "^0.4.1"
+pytest-xdist = "^3.8.0"
+coverage = "^7.10.2"
+rich = "^14.1.0"
 
 
 
