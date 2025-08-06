@@ -4,8 +4,7 @@ import warnings
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union
 from .backend import (
-    InteractiveBackend,
-    ResearchBackend,
+    ResearchPlotter,
     Annotation,
     AnnotationCollection,
     PlotBackend,
