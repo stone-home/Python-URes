@@ -1,0 +1,172 @@
+@startuml Memory Management System
+
+!define DATACLASS_COLOR #E1F5FE
+!define CLASS_COLOR #F3E5F5
+!define ABSTRACT_COLOR #EEEEEE
+
+' TraceInfo - Data class for capturing execution traces
+class TraceInfo <<dataclass>> DATACLASS_COLOR {
+    +timestamp_ns: int
+    +operation: str
+    +filename: Optional[str]
+    +line_number: Optional[int]
+    +function_name: Optional[str]
+    +code_context: Optional[str]
+    +stack_trace: Optional[List[str]]
+    +additional_info: Optional[Dict[str, Any]]
+    --
+    +{static} capture_current_trace(operation: str, stack_depth: int = 2, capture_full_stack: bool = False, additional_info: Optional[Dict[str, Any]] = None): TraceInfo
+    +to_dict(): Dict[str, Any]
+}
+
+' MemoryInfo - Data class representing memory block information
+class MemoryInfo <<dataclass>> DATACLASS_COLOR {
+    +addr: int
+    +size: int
+    +action: str = "free"
+    +allocated: bool = False
+    +alloc_time_ns: Optional[int]
+    +free_requested_time_ns: Optional[int]
+    +free_completed_time_ns: Optional[int]
+    +traces: List[TraceInfo]
+    --
+    +is_allocated(): bool
+    +is_free_requested(): bool
+    +is_free_completed(): bool
+    +get_end_addr(): int
+    +add_trace(trace: TraceInfo): void
+}
+
+' Segment - Data class representing original memory segments
+class Segment <<dataclass>> DATACLASS_COLOR {
+    +segment_id: int
+    +start_addr: int
+    +original_size: int
+    +device: Optional[int]
+    +stream: Optional[int]
+    +creation_time_ns: Optional[int]
+    +first_block: Optional[MemoryBlock]
+    +traces: List[TraceInfo]
+    --
+    +end_addr: int <<property>>
+    +add_trace(trace: TraceInfo): void
+    +get_blocks(): List[MemoryBlock]
+    +get_block_count(): int
+    +get_allocated_bytes(): int
+    +get_free_bytes(): int
+    +get_utilization_ratio(): float
+    +get_fragmentation_ratio(): float
+    +is_fully_free(): bool
+    +is_fully_allocated(): bool
+    +contains_address(addr: int, size: int = 1): bool
+    +to_dict(): Dict[str, Any]
+}
+
+' NonCircularBiLink - Base class from external library
+class NonCircularBiLink ABSTRACT_COLOR {
+    #_value: Any
+    #prev: Optional[NonCircularBiLink]
+    #next: Optional[NonCircularBiLink]
+    --
+    +insert_before(node: NonCircularBiLink): void
+    +remove(): void
+    +get_head(): NonCircularBiLink
+}
+
+' MemoryBlock - Main memory block class extending linked list
+class MemoryBlock CLASS_COLOR {
+    +device: Optional[int]
+    +stream: Optional[int]
+    +pool: Optional[BlockPool]
+    +segment_id: Optional[int]
+    --
+    +value: MemoryInfo <<property>>
+    +end_addr: int <<property>>
+    +is_head: bool <<property>>
+    +is_split: bool <<property>>
+    +addr: int <<property>>
+    +addr_hex: str <<property>>
+    +is_segment_start: bool <<property>>
+    --
+    +__init__(addr: int, size: int, device: Optional[int] = None, stream: Optional[int] = None, pool: Optional[BlockPool] = None, segment_id: Optional[int] = None, capture_trace: bool = True)
+    +request_alloc(time_ns: Optional[int] = None, capture_trace: bool = True): void
+    +request_free(time_ns: Optional[int] = None, capture_trace: bool = True): void
+    +complete_free(time_ns: Optional[int] = None, capture_trace: bool = True): void
+    +free_block(time_ns: Optional[int] = None, capture_trace: bool = True): void
+    +force_reset_memory_info(): void
+    +insert_block(block: MemoryBlock): MemoryBlock
+    +splice(memory_size: int, capture_trace: bool = True): Optional[MemoryBlock]
+    +coalesce(capture_trace: bool = True): MemoryBlock
+    +contains_address(addr: int, size: int = 1): bool
+    +to_dict(): Dict[str, Any]
+    +__hash__(): int
+    +__eq__(other: MemoryBlock): bool
+    +__lt__(other: MemoryBlock): bool
+    +__le__(other: MemoryBlock): bool
+    +__gt__(other: MemoryBlock): bool
+    +__ge__(other: MemoryBlock): bool
+}
+
+' BlockPool - Main memory pool management class
+class BlockPool CLASS_COLOR {
+    +blocks: SortedSet[MemoryBlock]
+    +segments: Dict[int, Segment]
+    +next_segment_id: int
+    --
+    +__init__()
+    -_get_lower_bound_index(search_key: MemoryBlock): int
+    +lower_bound(search_key: MemoryBlock, releaseable: bool = False): Optional[MemoryBlock]
+    +is_end_block(search_key: MemoryBlock): bool
+    +is_begin_block(search_key: MemoryBlock): bool
+    +insert_into_blocks(block: MemoryBlock): void
+    +check_segment_overlap(start_addr: int, size: int, device: Optional[int] = None, stream: Optional[int] = None): Dict[str, Any]
+    -_determine_overlap_type(start1: int, end1: int, start2: int, end2: int): str
+    +find_safe_address_range(size: int, device: Optional[int] = None, stream: Optional[int] = None, min_addr: int = 0x1000, max_addr: int = 0xFFFFFFFF, alignment: int = 1): Optional[Dict[str, Any]]
+    +create_segment(start_addr: int, size: int, device: Optional[int] = None, stream: Optional[int] = None, capture_trace: bool = True): Segment
+    +get_segment(segment_id: int): Optional[Segment]
+    +list_all_segments(): List[Dict[str, Any]]
+    +list_blocks_in_segment(segment_id: int): List[Dict[str, Any]]
+    +get_segment_by_address(addr: int): Optional[Segment]
+    +remove_segment(segment_id: int, force: bool = True): bool
+    +get_traces_by_operation(operation: str): List[Dict[str, Any]]
+    +get_all_traces(): List[Dict[str, Any]]
+    +analyze_memory_patterns(): Dict[str, Any]
+    +get_memory_summary(): Dict[str, Any]
+    +print_memory_status(): void
+}
+
+' External library class
+class SortedSet <<external>> {
+    +add(item): void
+    +remove(item): void
+    +bisect_key_left(key): int
+}
+
+' Relationships
+NonCircularBiLink <|-- MemoryBlock : extends
+MemoryBlock *-- MemoryInfo : contains
+MemoryInfo *-- TraceInfo : contains (list)
+Segment *-- TraceInfo : contains (list)
+Segment o-- MemoryBlock : first_block reference
+BlockPool *-- Segment : manages (dict)
+BlockPool *-- MemoryBlock : manages via SortedSet
+BlockPool *-- SortedSet : uses
+MemoryBlock o-- BlockPool : pool reference
+
+' Composition relationships for better clarity
+MemoryBlock ||--o{ MemoryBlock : linked list (prev/next)
+
+' Notes
+note right of TraceInfo : Captures execution context\nand timing for debugging\nmemory operations
+
+note right of MemoryInfo : Core data about memory blocks\nincluding state, timing,\nand operation history
+
+note right of Segment : Represents original memory\nallocation before splitting.\nTracks fragmentation metrics.
+
+note right of MemoryBlock : Individual memory blocks that\ncan be allocated, split, and\ncoalesced. Forms linked lists.
+
+note right of BlockPool : Main memory manager.\nHandles segment creation,\noverlap detection, and\npool-wide analytics.
+
+note bottom of NonCircularBiLink : External base class from\nures.data_structure providing\ndoubly-linked list functionality
+
+@enduml

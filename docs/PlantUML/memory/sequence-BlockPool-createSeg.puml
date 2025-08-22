@@ -1,0 +1,351 @@
+@startuml Memory Management Sequence Diagrams
+
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagelength 60
+
+title Memory Management System - Key Operations
+
+' =====================================
+' 1. SEGMENT CREATION AND INITIAL BLOCK
+' =====================================
+
+== Segment Creation ==
+
+actor User
+participant "BlockPool" as BP
+participant "Segment" as S
+participant "MemoryBlock" as MB
+participant "MemoryInfo" as MI
+participant "TraceInfo" as TI
+
+User -> BP: create_segment(start_addr=0x1000, size=1024)
+activate BP
+
+BP -> BP: check_segment_overlap(0x1000, 1024)
+note right: Verifies no address conflicts\nwith existing segments
+
+BP -> BP: segment_id = next_segment_id++
+BP -> S: new Segment(segment_id, 0x1000, 1024)
+activate S
+
+S -> TI: capture_current_trace("create_segment")
+activate TI
+TI --> S: creation_trace
+deactivate TI
+
+S -> S: add_trace(creation_trace)
+
+BP -> MB: new MemoryBlock(0x1000, 1024, segment_id)
+activate MB
+
+MB -> MI: new MemoryInfo(0x1000, 1024)
+activate MI
+MI --> MB: memory_info
+deactivate MI
+
+MB -> TI: capture_current_trace("create")
+activate TI
+TI --> MB: creation_trace
+deactivate TI
+
+MB -> MI: add_trace(creation_trace)
+MB --> BP: initial_block
+deactivate MB
+
+BP -> S: first_block = initial_block
+BP -> BP: segments[segment_id] = segment
+BP -> BP: insert_into_blocks(initial_block)
+
+BP --> User: segment
+deactivate S
+deactivate BP
+
+newpage
+
+' =====================================
+' 2. BLOCK SPLITTING (SPLICE) OPERATION
+' =====================================
+
+== Block Splitting (Splice) ==
+
+User -> MB: splice(256)
+note right: Split 1024-byte block\ninto 256-byte + 768-byte
+activate MB
+
+MB -> MB: validate not allocated
+MB -> MB: validate size <= current_size
+
+' Create new block for the split portion
+MB -> MB: new_block = MemoryBlock(addr=0x1000, size=256)
+activate MB #lightblue
+
+MB -> MI: new MemoryInfo(0x1000, 256)
+activate MI
+MI --> MB: new_memory_info
+deactivate MI
+
+MB -> TI: capture_current_trace("create")
+activate TI
+TI --> MB: creation_trace
+deactivate TI
+
+MB -> MI: add_trace(creation_trace)
+
+' Update current block
+MB -> MB: self.size -= 256 (now 768)
+MB -> MB: self.addr += 256 (now 0x1100)
+
+' Link the blocks
+MB -> MB: insert_before(new_block)
+note right: Creates linked list:\nnew_block <-> self
+
+' Update segment's first_block reference if needed
+MB -> BP: pool.get_segment(segment_id)
+activate BP
+BP --> MB: segment
+deactivate BP
+
+alt if self was segment.first_block
+    MB -> S: first_block = new_block
+    activate S
+    S --> MB: updated
+    deactivate S
+end
+
+' Capture split trace for both blocks
+MB -> TI: capture_current_trace("split", additional_info)
+activate TI
+TI --> MB: split_trace
+deactivate TI
+
+MB -> MI: add_trace(split_trace) [on both blocks]
+
+MB --> User: new_block (256 bytes at 0x1000)
+deactivate MB #lightblue
+deactivate MB
+
+note over User: User now has:\n- new_block: 256 bytes at 0x1000\n- original_block: 768 bytes at 0x1100
+
+newpage
+
+' =====================================
+' 3. BLOCK ALLOCATION
+' =====================================
+
+== Block Allocation ==
+
+User -> MB: request_alloc()
+activate MB
+
+MB -> MI: action = "alloc"
+MB -> MI: allocated = true
+MB -> MI: alloc_time_ns = current_time
+
+MB -> TI: capture_current_trace("alloc")
+activate TI
+TI --> MB: alloc_trace
+deactivate TI
+
+MB -> MI: add_trace(alloc_trace)
+
+' Remove from pool's free blocks
+MB -> BP: pool.blocks.remove(self)
+activate BP
+BP --> MB: removed
+deactivate BP
+
+MB --> User: allocated block
+deactivate MB
+
+newpage
+
+' =====================================
+' 4. BLOCK COALESCING OPERATION
+' =====================================
+
+== Block Coalescing ==
+
+User -> MB: coalesce()
+note right: Merge adjacent free blocks\nto reduce fragmentation
+activate MB
+
+MB -> MB: validate not allocated
+
+' Find adjacent blocks in same segment
+MB -> MB: check prev block
+alt if prev exists AND prev.not_allocated AND same_segment
+    MB -> MB: blocks_to_merge.add(prev)
+end
+
+MB -> MB: check next block
+alt if next exists AND next.not_allocated AND same_segment
+    MB -> MB: blocks_to_merge.add(next)
+end
+
+alt if only one block (no coalescing possible)
+    MB -> BP: ensure block in pool
+    activate BP
+    BP -> BP: blocks.add(self)
+    BP --> MB: added
+    deactivate BP
+    MB --> User: self (unchanged)
+else multiple blocks to merge
+
+    ' Remove all blocks from pool first
+    loop for each block in blocks_to_merge
+        MB -> BP: pool.blocks.remove(block)
+        activate BP
+        BP --> MB: removed
+        deactivate BP
+    end
+
+    ' Coalesce with next block
+    opt if next block exists
+        MB -> MB: self.size += next.size
+        MB -> MB: next.remove() [from linked list]
+    end
+
+    ' Coalesce with prev block
+    opt if prev block exists
+        MB -> MB: self.size += prev.size
+        MB -> MB: self.addr = prev.addr
+        MB -> MB: prev.remove() [from linked list]
+
+        ' Update segment first_block if needed
+        alt if prev was segment.first_block
+            MB -> S: first_block = self
+            activate S
+            S --> MB: updated
+            deactivate S
+        end
+    end
+
+    ' Capture coalesce trace
+    MB -> TI: capture_current_trace("coalesce", additional_info)
+    activate TI
+    TI --> MB: coalesce_trace
+    deactivate TI
+
+    MB -> MI: add_trace(coalesce_trace)
+
+    ' Reset state and add back to pool
+    MB -> MI: allocated = false, action = "free"
+    MB -> BP: pool.insert_into_blocks(self)
+    activate BP
+    BP -> BP: blocks.add(self)
+    BP --> MB: added
+    deactivate BP
+
+    MB --> User: coalesced_block (larger size)
+end
+
+deactivate MB
+
+newpage
+
+' =====================================
+' 5. BLOCK FREE AND COALESCE CYCLE
+' =====================================
+
+== Free and Automatic Coalesce ==
+
+User -> MB: free_block()
+activate MB
+
+MB -> MI: action = "free_completed"
+MB -> MI: allocated = false
+MB -> MI: free_completed_time_ns = current_time
+
+MB -> TI: capture_current_trace("free_immediate")
+activate TI
+TI --> MB: free_trace
+deactivate TI
+
+MB -> MI: add_trace(free_trace)
+
+' Typically followed by coalescing
+User -> MB: coalesce()
+note right: Automatically merge with\nadjacent free blocks
+
+activate MB
+ref over MB, BP, S, MI, TI: See "Block Coalescing" sequence above
+MB --> User: coalesced_block
+deactivate MB
+
+deactivate MB
+
+newpage
+
+' =====================================
+' 6. SEGMENT ANALYSIS AND CLEANUP
+' =====================================
+
+== Segment Analysis ==
+
+User -> BP: get_memory_summary()
+activate BP
+
+loop for each segment in segments
+    BP -> S: get_allocated_bytes()
+    activate S
+
+    loop for each block in segment
+        S -> MB: is_allocated()
+        activate MB
+        MB -> MI: check allocated state
+        activate MI
+        MI --> MB: is_allocated
+        deactivate MI
+        MB --> S: allocation status
+        deactivate MB
+    end
+
+    S --> BP: allocated_bytes
+    deactivate S
+
+    BP -> S: get_fragmentation_ratio()
+    activate S
+    S -> S: calculate 1.0 - (1.0 / block_count)
+    S --> BP: fragmentation_ratio
+    deactivate S
+end
+
+BP -> BP: calculate overall statistics
+BP --> User: memory_summary
+deactivate BP
+
+== Segment Removal ==
+
+User -> BP: remove_segment(segment_id, force=True)
+activate BP
+
+BP -> BP: segment = get_segment(segment_id)
+BP -> S: get_blocks()
+activate S
+
+loop for each block in segment
+    S -> MB: get block
+    activate MB
+    MB --> S: block
+    deactivate MB
+end
+
+S --> BP: blocks_to_remove
+deactivate S
+
+loop for each block in blocks_to_remove
+    BP -> BP: blocks.remove(block)
+    BP -> MB: remove() [from linked list]
+    activate MB
+    MB -> MB: unlink from neighbors
+    MB --> BP: removed
+    deactivate MB
+end
+
+BP -> BP: del segments[segment_id]
+BP --> User: success
+deactivate BP
+
+@enduml

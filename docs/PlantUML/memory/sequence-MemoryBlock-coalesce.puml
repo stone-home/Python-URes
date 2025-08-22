@@ -1,0 +1,163 @@
+@startuml Block Coalesce Operation
+
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagelength 80
+
+title Block Coalesce Operation - Merging Adjacent Free Blocks
+
+participant "User" as U
+participant "MemoryBlock\n(Current)" as MB_C
+participant "MemoryInfo\n(Current)" as MI_C
+participant "MemoryBlock\n(Previous)" as MB_P
+participant "MemoryBlock\n(Next)" as MB_N
+participant "TraceInfo" as TI
+participant "BlockPool" as BP
+participant "Segment" as S
+
+note over MB_P, MB_N: Initial State:\nPrev: 256 bytes at 0x1000 (free)\nCurrent: 768 bytes at 0x1100 (free)\nNext: 512 bytes at 0x1400 (free)\nAll in same segment
+
+U -> MB_C: coalesce()
+note right: Merge with adjacent\nfree blocks in same segment
+
+activate MB_C
+
+' Validation phase
+MB_C -> MI_C: is_allocated()
+activate MI_C
+MI_C --> MB_C: False (block is free)
+deactivate MI_C
+
+' Store original state for tracing
+MB_C -> MB_C: original_addr = self.addr (0x1100)
+MB_C -> MB_C: original_size = self.size (768)
+MB_C -> MB_C: coalesced_blocks = []
+
+' Check previous block for coalescing
+MB_C -> MB_C: check if prev exists
+alt prev exists AND prev.not_allocated AND same_segment
+    MB_C -> MB_P: value.is_allocated()
+    activate MB_P
+    MB_P --> MB_C: False (prev is free)
+    deactivate MB_P
+
+    MB_C -> MB_P: segment_id
+    MB_P --> MB_C: same_segment_id
+
+    MB_C -> MB_C: blocks_to_merge.add(prev)
+    note right: Previous block can be merged
+end
+
+' Check next block for coalescing
+MB_C -> MB_C: check if next exists
+alt next exists AND next.not_allocated AND same_segment
+    MB_C -> MB_N: value.is_allocated()
+    activate MB_N
+    MB_N --> MB_C: False (next is free)
+    deactivate MB_N
+
+    MB_C -> MB_N: segment_id
+    MB_N --> MB_C: same_segment_id
+
+    MB_C -> MB_C: blocks_to_merge.add(next)
+    note right: Next block can be merged
+end
+
+alt no blocks to merge (only current block)
+    ' Just ensure block is in pool and return
+    MB_C -> BP: ensure block in pool.blocks
+    activate BP
+    BP -> BP: blocks.add(self) if not present
+    BP --> MB_C: ensured
+    deactivate BP
+
+    MB_C --> U: self (no coalescing done)
+
+else blocks can be merged
+
+    ' Remove all blocks from pool first
+    loop for each block in blocks_to_merge
+        MB_C -> BP: pool.blocks.remove(block)
+        activate BP
+        BP --> MB_C: removed
+        deactivate BP
+    end
+
+    ' Coalesce with next block first
+    opt next block exists in merge list
+        MB_C -> MB_C: coalesced_blocks.add(('next', next.addr, next.size))
+        MB_C -> MI_C: size += next.size (768 + 512 = 1280)
+        activate MI_C
+        deactivate MI_C
+
+        MB_C -> MB_N: remove() [from linked list]
+        activate MB_N
+        note right: Unlinks next block from\nthe doubly-linked list
+        MB_N --> MB_C: removed
+        deactivate MB_N
+    end
+
+    ' Coalesce with previous block
+    opt prev block exists in merge list
+        MB_C -> MB_C: coalesced_blocks.add(('prev', prev.addr, prev.size))
+        MB_C -> MI_C: size += prev.size (1280 + 256 = 1536)
+        activate MI_C
+        MB_C -> MI_C: addr = prev.addr (0x1000)
+        deactivate MI_C
+
+        MB_C -> MB_P: remove() [from linked list]
+        activate MB_P
+        note right: Unlinks prev block from\nthe doubly-linked list
+        MB_P --> MB_C: removed
+        deactivate MB_P
+
+        ' Update segment's first_block if prev was the first
+        alt if prev was segment.first_block
+            MB_C -> BP: pool.get_segment(segment_id)
+            activate BP
+            BP --> MB_C: segment
+            deactivate BP
+
+            MB_C -> S: first_block = self
+            activate S
+            note right: Update segment to point\nto coalesced block
+            S --> MB_C: updated
+            deactivate S
+        end
+    end
+
+    ' Capture coalesce trace
+    opt coalesced_blocks not empty
+        MB_C -> TI: capture_current_trace("coalesce", additional_info)
+        activate TI
+        note right: additional_info includes:\n- original_addr, original_size\n- final_addr, final_size\n- coalesced_blocks details
+        TI --> MB_C: coalesce_trace
+        deactivate TI
+
+        MB_C -> MI_C: add_trace(coalesce_trace)
+        activate MI_C
+        deactivate MI_C
+    end
+
+    ' Ensure proper state
+    MB_C -> MI_C: allocated = False
+    activate MI_C
+    MB_C -> MI_C: action = "free"
+    deactivate MI_C
+
+    ' Add coalesced block back to pool
+    MB_C -> BP: insert_into_blocks(self)
+    activate BP
+    BP -> BP: blocks.add(self)
+    BP --> MB_C: added
+    deactivate BP
+
+    MB_C --> U: self (coalesced block: 1536 bytes at 0x1000)
+end
+
+deactivate MB_C
+
+note over U: Result:\nCoalesced block: 1536 bytes at 0x1000\n(merged prev + current + next)\nReduced fragmentation in segment
+
+@enduml
