@@ -244,3 +244,109 @@ class BiDirection:
             'BiDirection(World)'
         """
         return f"BiDirection({self.value})"
+
+
+class NonCircularBiLink(BiDirection):
+    __slots__ = ("_prev", "_next", "_value")
+
+    def __init__(self, value: Any):
+        """Create a non-circular doubly linked list node.
+
+        Args:
+                value (Any): The value of the node.
+        """
+        super().__init__(value)
+        self._prev: Optional[NonCircularBiLink] = None
+        self._next: Optional[NonCircularBiLink] = None
+
+    @property
+    def prev(self) -> Optional[NonCircularBiLink]:
+        return self._prev
+
+    @property
+    def next(self) -> Optional[NonCircularBiLink]:
+        return self._next
+
+    def insert_after(self, node: NonCircularBiLink):
+        """Insert a node after the current node.
+
+        Args:
+                node (NonCircularDoublyLinkedNode): The node to be inserted.
+
+        Returns:
+                None
+        """
+        node._prev = self
+        node._next = self._next
+        if self._next:
+            self._next._prev = node
+        self._next = node
+
+    def insert_before(self, node: NonCircularBiLink):
+        """Insert a node before the current node.
+
+        Args:
+                node (NonCircularDoublyLinkedNode): The node to be inserted.
+
+        Returns:
+                None
+        """
+        node._next = self
+        node._prev = self._prev
+        if self._prev:
+            self._prev._next = node
+        self._prev = node
+
+    def remove(self):
+        """Remove the current node from the list.
+
+        Returns:
+                None
+        """
+        if self._prev:
+            self._prev._next = self._next
+        if self._next:
+            self._next._prev = self._prev
+        self._prev = None
+        self._next = None
+
+    def get_head(self) -> NonCircularBiLink:
+        """Get the head of the list starting from the current node.
+
+        Returns:
+                NonCircularBiLink: The head node of the list.
+        """
+        node = self
+        while node.prev:
+            node = node.prev
+        return node
+
+    def search(self, value: Any) -> Optional[NonCircularBiLink]:
+        """Search a node by value starting from the current node.
+
+        Args:
+                value (Any): The value to be searched.
+
+        Returns:
+                Optional[NonCircularDoublyLinkedNode]: The node with the value if found, else None.
+        """
+        node = self.get_head()
+        # traverse the list until the end
+        while node:
+            if node.value == value:
+                return node
+            node = node.next
+        return None
+
+    def total_nodes(self):
+        """Count the total number of nodes in the list starting from the current node.
+
+        Returns:
+                int: The total number of nodes in the list.
+        """
+        count = 0
+        node = self.get_head()
+        while node:
+            count += 1
+            node = node.next
+        return count
