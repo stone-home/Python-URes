@@ -3,6 +3,8 @@ import time
 from unittest.mock import Mock, patch, MagicMock
 from typing import Dict, Any, List, Optional
 
+from panel.io import block_comm
+
 # Import the classes we're testing
 from ures.memory import TraceInfo, MemoryInfo, MemoryBlock, Segment, BlockPool
 
@@ -290,6 +292,102 @@ class TestMemoryBlockAllocation:
         assert len(block.value.traces) == 0
         assert block.addr == 0x1000
         assert block.value.size == 256
+
+
+class TestMemoryBlockInsertBlock:
+    """Test cases for MemoryBlock splicing (splitting) operations."""
+
+    def setup_method(self):
+        """Set up test fixtures."""
+        self.pool = Mock()
+        self.pool.blocks = Mock()
+
+    def test_insert_memory_block_same_start_address(self):
+        """Test normal block splicing."""
+        block = MemoryBlock(addr=0x1000, size=1024, pool=self.pool, capture_trace=False)
+        add_block = MemoryBlock(
+            addr=0x1000, size=256, pool=self.pool, capture_trace=False
+        )
+
+        add_block = block.insert_block(add_block)
+
+        assert add_block.addr == 0x1000
+        assert add_block.value.size == 256
+        assert block.addr == 0x1000 + 256
+        assert block.value.size == 1024 - 256
+
+    def test_insert_memory_block_same_end_address(self):
+        """Test normal block splicing."""
+        block = MemoryBlock(addr=0x1000, size=1024, pool=self.pool, capture_trace=False)
+        original_block_end_addr = block.end_addr
+        add_block = MemoryBlock(
+            addr=0x1000 + 1024 - 256, size=256, pool=self.pool, capture_trace=False
+        )
+
+        add_block = block.insert_block(add_block)
+
+        assert block == add_block
+        assert add_block.addr == 0x1000 + 1024 - 256
+        assert add_block.end_addr == original_block_end_addr
+
+    def test_insert_memory_block_between_start_and_end(self):
+        """Test normal block splicing."""
+        block = MemoryBlock(addr=0x1000, size=1024, pool=self.pool, capture_trace=False)
+        add_block = MemoryBlock(
+            addr=0x1000 + 256, size=256, pool=self.pool, capture_trace=False
+        )
+
+        add_block = block.insert_block(add_block)
+
+        assert add_block.addr == 0x1000 + 256
+        assert add_block.value.size == 256
+        assert block.addr == 0x1000 + 512
+        assert block.value.size == 1024 - 512
+        assert add_block.prev.addr == 0x1000
+        assert add_block.prev.value.size == 256
+        assert add_block.prev.value.is_allocated() is False
+        assert add_block.next.addr == 0x1000 + 512
+        assert add_block.next.value.size == 512
+        assert add_block.next.value.is_allocated() is False
+
+    def test_error_current_block_is_allocated(self):
+        """Test that splicing allocated block raises error."""
+        block = MemoryBlock(addr=0x1000, size=1024, capture_trace=False)
+        block.request_alloc()
+        add_block = MemoryBlock(
+            addr=0x1000 + 256, size=256, pool=self.pool, capture_trace=False
+        )
+
+        with pytest.raises(
+            MemoryError, match="Cannot insert a block into an allocated block"
+        ):
+            block.insert_block(add_block)
+
+    def test_error_insert_block_not_be_contained(self):
+        """Test that splicing larger than block size fails."""
+        block = MemoryBlock(addr=0x1000, size=256, capture_trace=False)
+        add_block = MemoryBlock(
+            addr=0x2000, size=512, pool=self.pool, capture_trace=False
+        )
+
+        with pytest.raises(
+            ValueError,
+            match=f"Cannot insert block {add_block.addr_hex}",
+        ):
+            block.insert_block(add_block)
+
+    def test_error_insert_block_is_split(self):
+        """Test that splicing larger than block size fails."""
+        block = MemoryBlock(addr=0x1000, size=256, capture_trace=False)
+        add_block = MemoryBlock(
+            addr=0x1000 + 128, size=128, pool=self.pool, capture_trace=False
+        )
+        add_block.splice(100)
+
+        with pytest.raises(
+            ValueError, match=f"Cannot insert a split block into another block"
+        ):
+            block.insert_block(add_block)
 
 
 class TestMemoryBlockSplicing:

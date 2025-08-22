@@ -418,7 +418,12 @@ class MemoryBlock(NonCircularBiLink):
             # todo: handle split blocks
             raise ValueError("Cannot insert a split block into another block")
         if block.addr != self.addr:
-            self.splice(block.addr - self.addr)
+            freed_block = self.splice(block.addr - self.addr)
+            if self.pool:
+                self.pool.blocks.add(freed_block)
+
+        if block.end_addr == self.end_addr:
+            return self
         return self.splice(block.value.size)
 
     def splice(
