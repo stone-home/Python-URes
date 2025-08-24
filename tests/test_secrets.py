@@ -220,7 +220,7 @@ class TestKeyStorageEncrypted:
 
     def test_retrieve_encrypted_key_success(self, manager):
         """Test successful retrieval of encrypted key."""
-        original_key = "test-api-key-12345"
+        original_key = "dummy-test-api-key"
         manager.store_key("test-service", original_key, StorageMethod.ENCRYPTED)
 
         retrieved_key = manager.get_key("test-service")
