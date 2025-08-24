@@ -12,9 +12,11 @@ import urllib.parse
 import urllib.error
 import xml.etree.ElementTree as ET
 import re
+import requests
+import logging
+from bs4 import BeautifulSoup
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional, Any
-import logging
 from datetime import datetime
 from ures.literature.paper import Paper, PaperFormatter
 
@@ -177,8 +179,8 @@ class DatabaseAdapter(ABC):
         Initialize database adapter.
 
         Args:
-                rate_limit: Requests per second limit
-                api_key: API key for the database (if required)
+                        rate_limit: Requests per second limit
+                        api_key: API key for the database (if required)
         """
         self.rate_limit = rate_limit
         self.api_key = api_key
@@ -225,12 +227,12 @@ class DatabaseAdapter(ABC):
         Search the database for papers.
 
         Args:
-                query: Search query (supports Boolean operations)
-                max_results: Maximum number of results to return
-                **kwargs: Database-specific parameters
+                        query: Search query (supports Boolean operations)
+                        max_results: Maximum number of results to return
+                        **kwargs: Database-specific parameters
 
         Returns:
-                List[Paper]: List of found papers
+                        List[Paper]: List of found papers
         """
         pass
 
@@ -278,7 +280,7 @@ class ArxivAdapter(DatabaseAdapter):
         return "arxiv"
 
     def search(
-        self, query: str, max_results: int = 100, categories: List[str] = None
+        self, query: str, max_results: int = 100, categories: List[str] = None, **kwargs
     ) -> List[Paper]:
         """Search arXiv with Boolean query support."""
         self._rate_limit_wait()
@@ -405,7 +407,7 @@ class IEEEAdapter(DatabaseAdapter):
         self.last_request = time.time()
 
     def search(
-        self, query: str, max_results: int = 100, year_min: int = None
+        self, query: str, max_results: int = 100, year_min: int = None, **kwargs
     ) -> List[Paper]:
         """Search IEEE Xplore with Boolean query support."""
         if not self.is_available():
@@ -462,7 +464,7 @@ class ElsevierAdapter(DatabaseAdapter):
         """Elsevier requires API key."""
         return bool(self.api_key)
 
-    def search(self, query: str, max_results: int = 100) -> List[Paper]:
+    def search(self, query: str, max_results: int = 100, **kwargs) -> List[Paper]:
         """Search Elsevier ScienceDirect."""
         if not self.is_available():
             self.logger.warning("Elsevier API key not provided")
@@ -512,7 +514,7 @@ class SpringerAdapter(DatabaseAdapter):
         return bool(self.api_key)
 
     def search(
-        self, query: str, max_results: int = 100, year_min: int = None
+        self, query: str, max_results: int = 100, year_min: int = None, **kwargs
     ) -> List[Paper]:
         """Search Springer Nature."""
         if not self.is_available():
@@ -567,7 +569,7 @@ class WileyAdapter(DatabaseAdapter):
         """Wiley requires API key."""
         return bool(self.api_key)
 
-    def search(self, query: str, max_results: int = 100) -> List[Paper]:
+    def search(self, query: str, max_results: int = 100, **kwargs) -> List[Paper]:
         """Search Wiley Online Library."""
         if not self.is_available():
             self.logger.warning("Wiley API key not provided")
@@ -606,28 +608,124 @@ class WileyAdapter(DatabaseAdapter):
 
 
 class ACMAdapter(DatabaseAdapter):
-    """Adapter for ACM Digital Library."""
+    """
+    Database adapter for the ACM Digital Library.
 
-    def __init__(self, rate_limit: float = 100.0):
+    NOTE: This adapter uses web scraping as ACM does not provide a public
+    search API. It is fragile and may break if ACM changes its website layout.
+    """
+
+    BASE_URL = "https://dl.acm.org/"
+
+    def __init__(self, rate_limit: float = 0.5):  # A gentler rate limit for scraping
         super().__init__(rate_limit=rate_limit)
-        self.base_url = "https://dl.acm.org/action/doSearch"
+        self.session = requests.Session()
+        self.session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+        )
 
     def get_database_name(self) -> str:
-        return "acm"
+        """Get the name of this database."""
+        return "ACM Digital Library"
 
     def is_available(self) -> bool:
-        """ACM doesn't have a public API, requires web scraping."""
-        return False  # Disabled for now
+        """Check if the ACM Digital Library is reachable."""
+        try:
+            response = self.session.head(self.BASE_URL, timeout=5)
+            return response.status_code == 200
+        except requests.RequestException as e:
+            self.logger.warning(f"ACM Digital Library is not available: {e}")
+            return False
 
-    def search(self, query: str, max_results: int = 100) -> List[Paper]:
-        """Search ACM Digital Library (limited scraping approach)."""
-        self.logger.warning(
-            "ACM Digital Library requires web scraping - limited functionality"
+    def preprocess_query(self, query: str) -> str:
+        """URL-encode the query for the search endpoint."""
+        return urllib.parse.quote_plus(query.strip())
+
+    def search(self, query: str, max_results: int = 20, **kwargs) -> List[Paper]:
+        """
+        Search the ACM Digital Library by scraping its search results page.
+
+        Args:
+                query: The search term.
+                max_results: Maximum number of results to return (default is 20 per page).
+                **kwargs: Not used in this implementation.
+
+        Returns:
+                A list of Paper objects.
+        """
+        if not self.validate_query(query):
+            self.logger.warning("Search query is empty or invalid.")
+            return []
+
+        processed_query = self.preprocess_query(query)
+        # ACM uses 'AllField' for a general search
+        search_url = urllib.parse.urljoin(
+            self.BASE_URL, f"action/doSearch?AllField={processed_query}"
         )
-        # ACM doesn't have a public API, would require careful web scraping
-        # For now, return empty list to avoid blocking issues
-        self._log_request(success=False)
-        return []
+
+        self._rate_limit_wait()
+        papers = []
+        try:
+            self.logger.info(f"Searching ACM for: '{query}'")
+            response = self.session.get(search_url, timeout=15)
+            response.raise_for_status()  # Raise an exception for bad status codes
+
+            soup = BeautifulSoup(response.text, "html.parser")
+
+            # Find all list items that contain search results
+            results = soup.select("div.issue-item__content")
+
+            if not results:
+                self.logger.info("No search results found on the page.")
+
+            for item in results[:max_results]:
+                try:
+                    title_tag = item.select_one("h5.issue-item__title a")
+                    title = title_tag.get_text(strip=True) if title_tag else "N/A"
+                    url = (
+                        urllib.parse.urljoin(self.BASE_URL, title_tag["href"])
+                        if title_tag and title_tag.has_attr("href")
+                        else None
+                    )
+
+                    # Extract authors from the author list
+                    author_tags = item.select("ul[aria-label='authors'] li a")
+                    authors = [author.get_text(strip=True) for author in author_tags]
+
+                    # Extract DOI
+                    doi_tag = item.select_one("a.issue-item__doi")
+                    doi = doi_tag.get_text(strip=True) if doi_tag else None
+
+                    # Extract publication date
+                    date_tag = item.select_one("span.epub-section__date")
+                    pub_date = date_tag.get_text(strip=True) if date_tag else None
+
+                    # Abstract/snippet is not reliably available on the search page
+                    abstract = "Abstract not available on search results page."
+
+                    paper = Paper(
+                        title=title,
+                        authors=authors,
+                        doi=doi,
+                        url=url,
+                        abstract=abstract,
+                        year=pub_date,
+                        database_source=self.get_database_name(),
+                    )
+                    papers.append(paper)
+                except Exception as e:
+                    self.logger.error(f"Error parsing a paper item: {e}", exc_info=True)
+
+            self._log_request(success=True, papers_found=len(papers))
+            self.logger.info(f"Found {len(papers)} papers on ACM for query '{query}'.")
+
+        except requests.RequestException as e:
+            self.logger.error(f"Failed to fetch search results from ACM: {e}")
+            self._log_request(success=False)
+
+        return papers
 
 
 class GoogleScholarAdapter(DatabaseAdapter):
@@ -644,7 +742,7 @@ class GoogleScholarAdapter(DatabaseAdapter):
         return False  # Disabled for now to avoid blocking
 
     def search(
-        self, query: str, max_results: int = 20, year_min: int = None
+        self, query: str, max_results: int = 20, year_min: int = None, **kwargs
     ) -> List[Paper]:
         """Limited Google Scholar search."""
         self.logger.warning("Google Scholar adapter provides limited functionality")
@@ -671,14 +769,14 @@ class AdapterFactory:
         Create a database adapter instance.
 
         Args:
-                database_name: Name of the database
-                **kwargs: Adapter-specific parameters (api_key, rate_limit, etc.)
+                        database_name: Name of the database
+                        **kwargs: Adapter-specific parameters (api_key, rate_limit, etc.)
 
         Returns:
-                DatabaseAdapter instance or None if not supported
+                        DatabaseAdapter instance or None if not supported
         """
-
-        if database_name not in AdapterFactory.SUPPORTED_DATABASES:
+        adapters = AdapterFactory.SUPPORTED_DATABASES
+        if database_name not in adapters:
             return None
 
         try:
