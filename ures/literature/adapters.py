@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-"""
-Database Adapters
-Abstract base class and concrete implementations for different academic databases.
-All adapters inherit from DatabaseAdapter and provide unified interface.
-"""
-
 import time
 import json
 import urllib.request
@@ -177,12 +171,12 @@ class QueryParser:
         for group in parsed_query["groups"]:
             if group["type"] == "OR":
                 group_terms = " OR ".join(
-                    [f'"{term.replace('"', '')}"' for term in group["terms"]]
+                    ['"' + term.replace('"', "") + '"' for term in group["terms"]]
                 )
                 terms.append(f"({group_terms})")
             elif group["type"] == "AND":
                 group_terms = " ".join(
-                    [f'"{term.replace('"', '')}"' for term in group["terms"]]
+                    ['"' + term.replace('"', "") + '"' for term in group["terms"]]
                 )
                 terms.append(group_terms)
             else:
