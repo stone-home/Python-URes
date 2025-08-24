@@ -1,0 +1,106 @@
+@startuml Block Splice Operation
+
+!theme plain
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagelength 80
+
+title Block Splice Operation - Splitting Memory Blocks
+
+participant "User" as U
+participant "MemoryBlock\n(Original)" as MB1
+participant "MemoryInfo\n(Original)" as MI1
+participant "MemoryBlock\n(New)" as MB2
+participant "MemoryInfo\n(New)" as MI2
+participant "TraceInfo" as TI
+participant "BlockPool" as BP
+participant "Segment" as S
+
+note over MB1: Initial State:\nAddress: 0x1000\nSize: 1024 bytes\nAction: "free"
+
+U -> MB1: splice(256)
+note right: Split into 256-byte block\nand 768-byte remainder
+
+activate MB1
+
+' Validation phase
+MB1 -> MI1: is_allocated()
+activate MI1
+MI1 --> MB1: False (block is free)
+deactivate MI1
+
+alt size == current_size (256 == 1024)
+    note right: If splitting entire block,\njust remove from pool and return
+    MB1 -> BP: remove from blocks if in pool
+    MB1 --> U: return self
+else size < current_size (normal split)
+
+    ' Create new block for the requested size
+    MB1 -> MB2: new MemoryBlock(addr=0x1000, size=256, segment_id=same)
+    activate MB2
+
+    MB2 -> MI2: new MemoryInfo(addr=0x1000, size=256)
+    activate MI2
+    note right: New block gets the original address\nand requested size
+    MI2 --> MB2: new memory info
+    deactivate MI2
+
+    ' Capture creation trace for new block
+    MB2 -> TI: capture_current_trace("create")
+    activate TI
+    TI --> MB2: creation_trace
+    deactivate TI
+
+    MB2 -> MI2: add_trace(creation_trace)
+
+    ' Update original block's properties
+    note over MB1: Update original block:\naddr: 0x1000 → 0x1100\nsize: 1024 → 768
+
+    MB1 -> MI1: size -= 256 (now 768)
+    activate MI1
+    MB1 -> MI1: addr += 256 (now 0x1100)
+    deactivate MI1
+
+    ' Link the blocks in the linked list
+    MB1 -> MB1: insert_before(new_block)
+    note right: Creates: new_block ↔ original_block
+
+    ' Update segment's first_block reference if needed
+    alt if original block was segment's first_block
+        MB1 -> BP: pool.get_segment(segment_id)
+        activate BP
+        BP --> MB1: segment
+        deactivate BP
+
+        MB1 -> S: first_block = new_block
+        activate S
+        note right: Update segment to point\nto the new first block
+        S --> MB1: updated
+        deactivate S
+    end
+
+    ' Capture split trace for both blocks
+    MB1 -> TI: capture_current_trace("split", additional_info)
+    activate TI
+    note right: additional_info includes:\n- original_addr, original_size\n- new_block_size, remaining_size
+    TI --> MB1: split_trace
+    deactivate TI
+
+    ' Add trace to both blocks
+    MB1 -> MI1: add_trace(split_trace)
+    activate MI1
+    deactivate MI1
+
+    MB1 -> MI2: add_trace(split_trace)
+    activate MI2
+    deactivate MI2
+
+    MB1 --> U: new_block (256 bytes at 0x1000)
+    deactivate MB2
+end
+
+deactivate MB1
+
+note over U: Result:\n- New block: 256 bytes at 0x1000 (returned)\n- Original block: 768 bytes at 0x1100\n- Both blocks linked in list
+
+@enduml

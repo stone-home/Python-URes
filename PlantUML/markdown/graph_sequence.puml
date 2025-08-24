@@ -1,0 +1,33 @@
+@startuml
+actor User
+participant "Zettelkasten" as ZK
+participant "MarkdownDocument" as MD
+participant "File System" as FS
+participant "frontmatter" as FM
+
+User -> ZK: from_file(file_path)
+activate ZK
+
+ZK -> FS: open(file_path, "r", encoding="utf-8")
+activate FS
+FS --> ZK: file handle
+deactivate FS
+
+ZK -> FM: frontmatter.load(file handle)
+activate FM
+FM --> ZK: post (metadata, content)
+deactivate FM
+
+ZK -> ZK: __init__(title, n_type, url, tags, aliases)
+note right of ZK: Initialize mandatory metadata fields\nusing values from post.metadata
+ZK -> MD: MarkdownDocument.__init__(metadata)
+activate MD
+MD --> ZK: Initialized MarkdownDocument
+deactivate MD
+
+ZK -> ZK: Set metadata["id"] and metadata["create"] from post.metadata
+ZK -> ZK: add_content(post.content)
+
+ZK --> User: Zettelkasten object
+deactivate ZK
+@enduml

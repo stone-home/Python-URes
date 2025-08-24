@@ -1,0 +1,261 @@
+@startuml Memory_Allocator_Class_Diagram
+left to right direction
+
+!theme plain
+!define ABSTRACT_CLASS_COLOR #E1F5FE
+!define CONCRETE_CLASS_COLOR #F3E5F5
+!define DATA_CLASS_COLOR #E8F5E8
+!define ENUM_COLOR #FFF3E0
+
+' Title
+title Memory Allocation System - Class Diagram
+
+' Enums
+enum AllocationStrategy <<enumeration>> #FFF3E0 {
+    FIRST_FIT = "first_fit"
+    BEST_FIT = "best_fit"
+    WORST_FIT = "worst_fit"
+    NEXT_FIT = "next_fit"
+    BUDDY_SYSTEM = "buddy_system"
+}
+
+' Data Classes
+class AllocationRequest <<dataclass>> #E8F5E8 {
+    +size: int
+    +alignment: int = 1
+    +stream: Optional[int] = None
+    +priority: int = 0
+    +metadata: Optional[Dict[str, Any]] = None
+    --
+    +__post_init__()
+}
+
+class FreeRequest <<dataclass>> #E8F5E8 {
+    +address: int
+    +expected_size: Optional[int] = None
+    +metadata: Optional[Dict[str, Any]] = None
+    --
+    +__post_init__()
+}
+
+class AllocationResult <<dataclass>> #E8F5E8 {
+    +success: bool
+    +block: Optional[MemoryBlock] = None
+    +address: Optional[int] = None
+    +actual_size: Optional[int] = None
+    +allocation_time_ns: Optional[int] = None
+    +error_message: Optional[str] = None
+    +strategy_info: Optional[Dict[str, Any]] = None
+}
+
+class FreeResult <<dataclass>> #E8F5E8 {
+    +success: bool
+    +address: Optional[int] = None
+    +freed_size: Optional[int] = None
+    +free_time_ns: Optional[int] = None
+    +coalesced: bool = False
+    +coalesced_size: Optional[int] = None
+    +error_message: Optional[str] = None
+    +strategy_info: Optional[Dict[str, Any]] = None
+}
+
+' Abstract Base Class
+abstract class MemoryAllocator <<abstract>> #E1F5FE {
+    +name: str
+    +allocation_count: int = 0
+    +free_count: int = 0
+    +total_allocated: int = 0
+    +total_freed: int = 0
+    +allocation_times: List[int]
+    +free_times: List[int]
+    +allocated_blocks: Dict[int, MemoryBlock]
+    --
+    +__init__(name: str)
+    {abstract} +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    {abstract} +free(pool: BlockPool, request: FreeRequest): FreeResult
+    {abstract} +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    +can_free(pool: BlockPool, request: FreeRequest): bool
+    +get_statistics(): Dict[str, Any]
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+    #_find_suitable_block(pool: BlockPool, request: AllocationRequest): List[MemoryBlock]
+}
+
+' Concrete Allocator Classes
+class FirstFitAllocator #F3E5F5 {
+    --
+    +__init__()
+    +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    +free(pool: BlockPool, request: FreeRequest): FreeResult
+    +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+    #_find_suitable_block(pool: BlockPool, request: AllocationRequest): List[MemoryBlock]
+}
+
+class BestFitAllocator #F3E5F5 {
+    --
+    +__init__()
+    +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    +free(pool: BlockPool, request: FreeRequest): FreeResult
+    +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+    #_find_suitable_block(pool: BlockPool, request: AllocationRequest): List[MemoryBlock]
+}
+
+class WorstFitAllocator #F3E5F5 {
+    --
+    +__init__()
+    +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    +free(pool: BlockPool, request: FreeRequest): FreeResult
+    +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+    #_find_suitable_block(pool: BlockPool, request: AllocationRequest): List[MemoryBlock]
+}
+
+class NextFitAllocator #F3E5F5 {
+    +last_allocated_block: Optional[MemoryBlock] = None
+    --
+    +__init__()
+    +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    +free(pool: BlockPool, request: FreeRequest): FreeResult
+    +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+}
+
+class BuddySystemAllocator #F3E5F5 {
+    +min_block_size: int = 64
+    --
+    +__init__()
+    +allocate(pool: BlockPool, request: AllocationRequest): AllocationResult
+    +free(pool: BlockPool, request: FreeRequest): FreeResult
+    +can_allocate(pool: BlockPool, request: AllocationRequest): bool
+    #_round_up_to_power_of_2(size: int): int
+    #_is_power_of_2(n: int): bool
+    #_find_buddy_address(addr: int, size: int): int
+    #_can_merge_with_buddy(pool: BlockPool, block_addr: int, block_size: int): Optional[MemoryBlock]
+    #_stream_matches(block_stream: Optional[int], request_stream: Optional[int]): bool
+}
+
+' Device Simulator Class
+class DeviceMemorySimulator #F3E5F5 {
+    +device_id: int
+    +total_memory: int
+    +base_address: int
+    +pool: BlockPool
+    +allocators: Dict[str, MemoryAllocator]
+    +current_allocator: Optional[MemoryAllocator]
+    +allocation_history: List[Tuple[AllocationRequest, AllocationResult]]
+    +free_history: List[Tuple[int, int]]
+    +main_segment: Segment
+    --
+    +__init__(device_id: int, total_memory: int, base_address: int = 0x10000000)
+    +register_allocator(allocator: MemoryAllocator): void
+    +set_allocator(allocator_name: str): bool
+    +get_available_allocators(): List[str]
+    +allocate(size: int, alignment: int = 1, stream: Optional[int] = None, priority: int = 0, metadata: Optional[Dict[str, Any]] = None): AllocationResult
+    +free(address: int, expected_size: Optional[int] = None): FreeResult
+    +can_allocate(size: int, stream: Optional[int] = None): bool
+    +get_memory_info(): Dict[str, Any]
+    +get_allocator_statistics(): Dict[str, Dict[str, Any]]
+    +benchmark_allocators(allocation_patterns: List[Tuple[int, Optional[int]]], iterations: int = 1): Dict[str, Dict[str, Any]]
+    +simulate_workload(num_operations: int = 100, size_range: Tuple[int, int] = (64, 4096), free_probability: float = 0.3): Dict[str, Any]
+    +reset_device(): void
+    +print_status(): void
+}
+
+' External Dependencies (from blocks.py)
+class BlockPool <<external>> #EEEEEE {
+    +blocks: SortedSet
+    +segments: Dict[int, Segment]
+    +next_segment_id: int
+    --
+    +create_segment(...): Segment
+    +get_segment(segment_id: int): Optional[Segment]
+    +get_memory_summary(): Dict[str, Any]
+    ...
+}
+
+class MemoryBlock <<external>> #EEEEEE {
+    +device: Optional[int]
+    +stream: Optional[int]
+    +pool: Optional[BlockPool]
+    +segment_id: Optional[int]
+    +value: MemoryInfo
+    --
+    +addr: int
+    +end_addr: int
+    +splice(memory_size: int): Optional[MemoryBlock]
+    +coalesce(): MemoryBlock
+    +request_alloc(time_ns: Optional[int]): void
+    +request_free(time_ns: Optional[int]): void
+    +complete_free(time_ns: Optional[int]): void
+    ...
+}
+
+class Segment <<external>> #EEEEEE {
+    +segment_id: int
+    +start_addr: int
+    +original_size: int
+    +device: Optional[int]
+    +stream: Optional[int]
+    +creation_time_ns: Optional[int]
+    +first_block: Optional[MemoryBlock]
+    --
+    +get_blocks(): List[MemoryBlock]
+    +get_allocated_bytes(): int
+    +get_free_bytes(): int
+    +get_utilization_ratio(): float
+    +get_fragmentation_ratio(): float
+    ...
+}
+
+' Relationships
+MemoryAllocator <|-- FirstFitAllocator
+MemoryAllocator <|-- BestFitAllocator
+MemoryAllocator <|-- WorstFitAllocator
+MemoryAllocator <|-- NextFitAllocator
+MemoryAllocator <|-- BuddySystemAllocator
+
+DeviceMemorySimulator o-- MemoryAllocator : contains
+DeviceMemorySimulator *-- BlockPool : owns
+DeviceMemorySimulator ..> AllocationRequest : uses
+DeviceMemorySimulator ..> FreeRequest : uses
+DeviceMemorySimulator ..> AllocationResult : creates
+DeviceMemorySimulator ..> FreeResult : creates
+
+MemoryAllocator ..> AllocationRequest : uses
+MemoryAllocator ..> FreeRequest : uses
+MemoryAllocator ..> AllocationResult : creates
+MemoryAllocator ..> FreeResult : creates
+MemoryAllocator ..> BlockPool : uses
+MemoryAllocator o-- MemoryBlock : tracks
+
+BlockPool *-- MemoryBlock : contains
+BlockPool *-- Segment : contains
+Segment o-- MemoryBlock : references
+
+AllocationRequest ..> AllocationStrategy : may use
+
+' Notes
+note top of MemoryAllocator : Abstract base class defining\nthe interface for all allocation\nalgorithms with common functionality
+
+note right of NextFitAllocator : Maintains position of last\nallocation to continue search\nfrom that point
+
+note right of BuddySystemAllocator : Implements buddy system with\npower-of-2 block sizes and\nbuddy merging on free
+
+note bottom of DeviceMemorySimulator : Main facade class that\nmanages multiple allocators\nand provides device simulation
+
+note top of AllocationRequest : Request data structure\nwith validation in __post_init__
+
+note top of AllocationResult : Result data structure\ncontaining allocation outcome\nand strategy-specific info
+
+' Legend
+legend bottom left
+|= Color |= Type |
+|<back:#E1F5FE>    </back>| Abstract Classes |
+|<back:#F3E5F5>    </back>| Concrete Classes |
+|<back:#E8F5E8>    </back>| Data Classes |
+|<back:#FFF3E0>    </back>| Enums |
+|<back:#EEEEEE>    </back>| External Dependencies |
+endlegend
+
+@enduml

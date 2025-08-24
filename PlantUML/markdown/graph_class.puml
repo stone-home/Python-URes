@@ -1,0 +1,42 @@
+@startuml
+' Define the MarkdownDocument class
+class MarkdownDocument {
+  - post: frontmatter.Post
+  - MANDATORY_FIELDS: List[AnyStr]
+  + __init__(content: str = "", metadata: Optional[Dict[str, Any]] = None)
+  + path_preprocess(input_path: Union[str, Path]) : Path
+  + from_file(file_path: Union[Path, str]) : MarkdownDocument
+  + content: str {get; set}
+  + metadata: Dict[str, Any] {get; set}
+  + add_content(content: str, append: bool = True) : None
+  + set_frontmatter(key_path: str, value: Any, overwrite: bool = True) : None
+  + get_frontmatter(key_path: str) : Any
+  + remove_frontmatter(key_path: str) : None
+  + to_markdown() : str
+  + save(file_path: Union[Path, str]) : None
+  + load_from_file(file_path: Union[Path, str]) : None
+  + clear_content() : None
+  + clear_frontmatter() : None
+  + validation_frontmatter() : None
+}
+
+' Define the Zettelkasten class, which inherits from MarkdownDocument
+class Zettelkasten {
+  - MANDATORY_FIELDS: List[str] = ["title", "type", "url", "create", "id", "tags", "aliases"]
+  - ALLOWED_TYPES: List[str] = ["fleeting", "literature", "permanent", "atom"]
+  + __init__(title: str, n_type: str, url: Optional[str]=None, tags: Optional[list]=None, aliases: Optional[list]=None)
+  + from_file(file_path: str) : MarkdownDocument
+  + title: str {get; set}
+  + type: str {get; set}
+  + url: str {get; set}
+  + tags: list {get; set}
+  + aliases: list {get; set}
+  + add_tag(tag: str) : None
+  + remove_tag(tag: str) : None
+  + add_alias(alias: str) : None
+  + remove_alias(alias: str) : None
+}
+
+' Inheritance relationship
+MarkdownDocument <|-- Zettelkasten
+@enduml
