@@ -58,6 +58,10 @@ scikit-learn = "^1.7.1"
 kaleido = "^1.0.0"
 plotly = "^6.2.0"
 sortedcontainers = "^2.4.0"
+onepassword-sdk = "^0.3.1"
+pyperclip = "^1.9.0"
+requests = "^2.32.5"
+beautifulsoup4 = "^4.13.4"
 
 
 [tool.poetry.group.test.dependencies]
