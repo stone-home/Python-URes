@@ -170,6 +170,29 @@ class QueryParser:
         self.logger.debug(f"Converted to simple query: {simple_query}")
         return simple_query
 
+    def to_google_scholar_query(self, parsed_query: Dict) -> str:
+        """Convert parsed query to Google Scholar format."""
+        terms = []
+
+        for group in parsed_query["groups"]:
+            if group["type"] == "OR":
+                group_terms = " OR ".join(
+                    [f'"{term.replace('"', '')}"' for term in group["terms"]]
+                )
+                terms.append(f"({group_terms})")
+            elif group["type"] == "AND":
+                group_terms = " ".join(
+                    [f'"{term.replace('"', '')}"' for term in group["terms"]]
+                )
+                terms.append(group_terms)
+            else:
+                clean_term = group["terms"][0].replace('"', "")
+                terms.append(f'"{clean_term}"')
+
+        final_query = " ".join(terms)
+        self.logger.debug(f"Converted to Google Scholar query: {final_query}")
+        return final_query
+
 
 class DatabaseAdapter(ABC):
     """Abstract base class for all database adapters."""
@@ -179,14 +202,17 @@ class DatabaseAdapter(ABC):
         Initialize database adapter.
 
         Args:
-                        rate_limit: Requests per second limit
-                        api_key: API key for the database (if required)
+                                        rate_limit: Requests per second limit
+                                        api_key: API key for the database (if required)
         """
         self.rate_limit = rate_limit
         self.api_key = api_key
         self.last_request = 0
         self.logger = logging.getLogger(self.__class__.__name__)
         self.query_parser = QueryParser()
+        self._availability_cache = None
+        self._availability_check_time = 0
+        self._availability_cache_duration = 300  # 5 minutes
 
         # Statistics
         self.stats = {
@@ -196,6 +222,8 @@ class DatabaseAdapter(ABC):
             "total_papers_found": 0,
             "last_request_time": None,
             "rate_limit_hits": 0,
+            "availability_checks": 0,
+            "last_availability_check": None,
         }
 
     def _rate_limit_wait(self):
@@ -221,18 +249,27 @@ class DatabaseAdapter(ABC):
         else:
             self.stats["failed_requests"] += 1
 
+    def _log_availability_check(self):
+        """Log availability check statistics."""
+        self.stats["availability_checks"] += 1
+        self.stats["last_availability_check"] = datetime.now().isoformat()
+
+    def _check_live_availability(self) -> bool:
+        """Perform live availability check. Override in subclasses."""
+        return True
+
     @abstractmethod
     def search(self, query: str, max_results: int = 100, **kwargs) -> List[Paper]:
         """
         Search the database for papers.
 
         Args:
-                        query: Search query (supports Boolean operations)
-                        max_results: Maximum number of results to return
-                        **kwargs: Database-specific parameters
+                                        query: Search query (supports Boolean operations)
+                                        max_results: Maximum number of results to return
+                                        **kwargs: Database-specific parameters
 
         Returns:
-                        List[Paper]: List of found papers
+                                        List[Paper]: List of found papers
         """
         pass
 
@@ -254,11 +291,32 @@ class DatabaseAdapter(ABC):
             "total_papers_found": 0,
             "last_request_time": None,
             "rate_limit_hits": 0,
+            "availability_checks": 0,
+            "last_availability_check": None,
         }
 
     def is_available(self) -> bool:
-        """Check if the database adapter is available and configured."""
-        return True  # Override in subclasses if needed
+        """Check if the database adapter is available and configured with caching."""
+        current_time = time.time()
+
+        # Use cached result if still valid
+        if (
+            self._availability_cache is not None
+            and current_time - self._availability_check_time
+            < self._availability_cache_duration
+        ):
+            return self._availability_cache
+
+        # Perform live check
+        self._log_availability_check()
+        try:
+            self._availability_cache = self._check_live_availability()
+        except Exception as e:
+            self.logger.warning(f"Availability check failed: {e}")
+            self._availability_cache = False
+
+        self._availability_check_time = current_time
+        return self._availability_cache
 
     def validate_query(self, query: str) -> bool:
         """Validate if the query is supported by this adapter."""
@@ -278,6 +336,16 @@ class ArxivAdapter(DatabaseAdapter):
 
     def get_database_name(self) -> str:
         return "arxiv"
+
+    def _check_live_availability(self) -> bool:
+        """Check if arXiv API is accessible."""
+        try:
+            test_url = f"{self.base_url}?search_query=all:test&max_results=1"
+            with urllib.request.urlopen(test_url, timeout=10) as response:
+                return response.status == 200
+        except Exception as e:
+            self.logger.debug(f"ArXiv availability check failed: {e}")
+            return False
 
     def search(
         self, query: str, max_results: int = 100, categories: List[str] = None, **kwargs
@@ -380,10 +448,6 @@ class ArxivAdapter(DatabaseAdapter):
 
         return papers
 
-    def is_available(self) -> bool:
-        """ArXiv is always available (no API key required)."""
-        return True
-
 
 class IEEEAdapter(DatabaseAdapter):
     """Adapter for IEEE Xplore API with Boolean query support."""
@@ -395,9 +459,27 @@ class IEEEAdapter(DatabaseAdapter):
     def get_database_name(self) -> str:
         return "ieee"
 
-    def is_available(self) -> bool:
-        """IEEE requires API key."""
-        return bool(self.api_key)
+    def _check_live_availability(self) -> bool:
+        """Check if IEEE API is accessible and API key is valid."""
+        if not self.api_key:
+            return False
+
+        try:
+            params = {
+                "apikey": self.api_key,
+                "querytext": "test",
+                "max_records": 1,
+                "start_record": 1,
+            }
+            url = f"{self.base_url}?{urllib.parse.urlencode(params)}"
+
+            with urllib.request.urlopen(url, timeout=10) as response:
+                data = json.loads(response.read().decode("utf-8"))
+                # Check for valid response structure
+                return "articles" in data or "total_records" in data
+        except Exception as e:
+            self.logger.debug(f"IEEE availability check failed: {e}")
+            return False
 
     def _rate_limit_wait(self):
         """IEEE has hourly rate limits."""
@@ -460,9 +542,23 @@ class ElsevierAdapter(DatabaseAdapter):
     def get_database_name(self) -> str:
         return "elsevier"
 
-    def is_available(self) -> bool:
-        """Elsevier requires API key."""
-        return bool(self.api_key)
+    def _check_live_availability(self) -> bool:
+        """Check if Elsevier API is accessible and API key is valid."""
+        if not self.api_key:
+            return False
+
+        try:
+            headers = {"X-ELS-APIKey": self.api_key, "Accept": "application/json"}
+            params = {"query": "test", "count": 1}
+            url = f"{self.base_url}?{urllib.parse.urlencode(params)}"
+
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode("utf-8"))
+                return "search-results" in data
+        except Exception as e:
+            self.logger.debug(f"Elsevier availability check failed: {e}")
+            return False
 
     def search(self, query: str, max_results: int = 100, **kwargs) -> List[Paper]:
         """Search Elsevier ScienceDirect."""
@@ -509,9 +605,26 @@ class SpringerAdapter(DatabaseAdapter):
     def get_database_name(self) -> str:
         return "springer"
 
-    def is_available(self) -> bool:
-        """Springer requires API key."""
-        return bool(self.api_key)
+    def _check_live_availability(self) -> bool:
+        """Check if Springer API is accessible and API key is valid."""
+        if not self.api_key:
+            return False
+
+        try:
+            params = {
+                "api_key": self.api_key,
+                "q": "test",
+                "s": 1,
+                "p": 1,
+            }
+            url = f"{self.base_url}?{urllib.parse.urlencode(params)}"
+
+            with urllib.request.urlopen(url, timeout=10) as response:
+                data = json.loads(response.read().decode("utf-8"))
+                return "records" in data or "result" in data
+        except Exception as e:
+            self.logger.debug(f"Springer availability check failed: {e}")
+            return False
 
     def search(
         self, query: str, max_results: int = 100, year_min: int = None, **kwargs
@@ -565,9 +678,26 @@ class WileyAdapter(DatabaseAdapter):
     def get_database_name(self) -> str:
         return "wiley"
 
-    def is_available(self) -> bool:
-        """Wiley requires API key."""
-        return bool(self.api_key)
+    def _check_live_availability(self) -> bool:
+        """Check if Wiley API is accessible and API key is valid."""
+        if not self.api_key:
+            return False
+
+        try:
+            headers = {
+                "Wiley-TDM-Client-Token": self.api_key,
+                "Accept": "application/json",
+            }
+            params = {"query": "test", "count": 1}
+            url = f"{self.base_url}?{urllib.parse.urlencode(params)}"
+
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode("utf-8"))
+                return "items" in data or response.status == 200
+        except Exception as e:
+            self.logger.debug(f"Wiley availability check failed: {e}")
+            return False
 
     def search(self, query: str, max_results: int = 100, **kwargs) -> List[Paper]:
         """Search Wiley Online Library."""
@@ -630,13 +760,33 @@ class ACMAdapter(DatabaseAdapter):
         """Get the name of this database."""
         return "ACM Digital Library"
 
-    def is_available(self) -> bool:
-        """Check if the ACM Digital Library is reachable."""
+    def _check_live_availability(self) -> bool:
+        """Check if the ACM Digital Library is reachable and functional."""
         try:
-            response = self.session.head(self.BASE_URL, timeout=5)
-            return response.status_code == 200
-        except requests.RequestException as e:
-            self.logger.warning(f"ACM Digital Library is not available: {e}")
+            # Test both the main site and search functionality
+            response = self.session.head(self.BASE_URL, timeout=10)
+            if response.status_code != 200:
+                return False
+
+            # Test a simple search to verify functionality
+            test_search_url = urllib.parse.urljoin(
+                self.BASE_URL, "action/doSearch?AllField=test"
+            )
+            response = self.session.get(test_search_url, timeout=10)
+
+            # Check if we get a valid search results page
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, "html.parser")
+                # Look for search results container or no results message
+                return (
+                    soup.select("div.issue-item__content")
+                    or soup.select("div.search__no-results")
+                    or "search" in response.text.lower()
+                )
+
+            return False
+        except Exception as e:
+            self.logger.debug(f"ACM availability check failed: {e}")
             return False
 
     def preprocess_query(self, query: str) -> str:
@@ -655,6 +805,10 @@ class ACMAdapter(DatabaseAdapter):
         Returns:
                 A list of Paper objects.
         """
+        if not self.is_available():
+            self.logger.warning("ACM Digital Library is not available")
+            return []
+
         if not self.validate_query(query):
             self.logger.warning("Search query is empty or invalid.")
             return []
@@ -702,6 +856,13 @@ class ACMAdapter(DatabaseAdapter):
                     date_tag = item.select_one("span.epub-section__date")
                     pub_date = date_tag.get_text(strip=True) if date_tag else None
 
+                    # Extract year from publication date
+                    year = 0
+                    if pub_date:
+                        year_match = re.search(r"\b(19|20)\d{2}\b", pub_date)
+                        if year_match:
+                            year = int(year_match.group())
+
                     # Abstract/snippet is not reliably available on the search page
                     abstract = "Abstract not available on search results page."
 
@@ -711,8 +872,11 @@ class ACMAdapter(DatabaseAdapter):
                         doi=doi,
                         url=url,
                         abstract=abstract,
-                        year=pub_date,
+                        year=year,
                         database_source=self.get_database_name(),
+                        publication_type="article",
+                        venue="ACM Digital Library",
+                        publisher="ACM",
                     )
                     papers.append(paper)
                 except Exception as e:
@@ -729,25 +893,210 @@ class ACMAdapter(DatabaseAdapter):
 
 
 class GoogleScholarAdapter(DatabaseAdapter):
-    """Limited Google Scholar adapter."""
+    """
+    Enhanced Google Scholar adapter with actual functionality.
 
-    def __init__(self, rate_limit: float = 1.0):
+    Note: Google Scholar actively blocks automated requests and requires
+    careful rate limiting and proper headers to work reliably.
+    """
+
+    BASE_URL = "https://scholar.google.com/"
+
+    def __init__(self, rate_limit: float = 0.2):  # Very conservative rate limit
         super().__init__(rate_limit=rate_limit)
+        self.session = requests.Session()
+        self.session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate",
+                "Connection": "keep-alive",
+            }
+        )
 
     def get_database_name(self) -> str:
         return "google_scholar"
 
-    def is_available(self) -> bool:
-        """Google Scholar blocks automated access."""
-        return False  # Disabled for now to avoid blocking
+    def _check_live_availability(self) -> bool:
+        """Check if Google Scholar is accessible without triggering blocks."""
+        try:
+            # Test with a simple HEAD request to avoid triggering anti-bot measures
+            response = self.session.head(self.BASE_URL, timeout=10)
+
+            # Google Scholar returns 200 for the main page
+            if response.status_code == 200:
+                return True
+
+            # Sometimes returns 302 redirects which may still indicate availability
+            if response.status_code in [302, 301]:
+                return True
+
+            return False
+        except Exception as e:
+            self.logger.debug(f"Google Scholar availability check failed: {e}")
+            return False
+
+    def _is_blocked(self, response_text: str) -> bool:
+        """Check if we've been blocked by Google Scholar."""
+        blocked_indicators = [
+            "automated queries",
+            "unusual traffic",
+            "captcha",
+            "blocked",
+            "robot",
+            "bot detection",
+        ]
+
+        text_lower = response_text.lower()
+        return any(indicator in text_lower for indicator in blocked_indicators)
+
+    def _extract_citation_count(self, citation_text: str) -> int:
+        """Extract citation count from citation text."""
+        if not citation_text:
+            return 0
+
+        # Look for "Cited by X" pattern
+        match = re.search(r"cited by (\d+)", citation_text.lower())
+        if match:
+            return int(match.group(1))
+
+        return 0
+
+    def _parse_scholar_result(self, result_div) -> Optional[Paper]:
+        """Parse a single Google Scholar search result."""
+        try:
+            # Extract title
+            title_elem = result_div.select_one("h3 a")
+            title = title_elem.get_text(strip=True) if title_elem else ""
+            url = title_elem.get("href", "") if title_elem else ""
+
+            # Extract authors and publication info
+            authors = []
+            venue = ""
+            year = 0
+
+            # The publication info is usually in a div with class 'gs_a'
+            pub_info = result_div.select_one(".gs_a")
+            if pub_info:
+                pub_text = pub_info.get_text(strip=True)
+
+                # Try to extract year (usually at the end)
+                year_match = re.search(r"\b(19|20)\d{2}\b", pub_text)
+                if year_match:
+                    year = int(year_match.group())
+
+                # Authors are usually before the first dash
+                if " - " in pub_text:
+                    author_part = pub_text.split(" - ")[0]
+                    # Split by commas and clean up
+                    authors = [author.strip() for author in author_part.split(",")]
+
+                    # Venue info is often after the first dash
+                    venue_parts = pub_text.split(" - ")[1:]
+                    venue = " - ".join(venue_parts)
+
+            # Extract abstract/snippet
+            abstract_elem = result_div.select_one(".gs_rs")
+            abstract = abstract_elem.get_text(strip=True) if abstract_elem else ""
+
+            # Extract citation count
+            citations = 0
+            citation_elem = result_div.select_one(".gs_fl a")
+            if citation_elem and "cited by" in citation_elem.get_text().lower():
+                citations = self._extract_citation_count(citation_elem.get_text())
+
+            return Paper(
+                title=title,
+                authors=authors,
+                abstract=abstract,
+                year=year,
+                venue=venue,
+                url=url,
+                citations=citations,
+                database_source=self.get_database_name(),
+                publication_type="article",
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error parsing Google Scholar result: {e}")
+            return None
 
     def search(
         self, query: str, max_results: int = 20, year_min: int = None, **kwargs
     ) -> List[Paper]:
-        """Limited Google Scholar search."""
-        self.logger.warning("Google Scholar adapter provides limited functionality")
-        self._log_request(success=False)
-        return []
+        """
+        Search Google Scholar with careful rate limiting and error handling.
+
+        Args:
+                query: Search query
+                max_results: Maximum number of results (limited to reduce blocking risk)
+                year_min: Minimum publication year
+                **kwargs: Additional parameters
+
+        Returns:
+                List[Paper]: Found papers (may be empty if blocked)
+        """
+        if not self.is_available():
+            self.logger.warning("Google Scholar is not available")
+            return []
+
+        # Limit max results to reduce blocking risk
+        max_results = min(max_results, 20)
+
+        self._rate_limit_wait()
+
+        try:
+            # Parse and format query
+            parsed_query = self.query_parser.parse_boolean_query(query)
+            scholar_query = self.query_parser.to_google_scholar_query(parsed_query)
+
+            # Add year filter if specified
+            if year_min:
+                scholar_query += f" after:{year_min}"
+
+            # Build search URL
+            params = {"q": scholar_query, "hl": "en", "num": max_results, "start": 0}
+
+            search_url = f"{self.BASE_URL}scholar?" + urllib.parse.urlencode(params)
+            self.logger.info(f"Searching Google Scholar: {search_url}")
+
+            # Add random delay to appear more human-like
+            import random
+
+            time.sleep(random.uniform(1, 3))
+
+            response = self.session.get(search_url, timeout=15)
+            response.raise_for_status()
+
+            # Check if we've been blocked
+            if self._is_blocked(response.text):
+                self.logger.warning("Google Scholar has blocked our request")
+                self._log_request(success=False)
+                return []
+
+            soup = BeautifulSoup(response.text, "html.parser")
+
+            # Find search results
+            results = soup.select(
+                "div.gs_r, div[data-lid]"
+            )  # Different possible selectors
+
+            papers = []
+            for result in results[:max_results]:
+                paper = self._parse_scholar_result(result)
+                if paper:
+                    papers.append(paper)
+
+            self.logger.info(f"Google Scholar returned {len(papers)} papers")
+            self._log_request(success=True, papers_found=len(papers))
+
+            return papers
+
+        except Exception as e:
+            self.logger.error(f"Google Scholar search failed: {e}")
+            self._log_request(success=False)
+            return []
 
 
 class AdapterFactory:
@@ -769,11 +1118,11 @@ class AdapterFactory:
         Create a database adapter instance.
 
         Args:
-                        database_name: Name of the database
-                        **kwargs: Adapter-specific parameters (api_key, rate_limit, etc.)
+            database_name: Name of the database
+            **kwargs: Adapter-specific parameters (api_key, rate_limit, etc.)
 
         Returns:
-                        DatabaseAdapter instance or None if not supported
+            DatabaseAdapter instance or None if not supported
         """
         adapters = AdapterFactory.SUPPORTED_DATABASES
         if database_name not in adapters:
@@ -810,42 +1159,177 @@ class AdapterFactory:
     def get_adapter_requirements(database_name: str) -> Dict[str, Any]:
         """Get requirements for a specific adapter."""
         requirements = {
-            "arxiv": {"api_key_required": False, "rate_limit": 3.0, "free": True},
+            "arxiv": {
+                "api_key_required": False,
+                "rate_limit": 3.0,
+                "free": True,
+                "scraping_based": False,
+                "reliability": "high",
+                "database_url": "https://arxiv.org/",
+                "api_docs_url": "https://info.arxiv.org/help/api/index.html",
+                "note": "Official XML API with excellent reliability and comprehensive metadata.",
+                "features": [
+                    "title",
+                    "authors",
+                    "abstract",
+                    "categories",
+                    "arxiv_id",
+                    "pdf_url",
+                    "publication_date",
+                ],
+                "limitations": [
+                    "preprints_only",
+                    "no_citation_counts",
+                    "academic_categories_only",
+                ],
+            },
             "ieee": {
                 "api_key_required": True,
                 "rate_limit": 100.0,
                 "free": False,
+                "scraping_based": False,
+                "reliability": "high",
+                "database_url": "https://ieeexplore.ieee.org/",
+                "api_docs_url": "https://developer.ieee.org/",
                 "api_signup_url": "https://developer.ieee.org/",
+                "note": "Official REST API requiring subscription. High-quality engineering and computer science papers.",
+                "features": [
+                    "title",
+                    "authors",
+                    "abstract",
+                    "doi",
+                    "citation_counts",
+                    "publication_info",
+                    "pdf_access",
+                ],
+                "limitations": [
+                    "requires_paid_subscription",
+                    "engineering_focus",
+                    "rate_limited_per_hour",
+                ],
             },
             "elsevier": {
                 "api_key_required": True,
                 "rate_limit": 100.0,
                 "free": False,
+                "scraping_based": False,
+                "reliability": "high",
+                "database_url": "https://www.sciencedirect.com/",
+                "api_docs_url": "https://dev.elsevier.com/",
                 "api_signup_url": "https://dev.elsevier.com/",
+                "note": "Official ScienceDirect API requiring subscription. Extensive collection across multiple disciplines.",
+                "features": [
+                    "title",
+                    "authors",
+                    "abstract",
+                    "doi",
+                    "full_text_access",
+                    "publication_info",
+                    "subject_areas",
+                ],
+                "limitations": [
+                    "requires_paid_subscription",
+                    "complex_authentication",
+                    "usage_quotas",
+                ],
             },
             "springer": {
                 "api_key_required": True,
                 "rate_limit": 100.0,
                 "free": True,
+                "scraping_based": False,
+                "reliability": "high",
+                "database_url": "https://link.springer.com/",
+                "api_docs_url": "https://dev.springernature.com/",
                 "api_signup_url": "https://dev.springernature.com/",
+                "note": "Official API with free tier available. Good coverage of scientific literature.",
+                "features": [
+                    "title",
+                    "authors",
+                    "abstract",
+                    "doi",
+                    "publication_info",
+                    "open_access_indicators",
+                ],
+                "limitations": [
+                    "rate_limits_on_free_tier",
+                    "some_content_requires_subscription",
+                ],
             },
             "wiley": {
                 "api_key_required": True,
                 "rate_limit": 100.0,
                 "free": False,
+                "scraping_based": False,
+                "reliability": "medium",
+                "database_url": "https://onlinelibrary.wiley.com/",
+                "api_docs_url": "https://onlinelibrary.wiley.com/library-info/resources/text-and-datamining",
                 "api_signup_url": "https://onlinelibrary.wiley.com/library-info/resources/text-and-datamining",
+                "note": "TDM (Text and Data Mining) API requiring institutional access. Focus on academic journals.",
+                "features": [
+                    "title",
+                    "authors",
+                    "abstract",
+                    "doi",
+                    "publication_info",
+                    "full_text_mining",
+                ],
+                "limitations": [
+                    "requires_institutional_access",
+                    "complex_authentication",
+                    "limited_free_access",
+                ],
             },
             "acm": {
                 "api_key_required": False,
-                "rate_limit": 1.0,
+                "rate_limit": 0.5,
                 "free": True,
-                "note": "No public API available, requires web scraping",
+                "scraping_based": True,
+                "reliability": "medium",
+                "database_url": "https://dl.acm.org/",
+                "api_docs_url": None,
+                "note": "Uses web scraping with robust live availability checks. May break if ACM changes website structure.",
+                "features": [
+                    "title",
+                    "authors",
+                    "doi",
+                    "publication_date",
+                    "basic_metadata",
+                ],
+                "limitations": [
+                    "no_abstracts_in_search_results",
+                    "limited_to_20_results_per_page",
+                    "web_scraping_fragility",
+                ],
             },
             "google_scholar": {
                 "api_key_required": False,
-                "rate_limit": 1.0,
+                "rate_limit": 0.2,
                 "free": True,
-                "note": "Blocks automated access, limited functionality",
+                "scraping_based": True,
+                "reliability": "low",
+                "database_url": "https://scholar.google.com/",
+                "api_docs_url": None,
+                "note": "Functional but actively blocks automated access. Use very conservative rate limits and expect occasional failures.",
+                "features": [
+                    "title",
+                    "authors",
+                    "citations",
+                    "abstracts",
+                    "publication_info",
+                    "year_filtering",
+                ],
+                "limitations": [
+                    "frequent_blocking",
+                    "captcha_challenges",
+                    "rate_limiting_required",
+                    "results_limited_to_20",
+                ],
+                "recommendations": [
+                    "use_as_fallback_only",
+                    "implement_captcha_handling",
+                    "rotate_user_agents",
+                ],
             },
         }
 
@@ -856,7 +1340,7 @@ if __name__ == "__main__":
     # Example usage and testing
     logging.basicConfig(level=logging.INFO)
 
-    # Test ArXiv adapter
+    # Test ArXiv adapter with live availability check
     arxiv = AdapterFactory.create_adapter("arxiv", rate_limit=3.0)
     if arxiv and arxiv.is_available():
         print(f"Testing {arxiv.get_database_name()} adapter...")
@@ -865,6 +1349,46 @@ if __name__ == "__main__":
 
         stats = arxiv.get_stats()
         print(f"Adapter stats: {stats}")
+    else:
+        print("ArXiv is not available")
+
+    # Test ACM adapter
+    print("\n" + "=" * 50)
+    acm = AdapterFactory.create_adapter("acm", rate_limit=0.5)
+    if acm:
+        print(f"Testing {acm.get_database_name()} adapter...")
+        if acm.is_available():
+            print("✓ ACM is available, attempting search...")
+            papers = acm.search("machine learning", max_results=3)
+            print(f"Found {len(papers)} papers from ACM")
+            if papers:
+                print(f"Sample paper: {papers[0].title}")
+        else:
+            print(
+                "✗ ACM Digital Library is not available (website may be down or blocking)"
+            )
+    else:
+        print("✗ Could not create ACM adapter")
+
+    # Test Google Scholar (with comprehensive warnings)
+    print("\n" + "=" * 50)
+    scholar = AdapterFactory.create_adapter("google_scholar", rate_limit=0.2)
+    if scholar:
+        print(f"Testing {scholar.get_database_name()} adapter...")
+        print("⚠️  WARNING: Google Scholar aggressively blocks automated requests")
+        print("⚠️  This test may fail or trigger CAPTCHA challenges")
+        if scholar.is_available():
+            print("✓ Google Scholar appears accessible, attempting search...")
+            papers = scholar.search("deep learning", max_results=5)
+            if papers:
+                print(f"✓ Successfully found {len(papers)} papers from Google Scholar")
+                print(f"Sample paper: {papers[0].title}")
+            else:
+                print("✗ No papers returned (likely blocked or no results)")
+        else:
+            print("✗ Google Scholar is not available or blocking requests")
+    else:
+        print("✗ Could not create Google Scholar adapter")
 
     # Show supported databases
     databases = AdapterFactory.get_supported_databases()
@@ -875,3 +1399,13 @@ if __name__ == "__main__":
     for db in databases:
         req = AdapterFactory.get_adapter_requirements(db)
         print(f"  {db}: {req}")
+
+    # Test availability for all adapters
+    print(f"\nLive availability check:")
+    for db in databases:
+        adapter = AdapterFactory.create_adapter(db)
+        if adapter:
+            available = adapter.is_available()
+            print(f"  {db}: {'✓ Available' if available else '✗ Not available'}")
+        else:
+            print(f"  {db}: ✗ Could not create adapter (missing API key?)")

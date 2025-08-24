@@ -419,15 +419,15 @@ duplicates = cache.find_duplicates(similarity_threshold=0.8)
 
 ## 🌐 Supported Databases
 
-| Database | API Required | Free | Status |
-|----------|-------------|------|--------|
+| Database | API Required | Free | Status   |
+|----------|-------------|------|----------|
 | arXiv | ❌ No | ✅ Yes | ✅ Active |
 | IEEE Xplore | ✅ Yes | ❌ Paid | ✅ Active |
 | Springer Nature | ✅ Yes | ✅ Yes | ✅ Active |
 | Elsevier/ScienceDirect | ✅ Yes | ❌ Paid | ✅ Active |
 | Wiley Online Library | ✅ Yes | ❌ Paid | ✅ Active |
-| ACM Digital Library | ❌ No | ✅ Yes | 🚧 Limited |
-| Google Scholar | ❌ No | ✅ Yes | 🚧 Limited |
+| ACM Digital Library | ❌ No | ✅ Yes | ✅ Active |
+| Google Scholar | ❌ No | ✅ Yes | ✅ Active |
 
 ### API Key Signup URLs:
 - **IEEE Xplore**: https://developer.ieee.org/
