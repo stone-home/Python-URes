@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import json
 import logging
+import csv
+from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime
-import csv
 from ures.secrets import SecureKeyManager, StorageMethod
 from ures.literature.paper import Paper, CacheManager
 from ures.literature.adapters import DatabaseAdapter, AdapterFactory
@@ -13,13 +14,18 @@ class DatabaseConfig:
     """Enhanced configuration management with secure API key integration."""
 
     def __init__(
-        self, config_path: Optional[str] = None, app_name: str = "literature-search"
+        self, config_dir: Optional[str] = None, app_name: str = "literature-search"
     ):
-        self.config_path = config_path or "lit_search_config.json"
+        config_dir = config_dir or Path.home() / ".ures_lit_search"
+        self.config_dir = config_dir
         self.app_name = app_name
-        self.config = self._load_config()
-        self.key_manager = SecureKeyManager(app_name)
         self.logger = logging.getLogger(__name__)
+        self.key_manager = SecureKeyManager(app_name, config_dir=self.config_dir)
+        self.config = self._load_config()
+
+    @property
+    def config_path(self):
+        return self.config_dir / "lit_search_config.json"
 
     def _load_config(self) -> Dict:
         """Load configuration from file or create default."""
@@ -40,22 +46,18 @@ class DatabaseConfig:
                 },
                 "ieee": {
                     "enabled": False,
-                    "api_key_method": "encrypted",
                     "rate_limit": 100,
                 },
                 "springer": {
                     "enabled": False,
-                    "api_key_method": "encrypted",
                     "rate_limit": 100,
                 },
                 "elsevier": {
                     "enabled": False,
-                    "api_key_method": "encrypted",
                     "rate_limit": 100,
                 },
                 "wiley": {
                     "enabled": False,
-                    "api_key_method": "encrypted",
                     "rate_limit": 100,
                 },
                 "acm": {
@@ -68,7 +70,7 @@ class DatabaseConfig:
                 },
             },
             "cache": {
-                "directory": "./lit_cache",
+                "directory": f"{self.config_dir}/cache",
                 "expire_days": 30,
                 "max_age_hours": 24,
             },
@@ -88,6 +90,12 @@ class DatabaseConfig:
         try:
             with open(self.config_path, "r") as f:
                 config = json.load(f)
+                # Initialize all API key information for each DB with dummy values when missing
+                for db_name in default_config["databases"].keys():
+                    if self.key_manager.get_key(db_name) is None:
+                        self.key_manager.store_key(
+                            db_name, "dummy", StorageMethod.ENCRYPTED
+                        )
                 # Merge with defaults to ensure all keys exist
                 for section, values in default_config.items():
                     if section not in config:
@@ -122,7 +130,6 @@ class DatabaseConfig:
         """Get API key for a database using secure storage."""
         db_config = self.get_database_config(db_name)
 
-        # Legacy support - check for direct api_key field
         if "api_key" in db_config and db_config["api_key"]:
             return db_config["api_key"]
 
@@ -139,12 +146,12 @@ class DatabaseConfig:
         Set API key for a database using secure storage.
 
         Args:
-                db_name: Database name
-                api_key: API key or reference (depends on method)
-                method: Storage method ('encrypted', 'env', '1password', 'keychain')
+                        db_name: Database name
+                        api_key: API key or reference (depends on method)
+                        method: Storage method ('encrypted', 'env', '1password', 'keychain')
 
         Returns:
-                bool: Success status
+                        bool: Success status
         """
         # Store the key securely
         success = self.key_manager.store_key(db_name, api_key, method)
@@ -201,16 +208,16 @@ class LiteratureSearchEngine:
     """Main search engine coordinating multiple database adapters with Boolean query support."""
 
     def __init__(
-        self, config_path: Optional[str] = None, app_name: str = "literature-search"
+        self, config_dir: Optional[str] = None, app_name: str = "literature-search"
     ):
         """
         Initialize the Literature Search Engine.
 
         Args:
-                config_path: Path to configuration file
-                app_name: Application name for key management
+                        config_dir: Path to a directory used to store configuration file
+                        app_name: Application name for key management
         """
-        self.config = DatabaseConfig(config_path, app_name)
+        self.config = DatabaseConfig(config_dir, app_name)
         self.cache = CacheManager(self.config.config["cache"]["directory"])
         self.adapters: Dict[str, DatabaseAdapter] = {}
         self.logger = logging.getLogger(__name__)
@@ -270,15 +277,15 @@ class LiteratureSearchEngine:
         Search multiple databases with Boolean query support.
 
         Args:
-                query: Boolean search query
-                databases: List of database names to search
-                max_results: Maximum results per database
-                use_cache: Whether to use cached results
-                year_min: Minimum publication year
-                **kwargs: Additional search parameters
+                        query: Boolean search query
+                        databases: List of database names to search
+                        max_results: Maximum results per database
+                        use_cache: Whether to use cached results
+                        year_min: Minimum publication year
+                        **kwargs: Additional search parameters
 
         Returns:
-                List of Paper objects, deduplicated and unified
+                        List of Paper objects, deduplicated and unified
         """
         if not query or not query.strip():
             return []
@@ -431,13 +438,13 @@ class LiteratureSearchEngine:
         Export search results to various formats.
 
         Args:
-                papers: List of papers to export
-                format: Export format ('json', 'csv', 'bibtex')
-                filename: Output filename
-                include_abstracts: Whether to include abstracts
+                        papers: List of papers to export
+                        format: Export format ('json', 'csv', 'bibtex')
+                        filename: Output filename
+                        include_abstracts: Whether to include abstracts
 
         Returns:
-                str: Path to exported file or None if failed
+                        str: Path to exported file or None if failed
         """
         if not papers:
             self.logger.warning("No papers to export")
@@ -653,6 +660,10 @@ if __name__ == "__main__":
 
     # Initialize search engine
     engine = LiteratureSearchEngine()
+    print(f"Configuration File Location: {engine.config.config_path}")
+    print(
+        f"Initialized Literature Search Engine with adapters: {list(engine.adapters.keys())}"
+    )
 
     # Example Boolean search query
     boolean_query = '("software" OR "system") AND ("performance prediction" OR "performance modeling") AND ("deep learning" OR "neural network")'

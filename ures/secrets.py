@@ -12,7 +12,7 @@ import subprocess
 import secrets
 import asyncio
 import enum
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 from pathlib import Path
 from datetime import datetime
 import logging
@@ -39,7 +39,9 @@ class SecureKeyManager:
     This is a standalone SDK that can be used by any application.
     """
 
-    def __init__(self, app_name: str = "default", config_dir: Optional[str] = None):
+    def __init__(
+        self, app_name: str = "default", config_dir: Optional[Union[str, Path]] = None
+    ):
         """
         Initialize the SecureKeyManager.
 
