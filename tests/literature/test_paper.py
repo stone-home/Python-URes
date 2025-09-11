@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
-from ures.literature.adapters import QueryParser
+from ures.literature.search import QueryParser
 
 
 class TestQueryParser:
