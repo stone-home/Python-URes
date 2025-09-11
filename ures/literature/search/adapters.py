@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional, Any
 from datetime import datetime
-from ures.literature.paper import Paper, PaperFormatter
+from .paper import Paper, PaperFormatter
 
 
 class QueryParser:
