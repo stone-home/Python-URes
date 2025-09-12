@@ -1,8 +1,37 @@
+from xmlrpc.client import Fault
+
+import bibtexparser
 import re
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Union, Optional, List
-from .data_types import CitationSource, CitationInfo
+from dataclasses import dataclass, field
+
+
+@dataclass(frozen=True, slots=True)
+class CitationSource:
+    """The data structure to hold citation source information."""
+
+    source_file: str
+    line_number: int
+    source_type: str
+
+
+@dataclass(slots=True)
+class CitationInfo:
+    """The data structure to hold citation information."""
+
+    key: str
+    sources: List[CitationSource] = field(default_factory=list)
+    bibliography: Optional[bibtexparser.model.Entry] = None
+
+    def __repr__(self):
+        is_valid = False
+        if self.bibliography is not None:
+            is_valid_field = self.bibliography.get("is_valid", None)
+            if is_valid_field is not None:
+                is_valid = is_valid_field.value
+        return f"[{is_valid}]Cite Key: {self.key}"
 
 
 class AbcCitationExtractor(ABC):
