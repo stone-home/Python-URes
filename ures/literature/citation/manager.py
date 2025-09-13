@@ -5,6 +5,10 @@ from .middlewares import (
     FieldNormalizationMiddleware,
     TypeNormalizationMiddleware,
     RuleBasedValidationMiddleware,
+    ProceedingsNormalizationMiddleware,
+    PublisherNormalizationMiddleware,
+    DateSpiltToYearMonthDayMiddleware,
+    LanguageAsciiNormalizationMiddleware,
 )
 from .rules import BibRuleRegister
 
@@ -45,8 +49,14 @@ class BibManager:
             append_middleware=[
                 bibtexparser.middlewares.SeparateCoAuthors(),
                 bibtexparser.middlewares.SplitNameParts(),
+                LanguageAsciiNormalizationMiddleware(rule_register=self.rules),
+                DateSpiltToYearMonthDayMiddleware(rule_register=self.rules),
+                ProceedingsNormalizationMiddleware(rule_register=self.rules),
+                PublisherNormalizationMiddleware(rule_register=self.rules),
+                # FieldNormalizationMiddleware should be the last one to ensure other normalizations are applied first
+                # to avoid filed name mapping in FieldNormalizationMiddleware
                 FieldNormalizationMiddleware(rule_register=self.rules),
-                TypeNormalizationMiddleware(),
+                TypeNormalizationMiddleware(rule_register=self.rules),
                 RuleBasedValidationMiddleware(rule_register=self.rules),
             ],
         )

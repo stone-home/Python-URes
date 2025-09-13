@@ -63,3 +63,6 @@ class BibRuleRegister:
             self._rules.remove(rule_to_remove)
         else:
             raise ValueError(f"Rule for {bib_type} ({standard_name}) not found")
+
+
+__all__ = ["BibRuleRegister", "BibTypeRule"]

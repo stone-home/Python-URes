@@ -129,7 +129,9 @@ class CitationManager:
             file_path,
             self.to_library(),
             append_middleware=[
-                OutputCleanupNoneResultMiddleware(),
+                OutputCleanupNoneResultMiddleware(
+                    rule_register=self._bib_manager.rules
+                ),
                 OutputOnlyDesiredFieldsMiddleware(
                     rule_register=self._bib_manager.rules
                 ),

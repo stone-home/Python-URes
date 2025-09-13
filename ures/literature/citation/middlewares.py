@@ -1,6 +1,5 @@
 import copy
 import re
-import bibtexparser
 import logging
 import pycountry
 from typing import Any, Dict, List, Optional, Type, Union
@@ -12,7 +11,13 @@ from .rules import BibRuleRegister
 logger = logging.getLogger(__name__)
 
 
-class FieldNormalizationMiddleware(BlockMiddleware):
+class CitationMiddleware(BlockMiddleware):
+    def __init__(self, rule_register: Optional[BibRuleRegister] = None):
+        super().__init__()
+        self.rule_register = rule_register or BibRuleRegister()
+
+
+class FieldNormalizationMiddleware(CitationMiddleware):
     """Normalize field names (journaltitle -> journal, etc.)"""
 
     FIELD_MAPPINGS = {
@@ -24,57 +29,15 @@ class FieldNormalizationMiddleware(BlockMiddleware):
         "langid": "language",
     }
 
-    def __init__(self, rule_register: Optional[BibRuleRegister] = None):
-        super().__init__()
-        self.rule_register = rule_register or BibRuleRegister()
-
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
         """Transform entry fields."""
-
-        if entry.get("date", default=None) is not None:
-            date_field = entry.pop("date")
-            date_parts = string2date(date_field.value)
-            # Modify the Year Part
-            year_field = copy.deepcopy(date_field)
-            year_field.key = "year"
-            year_field.value = date_parts["year"]
-            # Create Month Parts if available
-            month_field = copy.deepcopy(date_field)
-            month_field.key = "month"
-            month_field.value = str(date_parts["month"]).lower()
-            # Create Day Parts if available
-            day_field = copy.deepcopy(date_field)
-            day_field.key = "day"
-            day_field.value = date_parts["day"]
-
-            # Add new fields to entry
-            entry.set_field(year_field)
-            entry.set_field(month_field)
-            entry.set_field(day_field)
-
         for field in entry.fields:
             # Handle special cases
             key = field.key
             value = field.value
-            if key == "author":
-                # Normalize author field
-                field.value = self._normalize_author_field(value)
-            elif key == "pages":
+            if key == "pages":
                 # Normalize page ranges
                 field.value = self._normalize_pages(value)
-            elif key == "langid":
-                # Normalize language to ISO 639-1 code
-                # field, language, is already processed
-                field.value = self.normalize_language(value)
-            elif key == "booktitle" and entry.entry_type == "inproceedings":
-                # Normalize proceedings title
-                field.value = self.normailize_proceedings(value)
-            elif (
-                key == "publisher"
-                and entry.entry_type in ["inproceedings", "article"]
-                and value.lower() in ["{ieee}", "{acm}", "ieee", "acm"]
-            ):
-                field.value = f"{value} Inc."
             else:
                 field.value = value
             # Apply field mapping
@@ -84,21 +47,6 @@ class FieldNormalizationMiddleware(BlockMiddleware):
             new_key = field_mappings.get(field.key, field.key)
             field.key = new_key
         return entry
-
-    def _normalize_author_field(
-        self, author_value: Any
-    ) -> Optional[
-        Union[List[Union[str, bibtexparser.middlewares.names.NameParts]], str]
-    ]:
-        """Normalize author field - handle various input formats."""
-        if isinstance(author_value, list):
-            # Already processed by bibtexparser middleware
-            return author_value
-        elif isinstance(author_value, str):
-            # Simple string - let bibtexparser handle it later
-            return author_value
-        else:
-            return str(author_value) if author_value else None
 
     def _normalize_pages(self, pages_value: str) -> str:
         """Normalize page ranges to consistent format."""
@@ -113,6 +61,21 @@ class FieldNormalizationMiddleware(BlockMiddleware):
             normalized = normalized.replace("-", "--")
 
         return normalized.strip()
+
+
+class LanguageAsciiNormalizationMiddleware(CitationMiddleware):
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        for field in entry.fields:
+            key = field.key
+            value = field.value
+            if key == "langid":
+                # Normalize language to ISO 639-1 code
+                # field, language, is already processed
+                _value = self.normalize_language(value)
+                print(_value)
+                field.value = _value
+
+        return entry
 
     def normalize_language(self, language_str: str) -> Any:
         """Normalize language string to ISO 639-1 code."""
@@ -134,8 +97,62 @@ class FieldNormalizationMiddleware(BlockMiddleware):
                 if language_str in str(lang.name).lower():
                     if hasattr(lang, "alpha_2"):
                         return lang.alpha_2
-        finally:
+        except:
+            logger.warning(f"Failed to normalize language '{language_str}'")
             return language_str
+        return language_str
+
+
+class DateSpiltToYearMonthDayMiddleware(CitationMiddleware):
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        if entry.get("date", default=None) is not None:
+            date_field = entry.pop("date")
+            date_parts = string2date(date_field.value)
+            # Modify the Year Part
+            year_field = copy.deepcopy(date_field)
+            year_field.key = "year"
+            year_field.value = date_parts["year"]
+            # Create Month Parts if available
+            month_field = copy.deepcopy(date_field)
+            month_field.key = "month"
+            month_field.value = str(date_parts["month"]).lower()
+            # Create Day Parts if available
+            day_field = copy.deepcopy(date_field)
+            day_field.key = "day"
+            day_field.value = date_parts["day"]
+
+            # Add new fields to entry
+            entry.set_field(year_field)
+            entry.set_field(month_field)
+            entry.set_field(day_field)
+        return entry
+
+
+class PublisherNormalizationMiddleware(CitationMiddleware):
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        for field in entry.fields:
+            # Handle special cases
+            key = field.key
+            value = field.value
+            if (
+                key == "publisher"
+                and entry.entry_type in ["inproceedings", "article"]
+                and value.lower() in ["{ieee}", "{acm}", "ieee", "acm"]
+            ):
+                field.value = f"{value} Inc."
+        return entry
+
+
+class ProceedingsNormalizationMiddleware(CitationMiddleware):
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        for field in entry.fields:
+            # Handle special cases
+            key = field.key
+            value = field.value
+            if key == "booktitle" and entry.entry_type == "inproceedings":
+                # Normalize proceedings title
+                field.value = self.normailize_proceedings(value)
+        return entry
 
     def normailize_proceedings(self, proceedings_str: str) -> str:
         """Normalize proceedings string to standard format."""
@@ -170,10 +187,10 @@ class FieldNormalizationMiddleware(BlockMiddleware):
             "inproceedings"
         ).formatting.proceedings_style
         prefix = prefix_map.get(style, "full")
-        return f"{prefix} {proceedings_str}".strip()
+        return f"{prefix}{proceedings_str}".strip()
 
 
-class TypeNormalizationMiddleware(BlockMiddleware):
+class TypeNormalizationMiddleware(CitationMiddleware):
     """Normalize entry types (conference -> inproceedings, etc.)"""
 
     TYPE_MAPPINGS = {
@@ -194,7 +211,7 @@ class TypeNormalizationMiddleware(BlockMiddleware):
         return entry
 
 
-class RuleBasedValidationMiddleware(BlockMiddleware):
+class RuleBasedValidationMiddleware(CitationMiddleware):
     """Validate entries against predefined rules."""
 
     def __init__(self, rule_register: Optional[BibRuleRegister] = None):
@@ -225,7 +242,7 @@ class RuleBasedValidationMiddleware(BlockMiddleware):
         return entry
 
 
-class OutputCleanupNoneResultMiddleware(BlockMiddleware):
+class OutputCleanupNoneResultMiddleware(CitationMiddleware):
     """Cleanup entries that are invalid or have missing required fields."""
 
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Optional[Entry]:
@@ -238,7 +255,7 @@ class OutputCleanupNoneResultMiddleware(BlockMiddleware):
         return entry
 
 
-class OutputOnlyDesiredFieldsMiddleware(BlockMiddleware):
+class OutputOnlyDesiredFieldsMiddleware(CitationMiddleware):
     """Keep only desired fields in the output."""
 
     def __init__(self, rule_register: Optional[BibRuleRegister] = None):
@@ -267,7 +284,7 @@ class OutputOnlyDesiredFieldsMiddleware(BlockMiddleware):
         return entry
 
 
-class OutputLimitMaxAuthors(BlockMiddleware):
+class OutputLimitMaxAuthors(CitationMiddleware):
     """Keep only desired fields in the output."""
 
     def __init__(self, rule_register: Optional[BibRuleRegister] = None):
