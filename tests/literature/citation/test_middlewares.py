@@ -1,5 +1,3 @@
-import pytest
-import copy
 from unittest.mock import Mock, patch
 from bibtexparser.model import Entry, Field
 from bibtexparser.middlewares import NameParts

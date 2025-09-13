@@ -1,7 +1,4 @@
 import pytest
-from unittest.mock import patch
-from typing import List
-
 from ures.literature.citation.rules.data_type import (
     BibTypeRule,
     FormattingRules,

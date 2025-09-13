@@ -2,7 +2,6 @@ import pytest
 import tempfile
 import bibtexparser
 from pathlib import Path
-from unittest.mock import patch, mock_open
 from ures.literature.citation.extractors import (
     CitationSource,
     CitationInfo,
