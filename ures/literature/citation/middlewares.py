@@ -20,15 +20,6 @@ class CitationMiddleware(BlockMiddleware):
 class FieldNormalizationMiddleware(CitationMiddleware):
     """Normalize field names (journaltitle -> journal, etc.)"""
 
-    FIELD_MAPPINGS = {
-        "rights": "copyright",
-        "location": "address",
-        "journaltitle": "journal",
-        "titleaddon": "journal",
-        "venue": "booktitle",  # Sometimes used for conference venue
-        "langid": "language",
-    }
-
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
         """Transform entry fields."""
         for field in entry.fields:
@@ -42,7 +33,9 @@ class FieldNormalizationMiddleware(CitationMiddleware):
                 field.value = value
             # Apply field mapping
             rules = self.rule_register.get_rule(entry.entry_type)
-            field_mappings = copy.deepcopy(self.FIELD_MAPPINGS)
+            field_mappings = copy.deepcopy(
+                self.rule_register.get_default_field_mapping()
+            )
             field_mappings.update(rules.field_mappings)
             new_key = field_mappings.get(field.key, field.key)
             field.key = new_key
@@ -193,20 +186,10 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
 class TypeNormalizationMiddleware(CitationMiddleware):
     """Normalize entry types (conference -> inproceedings, etc.)"""
 
-    TYPE_MAPPINGS = {
-        "conference": "inproceedings",
-        "incollection": "inproceedings",  # Some publishers treat book chapters as conf papers
-        "inbook": "incollection",
-        "mastersthesis": "thesis",
-        "phdthesis": "thesis",
-        "unpublished": "preprint",
-        "webpage": "online",
-        "electronic": "online",
-        "report": "techreport",
-    }
-
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
-        new_type = self.TYPE_MAPPINGS.get(entry.entry_type.lower(), entry.entry_type)
+        new_type = self.rule_register.get_defulat_bib_type_mapping().get(
+            entry.entry_type.lower(), entry.entry_type
+        )
         entry.entry_type = new_type
         return entry
 

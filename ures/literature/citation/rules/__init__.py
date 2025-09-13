@@ -6,7 +6,6 @@ from .acm import ACMBibStyle
 
 logger = logging.getLogger(__name__)
 
-
 ExtraRuleSet = {
     "acm": ACMBibStyle,
 }
@@ -19,6 +18,29 @@ class BibRuleRegister:
             logger.warning(f"Loading extra rules for style: {style}")
             for rule in ExtraRuleSet[style]:
                 self.register_rule(rule, force=True)
+
+    def get_default_field_mapping(self) -> Dict[str, str]:
+        return {
+            "rights": "copyright",
+            "location": "address",
+            "journaltitle": "journal",
+            "titleaddon": "journal",
+            "venue": "booktitle",  # Sometimes used for conference venue
+            "langid": "language",
+        }
+
+    def get_defulat_bib_type_mapping(self) -> Dict[str, str]:
+        return {
+            "conference": "inproceedings",
+            "incollection": "inproceedings",  # Some publishers treat book chapters as conf papers
+            "inbook": "incollection",
+            "mastersthesis": "thesis",
+            "phdthesis": "thesis",
+            "unpublished": "preprint",
+            "webpage": "online",
+            "electronic": "online",
+            "report": "techreport",
+        }
 
     def get_rule(self, bib_type: str) -> BibTypeRule:
         for rule in self._rules:

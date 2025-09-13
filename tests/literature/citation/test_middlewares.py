@@ -28,6 +28,16 @@ class TestFieldNormalizationMiddleware:
     def setup_method(self):
         self.rule_register = Mock()
         self.rule_register.get_rule.return_value = Mock(field_mappings={})
+        self.rule_register.get_default_field_mapping = Mock(
+            return_value={
+                "rights": "copyright",
+                "location": "address",
+                "journaltitle": "journal",
+                "titleaddon": "journal",
+                "venue": "booktitle",  # Sometimes used for conference venue
+                "langid": "language",
+            }
+        )
         self.middleware = FieldNormalizationMiddleware(self.rule_register)
 
     def test_field_mapping_basic(self):
@@ -43,8 +53,10 @@ class TestFieldNormalizationMiddleware:
         )
 
         result = self.middleware.transform_entry(entry)
+        print(result)
 
         field_keys = [field.key for field in result.fields]
+        print(field_keys)
         assert "journal" in field_keys
         assert "address" in field_keys
         assert "language" in field_keys
