@@ -1,5 +1,3 @@
-from xmlrpc.client import Fault
-
 import bibtexparser
 import re
 from abc import ABC, abstractmethod
