@@ -3,13 +3,24 @@ import copy
 import bibtexparser
 from pathlib import Path
 from typing import Optional, Union, List
+
+from mistune.toc import render_toc_ul
+
 from .manager import BibManager
-from .rules import BibRuleRegister
+from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules
 from .extractors import BBLCitationExtractor, TexCitationExtractor, CitationInfo
 from .middlewares import (
     OutputOnlyDesiredFieldsMiddleware,
     OutputCleanupNoneResultMiddleware,
     OutputLimitMaxAuthors,
+    TypeNormalizationMiddleware,
+    RuleBasedValidationMiddleware,
+    FieldNormalizationMiddleware,
+    CitationMiddleware,
+    LanguageAsciiNormalizationMiddleware,
+    DateSpiltToYearMonthDayMiddleware,
+    ProceedingsNormalizationMiddleware,
+    PublisherNormalizationMiddleware,
 )
 
 logger = logging.getLogger(__name__)
@@ -34,17 +45,21 @@ class CitationManager:
     def rules(self) -> BibRuleRegister:
         return self._bib_manager.rules
 
+    @property
+    def bib_library(self) -> bibtexparser.Library:
+        return self._bib_manager.bibliograph_library
+
     def import_citations(
         self, files: List[Union[str, Path]], cleanup: bool = False
     ) -> dict[str, CitationInfo]:
         """Import citations from the given files.
 
         Args:
-                files (List[Union[str, Path]]): List of file paths to import citations from.
-                cleanup (bool): Whether to clean up the citations previously stored. Defaults to False.
+                        files (List[Union[str, Path]]): List of file paths to import citations from.
+                        cleanup (bool): Whether to clean up the citations previously stored. Defaults to False.
 
         Returns:
-                List[CitationInfo]: List of imported citations.
+                        List[CitationInfo]: List of imported citations.
 
         """
         unique_citations = {}
@@ -123,22 +138,29 @@ class CitationManager:
         """Save all bibliography entries to a BibTeX file.
 
         Args:
-                file_path (Union[str, Path]): Path to save the BibTeX file.
+                        file_path (Union[str, Path]): Path to save the BibTeX file.
         """
-        bibtexparser.write_file(
-            file_path,
-            self.to_library(),
-            append_middleware=[
-                OutputCleanupNoneResultMiddleware(
-                    rule_register=self._bib_manager.rules
-                ),
-                OutputOnlyDesiredFieldsMiddleware(
-                    rule_register=self._bib_manager.rules
-                ),
-                OutputLimitMaxAuthors(rule_register=self._bib_manager.rules),
-                bibtexparser.middlewares.MergeNameParts(),
-                bibtexparser.middlewares.MergeCoAuthors(),
-                bibtexparser.middlewares.SortFieldsAlphabeticallyMiddleware(),
-                bibtexparser.middlewares.SortBlocksByTypeAndKeyMiddleware(),
-            ],
-        )
+        self._bib_manager.export_to_file(file_path, self.to_library())
+
+
+__all__ = [
+    "CitationManager",
+    "BibManager",
+    "BibRuleRegister",
+    "BibTypeRule",
+    "FormattingRules",
+    "OutputRules",
+    "CitationInfo",
+    "CitationMiddleware",
+    "OutputOnlyDesiredFieldsMiddleware",
+    "OutputCleanupNoneResultMiddleware",
+    "OutputLimitMaxAuthors",
+    "TypeNormalizationMiddleware",
+    "RuleBasedValidationMiddleware",
+    "FieldNormalizationMiddleware",
+    "CitationMiddleware",
+    "LanguageAsciiNormalizationMiddleware",
+    "DateSpiltToYearMonthDayMiddleware",
+    "ProceedingsNormalizationMiddleware",
+    "PublisherNormalizationMiddleware",
+]

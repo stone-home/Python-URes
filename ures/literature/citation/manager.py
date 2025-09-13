@@ -1,7 +1,9 @@
+import copy
 import bibtexparser
-from typing import Union, List, Optional
+from typing import Union, List, Optional, Type
 from pathlib import Path
 from .middlewares import (
+    CitationMiddleware,
     FieldNormalizationMiddleware,
     TypeNormalizationMiddleware,
     RuleBasedValidationMiddleware,
@@ -9,6 +11,9 @@ from .middlewares import (
     PublisherNormalizationMiddleware,
     DateSpiltToYearMonthDayMiddleware,
     LanguageAsciiNormalizationMiddleware,
+    OutputOnlyDesiredFieldsMiddleware,
+    OutputCleanupNoneResultMiddleware,
+    OutputLimitMaxAuthors,
 )
 from .rules import BibRuleRegister
 
@@ -25,6 +30,9 @@ class BibManager:
             if bib_file_path is not None
             else bibtexparser.Library()
         )
+        self._failed_blocks: List[bibtexparser.model.Block] = copy.deepcopy(
+            self._bibliography.failed_blocks
+        )
 
     @property
     def rules(self) -> BibRuleRegister:
@@ -32,40 +40,80 @@ class BibManager:
 
     @property
     def bibliograph_library(self) -> bibtexparser.Library:
-        return self._bibliography
+        return copy.deepcopy(self._bibliography)
 
     @property
     def bibliography_entity(self) -> List[bibtexparser.model.Entry]:
-        return self._bibliography.entries
+        return copy.deepcopy(self._bibliography.entries)
+
+    @property
+    def failed_blocks(self) -> List[bibtexparser.model.Block]:
+        return copy.deepcopy(self._failed_blocks)
 
     def append_bibliography(self, bib_file_path: Union[str, Path]) -> None:
         new_bib = self.load_from_file(bib_file_path)
         self._bibliography.add(new_bib.entries)
+        self._failed_blocks.extend(copy.deepcopy(new_bib.failed_blocks))
 
-    def load_from_file(self, file_path: str) -> bibtexparser.Library:
+    def _default_middlewares(self) -> List[Type[CitationMiddleware]]:
+        return [
+            LanguageAsciiNormalizationMiddleware,
+            DateSpiltToYearMonthDayMiddleware,
+            ProceedingsNormalizationMiddleware,
+            PublisherNormalizationMiddleware,
+            FieldNormalizationMiddleware,
+            TypeNormalizationMiddleware,
+            RuleBasedValidationMiddleware,
+        ]
+
+    def load_from_file(
+        self,
+        file_path: str,
+        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+    ) -> bibtexparser.Library:
         # Implementation for importing bibliography
+        _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
+            bibtexparser.middlewares.SeparateCoAuthors(),
+            bibtexparser.middlewares.SplitNameParts(),
+        ]
+
+        for m in middlewares or self._default_middlewares():
+            _middlewares.append(m(rule_register=self.rules))
+
         return bibtexparser.parse_file(
             file_path,
-            append_middleware=[
-                bibtexparser.middlewares.SeparateCoAuthors(),
-                bibtexparser.middlewares.SplitNameParts(),
-                LanguageAsciiNormalizationMiddleware(rule_register=self.rules),
-                DateSpiltToYearMonthDayMiddleware(rule_register=self.rules),
-                ProceedingsNormalizationMiddleware(rule_register=self.rules),
-                PublisherNormalizationMiddleware(rule_register=self.rules),
-                # FieldNormalizationMiddleware should be the last one to ensure other normalizations are applied first
-                # to avoid filed name mapping in FieldNormalizationMiddleware
-                FieldNormalizationMiddleware(rule_register=self.rules),
-                TypeNormalizationMiddleware(rule_register=self.rules),
-                RuleBasedValidationMiddleware(rule_register=self.rules),
-            ],
+            append_middleware=_middlewares,
         )
+
+    def export_to_file(
+        self,
+        file_path: str,
+        library: bibtexparser.Library,
+        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+    ) -> None:
+        _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
+            OutputCleanupNoneResultMiddleware(rule_register=self.rules),
+            OutputOnlyDesiredFieldsMiddleware(rule_register=self.rules),
+            OutputLimitMaxAuthors(rule_register=self.rules),
+        ]
+        for m in middlewares or []:
+            _middlewares.append(m(rule_register=self.rules))
+        _middlewares.extend(
+            [
+                bibtexparser.middlewares.MergeNameParts(),
+                bibtexparser.middlewares.MergeCoAuthors(),
+                bibtexparser.middlewares.SortFieldsAlphabeticallyMiddleware(),
+                bibtexparser.middlewares.SortBlocksByTypeAndKeyMiddleware(),
+            ]
+        )
+
+        bibtexparser.write_file(file_path, library, append_middleware=_middlewares)
 
     def get_entity(self, key_id: str) -> Union[bibtexparser.model.Entry, None]:
         return self.bibliograph_library.entries_dict.get(key_id, None)
 
     def display_failed_entities(self):
-        blocks = self.bibliograph_library.failed_blocks
+        blocks = self.failed_blocks
         for b in blocks:
             first_line = b.raw.split("\n")[0]
             split_line = first_line.split("{")

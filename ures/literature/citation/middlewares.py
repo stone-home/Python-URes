@@ -65,7 +65,6 @@ class LanguageAsciiNormalizationMiddleware(CitationMiddleware):
                 # Normalize language to ISO 639-1 code
                 # field, language, is already processed
                 _value = self.normalize_language(value)
-                print(_value)
                 field.value = _value
 
         return entry

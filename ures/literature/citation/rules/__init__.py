@@ -1,6 +1,6 @@
 import logging
 from typing import List, Dict
-from .data_type import BibTypeRule
+from .data_type import BibTypeRule, OutputRules, FormattingRules
 from .basic import DefaultRules
 from .acm import ACMBibStyle
 
@@ -87,4 +87,4 @@ class BibRuleRegister:
             raise ValueError(f"Rule for {bib_type} ({standard_name}) not found")
 
 
-__all__ = ["BibRuleRegister", "BibTypeRule"]
+__all__ = ["BibRuleRegister", "BibTypeRule", "OutputRules", "FormattingRules"]
