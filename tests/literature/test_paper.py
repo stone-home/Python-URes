@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
-from ures.literature.adapters import QueryParser
+from ures.literature.search import QueryParser
 
 
 class TestQueryParser:
@@ -317,10 +317,12 @@ class TestLogging:
 
     def test_logger_initialization(self):
         """Test that logger is properly initialized."""
-        with patch("ures.literature.adapters.logging.getLogger") as mock_get_logger:
+        with patch(
+            "ures.literature.search.adapters.logging.getLogger"
+        ) as mock_get_logger:
             # Create a new parser to trigger logger initialization
             new_parser = QueryParser()
-            mock_get_logger.assert_called_with("ures.literature.adapters")
+            mock_get_logger.assert_called_with("ures.literature.search.adapters")
 
     def test_debug_logging_in_conversions(self, parser):
         """Test that debug logging occurs during query conversions."""

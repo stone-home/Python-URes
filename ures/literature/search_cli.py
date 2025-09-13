@@ -15,8 +15,11 @@ from datetime import datetime
 
 # Import your modules
 from ures.secrets import SecureKeyManager, StorageMethod
-from ures.literature.search import LiteratureSearchEngine, DatabaseConfig
-from ures.literature.adapters import AdapterFactory
+from ures.literature.search import (
+    LiteratureSearchEngine,
+    DatabaseConfig,
+    AdapterFactory,
+)
 
 
 class InteractiveSetup:

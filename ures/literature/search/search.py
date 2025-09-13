@@ -6,8 +6,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 from ures.secrets import SecureKeyManager, StorageMethod
-from ures.literature.paper import Paper, CacheManager
-from ures.literature.adapters import DatabaseAdapter, AdapterFactory
+from .paper import Paper, CacheManager
+from .adapters import DatabaseAdapter, AdapterFactory
 
 
 class DatabaseConfig:
