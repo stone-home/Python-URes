@@ -283,6 +283,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ures.string.string2date" class="md-nav__link">
+    <span class="md-ellipsis">
+      string2date
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ures.string.unique_id" class="md-nav__link">
     <span class="md-ellipsis">
       unique_id
@@ -397,7 +406,7 @@ and then joins the parts back together using the same separator.</p>
             <td>
               <div class="doc-md-description">
                 <p>The separator to use for splitting and joining the string.
-                       Defaults to " ".</p>
+                                           Defaults to " ".</p>
               </div>
             </td>
             <td>
@@ -447,8 +456,7 @@ capitalize_string("john-doe", separator="-")
 
             <details class="quote">
               <summary>Source code in <code>ures/string.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
@@ -468,7 +476,8 @@ capitalize_string("john-doe", separator="-")
 <span class="normal">94</span>
 <span class="normal">95</span>
 <span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">capitalize_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">97</span>
+<span class="normal">98</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">capitalize_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Capitalize each word in a string using a specified separator.</span>
 
@@ -476,18 +485,18 @@ capitalize_string("john-doe", separator="-")
 <span class="sd">    and then joins the parts back together using the same separator.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        string (str): The string to be capitalized.</span>
-<span class="sd">        separator (str, optional): The separator to use for splitting and joining the string.</span>
-<span class="sd">                                   Defaults to &quot; &quot;.</span>
+<span class="sd">            string (str): The string to be capitalized.</span>
+<span class="sd">            separator (str, optional): The separator to use for splitting and joining the string.</span>
+<span class="sd">                                                               Defaults to &quot; &quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: The capitalized string.</span>
+<span class="sd">            str: The capitalized string.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; capitalize_string(&quot;hello world&quot;)</span>
-<span class="sd">        &#39;Hello World&#39;</span>
-<span class="sd">        &gt;&gt;&gt; capitalize_string(&quot;john-doe&quot;, separator=&quot;-&quot;)</span>
-<span class="sd">        &#39;John-Doe&#39;</span>
+<span class="sd">            &gt;&gt;&gt; capitalize_string(&quot;hello world&quot;)</span>
+<span class="sd">            &#39;Hello World&#39;</span>
+<span class="sd">            &gt;&gt;&gt; capitalize_string(&quot;john-doe&quot;, separator=&quot;-&quot;)</span>
+<span class="sd">            &#39;John-Doe&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">separator</span><span class="p">)])</span>
 </code></pre></div></td></tr></table></div>
@@ -582,8 +591,7 @@ format_memory(1048576)
 
             <details class="quote">
               <summary>Source code in <code>ures/string.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">41</span>
-<span class="normal">42</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
@@ -614,7 +622,8 @@ format_memory(1048576)
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">format_memory</span><span class="p">(</span><span class="n">nbytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">format_memory</span><span class="p">(</span><span class="n">nbytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Format a memory size into a human-readable string.</span>
 
@@ -622,16 +631,16 @@ format_memory(1048576)
 <span class="sd">    with two decimal places of precision. If the provided value is None, it returns &quot;0 bytes&quot;.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        nbytes (int): The memory size in bytes.</span>
+<span class="sd">            nbytes (int): The memory size in bytes.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: The memory size in a human-readable format.</span>
+<span class="sd">            str: The memory size in a human-readable format.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; format_memory(1024)</span>
-<span class="sd">        &#39;1.00 KB&#39;</span>
-<span class="sd">        &gt;&gt;&gt; format_memory(1048576)</span>
-<span class="sd">        &#39;1.00 MB&#39;</span>
+<span class="sd">            &gt;&gt;&gt; format_memory(1024)</span>
+<span class="sd">            &#39;1.00 KB&#39;</span>
+<span class="sd">            &gt;&gt;&gt; format_memory(1048576)</span>
+<span class="sd">            &#39;1.00 MB&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">nbytes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;0 bytes&quot;</span>
@@ -647,6 +656,167 @@ format_memory(1048576)
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nbytes</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">KB</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">nbytes</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; B&quot;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="ures.string.string2date" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">string2date</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Parses various date string formats ('YYYY', 'YYYY-MM', 'YYYY-MM-DD')
+and returns a dictionary with the month as a three-letter abbreviation.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>date_string</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The input date string.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="int">int</span> | <span title="str">str</span> | None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary like {'year': YYYY, 'month': 'Mon', 'day': DD}.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="int">int</span> | <span title="str">str</span> | None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Missing parts have a value of None.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>ures/string.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">string2date</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses various date string formats (&#39;YYYY&#39;, &#39;YYYY-MM&#39;, &#39;YYYY-MM-DD&#39;)</span>
+<span class="sd">    and returns a dictionary with the month as a three-letter abbreviation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      date_string: The input date string.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A dictionary like {&#39;year&#39;: YYYY, &#39;month&#39;: &#39;Mon&#39;, &#39;day&#39;: DD}.</span>
+<span class="sd">      Missing parts have a value of None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1. Attempt to parse the most complete format: &#39;YYYY-MM-DD&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dt_obj</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">dt_obj</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">dt_obj</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%b&quot;</span><span class="p">),</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">dt_obj</span><span class="o">.</span><span class="n">day</span><span class="p">}</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># If the format doesn&#39;t match, proceed to the next try block</span>
+
+    <span class="c1"># 2. Attempt to parse the &#39;YYYY-MM&#39; format</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dt_obj</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">&quot;%Y-%m&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">dt_obj</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">dt_obj</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%b&quot;</span><span class="p">),</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># If the format doesn&#39;t match, proceed to the next try block</span>
+
+    <span class="c1"># 3. Attempt to parse a year-only string &#39;YYYY&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># strptime cannot parse a year alone, so we convert it manually</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span>
+        <span class="c1"># Add a simple validation for a reasonable 4-digit year</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">year</span> <span class="o">&lt;=</span> <span class="mi">9999</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># If the conversion fails</span>
+
+    <span class="c1"># 4. If all parsing attempts fail</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -706,8 +876,7 @@ True</p>
 
             <details class="quote">
               <summary>Source code in <code>ures/string.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
-<span class="normal">25</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
@@ -720,19 +889,20 @@ True</p>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">unique_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">unique_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a unique identifier.</span>
 
 <span class="sd">    This function returns a unique identifier as a hexadecimal string generated from a UUID.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: A unique hexadecimal identifier (e.g., &quot;3f8a7c2d1e9b4a6f8d0e2c1b3a5f7e9d&quot;).</span>
+<span class="sd">            str: A unique hexadecimal identifier (e.g., &quot;3f8a7c2d1e9b4a6f8d0e2c1b3a5f7e9d&quot;).</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; uid = unique_id()</span>
-<span class="sd">        &gt;&gt;&gt; len(uid) == 32</span>
-<span class="sd">        True</span>
+<span class="sd">            &gt;&gt;&gt; uid = unique_id()</span>
+<span class="sd">            &gt;&gt;&gt; len(uid) == 32</span>
+<span class="sd">            True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
 </code></pre></div></td></tr></table></div>
@@ -796,8 +966,7 @@ True</p>
 
             <details class="quote">
               <summary>Source code in <code>ures/string.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 4</span>
-<span class="normal"> 5</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
 <span class="normal"> 6</span>
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
@@ -813,7 +982,8 @@ True</p>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">zettelkasten_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">zettelkasten_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a Zettelkasten identifier.</span>
 
@@ -822,12 +992,12 @@ True</p>
 <span class="sd">    appending a dot, and then the last 11 characters of the UUID.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: A formatted unique identifier (e.g., &quot;abc123def.ghi45678901&quot;).</span>
+<span class="sd">            str: A formatted unique identifier (e.g., &quot;abc123def.ghi45678901&quot;).</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; id_str = zettelkasten_id()</span>
-<span class="sd">        &gt;&gt;&gt; isinstance(id_str, str)</span>
-<span class="sd">        True</span>
+<span class="sd">            &gt;&gt;&gt; id_str = zettelkasten_id()</span>
+<span class="sd">            &gt;&gt;&gt; isinstance(id_str, str)</span>
+<span class="sd">            True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_id</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">_id</span><span class="p">[</span><span class="o">-</span><span class="mi">11</span><span class="p">:]</span><span class="si">}</span><span class="s2">&quot;</span>
