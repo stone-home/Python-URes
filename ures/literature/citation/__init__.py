@@ -3,9 +3,6 @@ import copy
 import bibtexparser
 from pathlib import Path
 from typing import Optional, Union, List
-
-from mistune.toc import render_toc_ul
-
 from .manager import BibManager
 from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules
 from .extractors import BBLCitationExtractor, TexCitationExtractor, CitationInfo

@@ -2,7 +2,7 @@ import copy
 import re
 import logging
 import pycountry
-from typing import Any, Dict, List, Optional, Type, Union
+from typing import Any, Optional
 from bibtexparser.middlewares import BlockMiddleware, NameParts
 from bibtexparser.model import Entry, Field
 from ures.string import string2date
