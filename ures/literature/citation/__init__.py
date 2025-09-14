@@ -46,6 +46,14 @@ class CitationManager:
     def bib_library(self) -> bibtexparser.Library:
         return self._bib_manager.bibliograph_library
 
+    @property
+    def manager(self) -> BibManager:
+        return self._bib_manager
+
+    @property
+    def citations(self) -> List[CitationInfo]:
+        return copy.deepcopy(self._citations)
+
     def import_citations(
         self, files: List[Union[str, Path]], cleanup: bool = False
     ) -> dict[str, CitationInfo]:
