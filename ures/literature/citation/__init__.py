@@ -26,10 +26,11 @@ logger = logging.getLogger(__name__)
 class CitationManager:
     def __init__(
         self,
-        bibliography_files: Union[Union[str, Path], List[Union[str, Path]]],
+        bibliography_files: Optional[Union[Union[str, Path], List[Union[str, Path]]]],
         bibliography_style: str = "default",
     ):
         # Load bibliography files
+        bibliography_files = bibliography_files or []
         if not isinstance(bibliography_files, list):
             bibliography_files = [bibliography_files]
         self._bib_manager = BibManager(bibliography_style=bibliography_style)
@@ -45,6 +46,14 @@ class CitationManager:
     @property
     def bib_library(self) -> bibtexparser.Library:
         return self._bib_manager.bibliograph_library
+
+    @property
+    def manager(self) -> BibManager:
+        return self._bib_manager
+
+    @property
+    def citations(self) -> List[CitationInfo]:
+        return copy.deepcopy(self._citations)
 
     def import_citations(
         self, files: List[Union[str, Path]], cleanup: bool = False

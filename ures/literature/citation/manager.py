@@ -50,8 +50,12 @@ class BibManager:
     def failed_blocks(self) -> List[bibtexparser.model.Block]:
         return copy.deepcopy(self._failed_blocks)
 
-    def append_bibliography(self, bib_file_path: Union[str, Path]) -> None:
-        new_bib = self.load_from_file(bib_file_path)
+    def append_bibliography(
+        self,
+        bib_file_path: Union[str, Path],
+        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+    ) -> None:
+        new_bib = self.load_from_file(bib_file_path, middlewares=middlewares)
         self._bibliography.add(new_bib.entries)
         self._failed_blocks.extend(copy.deepcopy(new_bib.failed_blocks))
 
