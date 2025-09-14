@@ -26,11 +26,14 @@ logger = logging.getLogger(__name__)
 class CitationManager:
     def __init__(
         self,
-        bibliography_files: Optional[Union[Union[str, Path], List[Union[str, Path]]]],
+        bibliography_files: Optional[
+            Union[Union[str, Path], List[Union[str, Path]]]
+        ] = None,
         bibliography_style: str = "default",
     ):
         # Load bibliography files
-        bibliography_files = bibliography_files or []
+        if bibliography_files is None:
+            bibliography_files = []
         if not isinstance(bibliography_files, list):
             bibliography_files = [bibliography_files]
         self._bib_manager = BibManager(bibliography_style=bibliography_style)
