@@ -1,4 +1,5 @@
 import copy
+import logging
 import bibtexparser
 from typing import Union, List, Optional, Type
 from pathlib import Path
@@ -16,6 +17,8 @@ from .middlewares import (
     OutputLimitMaxAuthors,
 )
 from .rules import BibRuleRegister
+
+logger = logging.getLogger(__name__)
 
 
 class BibManager:
@@ -84,8 +87,12 @@ class BibManager:
         for m in middlewares or self._default_middlewares():
             if isinstance(m, type(CitationMiddleware)):
                 _middlewares.append(m(rule_register=self.rules))
-            else:
+            elif isinstance(m, type(bibtexparser.middlewares.BlockMiddleware)):
                 _middlewares.append(m())
+            elif isinstance(m, bibtexparser.middlewares.BlockMiddleware):
+                _middlewares.append(m)
+            else:
+                logger.warning(f"Unknown middleware type: {type(m)}, skipping.")
 
         return bibtexparser.parse_file(
             file_path,
@@ -106,8 +113,12 @@ class BibManager:
         for m in middlewares or []:
             if isinstance(m, type(CitationMiddleware)):
                 _middlewares.append(m(rule_register=self.rules))
-            else:
+            elif isinstance(m, type(bibtexparser.middlewares.BlockMiddleware)):
                 _middlewares.append(m())
+            elif isinstance(m, bibtexparser.middlewares.BlockMiddleware):
+                _middlewares.append(m)
+            else:
+                logger.warning(f"Unknown middleware type: {type(m)}, skipping.")
         _middlewares.extend(
             [
                 bibtexparser.middlewares.MergeNameParts(),

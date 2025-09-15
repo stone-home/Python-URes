@@ -158,7 +158,7 @@ class CitationManager:
                 If None, no additional middleware will be applied. Defaults to None.
         """
         self._bib_manager.export_to_file(
-            file_path, self.to_library(), middlewares=middlewares
+            file_path=file_path, library=self.to_library(), middlewares=middlewares
         )
 
 
