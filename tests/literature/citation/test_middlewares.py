@@ -534,6 +534,7 @@ class TestOutputMiddlewares:
                 Field(key="title", value="Test Title"),
                 Field(key="author", value=""),
                 Field(key="year", value=None),
+                Field(key="month", value="none"),
                 Field(key="volume", value=[]),
                 Field(key="journal", value="Test Journal"),
             ],
@@ -545,6 +546,7 @@ class TestOutputMiddlewares:
         assert "journal" in field_keys
         assert "author" not in field_keys
         assert "year" not in field_keys
+        assert "month" not in field_keys
         assert "volume" not in field_keys
 
     def test_output_only_desired_fields_middleware(self):

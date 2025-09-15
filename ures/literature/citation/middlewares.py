@@ -230,7 +230,7 @@ class OutputCleanupNoneResultMiddleware(CitationMiddleware):
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Optional[Entry]:
         need_to_removed = []
         for field in entry.fields:
-            if field.value in [None, "", []]:
+            if field.value in [None, "", [], "none"]:
                 need_to_removed.append(field)
         for field in need_to_removed:
             entry.pop(field.key, None)
