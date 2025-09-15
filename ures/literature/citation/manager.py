@@ -1,4 +1,5 @@
 import copy
+import inspect
 import logging
 import bibtexparser
 from typing import Union, List, Optional, Type
@@ -85,12 +86,14 @@ class BibManager:
         ]
 
         for m in middlewares or self._default_middlewares():
-            if isinstance(m, type(CitationMiddleware)):
+            if inspect.isclass(m) and issubclass(m, CitationMiddleware):
                 _middlewares.append(m(rule_register=self.rules))
-            elif isinstance(m, type(bibtexparser.middlewares.BlockMiddleware)):
+            elif inspect.isclass(m) and issubclass(
+                m, bibtexparser.middlewares.BlockMiddleware
+            ):
                 _middlewares.append(m())
             elif isinstance(m, bibtexparser.middlewares.BlockMiddleware):
-                _middlewares.append(m)
+                _middlewares.append(m)  # here m is an instance
             else:
                 logger.warning(f"Unknown middleware type: {type(m)}, skipping.")
 
@@ -106,21 +109,23 @@ class BibManager:
         middlewares: Optional[List[Type[CitationMiddleware]]] = None,
     ) -> None:
         _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
-            OutputCleanupNoneResultMiddleware(rule_register=self.rules),
             OutputOnlyDesiredFieldsMiddleware(rule_register=self.rules),
             OutputLimitMaxAuthors(rule_register=self.rules),
         ]
         for m in middlewares or []:
-            if isinstance(m, type(CitationMiddleware)):
+            if inspect.isclass(m) and issubclass(m, CitationMiddleware):
                 _middlewares.append(m(rule_register=self.rules))
-            elif isinstance(m, type(bibtexparser.middlewares.BlockMiddleware)):
+            elif inspect.isclass(m) and issubclass(
+                m, bibtexparser.middlewares.BlockMiddleware
+            ):
                 _middlewares.append(m())
             elif isinstance(m, bibtexparser.middlewares.BlockMiddleware):
-                _middlewares.append(m)
+                _middlewares.append(m)  # here m is an instance
             else:
                 logger.warning(f"Unknown middleware type: {type(m)}, skipping.")
         _middlewares.extend(
             [
+                OutputCleanupNoneResultMiddleware(rule_register=self.rules),
                 bibtexparser.middlewares.MergeNameParts(),
                 bibtexparser.middlewares.MergeCoAuthors(),
                 bibtexparser.middlewares.SortFieldsAlphabeticallyMiddleware(),
