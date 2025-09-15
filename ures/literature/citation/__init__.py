@@ -148,7 +148,14 @@ class CitationManager:
     def save_bibliography(
         self,
         file_path: str,
-        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+        middlewares: Optional[
+            List[
+                Union[
+                    Type[bibtexparser.middlewares.BlockMiddleware],
+                    bibtexparser.middlewares.BlockMiddleware,
+                ]
+            ]
+        ] = None,
     ) -> None:
         """Save all bibliography entries to a BibTeX file.
 

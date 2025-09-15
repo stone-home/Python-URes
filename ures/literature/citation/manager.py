@@ -77,7 +77,14 @@ class BibManager:
     def load_from_file(
         self,
         file_path: str,
-        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+        middlewares: Optional[
+            List[
+                Union[
+                    Type[bibtexparser.middlewares.BlockMiddleware],
+                    bibtexparser.middlewares.BlockMiddleware,
+                ]
+            ]
+        ] = None,
     ) -> bibtexparser.Library:
         # Implementation for importing bibliography
         _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
@@ -106,7 +113,14 @@ class BibManager:
         self,
         file_path: str,
         library: bibtexparser.Library,
-        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+        middlewares: Optional[
+            List[
+                Union[
+                    Type[bibtexparser.middlewares.BlockMiddleware],
+                    bibtexparser.middlewares.BlockMiddleware,
+                ]
+            ]
+        ] = None,
     ) -> None:
         _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
             OutputOnlyDesiredFieldsMiddleware(rule_register=self.rules),
