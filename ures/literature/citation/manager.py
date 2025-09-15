@@ -82,7 +82,10 @@ class BibManager:
         ]
 
         for m in middlewares or self._default_middlewares():
-            _middlewares.append(m(rule_register=self.rules))
+            if isinstance(m, type(CitationMiddleware)):
+                _middlewares.append(m(rule_register=self.rules))
+            else:
+                _middlewares.append(m())
 
         return bibtexparser.parse_file(
             file_path,
@@ -101,7 +104,10 @@ class BibManager:
             OutputLimitMaxAuthors(rule_register=self.rules),
         ]
         for m in middlewares or []:
-            _middlewares.append(m(rule_register=self.rules))
+            if isinstance(m, type(CitationMiddleware)):
+                _middlewares.append(m(rule_register=self.rules))
+            else:
+                _middlewares.append(m())
         _middlewares.extend(
             [
                 bibtexparser.middlewares.MergeNameParts(),

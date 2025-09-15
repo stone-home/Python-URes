@@ -2,7 +2,7 @@ import logging
 import copy
 import bibtexparser
 from pathlib import Path
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Type
 from .manager import BibManager
 from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules
 from .extractors import BBLCitationExtractor, TexCitationExtractor, CitationInfo
@@ -138,18 +138,28 @@ class CitationManager:
     def to_library(self) -> bibtexparser.Library:
         """Convert all citations to a bibtexparser Library."""
         lib = bibtexparser.Library()
+        if len(self.manager.bibliograph_library.strings) > 0:
+            lib.add(self.manager.bibliograph_library.strings)
         for cite in self._citations:
             if cite.bibliography is not None:
                 lib.add(copy.deepcopy(cite.bibliography))
         return lib
 
-    def save_bibliography(self, file_path: str) -> None:
+    def save_bibliography(
+        self,
+        file_path: str,
+        middlewares: Optional[List[Type[CitationMiddleware]]] = None,
+    ) -> None:
         """Save all bibliography entries to a BibTeX file.
 
         Args:
-                        file_path (Union[str, Path]): Path to save the BibTeX file.
+            file_path (Union[str, Path]): Path to save the BibTeX file.
+            middlewares (Optional[List[Type[CitationMiddleware]]]): List of middleware classes to process the entries before saving.
+                If None, no additional middleware will be applied. Defaults to None.
         """
-        self._bib_manager.export_to_file(file_path, self.to_library())
+        self._bib_manager.export_to_file(
+            file_path, self.to_library(), middlewares=middlewares
+        )
 
 
 __all__ = [
