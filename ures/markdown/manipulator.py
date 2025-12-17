@@ -1,8 +1,106 @@
 import os
+import re
 import frontmatter
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Dict, Optional, List, AnyStr, Union
 from copy import deepcopy
+
+
+class ContentSection:
+    """Represents a specific section within a note, containing a title, hierarchy level, and text content.
+
+    Attributes:
+        title (str): The title of the section (e.g., "Introduction").
+        level (int): The heading level of the section (e.g., 1 for #, 2 for ##).
+        content (List[str]): A list of strings representing the lines of content in this section.
+    """
+
+    def __init__(self, title: str, level: int):
+        """Initializes a ContentSection with a title and a heading level.
+
+        Args:
+            title (str): The title of the section.
+            level (int): The Markdown heading level (e.g., 1, 2, 3).
+        """
+        self.title = title
+        self.level = level
+        self.content: List[str] = []
+
+    def add_content(self, content: Union[str, List[str]]):
+        """Appends text content to this section.
+
+        Args:
+            content (Union[str, List[str]]): A single string line or a list of string lines to add.
+        """
+        if isinstance(content, list):
+            self.content.extend(content)
+        else:
+            self.content.append(content)
+
+
+class Content:
+    """Represents the body of a note, organized into titled sections.
+
+    Attributes:
+        sections (Dict[str, ContentSection]): A dictionary mapping section titles to ContentSection objects.
+    """
+
+    def __init__(self):
+        """Initializes an empty Content container."""
+        self.sections: OrderedDict[str, ContentSection] = OrderedDict()
+
+    def new_section(self, title: str, level: int):
+        """Creates a new empty section if it does not already exist.
+
+        Args:
+            title (str): The unique title of the section.
+            level (int): The Markdown heading level for the section.
+        """
+        if title not in self.sections:
+            self.sections[title] = ContentSection(title, level)
+
+    def add_section(self, section: ContentSection):
+        """Adds an existing ContentSection object to the content.
+
+        If a section with the same title already exists, this operation is ignored.
+
+        Args:
+            section (ContentSection): The section object to add.
+        """
+        if section.title not in self.sections.keys():
+            self.sections[section.title] = section
+
+    def add_content(
+        self,
+        content: Union[str, list],
+        section_title: str = "default",
+        section_level: int = 1,
+    ):
+        """Adds content to a specific section, creating the section if it does not exist.
+
+        Args:
+            content (str, list): The text content to add.
+            section_title (str, optional): The title of the target section. Defaults to "default".
+            section_level (int, optional): The heading level if a new section needs to be created. Defaults to 1.
+        """
+        if section_title not in self.sections:
+            self.new_section(section_title, section_level)
+        self.sections[section_title].add_content(content)
+
+    def to_string(self) -> str:
+        """Serializes the entire content into a Markdown-formatted string.
+
+        Returns:
+            str: The complete Markdown content with section headers.
+        """
+        markdown_lines: List[str] = []
+        for section in self.sections.values():
+            if section.title != "default":
+                markdown_lines.append(f"{'#' * section.level} {section.title}")
+            markdown_lines.extend(section.content)
+            markdown_lines.append("")  # Add a blank line after each section
+        return "\n".join(markdown_lines).strip()
 
 
 class MarkdownDocument:
@@ -434,6 +532,52 @@ class MarkdownDocument:
 
         self.post.content = post.content
         self.post.metadata = deepcopy(post.metadata)
+
+    def parse_content(self) -> Content:
+        """Parses the raw note content into a structured Content object.
+
+        Iterates through the raw text line by line, identifying Markdown headers
+        (e.g., '# Title') to delimit sections. Text found before the first header
+        is assigned to a 'default' section.
+
+        Returns:
+            Content: An object containing the parsed sections, their hierarchy levels,
+            and associated text content.
+        """
+        lines = self.content.split("\n")
+        current_section = "default"
+        current_head_level = 1
+        content_buffer: List[str] = []
+        new_content = Content()
+
+        for line in lines:
+            header_match = re.match(r"^(#+)\s+(.+)$", line)
+
+            if header_match:
+                if len(content_buffer) > 0:
+                    new_content.add_content(
+                        content="\n".join(content_buffer).strip(),
+                        section_title=current_section,
+                        section_level=current_head_level,
+                    )
+                    content_buffer = []
+
+                current_head_level = len(header_match.group(1))
+                current_section = header_match.group(2).strip()
+
+                new_content.new_section(title=current_section, level=current_head_level)
+            else:
+                if line.strip() or len(content_buffer) > 0:
+                    content_buffer.append(line)
+
+        if len(content_buffer) > 0:
+            new_content.add_content(
+                content="\n".join(content_buffer).strip(),
+                section_title=current_section,
+                section_level=current_head_level,
+            )
+
+        return new_content
 
     def clear_content(self) -> None:
         """
