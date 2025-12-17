@@ -1,8 +1,8 @@
 import os
-from typing import Optional
+from typing import Optional, Union
 from ures.timedate import time_now
 from ures.string import zettelkasten_id
-from .manipulator import MarkdownDocument, frontmatter
+from .manipulator import MarkdownDocument, frontmatter, Content
 
 
 class Zettelkasten(MarkdownDocument):
@@ -62,7 +62,7 @@ class Zettelkasten(MarkdownDocument):
         super().__init__(metadata=_metadata)
 
     @classmethod
-    def from_file(cls, file_path: str) -> "MarkdownDocument":
+    def from_file(cls, file_path: str) -> Union["MarkdownDocument", "Zettelkasten"]:
         """
         Creates a MarkdownDocument instance by loading a Markdown file.
 
@@ -163,3 +163,75 @@ class Zettelkasten(MarkdownDocument):
 
     def remove_alias(self, alias: str):
         self.aliases.remove(alias)
+
+    def to_llm_friendly_content(
+        self, prop_ignores: Optional[list] = None, context: Optional[Content] = None
+    ) -> Content:
+        """Generates an LLM-friendly representation of the note, filtering metadata and merging context.
+
+        This method creates a structured content object designed for LLM consumption. It first
+        adds a 'Metadata' section (filtering out specified keys), then appends the note's
+        main body, and finally merges any external context provided.
+
+        Args:
+            prop_ignores (Optional[List[str]]): A list of metadata keys to exclude from the output.
+                Defaults to None. The keys "aliases", "url", "id", and "title" are always ignored
+                by default.
+            context (Optional[Content]): Additional contextual content to append to the note.
+                Defaults to None.
+
+        Returns:
+            Content: A new Content object organized into 'Metadata', 'Main Content', and
+            optionally 'Context' sections.
+        """
+        properties = self.metadata
+        content = Content()
+        # Create a new section for metadata
+        properties_ignore_list = ["aliases", "url", "id", "title"]
+        if prop_ignores:
+            properties_ignore_list.extend(prop_ignores)
+        for key, value in properties.items():
+            if key not in properties_ignore_list:
+                if isinstance(value, list):
+                    value = ", ".join(value)
+                else:
+                    value = str(value)
+
+                content.add_content(
+                    content=f"**{key}**: {value}",
+                    section_title="Metadata",
+                    section_level=1,
+                )
+
+        # Merge all existing sections into the main body
+        body_title = "Main Content"
+        body_level = 1
+        for key, value in self.parse_content().sections.items():
+            content.add_content(
+                content=f"**{key}**:",
+                section_title=body_title,
+                section_level=body_level,
+            )
+            content.add_content(
+                content=value.content,
+                section_title=body_title,
+                section_level=body_level,
+            )
+
+        # If context is provided, merge it
+        if context:
+            context_title = "Context"
+            context_level = 2
+            for key, value in context.sections.items():
+                content.add_content(
+                    content=f"**{key}**:",
+                    section_title=context_title,
+                    section_level=context_level,
+                )
+                content.add_content(
+                    content=value.content,
+                    section_title=context_title,
+                    section_level=context_level,
+                )
+
+        return content

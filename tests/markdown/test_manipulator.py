@@ -1,6 +1,136 @@
 import pytest
-from ures.markdown import MarkdownDocument
+from ures.markdown import MarkdownDocument, Content, ContentSection
 import frontmatter
+
+
+class TestContentSection:
+    """Tests for the ContentSection class."""
+
+    def test_initialization(self):
+        """Verifies that ContentSection initializes with correct attributes."""
+        section = ContentSection(title="Intro", level=1)
+        assert section.title == "Intro"
+        assert section.level == 1
+        assert section.content == []
+
+    def test_add_single_string_content(self):
+        """Verifies adding a single string to the section content."""
+        section = ContentSection("Test", 1)
+        section.add_content("Line 1")
+        assert len(section.content) == 1
+        assert section.content[0] == "Line 1"
+
+    def test_add_list_content(self):
+        """Verifies adding a list of strings to the section content."""
+        section = ContentSection("Test", 1)
+        input_list = ["Line A", "Line B"]
+        section.add_content(input_list)
+        assert len(section.content) == 2
+        assert section.content == input_list
+
+    def test_add_mixed_content(self):
+        """Verifies adding both single strings and lists sequentially."""
+        section = ContentSection("Test", 1)
+        section.add_content("Start")
+        section.add_content(["Middle 1", "Middle 2"])
+        section.add_content("End")
+
+        expected = ["Start", "Middle 1", "Middle 2", "End"]
+        assert section.content == expected
+
+
+class TestContent:
+    """Tests for the Content class."""
+
+    @pytest.fixture
+    def content_manager(self):
+        """Fixture that returns a fresh Content instance."""
+        return Content()
+
+    def test_new_section_creation(self, content_manager):
+        """Verifies creating a new section via new_section method."""
+        content_manager.new_section("Chapter 1", 1)
+        assert "Chapter 1" in content_manager.sections
+        assert content_manager.sections["Chapter 1"].level == 1
+
+    def test_duplicate_section_ignored(self, content_manager):
+        """Verifies that creating a section with an existing title does not overwrite it."""
+        content_manager.new_section("Unique", 1)
+        # Try to add same title with different level
+        content_manager.new_section("Unique", 2)
+
+        # Should still be level 1 (original)
+        assert content_manager.sections["Unique"].level == 1
+
+    def test_add_existing_section_object(self, content_manager):
+        """Verifies adding a pre-instantiated ContentSection object."""
+        section = ContentSection("Manual Section", 2)
+        section.add_content("Some text")
+
+        content_manager.add_section(section)
+
+        assert "Manual Section" in content_manager.sections
+        assert content_manager.sections["Manual Section"].content == ["Some text"]
+
+    def test_add_content_creates_section_if_missing(self, content_manager):
+        """Verifies that add_content creates a section if it doesn't exist."""
+        content_manager.add_content(
+            "Auto text", section_title="Auto Created", section_level=3
+        )
+
+        assert "Auto Created" in content_manager.sections
+        assert content_manager.sections["Auto Created"].level == 3
+        assert content_manager.sections["Auto Created"].content == ["Auto text"]
+
+    def test_add_content_to_default_section(self, content_manager):
+        """Verifies adding content to the default section."""
+        content_manager.add_content("Intro text")  # Defaults to "default"
+
+        assert "default" in content_manager.sections
+        assert content_manager.sections["default"].content == ["Intro text"]
+
+    def test_to_string_formatting(self, content_manager):
+        """Verifies the Markdown serialization logic."""
+        # 1. Add default content (should have no header)
+        content_manager.add_content("Preface line.")
+
+        # 2. Add level 1 section
+        content_manager.add_content(
+            "Main body text.", section_title="Main", section_level=1
+        )
+
+        # 3. Add level 2 section via list
+        content_manager.add_content(
+            ["Sub point 1", "Sub point 2"], section_title="Sub", section_level=2
+        )
+
+        output = content_manager.to_string()
+
+        # Expected format:
+        # Preface line.
+        #
+        # # Main
+        # Main body text.
+        #
+        # ## Sub
+        # Sub point 1
+        # Sub point 2
+
+        expected_snippets = [
+            "Preface line.",
+            "# Main",
+            "Main body text.",
+            "## Sub",
+            "Sub point 1",
+            "Sub point 2",
+        ]
+
+        for snippet in expected_snippets:
+            assert snippet in output
+
+    def test_to_string_empty(self, content_manager):
+        """Verifies to_string returns empty string if no content exists."""
+        assert content_manager.to_string() == ""
 
 
 def test_init_without_metadata():

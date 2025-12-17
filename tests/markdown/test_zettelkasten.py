@@ -1,7 +1,11 @@
 import pytest
 import os
-from ures.markdown.zettelkasten import (
+import sys
+from unittest.mock import MagicMock, patch
+from ures.markdown import (
     Zettelkasten,
+    Content,
+    ContentSection,
 )  # Adjust based on your project structure
 import frontmatter
 
@@ -304,3 +308,142 @@ def test_zettelkasten_clear_frontmatter(valid_zettelkasten):
     # Attempting to clear front matter should raise ValueError because mandatory fields are missing
     valid_zettelkasten.clear_frontmatter()
     assert valid_zettelkasten.metadata == {}
+
+
+# Mocking ures module functions used in Zettelkasten.to_llm_friendly_content
+class TestZettelkastenLLMFriendly:
+
+    @pytest.fixture
+    def sample_zettel(self):
+        """
+        Fixture to create a standard Zettelkasten note for testing.
+        """
+        zk = Zettelkasten(
+            title="Test Note",
+            n_type="permanent",
+            url="http://example.com",
+            tags=["coding", "testing"],
+            aliases=["test_alias"],
+            custom_field="custom_value",
+        )
+        zk.content = (
+            "# Header 1\nContent under header 1.\n\n# Header 2\nContent under header 2."
+        )
+        return zk
+
+    def test_default_metadata_filtering(self, sample_zettel):
+        """
+        Test that default fields (aliases, url, id, title) are excluded from the output.
+        """
+        # Act
+        llm_content = sample_zettel.to_llm_friendly_content()
+
+        # Convert to string for easy assertion checking
+        output_str = llm_content.to_string()
+
+        # Assert
+        assert "Metadata" in output_str
+        assert "**title**:" not in output_str
+        assert "**url**:" not in output_str
+        assert "**id**:" not in output_str
+        assert "**aliases**:" not in output_str
+
+        # Check that non-ignored fields are present
+        assert "**type**: permanent" in output_str
+        assert "**custom_field**: custom_value" in output_str
+
+    def test_prop_ignores_functionality(self, sample_zettel):
+        """
+        Test that providing `prop_ignores` correctly excludes additional metadata fields.
+        """
+        # Act
+        # We explicitly ask to ignore 'type' and 'create' in addition to defaults
+        llm_content = sample_zettel.to_llm_friendly_content(
+            prop_ignores=["type", "create", "custom_field"]
+        )
+        output_str = llm_content.to_string()
+
+        # Assert
+        assert "**type**:" not in output_str
+        assert "**create**:" not in output_str
+        assert "**custom_field**:" not in output_str
+
+        # Tags should still be there as they weren't ignored
+        assert "**tags**:" in output_str
+
+    def test_list_metadata_formatting(self, sample_zettel):
+        """
+        Test that metadata fields which are lists are converted to comma-separated strings.
+        """
+        # Act
+        llm_content = sample_zettel.to_llm_friendly_content()
+        output_str = llm_content.to_string()
+
+        # Assert
+        # tags=['coding', 'testing'] should become "coding, testing"
+        assert "**tags**: coding, testing" in output_str
+
+    def test_main_content_structure(self, sample_zettel):
+        """
+        Test that the main body content is correctly parsed and included.
+        """
+        # Act
+        llm_content = sample_zettel.to_llm_friendly_content()
+
+        # Access the raw sections to verify structure accurately
+        sections = llm_content.sections
+
+        # Assert
+        assert "Main Content" in sections
+        main_content_lines = sections["Main Content"].content
+
+        # Check for the header formatting logic defined in the method
+        # logic: content.add_content(content=f"**{key}**:", ...)
+        assert "**Header 1**:" in main_content_lines
+        assert "Content under header 1." in main_content_lines
+        assert "**Header 2**:" in main_content_lines
+
+    def test_context_integration(self, sample_zettel):
+        """
+        Test that external context is correctly appended to the content when provided.
+        """
+        # Arrange
+        context = Content()
+        context.add_content(
+            "Relevant info from another note.", section_title="Related Note"
+        )
+
+        # Act
+        llm_content = sample_zettel.to_llm_friendly_content(context=context)
+        output_str = llm_content.to_string()
+
+        # Assert
+        # Check if Context section header exists (handled by Content.to_string usually)
+        # or check specific formatting logic inside to_llm_friendly_content
+
+        # Logic:
+        # section_title="Context", section_level=2
+        # content=f"**{key}**:" (where key is "Related Note")
+
+        assert "## Context" in output_str
+        assert "**Related Note**:" in output_str
+        assert "Relevant info from another note." in output_str
+
+    def test_empty_content_and_context(self):
+        """
+        Test method behavior when the note has no content and no context is provided.
+        """
+        # Arrange
+        zk = Zettelkasten(title="Empty Note", n_type="fleeting")
+        zk.clear_content()  # Ensure no body content
+
+        # Act
+        llm_content = zk.to_llm_friendly_content()
+        output_str = llm_content.to_string()
+
+        # Assert
+        assert "# Metadata" in output_str
+        assert "**type**: fleeting" in output_str
+        # Main content section might exist but be empty or contain only default section
+        # Depending on how parse_content handles empty strings
+        assert "## Context" not in output_str
