@@ -84,7 +84,8 @@ class Zettelkasten(MarkdownDocument):
 
         _params = dict(post.metadata)
         n_type = _params.get("type", None)
-        del _params["type"]
+        if n_type is not None:
+            del _params["type"]
         _params["n_type"] = n_type
 
         keywords = ["title", "n_type", "url", "tags", "aliases"]
