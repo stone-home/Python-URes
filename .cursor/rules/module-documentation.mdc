@@ -4,15 +4,14 @@ globs:
   - "docs/modules/**"
 alwaysApply: true
 ---
-
 # Module Documentation Standards
 
-**Context:** Create comprehensive documentation for logical modules.
-**Constraint:** Do NOT document by file. Group by logical functionality (e.g., "Auth", "Database", "UI-Components").
+**Context:** Create comprehensive documentation for logical modules. 
+**Constraint:** Do NOT document by file. Group by logical functionality (e.g., "Auth", "Database", "UI-Components"). 
 
 ## 1. Trigger & Analysis
 - **Trigger:** When asked to "document a module" or "explain project architecture".
-- **Analysis:** Identify the logical boundaries of the module. A module may span multiple files or directories.
+- **Analysis:** Identify the logical boundaries of the module. A module may span multiple files or directories. 
 
 ## 2. Naming Convention
 - **Directory:** `docs/modules/`
@@ -47,7 +46,7 @@ tags: [module, <tech-stack>]
 // Show a real-world usage example
 ```
 
-4. Public API / InterfacesFunctions/Methods: List key public exports with brief descriptions. Data Structures: (Type definitions or schemas) 5. Maintenance & Troubleshooting(Known edge cases or specific error handling)
+4. Public API / InterfacesFunctions/Methods: List key public exports with brief descriptions. Data Structures: (Type definitions or schemas) 5. Maintenance & Troubleshooting(Known edge cases or specific error handling) 
 
 ## 4. Execution Protocol
 1. **Map Logic:** Identify all files contributing to the logical module.
