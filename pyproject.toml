@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ures"
-version = "0.1.0"
+version = "2.3.2"
 description = "Utility library for research and development: Docker workflows, Markdown and Zettelkasten, data structures, and core file/network/string/time helpers."
 authors = ["stone <github@stone-bo.com>"]
 license = "MIT"
