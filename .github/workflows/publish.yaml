@@ -1,15 +1,16 @@
-name: Poetry Publish
-
+name: Publish Current Version to PyPi
 on:
   release:
     types: [published]
-
 jobs:
-  publish:
-    uses: stone-home/Action-Stone-DevOps/.github/workflows/poetry-publish.yaml@trunk
+  release:
+    uses: stone-home/Action-Stone-DevOps/.github/workflows/w-v2-release.yaml@trunk
     with:
-      python-version: "3.11"
-      poetry-version: "2.1.4"
       version-id: ${{ github.event.release.name }}
+      python-project: true
+      python-version: "3.12"
+      poetry-version: "2.3.2"
+      pypi-enable: true
+      pypi-token-path: "op://DevOps/PyPi Token/credential"
     secrets:
-      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      onepass-token: ${{ secrets.OP_ACCOUNT_TOKEN }}

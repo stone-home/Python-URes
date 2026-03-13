@@ -6,12 +6,17 @@ on:
 
 jobs:
   blog-creating:
-    uses: stone-home/Action-Stone-DevOps/.github/workflows/create_release_blog.yaml@trunk # Action to create release blog post
-    with:
-      release-subject: ${{ github.event.release.name }} # Subject of the release
-      release-body: ${{ github.event.release.body }} # Body of the release
-      release-url: ${{ github.event.release.html_url }} # URL of the release
-      python-version: "3.11" # Python version to use
-      project-name: "URes"
-    secrets:
-      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }} # 1Password service account token
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: stone-home/Action-Stone-DevOps/.github/actions/create-blog-in-hugo@trunk
+        with:
+          release-subject: ${{ github.event.release.name }} # Subject of the release
+          release-body: ${{ github.event.release.body }} # Body of the release
+          release-url: ${{ github.event.release.html_url }} # URL of the release
+          python-version: "3.12" # Python version to use
+          project-name: "URes"
+          onepass-token: ${{ secrets.OP_ACCOUNT_TOKEN }} # 1Password service account token

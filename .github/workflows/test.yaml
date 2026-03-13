@@ -8,11 +8,18 @@ on:
 
 jobs:
   ut:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
-        poetry-version: ["2.1.4"]
-    uses: stone-home/Action-Stone-DevOps/.github/workflows/pytest.yaml@trunk
-    with:
-      python-version: ${{ matrix.python-version }}
-      poetry-version: ${{ matrix.poetry-version }}
+        poetry-version: ["2.1.3", "2.3.2"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: unit test
+        uses: stone-home/Action-Stone-DevOps/.github/actions/python-poetry-test@trunk
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+          python-version: ${{ matrix.python-version }}

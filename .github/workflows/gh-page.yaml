@@ -6,8 +6,15 @@ on:
 
 jobs:
   gh-publish:
-    uses: stone-home/Action-Stone-DevOps/.github/workflows/gh_page_publish.yaml@trunk # Action to create release blog post
-    with:
-      mkdocs-page: true
-    secrets:
-      onepass_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }} # 1Password service account token
+    name: Publish Document to GitHub Page
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: stone-home/Action-Stone-DevOps/.github/actions/deploy-mkdocs-site@trunk
+        with:
+          python-version: "3.12"
+          poetry-version: "2.3.2"
+          onepass-token: ${{ secrets.OP_ACCOUNT_TOKEN }}
