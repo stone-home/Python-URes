@@ -1,4 +1,4 @@
-name: Publish Release Blog
+name: Publish Release to GitHub Page
 
 on:
   release:
