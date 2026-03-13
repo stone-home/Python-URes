@@ -1,28 +1,27 @@
 # Utility for Research (URes)
 
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/stone-home/Python-URes)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/stone-home/Python-URes/blob/main/LICENSE)
 [![Super-Linter](https://github.com/stone-home/Python-URes/actions/workflows/linter.yaml/badge.svg)](https://github.com/stone-home/Python-URes/actions/workflows/linter.yaml)
 [![Trufflehog](https://github.com/stone-home/Python-URes/actions/workflows/secret-check.yaml/badge.svg)](https://github.com/stone-home/Python-URes/actions/workflows/secret-check.yaml)
 [![Code Testing](https://github.com/stone-home/Python-URes/actions/workflows/test.yaml/badge.svg)](https://github.com/stone-home/Python-URes/actions/workflows/test.yaml)
 
-
 ---
+
 ## Overview
 
-URes (Utility for Research) is a versatile Python library that simplifies common research and development tasks. It offers a wide range of modules to handle everything from Docker container management to advanced data visualization and file operations.
+URes (Utility for Research) is a Python library that centralizes **reusable utilities for research and development**. It provides batteries-included helpers for Docker workflows, Markdown and Zettelkasten notes, data structures, filesystem and network tasks, time/date conversion, string manipulation, and more.
 
 ## Key Features
 
-  - **Docker Management**: Build, run, and manage Docker images and containers with an intuitive Python interface.
-  - **Markdown and Zettelkasten**: Create, manipulate, and organize Markdown documents, with support for the Zettelkasten note-taking method.
-  - **Data Structures**: Implement and use advanced data structures like Trees and Bi-Directional Links for complex data organization.
-  - **File and Network Utilities**: Simplify file system operations and network-related tasks with a collection of helper functions.
-  - **Time and Date Converters**: Easily convert between different time and date formats, including ISO 8601 and Unix timestamps.
-  - **String Manipulation**: A set of functions for common string operations, such as capitalization and unique ID generation.
-  - **Advanced Plotting**: A comprehensive, multi-backend visualization library for scientific research, data analysis, and machine learning.
+- **Docker management**: Build, run, and orchestrate Docker images and containers with structured configuration objects.
+- **Markdown & Zettelkasten**: Work with Markdown files and front matter, and manage Zettelkasten-style notes with required metadata.
+- **Data structures**: Use tree and bi-directional link structures for organizing and traversing complex data.
+- **Core utilities**: File, time/date, string, secrets, and network helpers used across projects.
+- **Literature tooling**: Search across literature sources and manage citation data (when those modules are enabled).
+
 
 
 ## Installation
@@ -66,64 +65,34 @@ container = containers.create()
 containers.run()
 ```
 
-### Markdown
+### Markdown & Zettelkasten
 
-The `ures.markdown` module offers tools for working with Markdown files, including those with YAML front matter. The `Zettelkasten` class extends this functionality for note-taking.
+The `ures.markdown` module offers tools for working with Markdown files, including YAML front matter. The `Zettelkasten` class builds on this for note-taking with structured metadata.
 
-**Key Features**:
+- `MarkdownDocument`: Load, create, and manipulate Markdown files with front matter.
+- `Zettelkasten`: Create Zettelkasten notes with required fields such as `title`, `type`, and `tags`.
 
-  - Load, create, and manipulate Markdown files with `MarkdownDocument`.
-  - Manage YAML front matter with support for nested keys.
-  - Implement the Zettelkasten method with the `Zettelkasten` class, which includes mandatory metadata fields like `title`, `type`, and `tags`.
+### Data structures
 
-**Example**:
+The `ures.data_structure` module provides reusable data structures:
 
-```python
-from ures.markdown import Zettelkasten
+- `TreeNode`: A tree structure with methods for adding, removing, and traversing nodes.
+- `BiDirectional`: A bi-directional linked list for forward and backward traversal.
 
-# Create a new Zettelkasten note
-note = Zettelkasten(
-    title="My Research Note",
-    n_type="permanent",
-    tags=["research", "python"],
-    aliases=["research-note"]
-)
+### Core utilities
 
-# Add content
-note.add_content("This is a sample research note.")
+- `ures.files`: File system helpers (recursive file listing, filtering by name, listing directories, creating temp folders).
+- `ures.timedate`: Time/date conversion helpers (datetimes and Unix timestamps to formatted strings, getting the current time).
+- `ures.string`: String utilities such as Zettelkasten-style IDs, unique IDs, memory-size formatting, and capitalization.
+- `ures.secrets`: `SecureKeyManager` for managing API keys and other secrets via different storage methods.
+- `ures.network`: IP and subnet helpers (validation, containment checks, and IP generation from subnets).
 
-# Save to file
-note.save("my_note.md")
-```
+### Literature tooling (optional)
 
-### Data Structures
+If you use the literature search and citation modules, URes can also help with:
 
-The `ures.data_structure` module provides implementations of advanced data structures.
-
-  - **TreeNode**: A tree data structure with methods for adding, removing, and traversing nodes.
-  - **BiDirectional**: A bi-directional linked list that allows for easy traversal in both forward and backward directions.
-
-### File and Network Utilities
-
-  - **`ures.files`**: A collection of functions for file system operations, such as recursively getting file paths, filtering files, and managing temporary directories.
-  - **`ures.network`**: Helper functions for network-related tasks, including IP address validation and generation.
-
-### Time and Date Converters
-
-The `ures.timedate` module provides functions for converting between different time and date formats.
-
-  - `datetime_converter()`: Converts a `datetime` object to a formatted string (ISO 8601 or custom).
-  - `timestamp_converter()`: Converts a Unix timestamp to a formatted string.
-  - `time_now()`: Returns the current time as a formatted string.
-
-### String Manipulation
-
-The `ures.string` module offers a variety of string utility functions.
-
-  - `zettelkasten_id()`: Generates a unique ID suitable for Zettelkasten notes.
-  - `unique_id()`: Creates a standard unique identifier.
-  - `format_memory()`: Formats a memory size into a human-readable string.
-  - `capitalize_string()`: Capitalizes each word in a string.
+- **Literature search**: Configuration-driven multi-source paper search, with adapters and caching.
+- **Literature citation**: Extractors and helpers to manage citation data and apply citation rules.
 
 ## Development
 
@@ -145,4 +114,4 @@ To contribute to URes, please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+This project is licensed under the MIT License – see the [LICENSE](https://github.com/stone-home/Python-URes/blob/main/LICENSE) file for details.
