@@ -1,0 +1,1980 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../module%20-%20docker/">
+      
+      
+        <link rel="next" href="../module%20-%20markdown/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Module - Memory - URes Documents</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-memory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="URes Documents" class="md-header__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            URes Documents
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module - Memory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="URes Documents" class="md-nav__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    URes Documents
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20core-utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core utilities
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20data-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-diagram-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class diagram (simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allocation-sequence-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allocation sequence (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-flow-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data flow (allocation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-flow-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data flow (free)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-simulator-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic simulator usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool-allocator-without-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pool + allocator without simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-methods-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions / methods (main)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature search
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature citation
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/timedate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timedate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data structures
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/bi_directional_links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bi-directional links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-diagram-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class diagram (simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allocation-sequence-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allocation sequence (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-flow-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data flow (allocation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-flow-free" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data flow (free)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-simulator-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic simulator usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool-allocator-without-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pool + allocator without simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-methods-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions / methods (main)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-memory">Module: Memory</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>The Memory module provides a <strong>simulated device memory system</strong> with pluggable allocation strategies. It models contiguous address space as <strong>segments</strong> that are split into <strong>blocks</strong> held in a <strong>pool</strong>. Allocators (First Fit, Best Fit, Worst Fit, Next Fit, Buddy System) operate on the pool by splitting free blocks and coalescing on free. The design supports device/stream semantics and optional <strong>tracing</strong> for debugging and profiling. It does not allocate real OS memory; it is a simulation layer for algorithms and testing.</p>
+<p><strong>Roles:</strong></p>
+<ul>
+<li><strong>Block layer</strong> (<code>blocks.py</code>): <code>BlockPool</code>, <code>MemoryBlock</code>, <code>Segment</code>, <code>MemoryInfo</code>, <code>TraceInfo</code> — representation of memory regions and lifecycle.</li>
+<li><strong>Allocator layer</strong> (<code>allocator.py</code>): Abstract <code>MemoryAllocator</code> and concrete strategies; <code>DeviceMemorySimulator</code> as the facade that owns a pool and one active allocator.</li>
+</ul>
+<hr />
+<h2 id="2-basics">2. Basics</h2>
+<h3 id="terminology">Terminology</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Segment</strong></td>
+<td>A contiguous region created from the pool (e.g. one “device allocation”). Has <code>segment_id</code>, <code>start_addr</code>, <code>original_size</code>, optional <code>device</code>/<code>stream</code>. Tracks utilization and fragmentation.</td>
+</tr>
+<tr>
+<td><strong>Block</strong></td>
+<td>A contiguous sub-region of a segment. Implemented as a node in a doubly-linked list (<code>NonCircularBiLink</code>). Can be <strong>free</strong> or <strong>allocated</strong>.</td>
+</tr>
+<tr>
+<td><strong>Pool</strong></td>
+<td><code>BlockPool</code>: holds all blocks in a <code>SortedSet</code> (by stream, size, addr) and all segments. Creates segments, checks overlap, finds safe address ranges.</td>
+</tr>
+<tr>
+<td><strong>Splice</strong></td>
+<td>Split a free block: take a prefix of size <code>memory_size</code> as a new block, shrink the current block and link them. Used for allocation.</td>
+</tr>
+<tr>
+<td><strong>Coalesce</strong></td>
+<td>Merge a free block with adjacent free blocks in the same segment to reduce fragmentation.</td>
+</tr>
+<tr>
+<td><strong>Allocator</strong></td>
+<td>Strategy that implements <code>allocate(pool, request)</code> and <code>free(pool, request)</code> using the pool’s blocks (e.g. first fit, best fit, buddy).</td>
+</tr>
+<tr>
+<td><strong>Trace</strong></td>
+<td><code>TraceInfo</code>: optional capture of call site and timestamp for operations (create, alloc, free_request, free_complete, split, coalesce).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entry-points">Entry points</h3>
+<ul>
+<li><strong>Use the simulator:</strong> <code>DeviceMemorySimulator(device_id, total_memory, base_address)</code> → <code>allocate(size, ...)</code>, <code>free(address, ...)</code>, <code>get_memory_info()</code>, <code>simulate_workload(...)</code>.</li>
+<li><strong>Use pool + allocator directly:</strong> <code>BlockPool()</code>, <code>pool.create_segment(...)</code>, then a concrete allocator (e.g. <code>FirstFitAllocator()</code>) and <code>allocator.allocate(pool, AllocationRequest(size=...))</code>.</li>
+<li><strong>Public API:</strong> <code>ures.memory</code> exports <code>BlockPool</code>, <code>MemoryBlock</code>, <code>Segment</code>, <code>MemoryInfo</code>, <code>TraceInfo</code>, <code>AllocationRequest</code>, <code>AllocationResult</code>, <code>FreeRequest</code>, <code>FreeResult</code>, <code>MemoryAllocator</code>, concrete allocators, <code>DeviceMemorySimulator</code>.</li>
+</ul>
+<hr />
+<h2 id="3-architecture-logic">3. Architecture &amp; Logic</h2>
+<ul>
+<li><strong>Core logic:</strong></li>
+<li><strong>Segment creation:</strong> <code>BlockPool.create_segment(start_addr, size, ...)</code> checks overlap via <code>check_segment_overlap</code>, creates a <code>Segment</code> and one initial <code>MemoryBlock</code> covering the range, registers the segment and inserts the block into <code>pool.blocks</code>.</li>
+<li><strong>Allocation:</strong> Allocator finds a suitable free block (strategy-dependent), calls <code>block.splice(request.size)</code> to obtain a new block, calls <code>allocated_block.request_alloc(time_ns)</code>, registers the block in <code>allocated_blocks</code>, returns <code>AllocationResult</code>.</li>
+<li><strong>Free:</strong> Allocator looks up address in <code>allocated_blocks</code>, validates optional <code>expected_size</code>, calls <code>block.request_free(time_ns)</code>, <code>block.complete_free()</code>, then <code>block.coalesce()</code> to merge with adjacent free blocks, removes from <code>allocated_blocks</code>, returns <code>FreeResult</code>.</li>
+<li><strong>Dependencies:</strong> Internal: <code>ures.data_structure.NonCircularBiLink</code> (MemoryBlock extends it), <code>sortedcontainers.SortedSet</code>. No other ures packages.</li>
+</ul>
+<hr />
+<h2 id="4-uml-structure">4. UML &amp; Structure</h2>
+<h3 id="class-diagram-simplified">Class diagram (simplified)</h3>
+<p>Mermaid version for quick reference. Full diagrams with all fields and relationships are in PlantUML.</p>
+<pre><code class="language-mermaid">classDiagram
+    direction TB
+    class TraceInfo {
+        +timestamp_ns: int
+        +operation: str
+        +capture_current_trace(): TraceInfo
+    }
+    class MemoryInfo {
+        +addr: int
+        +size: int
+        +action: str
+        +allocated: bool
+        +is_allocated(): bool
+        +get_end_addr(): int
+    }
+    class Segment {
+        +segment_id: int
+        +start_addr: int
+        +original_size: int
+        +first_block: MemoryBlock
+        +get_blocks(): List
+        +get_allocated_bytes(): int
+        +get_fragmentation_ratio(): float
+    }
+    class NonCircularBiLink {
+        &lt;&lt;external&gt;&gt;
+        #_value
+        +prev
+        +next
+        +insert_before()
+        +remove()
+    }
+    class MemoryBlock {
+        +value: MemoryInfo
+        +addr
+        +end_addr
+        +splice(size): MemoryBlock
+        +coalesce(): MemoryBlock
+        +request_alloc()
+        +request_free()
+        +complete_free()
+    }
+    class BlockPool {
+        +blocks: SortedSet
+        +segments: Dict
+        +create_segment(): Segment
+        +insert_into_blocks()
+        +check_segment_overlap()
+        +get_memory_summary()
+    }
+    class MemoryAllocator {
+        &lt;&lt;abstract&gt;&gt;
+        +allocate(pool, request): AllocationResult
+        +free(pool, request): FreeResult
+        +can_allocate(pool, request): bool
+    }
+    class FirstFitAllocator { }
+    class BestFitAllocator { }
+    class DeviceMemorySimulator {
+        +pool: BlockPool
+        +allocators: Dict
+        +allocate(size): AllocationResult
+        +free(address): FreeResult
+    }
+    NonCircularBiLink &lt;|-- MemoryBlock
+    MemoryBlock *-- MemoryInfo
+    MemoryInfo *-- TraceInfo : traces
+    BlockPool *-- Segment
+    BlockPool *-- MemoryBlock
+    Segment o-- MemoryBlock : first_block
+    MemoryAllocator &lt;|-- FirstFitAllocator
+    MemoryAllocator &lt;|-- BestFitAllocator
+    DeviceMemorySimulator o-- BlockPool
+    DeviceMemorySimulator o-- MemoryAllocator
+</code></pre>
+<p><strong>Existing PlantUML (authoritative detail):</strong></p>
+<ul>
+<li><strong>Blocks and pool:</strong> <code>docs/PlantUML/memory/class-blocks.puml</code> — TraceInfo, MemoryInfo, Segment, MemoryBlock, BlockPool, SortedSet.</li>
+<li><strong>Allocators:</strong> <code>docs/PlantUML/memory/class-allocator.puml</code> — AllocationStrategy, request/result dataclasses, MemoryAllocator hierarchy, DeviceMemorySimulator.</li>
+<li><strong>Sequence – splice:</strong> <code>docs/PlantUML/memory/sequence-MemoryBlock-splice.puml</code> — steps of splitting a block.</li>
+<li><strong>Sequence – coalesce:</strong> <code>docs/PlantUML/memory/sequence-MemoryBlock-coalesce.puml</code> — merging adjacent free blocks.</li>
+<li><strong>Sequence – segment creation:</strong> <code>docs/PlantUML/memory/sequence-BlockPool-createSeg.puml</code> — create_segment flow.</li>
+</ul>
+<h3 id="allocation-sequence-high-level">Allocation sequence (high level)</h3>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant U as User
+    participant Sim as DeviceMemorySimulator
+    participant Alloc as MemoryAllocator
+    participant Pool as BlockPool
+    participant Block as MemoryBlock
+
+    U-&gt;&gt;Sim: allocate(size)
+    Sim-&gt;&gt;Sim: AllocationRequest(size=size, ...)
+    Sim-&gt;&gt;Alloc: allocate(pool, request)
+    Alloc-&gt;&gt;Pool: iterate pool.blocks (strategy-specific)
+    Alloc-&gt;&gt;Block: splice(request.size)
+    Block--&gt;&gt;Alloc: new_block
+    Alloc-&gt;&gt;Block: request_alloc(time_ns)
+    Alloc-&gt;&gt;Alloc: allocated_blocks[addr] = block
+    Alloc--&gt;&gt;Sim: AllocationResult(success, block, address, ...)
+    Sim--&gt;&gt;U: result
+</code></pre>
+<hr />
+<h2 id="5-code-level-understanding">5. Code-Level Understanding</h2>
+<h3 id="data-flow-allocation">Data flow (allocation)</h3>
+<ol>
+<li>
+<p><strong>DeviceMemorySimulator.allocate(size, ...)</strong>
+   Builds <code>AllocationRequest</code>, calls <code>current_allocator.allocate(self.pool, request)</code>, appends to <code>allocation_history</code>, returns <code>AllocationResult</code>.</p>
+</li>
+<li>
+<p><strong>Concrete allocator (e.g. FirstFitAllocator.allocate)</strong>
+   Iterates <code>pool.blocks</code> (order depends on strategy). For each block: if free, size ≥ request.size, and stream matches, calls <code>block.splice(request.size)</code> → new block; calls <code>new_block.request_alloc(time_ns)</code>; stores in <code>self.allocated_blocks[new_block.addr]</code>; returns <code>AllocationResult(success=True, block=..., address=..., ...)</code>. If no block fits, returns <code>AllocationResult(success=False, error_message=...)</code>.</p>
+</li>
+<li>
+<p><strong>MemoryBlock.splice(memory_size)</strong>
+   If block is allocated → <code>MemoryError</code>. If <code>memory_size &gt; self.value.size</code> → <code>ValueError</code>. If <code>memory_size == self.value.size</code> → remove self from pool if present, return self. Otherwise: create new <code>MemoryBlock(addr=self.value.addr, size=memory_size, ...)</code>; shrink self (<code>value.size -= memory_size</code>, <code>value.addr += memory_size</code>); link with <code>insert_before(new_block)</code>; update <code>segment.first_block</code> if self was first; optionally capture split trace; return new block. The new block is not automatically added to <code>pool.blocks</code> — the allocator uses it as the allocated block; the remainder stays in the list and in the pool.</p>
+</li>
+<li>
+<p><strong>MemoryBlock.request_alloc(time_ns)</strong>
+   Sets <code>value.action = "alloc"</code>, <code>value.allocated = True</code>, <code>value.alloc_time_ns</code>; optionally appends a trace.</p>
+</li>
+</ol>
+<h3 id="data-flow-free">Data flow (free)</h3>
+<ol>
+<li>
+<p><strong>DeviceMemorySimulator.free(address, expected_size)</strong>
+   Builds <code>FreeRequest</code>, calls <code>current_allocator.free(self.pool, request)</code>, appends to <code>free_history</code>, returns <code>FreeResult</code>.</p>
+</li>
+<li>
+<p><strong>Allocator.free</strong>
+   Looks up <code>request.address</code> in <code>allocated_blocks</code>. If missing or size mismatch → <code>FreeResult(success=False, ...)</code>. Else: <code>block.request_free(time_ns)</code>, <code>block.complete_free()</code>, <code>coalesced_block = block.coalesce()</code>, remove from <code>allocated_blocks</code>, return <code>FreeResult(success=True, freed_size=..., coalesced=..., ...)</code>.</p>
+</li>
+<li>
+<p><strong>MemoryBlock.coalesce()</strong>
+   If allocated → <code>MemoryError</code>. Collects adjacent prev/next free blocks in same segment; removes them from the list and pool; merges sizes and updates address if merging with prev; updates <code>segment.first_block</code> if needed; optionally adds coalesce trace; re-inserts merged block into pool; returns (possibly updated) self.</p>
+</li>
+</ol>
+<h3 id="key-types">Key types</h3>
+<ul>
+<li><strong>SortedSet key:</strong> <code>(block.stream, block.value.size, block.addr)</code> — iteration order and lookup behavior depend on this.</li>
+<li><strong>Block lifecycle (MemoryInfo.action):</strong> <code>"free"</code> → <code>"alloc"</code> (request_alloc) → <code>"free_requested"</code> (request_free) → <code>"free_completed"</code> (complete_free). <code>is_allocated()</code> is true for <code>"alloc"</code> and <code>"free_requested"</code>.</li>
+<li><strong>BuddySystemAllocator:</strong> Rounds request size to power of two; on free, merges with buddy repeatedly (buddy address = <code>addr ^ size</code>). Uses <code>splice</code> for splits; merge is custom (adjusts sizes and removes buddy from list/pool).</li>
+</ul>
+<h3 id="integration-points">Integration points</h3>
+<ul>
+<li><strong>MemoryBlock</strong> subclasses <code>NonCircularBiLink</code>; <code>_value</code> is <code>MemoryInfo</code>. Comparison for sorting uses <code>(stream, value.size, addr)</code>.</li>
+<li><strong>BlockPool</strong> does not add the “allocated” block returned by <code>splice</code> to <code>blocks</code>; the allocator holds it in <code>allocated_blocks</code>. When the block is freed, <code>coalesce</code> may re-insert the (merged) block into <code>pool.blocks</code> via <code>insert_into_blocks</code>.</li>
+</ul>
+<hr />
+<h2 id="6-usage-examples">6. Usage &amp; Examples</h2>
+<h3 id="integration">Integration</h3>
+<pre><code class="language-python">from ures.memory import (
+    DeviceMemorySimulator,
+    BlockPool,
+    FirstFitAllocator,
+    AllocationRequest,
+)
+</code></pre>
+<h3 id="basic-simulator-usage">Basic simulator usage</h3>
+<pre><code class="language-python">sim = DeviceMemorySimulator(device_id=0, total_memory=1024 * 1024, base_address=0x10000000)
+sim.set_allocator(&quot;Best Fit&quot;)
+
+result = sim.allocate(256)
+if result.success:
+    addr = result.address
+    # ... use addr ...
+    sim.free(addr)
+
+info = sim.get_memory_info()
+print(info[&quot;memory_summary&quot;])
+</code></pre>
+<h3 id="pool-allocator-without-simulator">Pool + allocator without simulator</h3>
+<pre><code class="language-python">pool = BlockPool()
+seg = pool.create_segment(start_addr=0x1000, size=8192, device=0)
+allocator = FirstFitAllocator()
+
+req = AllocationRequest(size=256, stream=0)
+res = allocator.allocate(pool, req)
+if res.success:
+    block = res.block
+    # ... later ...
+    allocator.free(pool, FreeRequest(address=block.addr))
+</code></pre>
+<hr />
+<h2 id="7-public-api-interfaces">7. Public API / Interfaces</h2>
+<h3 id="functions-methods-main">Functions / methods (main)</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BlockPool.create_segment(start_addr, size, device?, stream?, capture_trace?)</code></td>
+<td>Create segment and initial block; raises <code>MemoryError</code> on overlap.</td>
+</tr>
+<tr>
+<td><code>BlockPool.check_segment_overlap(start_addr, size, ...)</code></td>
+<td>Returns dict with <code>has_overlap</code>, <code>overlapping_segments</code>, <code>safe_to_create</code>.</td>
+</tr>
+<tr>
+<td><code>BlockPool.get_memory_summary()</code></td>
+<td>Total/original size, allocated/free bytes, utilization, fragmentation.</td>
+</tr>
+<tr>
+<td><code>MemoryBlock.splice(memory_size)</code></td>
+<td>Split off a block of given size; returns new block or self.</td>
+</tr>
+<tr>
+<td><code>MemoryBlock.coalesce()</code></td>
+<td>Merge with adjacent free blocks in same segment; returns (possibly updated) self.</td>
+</tr>
+<tr>
+<td><code>MemoryBlock.request_alloc(time_ns?)</code>, <code>request_free(time_ns?)</code>, <code>complete_free(time_ns?)</code></td>
+<td>State transitions and optional traces.</td>
+</tr>
+<tr>
+<td><code>MemoryAllocator.allocate(pool, request)</code></td>
+<td>Returns <code>AllocationResult</code>.</td>
+</tr>
+<tr>
+<td><code>MemoryAllocator.free(pool, request)</code></td>
+<td>Returns <code>FreeResult</code>.</td>
+</tr>
+<tr>
+<td><code>DeviceMemorySimulator.allocate(size, alignment?, stream?, ...)</code></td>
+<td>Delegates to current allocator.</td>
+</tr>
+<tr>
+<td><code>DeviceMemorySimulator.free(address, expected_size?)</code></td>
+<td>Delegates to current allocator.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-structures">Data structures</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AllocationRequest</code></td>
+<td><code>size</code>, <code>alignment</code>, <code>stream</code>, <code>priority</code>, <code>metadata</code>.</td>
+</tr>
+<tr>
+<td><code>AllocationResult</code></td>
+<td><code>success</code>, <code>block</code>, <code>address</code>, <code>actual_size</code>, <code>allocation_time_ns</code>, <code>error_message</code>, <code>strategy_info</code>.</td>
+</tr>
+<tr>
+<td><code>FreeRequest</code></td>
+<td><code>address</code>, <code>expected_size</code>, <code>metadata</code>.</td>
+</tr>
+<tr>
+<td><code>FreeResult</code></td>
+<td><code>success</code>, <code>address</code>, <code>freed_size</code>, <code>free_time_ns</code>, <code>coalesced</code>, <code>coalesced_size</code>, <code>error_message</code>, <code>strategy_info</code>.</td>
+</tr>
+<tr>
+<td><code>AllocationStrategy</code></td>
+<td>Enum: FIRST_FIT, BEST_FIT, WORST_FIT, NEXT_FIT, BUDDY_SYSTEM.</td>
+</tr>
+<tr>
+<td><code>TraceInfo</code></td>
+<td><code>timestamp_ns</code>, <code>operation</code>, filename/line/function/code_context, optional stack.</td>
+</tr>
+<tr>
+<td><code>MemoryInfo</code></td>
+<td><code>addr</code>, <code>size</code>, <code>action</code>, <code>allocated</code>, alloc/free timestamps, <code>traces</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-maintenance-troubleshooting">8. Maintenance &amp; Troubleshooting</h2>
+<ul>
+<li><strong>Overlap errors on create_segment:</strong> Use <code>check_segment_overlap</code> or <code>find_safe_address_range</code> before creating segments.</li>
+<li><strong>“Block not found or not allocated by this allocator”:</strong> Only the allocator that allocated a block should free it; address must be in that allocator’s <code>allocated_blocks</code> (DeviceMemorySimulator uses one allocator at a time).</li>
+<li><strong>Size mismatch on free:</strong> Pass <code>expected_size</code> when known; allocator validates against <code>block.value.size</code>.</li>
+<li><strong>Splice on allocated block:</strong> Raises <code>MemoryError</code>; only free blocks can be split.</li>
+<li><strong>Coalesce only within segment:</strong> Blocks from different segments are not merged; <code>segment_id</code> is checked.</li>
+<li><strong>Buddy merge:</strong> Buddy address is <code>addr ^ size</code>; both blocks must be free and same size (power of two). Merge logic removes the buddy from the list and pool and updates the other block’s size/addr.</li>
+</ul>
+<hr />
+<h2 id="9-execution-protocol">9. Execution Protocol</h2>
+<ol>
+<li><strong>Map logic:</strong> <code>ures/memory/blocks.py</code> (TraceInfo, MemoryInfo, Segment, MemoryBlock, BlockPool), <code>ures/memory/allocator.py</code> (request/result types, MemoryAllocator, concrete allocators, DeviceMemorySimulator); <code>ures/memory/__init__.py</code> re-exports.</li>
+<li><strong>Abstract:</strong> Document purpose and control flow; do not duplicate line-by-line code.</li>
+<li><strong>Draft:</strong> Follow this template; use Mermaid for in-doc diagrams; reference PlantUML for full detail.</li>
+<li><strong>Review:</strong> No sensitive keys or hardcoded paths.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

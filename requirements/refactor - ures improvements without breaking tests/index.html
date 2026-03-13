@@ -10,22 +10,20 @@
       
       
       
-        <link rel="next" href="modules/module%20-%20core-utilities/">
-      
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
-        <title>URes Documents</title>
+        <title>refactor - ures improvements without breaking tests - URes Documents</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -44,9 +42,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#utility-for-research-ures" class="md-skip">
+        <a href="#commit-message" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +78,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="URes Documents" class="md-header__button md-logo" aria-label="URes Documents" data-md-component="logo">
+    <a href="../.." title="URes Documents" class="md-header__button md-logo" aria-label="URes Documents" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              refactor - ures improvements without breaking tests
             
           </span>
         </div>
@@ -178,7 +176,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="URes Documents" class="md-nav__button md-logo" aria-label="URes Documents" data-md-component="logo">
+    <a href="../.." title="URes Documents" class="md-nav__button md-logo" aria-label="URes Documents" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -193,37 +191,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -239,153 +210,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modules
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Modules">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#markdown-zettelkasten" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Markdown &amp; Zettelkasten
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-structures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data structures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-utilities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core utilities
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#literature-tooling-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Literature tooling (optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Development
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        License
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -444,7 +268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20core-utilities/" class="md-nav__link">
+      <a href="../../modules/module%20-%20core-utilities/" class="md-nav__link">
         
   
   
@@ -479,7 +303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20data-structure/" class="md-nav__link">
+      <a href="../../modules/module%20-%20data-structure/" class="md-nav__link">
         
   
   
@@ -514,7 +338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20docker/" class="md-nav__link">
+      <a href="../../modules/module%20-%20docker/" class="md-nav__link">
         
   
   
@@ -549,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20memory/" class="md-nav__link">
+      <a href="../../modules/module%20-%20memory/" class="md-nav__link">
         
   
   
@@ -584,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20markdown/" class="md-nav__link">
+      <a href="../../modules/module%20-%20markdown/" class="md-nav__link">
         
   
   
@@ -619,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20literature-search/" class="md-nav__link">
+      <a href="../../modules/module%20-%20literature-search/" class="md-nav__link">
         
   
   
@@ -654,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20literature-citation/" class="md-nav__link">
+      <a href="../../modules/module%20-%20literature-citation/" class="md-nav__link">
         
   
   
@@ -689,7 +513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/module%20-%20tools/" class="md-nav__link">
+      <a href="../../modules/module%20-%20tools/" class="md-nav__link">
         
   
   
@@ -778,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         
   
   
@@ -806,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/files/" class="md-nav__link">
+      <a href="../../apis/files/" class="md-nav__link">
         
   
   
@@ -834,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/string/" class="md-nav__link">
+      <a href="../../apis/string/" class="md-nav__link">
         
   
   
@@ -862,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/timedate/" class="md-nav__link">
+      <a href="../../apis/timedate/" class="md-nav__link">
         
   
   
@@ -890,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/network/" class="md-nav__link">
+      <a href="../../apis/network/" class="md-nav__link">
         
   
   
@@ -918,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/markdown/" class="md-nav__link">
+      <a href="../../apis/markdown/" class="md-nav__link">
         
   
   
@@ -946,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/docker/" class="md-nav__link">
+      <a href="../../apis/docker/" class="md-nav__link">
         
   
   
@@ -1021,7 +845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/data_structure/tree/" class="md-nav__link">
+      <a href="../../apis/data_structure/tree/" class="md-nav__link">
         
   
   
@@ -1049,7 +873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apis/data_structure/bi_directional_links/" class="md-nav__link">
+      <a href="../../apis/data_structure/bi_directional_links/" class="md-nav__link">
         
   
   
@@ -1105,141 +929,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modules
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Modules">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#markdown-zettelkasten" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Markdown &amp; Zettelkasten
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-structures" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data structures
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-utilities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core utilities
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#literature-tooling-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Literature tooling (optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Development
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        License
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1255,105 +944,42 @@
 
 
 
-<h1 id="utility-for-research-ures">Utility for Research (URes)</h1>
-<p><a href="https://github.com/stone-home/Python-URes"><img alt="semantic-release: angular" src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release" /></a>
-<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit" /></a>
-<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
-<a href="https://github.com/stone-home/Python-URes/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
-<a href="https://github.com/stone-home/Python-URes/actions/workflows/linter.yaml"><img alt="Super-Linter" src="https://github.com/stone-home/Python-URes/actions/workflows/linter.yaml/badge.svg" /></a>
-<a href="https://github.com/stone-home/Python-URes/actions/workflows/secret-check.yaml"><img alt="Trufflehog" src="https://github.com/stone-home/Python-URes/actions/workflows/secret-check.yaml/badge.svg" /></a>
-<a href="https://github.com/stone-home/Python-URes/actions/workflows/test.yaml"><img alt="Code Testing" src="https://github.com/stone-home/Python-URes/actions/workflows/test.yaml/badge.svg" /></a></p>
+<h1 id="commit-message">Commit Message</h1>
+<p><code>refactor: ures package improvements (typos, types, logging); tests unchanged</code></p>
+<h1 id="pr-description">PR Description</h1>
+<p><strong>Title:</strong> <code>refactor: ures package improvements without breaking tests</code>
+<strong>Summary:</strong> Improves the ures package with a typo fix, modern type hints, logging instead of print, and minor code cleanups. No test files were modified; all existing test cases continue to pass.</p>
 <hr />
-<h2 id="overview">Overview</h2>
-<p>URes (Utility for Research) is a Python library that centralizes <strong>reusable utilities for research and development</strong>. It provides batteries-included helpers for Docker workflows, Markdown and Zettelkasten notes, data structures, filesystem and network tasks, time/date conversion, string manipulation, and more.</p>
-<h2 id="key-features">Key Features</h2>
+<h1 id="refactor-ures-package-improvements-without-breaking-tests">Refactor: ures Package Improvements Without Breaking Tests</h1>
+<h2 id="1-requirements-context">1. Requirements &amp; Context</h2>
 <ul>
-<li><strong>Docker management</strong>: Build, run, and orchestrate Docker images and containers with structured configuration objects.</li>
-<li><strong>Markdown &amp; Zettelkasten</strong>: Work with Markdown files and front matter, and manage Zettelkasten-style notes with required metadata.</li>
-<li><strong>Data structures</strong>: Use tree and bi-directional link structures for organizing and traversing complex data.</li>
-<li><strong>Core utilities</strong>: File, time/date, string, secrets, and network helpers used across projects.</li>
-<li><strong>Literature tooling</strong>: Search across literature sources and manage citation data (when those modules are enabled).</li>
+<li>Fix a known typo in the literature citation rules API without changing behavior.</li>
+<li>Align type hints with Python 3.9+ style (built-in generics, union syntax) where applicable.</li>
+<li>Replace print with logging in files module for consistency and production use.</li>
+<li>Use module logger name (<code>__name__</code>) instead of <code>__file__</code> in decorator for correct log hierarchy.</li>
+<li>Move inline imports to module top in timedate for clarity.</li>
+<li>Minor cleanups (e.g. <code>in self.children</code> instead of <code>in self.children.keys()</code>) for idiomatic Python.</li>
+<li>All changes must preserve existing test behavior; no edits under <code>tests/</code>.</li>
 </ul>
-<h2 id="installation">Installation</h2>
-<pre><code class="language-bash">pip install ures
-</code></pre>
-<h2 id="modules">Modules</h2>
-<h3 id="docker">Docker</h3>
-<p>The <code>ures.docker</code> module provides a high-level interface for managing Docker images and containers.</p>
-<p><strong>Key Features</strong>:</p>
+<h2 id="2-execution-plan">2. Execution Plan</h2>
 <ul>
-<li>Programmatically build Docker images from a <code>BuildConfig</code> object.</li>
-<li>Run containers with detailed runtime configurations using <code>RuntimeConfig</code>.</li>
-<li>Orchestrate the building of multiple images with dependencies using <code>ImageOrchestrator</code>.</li>
+<li>[x] Fix typo: <code>get_defulat_bib_type_mapping</code> → <code>get_default_bib_type_mapping</code> in <code>ures/literature/citation/rules/__init__.py</code> and call site in <code>ures/literature/citation/middlewares.py</code>.</li>
+<li>[x] Add/update type hints: <code>string2date(date_string: str)</code>, <code>format_memory(nbytes: int | None)</code> in <code>ures/string.py</code>; <code>list[str]</code>, <code>list[str] | None</code> in <code>ures/files.py</code>; <code>field: str | None = None</code> in <code>ures/tools/enum.py</code>; modernize <code>ures/data_structure/tree.py</code> (e.g. <code>dict[str, TreeNode]</code>, <code>TreeNode | None</code>, <code>list[list[Any]]</code>).</li>
+<li>[x] In <code>ures/data_structure/tree.py</code>, use <code>child.id not in self.children</code> and <code>child.id in self.children</code> instead of <code>self.children.keys()</code>.</li>
+<li>[x] In <code>ures/files.py</code>, add logging and use <code>logger.warning(...)</code> in <code>list_directories</code> when path does not exist; remove print.</li>
+<li>[x] In <code>ures/tools/decorator.py</code>, use <code>logging.getLogger(__name__)</code> instead of <code>logging.getLogger(__file__)</code>.</li>
+<li>[x] In <code>ures/timedate.py</code>, move <code>import sys</code> to top of file and remove inline import from <code>time_now()</code>.</li>
+<li>[x] Run full pytest suite and confirm all test cases pass (no changes to <code>tests/</code>).</li>
 </ul>
-<p><strong>Example</strong>:</p>
-<pre><code class="language-python">from ures.docker import Image, BuildConfig, Containers
-
-# Define build configuration
-build_config = BuildConfig(
-    base_image=&quot;python:3.10-slim&quot;,
-    python_dependencies=[&quot;flask&quot;, &quot;gunicorn&quot;],
-    copies=[{&quot;src&quot;: &quot;./app&quot;, &quot;dest&quot;: &quot;/app&quot;}],
-    entrypoint=[&quot;gunicorn&quot;, &quot;-b&quot;, &quot;0.0.0.0:80&quot;, &quot;app:app&quot;]
-)
-
-# Build the image
-image = Image(&quot;my-web-app&quot;)
-image.build_image(build_config, dest=&quot;.&quot;)
-
-# Run the container
-containers = Containers(image)
-container = containers.create()
-containers.run()
-</code></pre>
-<h3 id="markdown-zettelkasten">Markdown &amp; Zettelkasten</h3>
-<p>The <code>ures.markdown</code> module offers tools for working with Markdown files, including YAML front matter. The <code>Zettelkasten</code> class builds on this for note-taking with structured metadata.</p>
-<ul>
-<li><code>MarkdownDocument</code>: Load, create, and manipulate Markdown files with front matter.</li>
-<li><code>Zettelkasten</code>: Create Zettelkasten notes with required fields such as <code>title</code>, <code>type</code>, and <code>tags</code>.</li>
-</ul>
-<h3 id="data-structures">Data structures</h3>
-<p>The <code>ures.data_structure</code> module provides reusable data structures:</p>
-<ul>
-<li><code>TreeNode</code>: A tree structure with methods for adding, removing, and traversing nodes.</li>
-<li><code>BiDirectional</code>: A bi-directional linked list for forward and backward traversal.</li>
-</ul>
-<h3 id="core-utilities">Core utilities</h3>
-<ul>
-<li><code>ures.files</code>: File system helpers (recursive file listing, filtering by name, listing directories, creating temp folders).</li>
-<li><code>ures.timedate</code>: Time/date conversion helpers (datetimes and Unix timestamps to formatted strings, getting the current time).</li>
-<li><code>ures.string</code>: String utilities such as Zettelkasten-style IDs, unique IDs, memory-size formatting, and capitalization.</li>
-<li><code>ures.secrets</code>: <code>SecureKeyManager</code> for managing API keys and other secrets via different storage methods.</li>
-<li><code>ures.network</code>: IP and subnet helpers (validation, containment checks, and IP generation from subnets).</li>
-</ul>
-<h3 id="literature-tooling-optional">Literature tooling (optional)</h3>
-<p>If you use the literature search and citation modules, URes can also help with:</p>
-<ul>
-<li><strong>Literature search</strong>: Configuration-driven multi-source paper search, with adapters and caching.</li>
-<li><strong>Literature citation</strong>: Extractors and helpers to manage citation data and apply citation rules.</li>
-</ul>
-<h2 id="development">Development</h2>
-<p>To contribute to URes, please follow these steps:</p>
-<ol>
-<li>Clone the repository:
-    <code>bash
-    git clone https://github.com/stone-home/Python-URes.git</code></li>
-<li>Install the dependencies:
-    <code>bash
-    cd Python-URes
-    poetry install</code></li>
-<li>Run the tests:
-    <code>bash
-    poetry run pytest</code></li>
-</ol>
-<h2 id="license">License</h2>
-<p>This project is licensed under the MIT License – see the <a href="https://github.com/stone-home/Python-URes/blob/main/LICENSE">LICENSE</a> file for details.</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -1397,10 +1023,10 @@ containers.run()
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

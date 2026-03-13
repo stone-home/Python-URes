@@ -1,0 +1,1977 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../module%20-%20data-structure/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Module - Core Utilities - URes Documents</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-core-utilities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="URes Documents" class="md-header__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            URes Documents
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module - Core Utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="URes Documents" class="md-nav__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    URes Documents
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core utilities
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core utilities
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-overview-no-single-class-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component overview (no single class hierarchy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timedate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snippets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timedate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20data-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature search
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature citation
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/timedate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timedate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data structures
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/bi_directional_links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bi-directional links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-overview-no-single-class-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component overview (no single class hierarchy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timedate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snippets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timedate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-core-utilities">Module: Core Utilities</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>The Core Utilities module groups <strong>standalone helpers</strong> used across the project: <strong>files</strong> (paths, filtering, temp dirs), <strong>timedate</strong> (datetime/timestamp formatting), <strong>string</strong> (IDs, memory formatting, capitalization, date parsing), <strong>secrets</strong> (secure key storage and retrieval), and <strong>network</strong> (IP/subnet validation and generation). There is no shared state; each unit is a set of functions or a small class with minimal dependencies.</p>
+<p><strong>Roles:</strong></p>
+<ul>
+<li><strong>files:</strong> Recursive file listing, filter by name (fuzz or exact), list subdirectories, temp folder creation.</li>
+<li><strong>timedate:</strong> Convert datetime or Unix timestamp to string (ISO 8601 or custom format); current time string.</li>
+<li><strong>string:</strong> Zettelkasten-style ID, UUID hex, human-readable memory size, capitalize words, parse date strings to dict.</li>
+<li><strong>secrets:</strong> SecureKeyManager — encrypted/env/1Password/keychain storage for API keys; get/store/delete by key name.</li>
+<li><strong>network:</strong> IP-in-subnet check, IP+netmask validation, generate IP from subnet and index.</li>
+</ul>
+<hr />
+<h2 id="2-basics">2. Basics</h2>
+<h3 id="terminology">Terminology</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>get_file_paths(directory)</strong></td>
+<td>Recursively list all file paths under a directory.</td>
+</tr>
+<tr>
+<td><strong>filter_files(part_file_name, directory, fuzz)</strong></td>
+<td>Paths whose basename contains (fuzz=True) or equals (fuzz=False) the given string.</td>
+</tr>
+<tr>
+<td><strong>datetime_converter / timestamp_converter</strong></td>
+<td>datetime or Unix timestamp → formatted string (ISO8601 or strftime).</td>
+</tr>
+<tr>
+<td><strong>zettelkasten_id()</strong></td>
+<td>UUID-derived ID like <code>"{first9}.{last11}"</code> hex.</td>
+</tr>
+<tr>
+<td><strong>SecureKeyManager</strong></td>
+<td>App-scoped key storage; supports encrypted file, env var, 1Password, keychain.</td>
+</tr>
+<tr>
+<td><strong>StorageMethod</strong></td>
+<td>Enum: ENCRYPTED, ENV, ONEPASSWORD, KEYCHAIN.</td>
+</tr>
+<tr>
+<td><strong>verify_ip_in_subnet(ip, subnet)</strong></td>
+<td>True if IP is in the given CIDR subnet.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entry-points">Entry points</h3>
+<ul>
+<li><strong>Files:</strong> <code>ures.files.get_file_paths</code>, <code>filter_files</code>, <code>list_directories</code>, <code>get_temp_folder</code>, <code>get_temp_dir_with_specific_path</code>.</li>
+<li><strong>Timedate:</strong> <code>ures.timedate.datetime_converter</code>, <code>timestamp_converter</code>, <code>time_now</code>.</li>
+<li><strong>String:</strong> <code>ures.string.zettelkasten_id</code>, <code>unique_id</code>, <code>format_memory</code>, <code>capitalize_string</code>, <code>string2date</code>.</li>
+<li><strong>Secrets:</strong> <code>ures.secrets.SecureKeyManager</code>, <code>StorageMethod</code>; init with app_name and optional config_dir, then <code>get_key(name)</code>, <code>store_key(name, value, method)</code>.</li>
+<li><strong>Network:</strong> <code>ures.network.verify_ip_in_subnet</code>, <code>is_valid_ip_netmask</code>, <code>generate_ip</code>.</li>
+</ul>
+<hr />
+<h2 id="3-architecture-logic">3. Architecture &amp; Logic</h2>
+<ul>
+<li><strong>Core logic:</strong></li>
+<li><strong>files:</strong> <code>os.walk</code> for recursion; filtering via <code>os.path.basename</code> and <code>in</code> or <code>==</code>. Temp: <code>tempfile.TemporaryDirectory().name</code> or <code>tempfile.gettempdir()</code> + joined path + <code>os.makedirs</code>.</li>
+<li><strong>timedate:</strong> <code>datetime.isoformat() + "Z"</code> or <code>strftime(format)</code>; <code>time_now</code> uses UTC and delegates to <code>datetime_converter</code>.</li>
+<li><strong>string:</strong> UUID via <code>uuid.uuid4().hex</code>; memory uses KB/MB/GB thresholds; <code>string2date</code> tries <code>%Y-%m-%d</code>, <code>%Y-%m</code>, then year-only int.</li>
+<li><strong>secrets:</strong> Encryption key in config dir; keys stored in JSON (encrypted) or env/1Password/keychain per StorageMethod. Optional 1Password SDK.</li>
+<li><strong>network:</strong> <code>ipaddress.ip_address</code>, <code>ip_network</code> for validation and containment; <code>generate_ip</code> = network_address + last_index.</li>
+<li><strong>Dependencies:</strong> Standard library (os, tempfile, datetime, uuid, re, ipaddress); secrets uses pathlib, logging, optional 1Password; string uses datetime for string2date.</li>
+</ul>
+<hr />
+<h2 id="4-uml-structure">4. UML &amp; Structure</h2>
+<h3 id="component-overview-no-single-class-hierarchy">Component overview (no single class hierarchy)</h3>
+<pre><code class="language-mermaid">classDiagram
+    class SecureKeyManager {
+        +app_name: str
+        +config_dir: Path
+        +get_key(name): Optional~str~
+        +store_key(name, value, method)
+        +delete_key(name)
+    }
+    class StorageMethod {
+        &lt;&lt;enumeration&gt;&gt;
+        ENCRYPTED
+        ENV
+        ONEPASSWORD
+        KEYCHAIN
+    }
+    SecureKeyManager ..&gt; StorageMethod : uses
+</code></pre>
+<ul>
+<li><strong>files, timedate, string, network:</strong> Pure functions; no class diagram needed for the main API.</li>
+</ul>
+<hr />
+<h2 id="5-code-level-understanding">5. Code-Level Understanding</h2>
+<h3 id="files">Files</h3>
+<ul>
+<li><strong>get_file_paths:</strong> One pass <code>os.walk</code>; appends <code>os.path.join(root, file)</code> for each file. Returns list of str paths.</li>
+<li><strong>filter_files:</strong> Calls <code>get_file_paths(directory)</code> then filters: <code>part_file_name in os.path.basename(path)</code> (fuzz) or <code>part_file_name == os.path.basename(path)</code> (exact).</li>
+<li><strong>list_directories(path):</strong> Returns None if path does not exist (logs warning); else list of entry names where <code>os.path.isdir(os.path.join(path, entry))</code>.</li>
+<li><strong>get_temp_folder:</strong> Returns <code>tempfile.TemporaryDirectory().name</code> (note: directory may be deleted when the TemporaryDirectory is GC’d).</li>
+<li><strong>get_temp_dir_with_specific_path(*args):</strong> Path = <code>tempfile.gettempdir() / *args</code>; <code>os.makedirs(..., exist_ok=True)</code>; returns path.</li>
+</ul>
+<h3 id="timedate">Timedate</h3>
+<ul>
+<li><strong>datetime_converter(time, iso8601, format):</strong> If iso8601 → <code>time.isoformat() + "Z"</code>; else <code>time.strftime(format)</code>.</li>
+<li><strong>timestamp_converter(timestamp, ...):</strong> <code>datetime.datetime.fromtimestamp(timestamp)</code> then <code>datetime_converter</code>.</li>
+<li><strong>time_now:</strong> Uses <code>datetime.datetime.now(datetime.UTC)</code> (or timezone.utc on 3.10) then <code>datetime_converter</code>.</li>
+</ul>
+<h3 id="string">String</h3>
+<ul>
+<li><strong>string2date(date_string):</strong> Tries in order: <code>%Y-%m-%d</code> → dict with year, month (3-letter), day; <code>%Y-%m</code> → day None; year-only (4-digit int) → month and day None. Returns <code>{"year", "month", "day"}</code> with None for missing.</li>
+</ul>
+<h3 id="secrets">Secrets</h3>
+<ul>
+<li><strong>SecureKeyManager:</strong> Config dir under home (platform-specific); <code>.encryption_key</code> for symmetric key; <code>encrypted_keys.json</code> for encrypted payloads. <code>get_key</code>/<code>store_key</code>/<code>delete_key</code> dispatch by StorageMethod. 1Password requires optional dependency.</li>
+</ul>
+<h3 id="network">Network</h3>
+<ul>
+<li><strong>verify_ip_in_subnet:</strong> <code>ipaddress.ip_address(ip)</code> and <code>ip_network(subnet)</code>; returns <code>ip_obj in network_obj</code>.</li>
+<li><strong>is_valid_ip_netmask:</strong> Validates IP; if netmask is digits, checks prefix length (32/128); else tries <code>ip_network(f"{ip}/{netmask}", strict=False)</code>.</li>
+<li><strong>generate_ip(subnet, last_index):</strong> <code>network_address + last_index</code>, return str.</li>
+</ul>
+<hr />
+<h2 id="6-usage-examples">6. Usage &amp; Examples</h2>
+<h3 id="integration">Integration</h3>
+<pre><code class="language-python">from ures.files import get_file_paths, filter_files, get_temp_dir_with_specific_path
+from ures.timedate import time_now, timestamp_converter
+from ures.string import zettelkasten_id, format_memory, string2date
+from ures.secrets import SecureKeyManager, StorageMethod
+from ures.network import verify_ip_in_subnet, generate_ip
+</code></pre>
+<h3 id="snippets">Snippets</h3>
+<pre><code class="language-python"># Files
+paths = get_file_paths(&quot;/tmp/project&quot;)
+matches = filter_files(&quot;readme&quot;, &quot;/tmp&quot;, fuzz=True)
+temp = get_temp_dir_with_specific_path(&quot;myapp&quot;, &quot;cache&quot;)
+
+# Timedate
+now = time_now(iso8601=True)
+s = timestamp_converter(1577880000, iso8601=False, format=&quot;%d/%m/%Y&quot;)
+
+# String
+zk_id = zettelkasten_id()
+mem_str = format_memory(1024 * 1024)  # &quot;1.00 MB&quot;
+d = string2date(&quot;2024-01-15&quot;)  # {&quot;year&quot;: 2024, &quot;month&quot;: &quot;Jan&quot;, &quot;day&quot;: 15}
+
+# Secrets
+mgr = SecureKeyManager(&quot;myapp&quot;)
+mgr.store_key(&quot;api_key&quot;, &quot;secret&quot;, StorageMethod.ENCRYPTED)
+value = mgr.get_key(&quot;api_key&quot;)
+
+# Network
+ok = verify_ip_in_subnet(&quot;192.168.1.10&quot;, &quot;192.168.1.0/24&quot;)
+ip = generate_ip(&quot;192.168.0.0/24&quot;, 100)  # &quot;192.168.0.100&quot;
+</code></pre>
+<hr />
+<h2 id="7-public-api-interfaces">7. Public API / Interfaces</h2>
+<h3 id="files_1">Files</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_file_paths(directory)</code></td>
+<td>List all file paths under directory (recursive).</td>
+</tr>
+<tr>
+<td><code>filter_files(part_file_name, directory, fuzz=True)</code></td>
+<td>Paths matching name (substring or exact).</td>
+</tr>
+<tr>
+<td><code>list_directories(path)</code></td>
+<td>Subdirectory names, or None if path missing.</td>
+</tr>
+<tr>
+<td><code>get_temp_folder()</code></td>
+<td>Path of a new temp directory (TemporaryDirectory).</td>
+</tr>
+<tr>
+<td><code>get_temp_dir_with_specific_path(*args)</code></td>
+<td>Temp dir with given path components; creates if needed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="timedate_1">Timedate</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>datetime_converter(time, iso8601=True, format="%Y%m%d-%H%M%S")</code></td>
+<td>datetime → string.</td>
+</tr>
+<tr>
+<td><code>timestamp_converter(timestamp, iso8601=True, format=...)</code></td>
+<td>Unix timestamp → string.</td>
+</tr>
+<tr>
+<td><code>time_now(iso8601=True, format=...)</code></td>
+<td>Current time as string (UTC).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="string_1">String</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zettelkasten_id()</code></td>
+<td>UUID-based ID string (9.11 hex).</td>
+</tr>
+<tr>
+<td><code>unique_id()</code></td>
+<td>32-char hex.</td>
+</tr>
+<tr>
+<td><code>format_memory(nbytes)</code></td>
+<td>Human-readable size (B/KB/MB/GB).</td>
+</tr>
+<tr>
+<td><code>capitalize_string(string, separator=" ")</code></td>
+<td>Capitalize each word.</td>
+</tr>
+<tr>
+<td><code>string2date(date_string)</code></td>
+<td>Parse to <code>{year, month, day}</code> dict.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="secrets_1">Secrets</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SecureKeyManager(app_name, config_dir=None)</code></td>
+<td>Key manager; config dir under home if not given.</td>
+</tr>
+<tr>
+<td><code>StorageMethod</code></td>
+<td>Enum: ENCRYPTED, ENV, ONEPASSWORD, KEYCHAIN.</td>
+</tr>
+<tr>
+<td><code>get_key(name)</code></td>
+<td>Retrieve value or None.</td>
+</tr>
+<tr>
+<td><code>store_key(name, value, method)</code></td>
+<td>Store under name with given method.</td>
+</tr>
+<tr>
+<td><code>delete_key(name)</code></td>
+<td>Remove key.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network_1">Network</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>verify_ip_in_subnet(ip, subnet)</code></td>
+<td>True if IP in CIDR subnet.</td>
+</tr>
+<tr>
+<td><code>is_valid_ip_netmask(ip, netmask)</code></td>
+<td>True if valid IP and netmask (CIDR or dotted).</td>
+</tr>
+<tr>
+<td><code>generate_ip(subnet, last_index)</code></td>
+<td>network_address + last_index as str.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-maintenance-troubleshooting">8. Maintenance &amp; Troubleshooting</h2>
+<ul>
+<li><strong>get_temp_folder:</strong> Returning <code>.name</code> of a TemporaryDirectory can leave the dir to be cleaned up by GC; prefer <code>get_temp_dir_with_specific_path</code> for longer-lived temp dirs.</li>
+<li><strong>time_now:</strong> Python 3.10 uses <code>datetime.timezone.utc</code>; 3.11+ uses <code>datetime.UTC</code>.</li>
+<li><strong>SecureKeyManager:</strong> 1Password requires <code>onepassword</code> package; keychain/platform-specific. Encrypted keys are stored in config dir — protect permissions.</li>
+<li><strong>string2date:</strong> Only supports the documented formats; invalid input returns all None.</li>
+<li><strong>network:</strong> <code>generate_ip</code> does not check bounds; large last_index can overflow.</li>
+</ul>
+<hr />
+<h2 id="9-execution-protocol">9. Execution Protocol</h2>
+<ol>
+<li><strong>Map logic:</strong> <code>ures/files.py</code>, <code>ures/timedate.py</code>, <code>ures/string.py</code>, <code>ures/secrets.py</code>, <code>ures/network.py</code>.</li>
+<li><strong>Abstract:</strong> Document purpose and behavior; do not duplicate line-by-line code.</li>
+<li><strong>Draft:</strong> Follow this template.</li>
+<li><strong>Review:</strong> No sensitive keys or hardcoded paths in docs.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

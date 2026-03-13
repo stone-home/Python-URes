@@ -1,0 +1,2055 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../module%20-%20data-structure/">
+      
+      
+        <link rel="next" href="../module%20-%20memory/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Module - Docker - URes Documents</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-docker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="URes Documents" class="md-header__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            URes Documents
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module - Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="URes Documents" class="md-nav__button md-logo" aria-label="URes Documents" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    URes Documents
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20core-utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core utilities
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20data-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-diagram-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class diagram (simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-sequence-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime sequence (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BuildConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtimeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-one-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and run one container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-multiple-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime (multiple containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BuildConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtimeconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature search
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20literature-citation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature citation
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module%20-%20tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--stable"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/timedate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timedate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/markdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data structures
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data structures
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apis/data_structure/bi_directional_links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bi-directional links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture &amp; Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uml-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UML &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. UML &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-diagram-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class diagram (simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-sequence-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime sequence (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-code-level-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code-Level Understanding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Code-Level Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BuildConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtimeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Usage &amp; Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Usage &amp; Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-run-one-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and run one container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-multiple-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime (multiple containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-api-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Public API / Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public API / Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BuildConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtimeconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-maintenance-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Maintenance &amp; Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-execution-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Execution Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-docker">Module: Docker</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>The Docker module provides <strong>configuration</strong>, <strong>image building</strong>, <strong>container lifecycle</strong>, and <strong>runtime orchestration</strong> for Docker: <strong>BuildConfig</strong> (Pydantic) for Dockerfile parameters, <strong>RuntimeConfig</strong> for run options (resources, network, volumes, etc.), <strong>Image</strong> for building and naming, <strong>Container</strong> for create/start/stop/remove/logs, and <strong>Runtime</strong> (e.g. SimpleRuntime) to run a set of containers with optional delay and logging. <strong>Cleanup</strong> and <strong>containers</strong> (multi-container) utilities may be present. Network helpers (subnet, IP) use <code>ures.network</code>.</p>
+<p><strong>Roles:</strong></p>
+<ul>
+<li><strong>Configuration:</strong> <strong>BuildConfig</strong> — base_image, platform, python/sys deps, labels, user, entrypoint, cmd, environment, copies, context_dir, docker_filename. <strong>RuntimeConfig</strong> — image_name, name, platform, detach, user, remove, cpus, gpus, memory, entrypoint, command, env, volumes, subnet, ipv4, network_mode, out_dir, etc.</li>
+<li><strong>Image:</strong> <strong>Image</strong> class — build from BuildConfig (or name), tag, get_fullname(); interacts with Docker client to build images.</li>
+<li><strong>Container:</strong> <strong>Container</strong> — wraps docker SDK Container; created from Image + RuntimeConfig (or equivalent); start, stop, remove, logs, wait; network settings from RuntimeConfig (subnet, ipv4 validated via ures.network).</li>
+<li><strong>Runtime:</strong> Abstract <strong>Runtime</strong> — holds list of containers, interval (delay); run(), stop(), remove(), logs(output_dir). <strong>SimpleRuntime</strong> implements concrete behavior (e.g. create/start containers in order, optional delay between).</li>
+<li><strong>Conf:</strong> <strong>conf.py</strong> — loading/saving or merging of BuildConfig/RuntimeConfig (e.g. from file or defaults).</li>
+</ul>
+<hr />
+<h2 id="2-basics">2. Basics</h2>
+<h3 id="terminology">Terminology</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BuildConfig</strong></td>
+<td>Pydantic model: base_image, platform, python_deps_manager, python_dependencies, sys_deps_manager, sys_dependencies, labels, uid, user, entrypoint, cmd, environment, copies, context_dir, docker_filename. Fluent helpers: add_label, add_copy, add_environment, set_context_dir, add_python_dependency, add_system_dependency, set_entrypoint, set_cmd.</td>
+</tr>
+<tr>
+<td><strong>RuntimeConfig</strong></td>
+<td>Pydantic or similar: image_name, container name, platform, detach, user, remove, cpus, gpus, memory, entrypoint, command, env, volumes, subnet, ipv4, subnet_mask, subnet_gateway, network_mode, out_dir.</td>
+</tr>
+<tr>
+<td><strong>Image</strong></td>
+<td>Builds from context + BuildConfig (or takes image name); produces tag/fullname for use by Container.</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>Wraps docker.models.containers.Container; create from Image + runtime params; start/stop/remove/logs/wait.</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>Orchestrates multiple Container instances: run (create+start), stop, remove, logs.</td>
+</tr>
+<tr>
+<td><strong>SimpleRuntime</strong></td>
+<td>Concrete Runtime implementation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entry-points">Entry points</h3>
+<ul>
+<li><strong>Build:</strong> BuildConfig() → set options → Image(build_config) or Image(name); build if needed.</li>
+<li><strong>Run:</strong> RuntimeConfig (image_name, volumes, command, etc.) → Container(Image, client) + apply RuntimeConfig → container.start() or use Runtime(containers, interval).runtime().</li>
+<li><strong>Import:</strong> <code>ures.docker.conf</code> (BuildConfig, RuntimeConfig), <code>ures.docker.image</code> (Image), <code>ures.docker.container</code> (Container), <code>ures.docker.runtime</code> (Runtime, SimpleRuntime), <code>ures.docker.containers</code> / <code>ures.docker.cleanup</code> if present.</li>
+</ul>
+<hr />
+<h2 id="3-architecture-logic">3. Architecture &amp; Logic</h2>
+<ul>
+<li><strong>Core logic:</strong></li>
+<li><strong>BuildConfig:</strong> Pydantic defaults (e.g. base_image="python:3.10-slim", docker_filename="Dockerfile"); add_* methods mutate and return self for chaining. Used by Image to generate Dockerfile and run <code>client.images.build(...)</code>.</li>
+<li><strong>RuntimeConfig:</strong> Holds run parameters; Container uses it for create_options (env, volumes, network_config with subnet/ipv4 when provided). Network: verify_ip_in_subnet, is_valid_ip_netmask (ures.network) for validation.</li>
+<li><strong>Image:</strong> get_fullname() returns tag string; build() uses context_dir and BuildConfig to build image.</li>
+<li><strong>Container:</strong> create() builds create_options from RuntimeConfig (name, detach, user, env, volumes, network_config); client.containers.create(image_name, **options). start(), stop(), remove(), logs(), wait() delegate to _container.</li>
+<li><strong>Runtime:</strong> run() creates/starts containers (possibly with _regular_delay); stop() stops all; remove() removes all; logs() collects logs to output_dir.</li>
+<li><strong>Dependencies:</strong> docker SDK, pydantic, ures.files.get_temp_folder (if used), ures.network (verify_ip_in_subnet, is_valid_ip_netmask), ures.tools.decorator.check_instance_variable (Container methods).</li>
+</ul>
+<hr />
+<h2 id="4-uml-structure">4. UML &amp; Structure</h2>
+<h3 id="class-diagram-simplified">Class diagram (simplified)</h3>
+<pre><code class="language-mermaid">classDiagram
+    class BuildConfig {
+        +base_image: str
+        +platform: Optional~str~
+        +python_dependencies: Optional~List~
+        +sys_dependencies: Optional~List~
+        +context_dir: Path
+        +docker_filename: str
+        +add_label(key, value)
+        +add_copy(src, dest)
+        +add_environment(key, value)
+        +set_context_dir(path)
+        +add_python_dependency(dep)
+        +add_system_dependency(dep)
+        +set_entrypoint(ep)
+        +set_cmd(cmd)
+    }
+    class RuntimeConfig {
+        +image_name: str
+        +name: Optional~str~
+        +detach: bool
+        +env: Optional~Dict~
+        +volumes: Optional~Dict~
+        +subnet: Optional~str~
+        +ipv4: Optional~str~
+        +network_mode: Optional~str~
+        +out_dir: Path
+    }
+    class Image {
+        +get_fullname(): str
+        +build(): None
+    }
+    class Container {
+        -_image: Image
+        -_client: DockerClient
+        -_container: Optional~Container~
+        +image_name: str
+        +is_created: bool
+        +status: str
+        +create(config)
+        +start()
+        +stop()
+        +remove()
+        +logs()
+        +wait()
+    }
+    class Runtime {
+        &lt;&lt;abstract&gt;&gt;
+        -containers: List~Container~
+        -interval: float
+        +run()
+        +stop()
+        +remove()
+        +logs(output_dir)
+    }
+    class SimpleRuntime {
+        +run()
+        +stop()
+        +remove()
+        +logs(output_dir)
+    }
+    Image ..&gt; BuildConfig : uses
+    Container *-- Image : uses
+    Container ..&gt; RuntimeConfig : uses
+    Runtime &lt;|-- SimpleRuntime
+    Runtime o-- Container : contains
+</code></pre>
+<p><strong>Existing PlantUML:</strong> <code>docs/PlantUML/docker/class-docker.puml</code> — full BuildConfig, RuntimeConfig, Runtime, SimpleRuntime, Container, Image.</p>
+<h3 id="runtime-sequence-high-level">Runtime sequence (high level)</h3>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant R as Runtime
+    participant C1 as Container1
+    participant C2 as Container2
+
+    R-&gt;&gt;C1: create(config)
+    R-&gt;&gt;C1: start()
+    R-&gt;&gt;R: _regular_delay()
+    R-&gt;&gt;C2: create(config)
+    R-&gt;&gt;C2: start()
+    R-&gt;&gt;R: ...
+</code></pre>
+<hr />
+<h2 id="5-code-level-understanding">5. Code-Level Understanding</h2>
+<h3 id="buildconfig">BuildConfig</h3>
+<ul>
+<li>Pydantic model; all fields optional except base_image and context_dir/docker_filename with defaults. add_label/add_copy/add_environment append to lists or update dicts. set_context_dir accepts str or Path. Used by Image to write Dockerfile (or pass build args) and call client.images.build(context=context_dir, ...).</li>
+</ul>
+<h3 id="runtimeconfig">RuntimeConfig</h3>
+<ul>
+<li>image_name required; others optional. Container.create() maps env, volumes, network_config (from subnet/ipv4 when provided). Network: if subnet and ipv4 given, validate with verify_ip_in_subnet and is_valid_ip_netmask; build Docker network config (driver, ipam) for create_options.</li>
+</ul>
+<h3 id="container">Container</h3>
+<ul>
+<li><strong>init</strong>(image: Image, client=None): client or docker.from_env(). create(runtime_config): build create_options (image=get_fullname(), name, detach, user, remove, env, volumes, host_config or network_config); self._container = client.containers.create(...). start/stop/remove/logs/wait call _container methods. Methods may be decorated with @check_instance_variable("_client") or similar so they no-op if client is None.</li>
+</ul>
+<h3 id="runtime">Runtime</h3>
+<ul>
+<li>Holds list of Container; interval for delay between starts. run(): for each container, create (if config provided), start, then delay. stop(): stop each. remove(): remove each. logs(output_dir): for each container, fetch logs and write to output_dir (e.g. by container name).</li>
+</ul>
+<h3 id="image">Image</h3>
+<ul>
+<li>Constructed with BuildConfig or image name. build(): generate Dockerfile from BuildConfig, run docker build in context_dir. get_fullname(): return "name:tag" for use in create.</li>
+</ul>
+<hr />
+<h2 id="6-usage-examples">6. Usage &amp; Examples</h2>
+<h3 id="integration">Integration</h3>
+<pre><code class="language-python">from ures.docker.conf import BuildConfig, RuntimeConfig
+from ures.docker.image import Image
+from ures.docker.container import Container
+from ures.docker.runtime import Runtime, SimpleRuntime
+</code></pre>
+<h3 id="build-and-run-one-container">Build and run one container</h3>
+<pre><code class="language-python">build_cfg = BuildConfig()
+build_cfg.set_context_dir(&quot;/path/to/context&quot;).add_python_dependency(&quot;requests&quot;)
+img = Image(build_cfg)
+img.build()
+runtime_cfg = RuntimeConfig(image_name=img.get_fullname(), detach=True, out_dir=Path(&quot;/tmp/logs&quot;))
+container = Container(img)
+container.create(runtime_cfg)
+container.start()
+# ...
+container.stop()
+container.remove()
+</code></pre>
+<h3 id="runtime-multiple-containers">Runtime (multiple containers)</h3>
+<pre><code class="language-python">containers = [Container(Image(&quot;a:latest&quot;)), Container(Image(&quot;b:latest&quot;))]
+runtime = SimpleRuntime(containers=containers, interval=2.0)
+runtime.run()
+runtime.logs(Path(&quot;/tmp/logs&quot;))
+runtime.stop()
+runtime.remove()
+</code></pre>
+<hr />
+<h2 id="7-public-api-interfaces">7. Public API / Interfaces</h2>
+<h3 id="buildconfig_1">BuildConfig</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base_image, platform, python_deps_manager, python_dependencies, sys_deps_manager, sys_dependencies</td>
+<td>Build parameters.</td>
+</tr>
+<tr>
+<td>labels, uid, user, entrypoint, cmd, environment, copies</td>
+<td>Optional.</td>
+</tr>
+<tr>
+<td>context_dir, docker_filename</td>
+<td>Path and Dockerfile name.</td>
+</tr>
+<tr>
+<td>add_label, add_copy, add_environment, set_context_dir</td>
+<td>Fluent setters.</td>
+</tr>
+<tr>
+<td>add_python_dependency, add_system_dependency, set_entrypoint, set_cmd</td>
+<td>Fluent setters.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtimeconfig_1">RuntimeConfig</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image_name, name, platform, detach, user, remove</td>
+<td>Run options.</td>
+</tr>
+<tr>
+<td>cpus, gpus, memory, entrypoint, command, env, volumes</td>
+<td>Resources and execution.</td>
+</tr>
+<tr>
+<td>subnet, ipv4, subnet_mask, subnet_gateway, network_mode</td>
+<td>Network.</td>
+</tr>
+<tr>
+<td>out_dir</td>
+<td>Log/output directory.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="image_1">Image</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>get_fullname()</td>
+<td>Full image name (name:tag).</td>
+</tr>
+<tr>
+<td>build()</td>
+<td>Build from BuildConfig/context.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="container_1">Container</h3>
+<table>
+<thead>
+<tr>
+<th>Method / property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image_name, is_created, status</td>
+<td>Properties.</td>
+</tr>
+<tr>
+<td>create(runtime_config)</td>
+<td>Create container from config.</td>
+</tr>
+<tr>
+<td>start(), stop(), remove()</td>
+<td>Lifecycle.</td>
+</tr>
+<tr>
+<td>logs(), wait()</td>
+<td>Output and blocking wait.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="runtime_1">Runtime</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>run()</td>
+<td>Create and start containers (with optional delay).</td>
+</tr>
+<tr>
+<td>stop()</td>
+<td>Stop all.</td>
+</tr>
+<tr>
+<td>remove()</td>
+<td>Remove all.</td>
+</tr>
+<tr>
+<td>logs(output_dir)</td>
+<td>Write logs to directory.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-maintenance-troubleshooting">8. Maintenance &amp; Troubleshooting</h2>
+<ul>
+<li><strong>Network:</strong> Subnet and ipv4 must be valid (verify_ip_in_subnet, is_valid_ip_netmask). Invalid values should be rejected before create.</li>
+<li><strong>Client:</strong> Container methods that need Docker client should check _client is not None (e.g. via check_instance_variable) to avoid runtime errors.</li>
+<li><strong>Temp dirs:</strong> BuildConfig/Image may use get_temp_folder for intermediate files; ensure cleanup or use get_temp_dir_with_specific_path for predictable paths.</li>
+<li><strong>Platform:</strong> BuildConfig.platform and RuntimeConfig.platform (e.g. linux/amd64) must match host/engine when building and running.</li>
+</ul>
+<hr />
+<h2 id="9-execution-protocol">9. Execution Protocol</h2>
+<ol>
+<li><strong>Map logic:</strong> <code>ures/docker/conf.py</code> (BuildConfig, RuntimeConfig), <code>ures/docker/image.py</code>, <code>ures/docker/container.py</code>, <code>ures/docker/containers.py</code> (if present), <code>ures/docker/runtime.py</code>, <code>ures/docker/cleanup.py</code> (if present); <code>ures/docker/__init__.py</code>.</li>
+<li><strong>Abstract:</strong> Document purpose and flow; do not duplicate line-by-line code.</li>
+<li><strong>Draft:</strong> Follow this template; reference docs/PlantUML/docker/class-docker.puml.</li>
+<li><strong>Review:</strong> No sensitive keys or hardcoded paths; no credentials in docs.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
