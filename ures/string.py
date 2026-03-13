@@ -39,7 +39,7 @@ def unique_id() -> str:
     return uuid.uuid4().hex
 
 
-def format_memory(nbytes: int) -> str:
+def format_memory(nbytes: int | None) -> str:
     """
     Format a memory size into a human-readable string.
 
@@ -47,7 +47,7 @@ def format_memory(nbytes: int) -> str:
     with two decimal places of precision. If the provided value is None, it returns "0 bytes".
 
     Args:
-            nbytes (int): The memory size in bytes.
+            nbytes (int | None): The memory size in bytes, or None for "0 bytes".
 
     Returns:
             str: The memory size in a human-readable format.
@@ -98,7 +98,7 @@ def capitalize_string(string: str, separator: str = " ") -> str:
     return separator.join([item.capitalize() for item in string.split(separator)])
 
 
-def string2date(date_string) -> dict[str, int | str | None]:
+def string2date(date_string: str) -> dict[str, int | str | None]:
     """
     Parses various date string formats ('YYYY', 'YYYY-MM', 'YYYY-MM-DD')
     and returns a dictionary with the month as a three-letter abbreviation.

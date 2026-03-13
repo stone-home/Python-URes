@@ -10,4 +10,23 @@ plugins:
 
 nav:
   - Home: index.md
-  - API: api.md
+  - Modules:
+      - Core utilities: modules/module - core-utilities.md
+      - Data structures: modules/module - data-structure.md
+      - Docker: modules/module - docker.md
+      - Memory: modules/module - memory.md
+      - Markdown: modules/module - markdown.md
+      - Literature search: modules/module - literature-search.md
+      - Literature citation: modules/module - literature-citation.md
+      - Tools: modules/module - tools.md
+  - API:
+      - Overview: api.md
+      - Files: apis/files.md
+      - String: apis/string.md
+      - Timedate: apis/timedate.md
+      - Network: apis/network.md
+      - Markdown: apis/markdown.md
+      - Docker: apis/docker.md
+      - Data structures:
+          - Tree: apis/data_structure/tree.md
+          - Bi-directional links: apis/data_structure/bi_directional_links.md

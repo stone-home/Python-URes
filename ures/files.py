@@ -1,9 +1,11 @@
+import logging
 import os
 import tempfile
-from typing import List, Optional
+
+logger = logging.getLogger(__name__)
 
 
-def get_file_paths(directory: str) -> List[str]:
+def get_file_paths(directory: str) -> list[str]:
     """
     Retrieve all file paths within the specified directory and its subdirectories.
 
@@ -14,7 +16,7 @@ def get_file_paths(directory: str) -> List[str]:
         directory (str): The directory path to search in.
 
     Returns:
-        List[str]: A list containing the absolute paths of all files found.
+        list[str]: A list containing the absolute paths of all files found.
 
     Example:
         >>> paths = get_file_paths("/path/to/directory")
@@ -31,7 +33,7 @@ def get_file_paths(directory: str) -> List[str]:
     return file_paths
 
 
-def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> List[str]:
+def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> list[str]:
     """
     Retrieve file paths in the specified directory that match a given file name pattern.
 
@@ -46,7 +48,7 @@ def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> List
             returns only files with an exact name match. Defaults to True.
 
     Returns:
-        List[str]: A list of file paths that match the search criteria.
+        list[str]: A list of file paths that match the search criteria.
 
     Example:
         >>> # Assuming "/tmp/test" contains files "example.txt" and "sample.txt"
@@ -69,7 +71,7 @@ def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> List
         ]
 
 
-def list_directories(path: str) -> Optional[List[str]]:
+def list_directories(path: str) -> list[str] | None:
     """
     List all subdirectories in the specified path.
 
@@ -80,16 +82,15 @@ def list_directories(path: str) -> Optional[List[str]]:
         path (str): The path where directories should be listed.
 
     Returns:
-        Optional[List[str]]: A list of directory names if the path exists; otherwise, None.
+        list[str] | None: A list of directory names if the path exists; otherwise, None.
 
     Example:
         >>> dirs = list_directories("/tmp")
         >>> isinstance(dirs, list) or dirs is None
         True
     """
-    # Ensure the path exists.
     if not os.path.exists(path):
-        print("The specified path does not exist.")
+        logger.warning("The specified path does not exist: %s", path)
         return None
 
     # List all entries in the path.

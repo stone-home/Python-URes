@@ -186,7 +186,7 @@ class TypeNormalizationMiddleware(CitationMiddleware):
     """Normalize entry types (conference -> inproceedings, etc.)"""
 
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
-        new_type = self.rule_register.get_defulat_bib_type_mapping().get(
+        new_type = self.rule_register.get_default_bib_type_mapping().get(
             entry.entry_type.lower(), entry.entry_type
         )
         entry.entry_type = new_type

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "ures"
 version = "0.1.0"
-description = "The project is designed to provide standard utilization functions for improving the reusability of frequently used functions."
+description = "Utility library for research and development: Docker workflows, Markdown and Zettelkasten, data structures, and core file/network/string/time helpers."
 authors = ["stone <github@stone-bo.com>"]
 license = "MIT"
 readme = "docs/index.md"

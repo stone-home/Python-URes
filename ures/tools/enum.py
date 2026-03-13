@@ -136,7 +136,7 @@ class EnumManipulator:
             return member.value
         return None
 
-    def filter_by(self, keyword: str, field: str = None) -> list:
+    def filter_by(self, keyword: str, field: str | None = None) -> list:
         """
         Filter and return keys from the Enum where the specified keyword matches.
 
