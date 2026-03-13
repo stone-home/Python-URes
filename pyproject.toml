@@ -5,6 +5,8 @@ description = "Utility library for research and development: Docker workflows, M
 authors = ["stone <github@stone-bo.com>"]
 license = "MIT"
 readme = "docs/index.md"
+homepage = "https://stone-home.github.io/Python-URes/"
+documentation = "https://stone-home.github.io/Python-URes/"
 repository = "https://github.com/stone-home/Python-URes"
 keywords = [
     "utilization",
