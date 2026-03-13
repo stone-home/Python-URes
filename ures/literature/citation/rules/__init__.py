@@ -29,7 +29,7 @@ class BibRuleRegister:
             "langid": "language",
         }
 
-    def get_defulat_bib_type_mapping(self) -> Dict[str, str]:
+    def get_default_bib_type_mapping(self) -> Dict[str, str]:
         return {
             "conference": "inproceedings",
             "incollection": "inproceedings",  # Some publishers treat book chapters as conf papers

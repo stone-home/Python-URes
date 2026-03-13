@@ -2,7 +2,7 @@ import logging
 from functools import wraps
 
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 def check_instance_variable(variable_name):

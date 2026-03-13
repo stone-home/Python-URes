@@ -1,6 +1,7 @@
 from __future__ import annotations
+
 import uuid
-from typing import Any, AnyStr, Dict, Iterator, List, Optional
+from typing import Any, Iterator
 
 
 class TreeNode:
@@ -19,13 +20,13 @@ class TreeNode:
             >>> node.value
             'root'
         """
-        self._parent: Optional[TreeNode] = None
-        self._children: Dict[AnyStr, TreeNode] = {}
+        self._parent: TreeNode | None = None
+        self._children: dict[str, TreeNode] = {}
         self._value: Any = value
         self._id = uuid.uuid4().hex
 
     @property
-    def parent(self) -> Optional[TreeNode]:
+    def parent(self) -> TreeNode | None:
         """
         Get the parent node of this TreeNode.
 
@@ -42,12 +43,12 @@ class TreeNode:
         return self._parent
 
     @property
-    def children(self) -> Dict[AnyStr, TreeNode]:
+    def children(self) -> dict[str, TreeNode]:
         """
         Get the dictionary of child nodes.
 
         Returns:
-            Dict[AnyStr, TreeNode]: A dictionary mapping each child's unique ID to its TreeNode instance.
+            dict[str, TreeNode]: A dictionary mapping each child's unique ID to its TreeNode instance.
 
         Example:
             >>> root = TreeNode("root")
@@ -123,7 +124,7 @@ class TreeNode:
             >>> child.parent is root
             True
         """
-        if child.id not in self.children.keys():
+        if child.id not in self.children:
             self._children[child.id] = child
             child.set_parent(self)
 
@@ -148,11 +149,11 @@ class TreeNode:
             >>> child.parent is None
             True
         """
-        if child.id in self.children.keys():
+        if child.id in self.children:
             self._children.pop(child.id)
             child.set_parent(None)
 
-    def set_parent(self, parent: Optional[TreeNode]):
+    def set_parent(self, parent: TreeNode | None):
         """
         Set the parent of the current node.
 
@@ -160,7 +161,7 @@ class TreeNode:
         the new parent.
 
         Args:
-            parent (Optional[TreeNode]): The new parent node. If None, the node will have no parent.
+            parent (TreeNode | None): The new parent node. If None, the node will have no parent.
 
         Returns:
             None
@@ -199,7 +200,7 @@ class TreeNode:
             yield current
             current = current.parent
 
-    def forward_stack(self, **kwargs) -> List[List[Any]]:
+    def forward_stack(self, **kwargs) -> list[list[Any]]:
         """
         Get all forward paths from the current node to each leaf node.
 
@@ -211,7 +212,7 @@ class TreeNode:
             attr (str, optional): The attribute name to extract from each node. Defaults to None.
 
         Returns:
-            List[List[Any]]: A list of paths, where each path is a list of nodes or attribute values from the
+            list[list[Any]]: A list of paths, where each path is a list of nodes or attribute values from the
                              current node to a leaf node.
 
         Example:
