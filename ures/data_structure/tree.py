@@ -1,10 +1,12 @@
 from __future__ import annotations
-
 import uuid
-from typing import Any, Iterator
+from typing import Any, Iterator, Generic, TypeVar, cast
 
 
-class TreeNode:
+_TreeNodeT = TypeVar("_TreeNodeT", bound="TreeNode")
+
+
+class TreeNode(Generic[_TreeNodeT]):
     def __init__(self, value: Any):
         """
         Initialize a TreeNode instance.
@@ -16,22 +18,22 @@ class TreeNode:
             None
 
         Example:
-            >>> node = TreeNode("root")
+            >>> node = _TreeNodeT("root")
             >>> node.value
             'root'
         """
-        self._parent: TreeNode | None = None
-        self._children: dict[str, TreeNode] = {}
+        self._parent: _TreeNodeT | None = None
+        self._children: dict[str, _TreeNodeT] = {}
         self._value: Any = value
         self._id = uuid.uuid4().hex
 
     @property
-    def parent(self) -> TreeNode | None:
+    def parent(self) -> _TreeNodeT | None:
         """
         Get the parent node of this TreeNode.
 
         Returns:
-            Optional[TreeNode]: The parent node if it exists; otherwise, None.
+            Optional[_TreeNodeT]: The parent node if it exists; otherwise, None.
 
         Example:
             >>> root = TreeNode("root")
@@ -43,12 +45,12 @@ class TreeNode:
         return self._parent
 
     @property
-    def children(self) -> dict[str, TreeNode]:
+    def children(self) -> dict[str, _TreeNodeT]:
         """
         Get the dictionary of child nodes.
 
         Returns:
-            dict[str, TreeNode]: A dictionary mapping each child's unique ID to its TreeNode instance.
+            dict[str, _TreeNodeT]: A dictionary mapping each child's unique ID to its TreeNode instance.
 
         Example:
             >>> root = TreeNode("root")
@@ -104,7 +106,7 @@ class TreeNode:
         """
         return self._id
 
-    def add_child(self, child: TreeNode):
+    def add_child(self, child: _TreeNodeT):
         """
         Add a child node to the current node.
 
@@ -153,7 +155,7 @@ class TreeNode:
             self._children.pop(child.id)
             child.set_parent(None)
 
-    def set_parent(self, parent: TreeNode | None):
+    def set_parent(self, parent: _TreeNodeT | None):
         """
         Set the parent of the current node.
 
@@ -226,10 +228,10 @@ class TreeNode:
             [['child1', 'root'], ['child2', 'root']]  # Order may vary
         """
         all_paths = []
-        self._dfs(self, [], all_paths, **kwargs)
+        self._dfs(cast(_TreeNodeT, self), [], all_paths, **kwargs)
         return all_paths
 
-    def _dfs(self, node: TreeNode, current_path: list, all_paths: list, **kwargs):
+    def _dfs(self, node: _TreeNodeT, current_path: list, all_paths: list, **kwargs):
         """
         Recursively perform depth-first search (DFS) to find all paths from the given node to leaf nodes.
 

@@ -1,9 +1,11 @@
 from __future__ import annotations
 import uuid
-from typing import Any, Optional
+from typing import Any, Generic, Optional, TypeVar, cast
+
+_BiDirectionT = TypeVar("_BiDirectionT", bound="BiDirection")
 
 
-class BiDirection:
+class BiDirection(Generic[_BiDirectionT]):
     def __init__(self, value: Any):
         """
         Create a bi-directional linked node.
@@ -26,13 +28,13 @@ class BiDirection:
             >>> node.next is node
             True
         """
-        self._prev: Optional[BiDirection] = self
-        self._next: Optional[BiDirection] = self
+        self._prev: _BiDirectionT = cast(_BiDirectionT, self)
+        self._next: _BiDirectionT = cast(_BiDirectionT, self)
         self._value: Any = value
         self._id = uuid.uuid4().hex
 
     @property
-    def prev(self) -> BiDirection:
+    def prev(self) -> _BiDirectionT:
         """
         Get the previous node in the linked structure.
 
@@ -47,7 +49,7 @@ class BiDirection:
         return self._prev
 
     @property
-    def next(self) -> BiDirection:
+    def next(self) -> _BiDirectionT:
         """
         Get the next node in the linked structure.
 
@@ -91,7 +93,7 @@ class BiDirection:
         """
         return self._id
 
-    def insert_after(self, node: BiDirection) -> None:
+    def insert_after(self, node: _BiDirectionT) -> None:
         """
         Insert a node immediately after the current node.
 
@@ -117,7 +119,7 @@ class BiDirection:
         self._next._prev = node
         self._next = node
 
-    def insert_before(self, node: BiDirection) -> None:
+    def insert_before(self, node: _BiDirectionT) -> None:
         """
         Insert a node immediately before the current node.
 
@@ -163,10 +165,10 @@ class BiDirection:
         """
         self._prev._next = self._next
         self._next._prev = self._prev
-        self._prev = self
-        self._next = self
+        self._prev = cast(_BiDirectionT, self)
+        self._next = cast(_BiDirectionT, self)
 
-    def search(self, value: Any) -> Optional[BiDirection]:
+    def search(self, value: Any) -> Optional[_BiDirectionT]:
         """
         Search for a node with the specified value in the linked structure.
 
@@ -192,12 +194,12 @@ class BiDirection:
             >>> not_found is None
             True
         """
-        node = self
+        node: _BiDirectionT = cast(_BiDirectionT, self)
         while node.value != value and node.next != self:
             node = node.next
         return node if node.value == value else None
 
-    def __eq__(self, other: BiDirection) -> bool:
+    def __eq__(self, other: _BiDirectionT) -> bool:
         """
         Check equality between two nodes based on their unique IDs.
 
@@ -246,7 +248,7 @@ class BiDirection:
         return f"BiDirection({self.value})"
 
 
-class NonCircularBiLink(BiDirection):
+class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
     __slots__ = ("_prev", "_next", "_value")
 
     def __init__(self, value: Any):
