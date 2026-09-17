@@ -109,6 +109,11 @@ class MarkdownDocument:
 
     This class provides methods to add and modify Markdown content and front matter,
     supporting nested structures in front matter (e.g., dictionaries within YAML front matter).
+
+    Examples:
+        >>> doc = MarkdownDocument(content="Hello", metadata={"title": "Note"})
+        >>> doc.metadata["title"]
+        'Note'
     """
 
     MANDATORY_FIELDS: List[AnyStr] = []
@@ -121,7 +126,7 @@ class MarkdownDocument:
             content (str): The Markdown content. Defaults to an empty string.
             metadata (Optional[Dict[str, Any]]): The front matter metadata as a dictionary. Defaults to None.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     content="# Hello World",
             ...     metadata={"title": "Greeting", "tags": ["intro", "welcome"]}
@@ -170,7 +175,7 @@ class MarkdownDocument:
         Returns:
             str: The Markdown content.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(content="# Hello World")
             >>> doc.content
             "# Hello World"
@@ -185,7 +190,7 @@ class MarkdownDocument:
         Args:
             new_content (str): The new Markdown content.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument()
             >>> doc.content = "# New Title"
         """
@@ -199,7 +204,7 @@ class MarkdownDocument:
         Returns:
             Dict[str, Any]: The metadata dictionary.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(metadata={"title": "Greeting", "tags": ["intro", "welcome"]})
             >>> doc.metadata
             {"title": "Greeting", "tags": ["intro", "welcome"]}
@@ -214,7 +219,7 @@ class MarkdownDocument:
         Args:
             new_metadata (Dict[str, Any]): The new metadata dictionary.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument()
             >>> doc.metadata = {"title": "New Greeting", "tags": ["updated"]}
         """
@@ -229,7 +234,7 @@ class MarkdownDocument:
             append (bool): If True, appends to existing content; otherwise, prepends.
                            Defaults to True.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument()
             >>> doc.add_content("# Introduction")
             >>> doc.add_content("Some introductory text.", append=True)
@@ -259,7 +264,7 @@ class MarkdownDocument:
             overwrite (bool): If True, overwrites the existing value; otherwise, appends to lists
                               or creates new entries in lists. Defaults to True.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument()
             >>> doc.set_frontmatter("author.name", "John Doe")
             >>> doc.set_frontmatter("author.contact.email", "john@example.com")
@@ -368,7 +373,7 @@ class MarkdownDocument:
         Returns:
             Any: The value associated with the key, or None if the key does not exist.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     metadata={
             ...         "author": {"name": "John Doe", "contact": {"email": "john@example.com"}},
@@ -417,7 +422,7 @@ class MarkdownDocument:
             key_path (str): The front matter key path to remove. Use dot notation for nested keys
                             (e.g., "author.contact.email" or "sections.0.title").
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     metadata={
             ...         "author": {"name": "John Doe", "contact": {"email": "john@example.com"}},
@@ -471,7 +476,7 @@ class MarkdownDocument:
         ERROR:
             ValueError: If the front matter is missing mandatory fields.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     content="# Hello World",
             ...     metadata={"title": "Greeting", "tags": ["intro", "welcome"]}
@@ -496,7 +501,7 @@ class MarkdownDocument:
         Args:
             file_path (str): The path where the Markdown file will be saved.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     content="# Hello World",
             ...     metadata={"title": "Greeting", "tags": ["intro", "welcome"]}
@@ -519,7 +524,7 @@ class MarkdownDocument:
             FileNotFoundError: If the specified file does not exist.
             frontmatter.InvalidFrontMatterError: If the front matter is malformed.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument()
             >>> doc.load_from_file("existing.md")
         """
@@ -583,7 +588,7 @@ class MarkdownDocument:
         """
         Clears all Markdown content, leaving only the front matter.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(content="# Hello World")
             >>> doc.clear_content()
             >>> print(doc.content)
@@ -595,7 +600,7 @@ class MarkdownDocument:
         """
         Clears all front matter metadata, leaving only the Markdown content.
 
-        Example:
+        Examples:
             >>> doc = MarkdownDocument(
             ...     content="# Hello World",
             ...     metadata={"title": "Greeting", "tags": ["intro", "welcome"]}

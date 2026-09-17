@@ -1,3 +1,12 @@
+"""Datetime formatting and current-time helpers.
+
+Examples:
+    >>> from datetime import datetime
+    >>> from ures.timedate import datetime_converter
+    >>> datetime_converter(datetime(2020, 1, 1, 12, 0, 0), iso8601=True)
+    '2020-01-01T12:00:00Z'
+"""
+
 import datetime
 import sys
 
@@ -24,7 +33,7 @@ def datetime_converter(
     Returns:
         str: The formatted time string.
 
-    Example:
+    Examples:
         >>> import datetime
         >>> dt = datetime.datetime(2020, 1, 1, 12, 0, 0)
         >>> datetime_converter(dt, iso8601=True)
@@ -60,7 +69,7 @@ def timestamp_converter(
     Returns:
         str: The formatted time string.
 
-    Example:
+    Examples:
         >>> # Unix timestamp for 2020-01-01 12:00:00
         >>> timestamp_converter(1577880000, iso8601=True)
         '2020-01-01T12:00:00Z'
@@ -93,7 +102,7 @@ def time_now(iso8601: bool = True, format: str = "%Y%m%d-%H%M%S") -> str:
     Returns:
         str: The current time as a formatted string.
 
-    Example:
+    Examples:
         >>> current_time = time_now(iso8601=True)
         >>> current_time.endswith("Z")
         True

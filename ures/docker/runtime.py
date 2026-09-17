@@ -18,7 +18,7 @@ class Runtime(ABC):
             containers (List[Container]): A list of Container instances to manage.
                 Each container must have been created (i.e. container.is_created is True).
 
-        Example:
+        Examples:
             >>> runtime = SomeRuntime([container1, container2])
         """
         assert all([container.is_created for container in containers]) is True
@@ -33,10 +33,7 @@ class Runtime(ABC):
         """
         Run all managed containers.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.run()
         """
         pass
@@ -46,10 +43,7 @@ class Runtime(ABC):
         """
         Stop all managed containers.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.stop()
         """
         pass
@@ -59,10 +53,7 @@ class Runtime(ABC):
         """
         Remove all managed containers.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.remove()
         """
         pass
@@ -75,10 +66,7 @@ class Runtime(ABC):
         Args:
             output_dir (Union[str, Path]): The directory where log files should be saved.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.logs("/tmp/container_logs")
         """
         pass
@@ -90,10 +78,7 @@ class SimpleRuntime(Runtime):
         Runs each container by calling its run() method. If the container becomes running,
         wait() is called; otherwise, an error is logged.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime = SimpleRuntime([container1, container2])
             >>> runtime.run()
         """
@@ -110,10 +95,7 @@ class SimpleRuntime(Runtime):
         """
         Stops each container by calling its stop() method.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.stop()
         """
         for container in tqdm.tqdm(self._containers):
@@ -124,10 +106,7 @@ class SimpleRuntime(Runtime):
         """
         Removes each container by calling its remove() method.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.remove()
         """
         for container in tqdm.tqdm(self._containers):
@@ -142,10 +121,7 @@ class SimpleRuntime(Runtime):
         Args:
             output_dir (Union[str, Path]): The directory where logs should be stored.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> runtime.logs("/tmp/container_logs")
         """
         output_dir = Path(output_dir)

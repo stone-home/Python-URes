@@ -30,6 +30,8 @@ URes (Utility for Research) is a Python library that centralizes **reusable util
 pip install ures
 ```
 
+API reference is generated from source on the documentation site: [https://stone-home.github.io/Python-URes/](https://stone-home.github.io/Python-URes/).
+
 ## Modules
 
 ### Docker

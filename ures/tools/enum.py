@@ -1,13 +1,17 @@
 from enum import Enum, EnumMeta
-from typing import List, Optional
+from typing import Any, List, Optional
 
 
 class EnumManipulator:
-    """
-    A class to manipulate and query an Enum object.
+    """Inspect and filter members of an ``Enum`` class.
 
-    This class provides helper methods to fetch keys, retrieve members and their values,
-    check for key existence, and filter keys based on a keyword search.
+    Examples:
+        >>> from enum import Enum
+        >>> from ures.tools.enum import EnumManipulator
+        >>> class Color(Enum):
+        ...     RED = 1
+        >>> EnumManipulator(Color).check_key("RED")
+        True
     """
 
     def __init__(self, input_enum: EnumMeta):
@@ -17,7 +21,7 @@ class EnumManipulator:
         Args:
             input_enum (EnumMeta): An Enum class to be manipulated.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Color(Enum):
             ...     RED = 1
@@ -34,7 +38,7 @@ class EnumManipulator:
         Returns:
             EnumMeta: The Enum class provided during initialization.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Color(Enum):
             ...     RED = 1
@@ -53,7 +57,7 @@ class EnumManipulator:
         Returns:
             List[str]: A list of key names defined in the Enum.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Color(Enum):
             ...     RED = 1
@@ -74,7 +78,7 @@ class EnumManipulator:
         Returns:
             Optional[Enum]: The Enum member if found; otherwise, None.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Color(Enum):
             ...     RED = 1
@@ -99,7 +103,7 @@ class EnumManipulator:
         Returns:
             bool: True if the key exists; otherwise, False.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Color(Enum):
             ...     RED = 1
@@ -112,7 +116,7 @@ class EnumManipulator:
         """
         return self.fetch_enum(key_name) is not None
 
-    def fetch_value(self, key_name: str):
+    def fetch_value(self, key_name: str) -> Any | None:
         """
         Retrieve the value associated with a given key in the Enum.
 
@@ -120,9 +124,9 @@ class EnumManipulator:
             key_name (str): The key name for which to fetch the value.
 
         Returns:
-            any: The value corresponding to the key if found; otherwise, None.
+            The enum member value if the key exists, otherwise None.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Status(Enum):
             ...     SUCCESS = "ok"
@@ -152,7 +156,7 @@ class EnumManipulator:
         Returns:
             list: A list of keys for which the keyword was found.
 
-        Example:
+        Examples:
             >>> from enum import Enum
             >>> class Fruit(Enum):
             ...     APPLE = "red"

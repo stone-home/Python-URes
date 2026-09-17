@@ -260,7 +260,7 @@ class DatabaseAdapter(ABC):
         Args:
                                         query: Search query (supports Boolean operations)
                                         max_results: Maximum number of results to return
-                                        **kwargs: Database-specific parameters
+                                        **kwargs (Any): Database-specific search options.
 
         Returns:
                                         List[Paper]: List of found papers
@@ -794,7 +794,7 @@ class ACMAdapter(DatabaseAdapter):
         Args:
                 query: The search term.
                 max_results: Maximum number of results to return (default is 20 per page).
-                **kwargs: Not used in this implementation.
+                **kwargs (Any): Unused.
 
         Returns:
                 A list of Paper objects.
@@ -1026,7 +1026,7 @@ class GoogleScholarAdapter(DatabaseAdapter):
                 query: Search query
                 max_results: Maximum number of results (limited to reduce blocking risk)
                 year_min: Minimum publication year
-                **kwargs: Additional parameters
+                **kwargs (Any): Extra search options.
 
         Returns:
                 List[Paper]: Found papers (may be empty if blocked)
@@ -1113,7 +1113,7 @@ class AdapterFactory:
 
         Args:
             database_name: Name of the database
-            **kwargs: Adapter-specific parameters (api_key, rate_limit, etc.)
+            **kwargs (Any): Adapter options such as api_key or rate_limit.
 
         Returns:
             DatabaseAdapter instance or None if not supported

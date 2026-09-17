@@ -49,7 +49,7 @@ class Containers:
             Stops all managed containers, collects their logs (saving them to the specified directory), removes them,
             and returns the updated container records.
 
-    Example:
+    Examples:
         >>> from ures.docker.image import Image
         >>> from ures.docker.containers import Containers
         >>> from ures.docker.conf import RuntimeConfig
@@ -83,21 +83,21 @@ class Containers:
         Returns:
             str: The full image name.
 
-        Example:
+        Examples:
             >>> containers_manager.image
             'myapp:latest'
         """
         return self._image.get_fullname()
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         Generates a unique container name.
 
         Returns:
-            str: A unique container name in the format "{image.name}-instance-{unique_id}".
+            A name of the form ``{image.name}-instance-{unique_id}``.
 
-        Example:
+        Examples:
             >>> containers_manager.name
             'myapp-instance-abc123def4'
         """
@@ -111,7 +111,7 @@ class Containers:
         Returns:
             Dict[str, Dict[str, Union[Container, str]]]: A dictionary of container records keyed by unique names.
 
-        Example:
+        Examples:
             >>> containers_manager.history
             {'myapp-instance-abc123def4': {'container': <Container object>, 'config': <RuntimeConfig>}}
         """
@@ -131,7 +131,7 @@ class Containers:
             List[Tuple[str, Dict[str, Union[Container, str]]]]: A list of tuples containing the container's unique name
             and its record.
 
-        Example:
+        Examples:
             >>> records = containers_manager.get_container(new=True)
         """
         if new:
@@ -152,7 +152,7 @@ class Containers:
         Returns:
             RuntimeConfig: A default configuration with preset values based on the image and a unique name.
 
-        Example:
+        Examples:
             >>> config = containers_manager._default_config()
         """
         return RuntimeConfig(
@@ -163,13 +163,13 @@ class Containers:
         """
         Constructs a runtime configuration by updating the default configuration with additional parameters.
 
-        Keyword Args:
-            Arbitrary keyword arguments to override default configuration values.
+        Args:
+            **kwargs (Any): RuntimeConfig fields to overlay onto the default config.
 
         Returns:
             RuntimeConfig: The constructed configuration.
 
-        Example:
+        Examples:
             >>> config = containers_manager._construct_config(name="custom-instance")
         """
         _conf = self._default_config()
@@ -185,10 +185,7 @@ class Containers:
             container (Container): The created container instance.
             config (RuntimeConfig): The runtime configuration used for creating the container.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> containers_manager._add_record(container, config)
         """
         self._runtime_history[config.name] = {
@@ -200,13 +197,13 @@ class Containers:
         """
         Create a new container instance using the specified configuration.
 
-        Keyword Args:
-            Arbitrary keyword arguments to override the default runtime configuration (e.g., name, detach).
+        Args:
+            **kwargs (Any): RuntimeConfig fields to override, such as name or detach.
 
         Returns:
             Container: The newly created container instance.
 
-        Example:
+        Examples:
             >>> container = containers_manager.create(name="instance1")
         """
         _container = Container(image=self._image, client=self._client)
@@ -222,7 +219,7 @@ class Containers:
         Returns:
             List[Tuple[str, Dict[str, Union[Container, str]]]]: The list of container records that were run.
 
-        Example:
+        Examples:
             >>> records = containers_manager.run()
         """
         new_containers = self.get_container(new=True)
@@ -244,7 +241,7 @@ class Containers:
         Returns:
             List[Tuple[str, Dict[str, Union[Container, str]]]]: The updated container records after stopping and removal.
 
-        Example:
+        Examples:
             >>> records = containers_manager.stop("/tmp/container_logs")
         """
         log_dir = log_dir or get_temp_dir_with_specific_path("container-logs")

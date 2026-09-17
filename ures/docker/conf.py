@@ -28,7 +28,7 @@ class BuildConfig(BaseModel):
         context_dir (Union[str, Path]): Directory for the build context. Defaults to the current working directory.
         docker_filename (str): Filename for the Dockerfile. Defaults to "Dockerfile".
 
-    Example:
+    Examples:
         >>> config = BuildConfig()
         >>> config.base_image
         'python:3.10-slim'
@@ -112,10 +112,7 @@ class BuildConfig(BaseModel):
             key (str): The label key.
             value (str): The label value.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_label("version", "1.0")
             >>> config.labels
@@ -134,10 +131,7 @@ class BuildConfig(BaseModel):
             src (str): Source file path.
             dest (str): Destination path inside the container.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_copy("app.py", "/app/app.py")
             >>> config.copies
@@ -156,10 +150,7 @@ class BuildConfig(BaseModel):
             key (str): The environment variable name.
             value (str): The value for the environment variable.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_environment("DEBUG", "true")
             >>> config.environment["DEBUG"]
@@ -177,13 +168,10 @@ class BuildConfig(BaseModel):
         Args:
             context_dir (Union[str, Path]): The directory to be used as the build context.
 
-        Returns:
-            None
-
         Raises:
             ValueError: If the provided context directory does not exist or is not a directory.
 
-        Example:
+        Examples:
             >>> from pathlib import Path
             >>> config = BuildConfig()
             >>> temp_dir = Path("/tmp")
@@ -205,10 +193,7 @@ class BuildConfig(BaseModel):
         Args:
             dependency (str): The Python package dependency (e.g., "flask==2.0.1").
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_python_dependency("flask")
             >>> "flask" in config.python_dependencies
@@ -226,10 +211,7 @@ class BuildConfig(BaseModel):
         Args:
             dependency (str): The system package dependency (e.g., "curl").
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_system_dependency("curl")
             >>> "curl" in config.sys_dependencies
@@ -247,10 +229,7 @@ class BuildConfig(BaseModel):
         Args:
             command (str): The command to run (e.g., "apt-get update").
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.add_run_command("apt-get update")
             >>> "apt-get update" in config.run_commands
@@ -269,10 +248,7 @@ class BuildConfig(BaseModel):
             entrypoint (Union[str, List[str]]): The entrypoint command(s). If a string is provided,
                                                 it will be converted to a list.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.set_entrypoint("python app.py")
             >>> config.entrypoint
@@ -291,10 +267,7 @@ class BuildConfig(BaseModel):
             cmd (Union[str, List[str]]): The command(s) to run. If a string is provided,
                                          it will be converted to a list.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig()
             >>> config.set_cmd("python -m myapp")
             >>> config.cmd
@@ -332,7 +305,7 @@ class RuntimeConfig(BaseModel):
         network_mode (Optional[str]): Docker network mode.
         out_dir (Path): Output directory for logs and cache.
 
-    Example:
+    Examples:
         >>> config = RuntimeConfig()
         >>> config.image_name
         'model-runner'
@@ -427,7 +400,7 @@ class RuntimeConfig(BaseModel):
         Returns:
             Path: The path to the log directory.
 
-        Example:
+        Examples:
             >>> config = RuntimeConfig()
             >>> log_directory = config.log_dir
             >>> log_directory.exists()
@@ -446,7 +419,7 @@ class RuntimeConfig(BaseModel):
         Returns:
             Path: The path to the cache directory.
 
-        Example:
+        Examples:
             >>> config = RuntimeConfig()
             >>> cache_directory = config.cache
             >>> cache_directory.exists()
@@ -471,10 +444,7 @@ class RuntimeConfig(BaseModel):
             container_path (Union[str, Path]): The destination path inside the container.
             mode (str, optional): The mode for the volume mapping (e.g., "rw" or "ro"). Defaults to "rw".
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = RuntimeConfig()
             >>> config.add_volume("/host/data", "/container/data", mode="rw")
             >>> "/host/data" in config.volumes
@@ -493,10 +463,7 @@ class RuntimeConfig(BaseModel):
             key (str): The environment variable name.
             value (str): The value for the environment variable.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = RuntimeConfig()
             >>> config.add_env("DEBUG", "1")
             >>> config.env["DEBUG"]

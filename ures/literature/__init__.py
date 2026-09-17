@@ -1,3 +1,10 @@
+"""Literature search, citation extraction, and bibliography processing.
+
+Examples:
+    >>> from ures.literature import CitationManager
+    >>> CitationManager().citations
+    []
+"""
 from .citation import *
 from .search import *
 from .search_cli import LiteratureSearchCLI

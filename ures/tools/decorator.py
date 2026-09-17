@@ -1,20 +1,31 @@
 import logging
+from collections.abc import Callable
 from functools import wraps
 
 
 logger = logging.getLogger(__name__)
 
 
-def check_instance_variable(variable_name):
-    """
-    A decorator to check if an instance variable is None before executing a method.
+def check_instance_variable(variable_name: str) -> Callable:
+    """Skip a method when an instance attribute is missing or ``None``.
 
     Args:
-        variable_name: The name of the instance variable (as a string) to check.
+        variable_name (str): Name of the instance attribute to require.
 
     Returns:
-        The decorated method if the instance variable is not None, or None if it is.
-        Alternatively, you can raise an exception.
+        A decorator. The wrapped method returns None when the attribute is
+        missing or None.
+
+    Examples:
+        >>> from ures.tools.decorator import check_instance_variable
+        >>> class Worker:
+        ...     def __init__(self):
+        ...         self.client = None
+        ...     @check_instance_variable("client")
+        ...     def ping(self):
+        ...         return "ok"
+        >>> Worker().ping() is None
+        True
     """
 
     def decorator(method):

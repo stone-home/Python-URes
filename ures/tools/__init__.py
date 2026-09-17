@@ -1,3 +1,13 @@
+"""Small helpers such as enum inspection and instance-attribute guards.
+
+Examples:
+    >>> from enum import Enum
+    >>> from ures.tools import EnumManipulator
+    >>> class Color(Enum):
+    ...     RED = 1
+    >>> EnumManipulator(Color).fetch_keys() == ["RED"]
+    True
+"""
 import os
 import importlib
 import pkgutil

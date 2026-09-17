@@ -1,32 +1,60 @@
+# API reference pages are generated at mkdocs build time by mkdocs-api-autonav.
+# This config scaffold may be AI-authored. Do not hand-edit generated reference
+# pages. Source of truth: ures/**/*.py docstrings (including Example blocks).
+# Pin MkDocs 1.x: MkDocs 2.0 has no plugin system and is incompatible with
+# Material and mkdocstrings.
+
 site_name: URes Documents
+site_url: https://stone-home.github.io/Python-URes/
+repo_url: https://github.com/stone-home/Python-URes
+repo_name: stone-home/Python-URes
+
+# Keep handwritten/internal markdown in git, but do not publish it.
+exclude_docs: |
+  /modules/
+  /plans/
+  /requirements/
+  /PlantUML/
+  /superpowers/
 
 theme:
   name: material
+  features:
+    - navigation.indexes
+    - content.code.copy
+    - search.suggest
+    - search.highlight
 
 plugins:
+  - search
   - mkdocstrings:
       default_handler: python
-  - search
+      handlers:
+        python:
+          paths: [.]
+          inventories:
+            - https://docs.python.org/3/objects.inv
+          options:
+            docstring_style: google
+            docstring_section_style: list
+            filters: ["!^_"]
+            heading_level: 1
+            merge_init_into_class: true
+            members_order: source
+            separate_signature: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            show_source: true
+  - api-autonav:
+      modules: ["ures"]
+      nav_section_title: API Reference
+      api_root_uri: reference
+      exclude_private: true
+      on_implicit_namespace_package: warn
+      exclude:
+        - ures.memory.smoke_test
 
 nav:
   - Home: index.md
-  - Modules:
-      - Core utilities: modules/module - core-utilities.md
-      - Data structures: modules/module - data-structure.md
-      - Docker: modules/module - docker.md
-      - Memory: modules/module - memory.md
-      - Markdown: modules/module - markdown.md
-      - Literature search: modules/module - literature-search.md
-      - Literature citation: modules/module - literature-citation.md
-      - Tools: modules/module - tools.md
-  - API:
-      - Overview: api.md
-      - Files: apis/files.md
-      - String: apis/string.md
-      - Timedate: apis/timedate.md
-      - Network: apis/network.md
-      - Markdown: apis/markdown.md
-      - Docker: apis/docker.md
-      - Data structures:
-          - Tree: apis/data_structure/tree.md
-          - Bi-directional links: apis/data_structure/bi_directional_links.md
+  - API Reference

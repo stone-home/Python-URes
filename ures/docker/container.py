@@ -39,7 +39,7 @@ class Container:
             client (Optional[docker.DockerClient]): An optional Docker client instance. If not provided,
                 docker.from_env() is used.
 
-        Example:
+        Examples:
             >>> from ures.docker.image import Image
             >>> img = Image("myapp")
             >>> container = Container(img)
@@ -56,7 +56,7 @@ class Container:
         Returns:
             str: The full image name.
 
-        Example:
+        Examples:
             >>> container.image_name
             'myapp:latest'
         """
@@ -70,7 +70,7 @@ class Container:
         Returns:
             bool: True if the container exists, False otherwise.
 
-        Example:
+        Examples:
             >>> container.is_created
             False
         """
@@ -84,7 +84,7 @@ class Container:
         Returns:
             str: The container status. If not found, returns "removed".
 
-        Example:
+        Examples:
             >>> status = container.status
             >>> status in ["created", "running", "exited", "removed"]
             True
@@ -96,14 +96,14 @@ class Container:
         return status
 
     @property
-    def exit_code(self):
+    def exit_code(self) -> int | None:
         """
         Retrieve the exit code of the container's last run.
 
         Returns:
-            int or None: The exit code if available, otherwise None.
+            The exit code if Docker still knows the container, otherwise None.
 
-        Example:
+        Examples:
             >>> code = container.exit_code
             >>> isinstance(code, int) or code is None
             True
@@ -124,7 +124,7 @@ class Container:
         Returns:
             bool: True if running, False otherwise.
 
-        Example:
+        Examples:
             >>> container.is_running
             True
         """
@@ -140,7 +140,7 @@ class Container:
         Returns:
             dict: A dictionary of parameters to be passed to Docker for container creation.
 
-        Example:
+        Examples:
             >>> params = container._construct_build_params(config)
             >>> isinstance(params, dict)
             True
@@ -200,7 +200,7 @@ class Container:
         Raises:
             RuntimeError: If the subnet creation fails.
 
-        Example:
+        Examples:
             >>> net = container._create_subnet(config)
             >>> net.name == config.subnet
             True
@@ -239,10 +239,7 @@ class Container:
             contain (DockerContainer): The Docker container object to connect.
             config (RuntimeConfig): The runtime configuration with network details.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> container._connect_to_network(docker_container, config)
         """
         if config.subnet is not None:
@@ -267,10 +264,7 @@ class Container:
             config (RuntimeConfig): The runtime configuration for the container.
             tag (Optional[str]): An optional image tag override. Defaults to None.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> container.create(runtime_config)
             >>> container.is_created
             True
@@ -291,10 +285,7 @@ class Container:
         """
         Stop the running container.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> container.stop()
         """
         logger.debug(f"Stopping container: {self.image_name}")
@@ -305,10 +296,7 @@ class Container:
         """
         Remove the container.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> container.remove()
         """
         logger.debug(f"Removing container: {self.image_name}")
@@ -316,14 +304,14 @@ class Container:
         self._container = None
 
     @check_instance_variable("_container")
-    def logs(self):
+    def logs(self) -> bytes:
         """
         Retrieve logs from the container.
 
         Returns:
-            bytes: The log output from the container.
+            Raw log output from the Docker SDK.
 
-        Example:
+        Examples:
             >>> logs = container.logs()
             >>> isinstance(logs, bytes)
             True
@@ -336,13 +324,11 @@ class Container:
         """
         Wait for the container to finish execution.
 
-        Returns:
-            dict: The container's exit information.
+        Blocks until the Docker container stops. The Docker SDK result is not
+        returned; inspect ``exit_code`` afterwards if you need the status.
 
-        Example:
-            >>> exit_info = container.wait()
-            >>> "StatusCode" in exit_info
-            True
+        Examples:
+            >>> container.wait()
         """
         logger.debug(f"Waiting for container to finish: {self.image_name}")
         self._container.wait()
@@ -354,10 +340,7 @@ class Container:
         Raises:
             RuntimeError: If the container has not been created or is already running.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> container.run()
             >>> container.is_running
             True

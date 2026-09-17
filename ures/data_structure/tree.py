@@ -7,6 +7,16 @@ _TreeNodeT = TypeVar("_TreeNodeT", bound="TreeNode")
 
 
 class TreeNode(Generic[_TreeNodeT]):
+    """A tree node with parent/child links and path traversal helpers.
+
+    Examples:
+        >>> root = TreeNode("root")
+        >>> child = TreeNode("child")
+        >>> root.add_child(child)
+        >>> child.parent is root
+        True
+    """
+
     def __init__(self, value: Any):
         """
         Initialize a TreeNode instance.
@@ -14,11 +24,8 @@ class TreeNode(Generic[_TreeNodeT]):
         Args:
             value (Any): The value to be stored in the node.
 
-        Returns:
-            None
-
-        Example:
-            >>> node = _TreeNodeT("root")
+        Examples:
+            >>> node = TreeNode("root")
             >>> node.value
             'root'
         """
@@ -35,7 +42,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             Optional[_TreeNodeT]: The parent node if it exists; otherwise, None.
 
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> child.set_parent(root)
@@ -52,7 +59,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             dict[str, _TreeNodeT]: A dictionary mapping each child's unique ID to its TreeNode instance.
 
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> root.add_child(child)
@@ -69,7 +76,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             bool: True if the node has no children; otherwise, False.
 
-        Example:
+        Examples:
             >>> node = TreeNode("leaf")
             >>> node.is_leaf
             True
@@ -84,7 +91,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             Any: The value of the node.
 
-        Example:
+        Examples:
             >>> node = TreeNode(10)
             >>> node.value
             10
@@ -99,7 +106,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             str: A unique hexadecimal string identifier for the node.
 
-        Example:
+        Examples:
             >>> node = TreeNode("example")
             >>> isinstance(node.id, str)
             True
@@ -116,10 +123,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Args:
             child (TreeNode): The child node to add.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> root.add_child(child)
@@ -140,10 +144,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Args:
             child (TreeNode): The child node to remove.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> root.add_child(child)
@@ -165,10 +166,7 @@ class TreeNode(Generic[_TreeNodeT]):
         Args:
             parent (TreeNode | None): The new parent node. If None, the node will have no parent.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> child.set_parent(root)
@@ -190,12 +188,12 @@ class TreeNode(Generic[_TreeNodeT]):
         Returns:
             Iterator[TreeNode]: An iterator over the nodes from the current node up to the root.
 
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child = TreeNode("child")
             >>> child.set_parent(root)
-            >>> [node.value for node in child.backward_stack()]
-            ['child', 'root']
+            >>> "/".join(node.value for node in child.backward_stack())
+            'child/root'
         """
         current = self
         while current is not None:
@@ -217,7 +215,7 @@ class TreeNode(Generic[_TreeNodeT]):
             list[list[Any]]: A list of paths, where each path is a list of nodes or attribute values from the
                              current node to a leaf node.
 
-        Example:
+        Examples:
             >>> root = TreeNode("root")
             >>> child1 = TreeNode("child1")
             >>> child2 = TreeNode("child2")
@@ -245,10 +243,7 @@ class TreeNode(Generic[_TreeNodeT]):
             **kwargs: Optional keyword arguments.
                 - attr (str, optional): The attribute name to use for each node in the path.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> # Typically used internally by forward_stack.
             ... pass
         """

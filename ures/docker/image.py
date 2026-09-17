@@ -29,10 +29,7 @@ class ImageConstructor:
         Args:
             config (BuildConfig): The build configuration settings.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> from ures.docker.conf import BuildConfig
             >>> config = BuildConfig(base_image="python:3.10-slim", user="appuser")
             >>> constructor = ImageConstructor(config)
@@ -49,7 +46,7 @@ class ImageConstructor:
         Returns:
             Path: The home directory path (e.g. /home/{user} if user is specified, else /root).
 
-        Example:
+        Examples:
             >>> from ures.docker.conf import BuildConfig
             >>> config = BuildConfig(user="appuser")
             >>> constructor = ImageConstructor(config)
@@ -67,7 +64,7 @@ class ImageConstructor:
         Returns:
             List[str]: The Dockerfile content lines.
 
-        Example:
+        Examples:
             >>> constructor = ImageConstructor(BuildConfig())
             >>> constructor.content  # Might include commands like 'FROM python:3.10-slim'
         """
@@ -80,10 +77,7 @@ class ImageConstructor:
         Args:
             command (str): The Dockerfile command to add.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> constructor = ImageConstructor(BuildConfig())
             >>> constructor._add_command("RUN echo Hello")
         """
@@ -103,7 +97,7 @@ class ImageConstructor:
         Returns:
             Path: The full path where the Dockerfile was saved.
 
-        Example:
+        Examples:
             >>> constructor = ImageConstructor(BuildConfig(docker_filename="Dockerfile"))
             >>> saved_path = constructor.save("/tmp")
             >>> saved_path.name  # Should be 'Dockerfile'
@@ -123,10 +117,7 @@ class ImageConstructor:
 
         If a platform is specified in the configuration, it is included in the FROM command.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> constructor = ImageConstructor(BuildConfig(base_image="python:3.10-slim"))
             >>> constructor._set_base_image()
         """
@@ -139,10 +130,7 @@ class ImageConstructor:
         """
         Adds LABEL commands to the Dockerfile for each label defined in the build configuration.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(labels=[("version", "1.0")])
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_labels()
@@ -158,10 +146,7 @@ class ImageConstructor:
         This command sets arguments for HOME_DIR and USER_NAME, creates the user if UID is specified,
         and then sets the USER and WORKDIR.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(user="appuser", uid=1001)
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_user_and_workdir()
@@ -184,10 +169,7 @@ class ImageConstructor:
         """
         Installs system dependencies in the Docker image using the specified package manager.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(sys_dependencies=["curl"], sys_deps_manager="apt")
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_system_dependencies()
@@ -205,10 +187,7 @@ class ImageConstructor:
         """
         Installs Python dependencies in the Docker image using the specified Python package manager.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(python_dependencies=["flask"], python_deps_manager="pip")
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_python_dependencies()
@@ -233,10 +212,7 @@ class ImageConstructor:
         """
         Adds RUN commands to the Dockerfile for each command in the build configuration.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(run_commands=["echo Hello"])
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_run_commands()
@@ -249,10 +225,7 @@ class ImageConstructor:
         """
         Adds COPY commands to the Dockerfile for each file copy instruction in the build configuration.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(copies=[{"src": "app.py", "dest": "/app/app.py"}])
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_copies()
@@ -272,10 +245,7 @@ class ImageConstructor:
         """
         Sets environment variables in the Dockerfile using the ENV command.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(environment={"DEBUG": "true"})
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_environment()
@@ -288,10 +258,7 @@ class ImageConstructor:
         """
         Sets the ENTRYPOINT in the Dockerfile using the build configuration.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(entrypoint=["python", "app.py"])
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_entrypoint()
@@ -303,10 +270,7 @@ class ImageConstructor:
         """
         Sets the CMD in the Dockerfile if no ENTRYPOINT is specified.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> config = BuildConfig(cmd=["python", "-m", "app"])
             >>> constructor = ImageConstructor(config)
             >>> constructor._set_cmd()
@@ -318,10 +282,7 @@ class ImageConstructor:
         """
         Builds the complete Dockerfile content based on the build configuration.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> constructor = ImageConstructor(BuildConfig())
             >>> constructor.content  # Contains all Dockerfile commands
         """
@@ -362,7 +323,7 @@ class Image:
             tag (Optional[str], optional): The image tag. Defaults to "latest" if not provided.
             client (Optional[docker.DockerClient], optional): The Docker client to use. Defaults to docker.from_env().
 
-        Example:
+        Examples:
             >>> img = Image("myapp", tag="v1")
         """
         self._image_name = image_name
@@ -378,7 +339,7 @@ class Image:
         Returns:
             str: The image name.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.name
             'myapp'
@@ -393,7 +354,7 @@ class Image:
         Returns:
             str: The image tag.
 
-        Example:
+        Examples:
             >>> img = Image("myapp", tag="v1")
             >>> img.tag
             'v1'
@@ -408,7 +369,7 @@ class Image:
         Returns:
             bool: True if the image exists, False otherwise.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.exist  # Depends on local Docker images
         """
@@ -422,7 +383,7 @@ class Image:
         Returns:
             Optional[DockerImage]: The Docker image object if found, otherwise None.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.image  # Might return a DockerImage object if available
         """
@@ -437,7 +398,7 @@ class Image:
         Returns:
             str: The Docker image ID.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.id
             'sha256:...'
@@ -453,7 +414,7 @@ class Image:
         Returns:
             str: The image architecture (e.g., 'amd64').
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.architecture
             'amd64'
@@ -469,7 +430,7 @@ class Image:
         Returns:
             int: The size of the image in bytes.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.image_size
             12345678
@@ -485,7 +446,7 @@ class Image:
         Returns:
             dict: A dictionary of image labels.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.labels
             {'version': '1.0'}
@@ -502,7 +463,7 @@ class Image:
         Returns:
             str: The full image name in the format "name:tag".
 
-        Example:
+        Examples:
             >>> img = Image("myapp", tag="v1")
             >>> img.get_fullname()
             'myapp:v1'
@@ -521,7 +482,7 @@ class Image:
         Returns:
             Optional[DockerImage]: The Docker image if found; otherwise, None.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> image_obj = img.get_image()
             >>> image_obj is not None  # Depends on local Docker images
@@ -549,7 +510,7 @@ class Image:
         Returns:
             Optional[DockerImage]: The pulled Docker image if successful; otherwise, None.
 
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> pulled = img.pull_image()
             >>> pulled is not None
@@ -581,7 +542,7 @@ class Image:
         Returns:
             DockerImage: The built Docker image.
 
-        Example:
+        Examples:
             >>> build_config = BuildConfig()
             >>> img = Image("myapp")
             >>> built_img = img.build_image(build_config, "/tmp/dockerfile_dir")
@@ -630,10 +591,7 @@ class Image:
             force (bool, optional): Force removal. Defaults to False.
             noprune (bool, optional): Do not remove untagged parent images. Defaults to False.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.remove()
         """
@@ -654,10 +612,7 @@ class Image:
         """
         Prints detailed information about the Docker image.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> img = Image("myapp")
             >>> img.info()
         """
@@ -687,7 +642,7 @@ class ImageOrchestrator:
         Args:
             client (Optional[docker.DockerClient], optional): The Docker client instance. Defaults to docker.from_env().
 
-        Example:
+        Examples:
             >>> orchestrator = ImageOrchestrator()
         """
         self._client = client or docker.from_env()
@@ -703,13 +658,13 @@ class ImageOrchestrator:
         Returns:
             dict: A dictionary mapping image fullnames to their configuration and status.
 
-        Example:
+        Examples:
             >>> orch = ImageOrchestrator()
             >>> orch.images  # Initially empty dictionary
         """
         return self._images
 
-    def add_image(self, image: Image, config: BuildConfig, base: Image = None):
+    def add_image(self, image: Image, config: BuildConfig, base: Image = None) -> bool:
         """
         Adds an image and its build configuration to the orchestrator.
 
@@ -719,9 +674,9 @@ class ImageOrchestrator:
             base (Image, optional): The base image that this image depends on, if any.
 
         Returns:
-            bool: True if the image was added successfully.
+            True if the image was registered in the orchestrator.
 
-        Example:
+        Examples:
             >>> orch = ImageOrchestrator()
             >>> img = Image("myapp")
             >>> config = BuildConfig()
@@ -757,7 +712,7 @@ class ImageOrchestrator:
         Raises:
             Exception: If a circular dependency is detected or a base image is not registered.
 
-        Example:
+        Examples:
             >>> sorted_images = orchestrator._topological_sort()
         """
         sorted_list = []
@@ -790,10 +745,7 @@ class ImageOrchestrator:
         """
         Builds all registered images in the correct order based on dependencies.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> orchestrator.build_all()
         """
         build_sorted_list = self._topological_sort()

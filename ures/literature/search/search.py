@@ -205,7 +205,15 @@ class DatabaseConfig:
 
 
 class LiteratureSearchEngine:
-    """Main search engine coordinating multiple database adapters with Boolean query support."""
+    """Search one or more literature databases with optional caching.
+
+    Examples:
+        >>> from ures.literature import LiteratureSearchEngine
+        >>> engine = LiteratureSearchEngine()
+        >>> papers = engine.search("CXL memory", databases=["arxiv"], max_results=5)
+        >>> isinstance(papers, list)
+        True
+    """
 
     def __init__(
         self, config_dir: Optional[str] = None, app_name: str = "literature-search"
@@ -282,7 +290,7 @@ class LiteratureSearchEngine:
                         max_results: Maximum results per database
                         use_cache: Whether to use cached results
                         year_min: Minimum publication year
-                        **kwargs: Additional search parameters
+                        **kwargs (Any): Extra search options forwarded to adapters.
 
         Returns:
                         List of Paper objects, deduplicated and unified

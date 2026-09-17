@@ -1,3 +1,12 @@
+"""Filesystem helpers for listing, filtering, and creating temporary paths.
+
+Examples:
+    >>> from ures.files import get_temp_folder
+    >>> import os
+    >>> os.path.isdir(get_temp_folder())
+    True
+"""
+
 import logging
 import os
 import tempfile
@@ -18,7 +27,7 @@ def get_file_paths(directory: str) -> list[str]:
     Returns:
         list[str]: A list containing the absolute paths of all files found.
 
-    Example:
+    Examples:
         >>> paths = get_file_paths("/path/to/directory")
         >>> isinstance(paths, list)
         True
@@ -50,10 +59,10 @@ def filter_files(part_file_name: str, directory: str, fuzz: bool = True) -> list
     Returns:
         list[str]: A list of file paths that match the search criteria.
 
-    Example:
-        >>> # Assuming "/tmp/test" contains files "example.txt" and "sample.txt"
-        >>> filter_files("exam", "/tmp/test", fuzz=True)
-        ['/tmp/test/example.txt']
+    Examples:
+        >>> matched = filter_files("exam", "/tmp/test", fuzz=True)
+        >>> isinstance(matched, list)
+        True
     """
     # Note: Using get_file_paths instead of a non-existent fetch_file_paths.
     file_paths = get_file_paths(directory)
@@ -84,7 +93,7 @@ def list_directories(path: str) -> list[str] | None:
     Returns:
         list[str] | None: A list of directory names if the path exists; otherwise, None.
 
-    Example:
+    Examples:
         >>> dirs = list_directories("/tmp")
         >>> isinstance(dirs, list) or dirs is None
         True
@@ -111,7 +120,7 @@ def get_temp_folder() -> str:
     Returns:
         str: The path to the newly created temporary folder.
 
-    Example:
+    Examples:
         >>> temp_folder = get_temp_folder()
         >>> os.path.isdir(temp_folder)
         True
@@ -127,12 +136,12 @@ def get_temp_dir_with_specific_path(*args) -> str:
     arguments. If the directory does not already exist, it is created.
 
     Args:
-        *args: Variable length arguments that specify the subdirectory path components.
+        *args (str): Subdirectory path components under the system temp directory.
 
     Returns:
         str: The full path of the temporary directory created or existing.
 
-    Example:
+    Examples:
         >>> temp_dir = get_temp_dir_with_specific_path("myapp", "cache")
         >>> temp_dir.endswith(os.path.join("myapp", "cache"))
         True

@@ -17,7 +17,14 @@ from datetime import datetime
 
 @dataclass
 class Paper:
-    """Represents a research paper with standardized metadata."""
+    """A research paper with standardized metadata.
+
+    Examples:
+        >>> from ures.literature import Paper
+        >>> paper = Paper(title="CXL memory", authors=["Doe, J."], year=2024)
+        >>> paper.title
+        'CXL memory'
+    """
 
     title: str
     authors: List[str]

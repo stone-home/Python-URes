@@ -1,11 +1,28 @@
 import docker
+from typing import Optional
 
 
 class DockerCleanup:
-    def __init__(self, client=None):
+    """Remove dangling images and leftover containers from the local Docker engine.
+
+    Examples:
+        >>> from ures.docker import DockerCleanup
+        >>> cleanup = DockerCleanup()
+        >>> cleanup.dangling_images()
+        >>> cleanup.stopped_containers()
+    """
+
+    def __init__(self, client: Optional[docker.DockerClient] = None):
+        """Attach to a Docker client.
+
+        Args:
+            client (docker.DockerClient | None): A Docker SDK client. Defaults to
+                ``docker.from_env()``.
+        """
         self.client = client or docker.from_env()
 
     def dangling_images(self):
+        """Delete dangling (untagged) local images."""
         client = self.client
 
         # List dangling images (dangling=true filter)
@@ -25,6 +42,7 @@ class DockerCleanup:
         print("Dangling images prune complete!")
 
     def stopped_containers(self):
+        """Delete containers in ``exited`` or ``created`` state."""
         client = self.client
 
         stopped_containers = client.containers.list(

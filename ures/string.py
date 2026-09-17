@@ -13,7 +13,7 @@ def zettelkasten_id() -> str:
     Returns:
             str: A formatted unique identifier (e.g., "abc123def.ghi45678901").
 
-    Example:
+    Examples:
             >>> id_str = zettelkasten_id()
             >>> isinstance(id_str, str)
             True
@@ -31,7 +31,7 @@ def unique_id() -> str:
     Returns:
             str: A unique hexadecimal identifier (e.g., "3f8a7c2d1e9b4a6f8d0e2c1b3a5f7e9d").
 
-    Example:
+    Examples:
             >>> uid = unique_id()
             >>> len(uid) == 32
             True
@@ -52,7 +52,7 @@ def format_memory(nbytes: int | None) -> str:
     Returns:
             str: The memory size in a human-readable format.
 
-    Example:
+    Examples:
             >>> format_memory(1024)
             '1.00 KB'
             >>> format_memory(1048576)
@@ -89,7 +89,7 @@ def capitalize_string(string: str, separator: str = " ") -> str:
     Returns:
             str: The capitalized string.
 
-    Example:
+    Examples:
             >>> capitalize_string("hello world")
             'Hello World'
             >>> capitalize_string("john-doe", separator="-")
@@ -107,8 +107,15 @@ def string2date(date_string: str) -> dict[str, int | str | None]:
       date_string: The input date string.
 
     Returns:
-      A dictionary like {'year': YYYY, 'month': 'Mon', 'day': DD}.
-      Missing parts have a value of None.
+        dict[str, int | str | None]: Keys ``year``, ``month``, and ``day``.
+        Missing parts are ``None``.
+
+    Examples:
+        >>> parsed = string2date("2024-03-15")
+        >>> parsed["year"], parsed["day"]
+        (2024, 15)
+        >>> string2date("2024")["day"] is None
+        True
     """
     # 1. Attempt to parse the most complete format: 'YYYY-MM-DD'
     try:

@@ -1,3 +1,11 @@
+"""IP and subnet helpers built on the standard library ``ipaddress`` module.
+
+Examples:
+    >>> from ures.network import verify_ip_in_subnet
+    >>> verify_ip_in_subnet("192.168.1.10", "192.168.1.0/24")
+    True
+"""
+
 import ipaddress
 
 
@@ -16,7 +24,7 @@ def verify_ip_in_subnet(ip: str, subnet: str) -> bool:
     Returns:
         bool: True if the IP address is within the subnet, False otherwise.
 
-    Example:
+    Examples:
         >>> verify_ip_in_subnet("192.168.1.10", "192.168.1.0/24")
         True
         >>> verify_ip_in_subnet("10.0.0.1", "192.168.1.0/24")
@@ -43,7 +51,7 @@ def is_valid_ip_netmask(ip: str, netmask: str) -> bool:
     Returns:
         bool: True if the IP address and subnet mask form a valid subnet, False otherwise.
 
-    Example:
+    Examples:
         >>> is_valid_ip_netmask("192.168.1.1", "255.255.255.0")
         True
         >>> is_valid_ip_netmask("192.168.1.1", "24")
@@ -88,7 +96,7 @@ def generate_ip(subnet: str, last_index: int) -> str:
     Returns:
         str: The generated IP address as a string.
 
-    Example:
+    Examples:
         >>> generate_ip("192.168.0.0/24", 100)
         '192.168.0.100'
     """

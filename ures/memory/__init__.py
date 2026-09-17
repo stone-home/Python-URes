@@ -1,3 +1,11 @@
+"""Memory-block simulation and pluggable allocation algorithms.
+
+Examples:
+    >>> from ures.memory import DeviceMemorySimulator
+    >>> sim = DeviceMemorySimulator(device_id=0, total_memory=256)
+    >>> sim.allocate(32).success
+    True
+"""
 from .blocks import TraceInfo, MemoryBlock, MemoryInfo, Segment, BlockPool
 from .allocator import (
     AllocationRequest,

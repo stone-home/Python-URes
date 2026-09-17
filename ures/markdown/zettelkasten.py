@@ -7,11 +7,16 @@ from .manipulator import MarkdownDocument, frontmatter, Content
 
 class Zettelkasten(MarkdownDocument):
     """
-    Class for handling Zettelkasten markdown files. In my case, a list of mandatory fields is defined in a class
-    variable.
+    Zettelkasten note with mandatory front matter (title, type, tags, and related fields).
 
-    In Zettelkasten note-taking system, only three types of notes are supported: 'fleeting', 'literature', 'permanent',
-    but I added 'atom' type for my own use.
+    Supported ``type`` values are ``fleeting``, ``literature``, ``permanent``, and ``atom``.
+
+    Examples:
+        >>> note = Zettelkasten(title="Cache eviction", n_type="atom", tags=["memory"])
+        >>> note.title
+        'Cache eviction'
+        >>> note.type
+        'atom'
     """
 
     MANDATORY_FIELDS = ["title", "type", "url", "create", "id", "tags", "aliases"]
@@ -27,13 +32,19 @@ class Zettelkasten(MarkdownDocument):
         **kwargs,
     ):
         """
-        Initialize a Zettelkasten object
+        Initialize a Zettelkasten object.
+
         Args:
             title (str): The title of the note.
             n_type (str): The type of the note, only support 'fleeting', 'literature', 'permanent' and 'atom'.
             url (str): The url of the note.
             tags (list): The tags of the note.
-            aliases
+            aliases (list): Alternate titles for the note.
+
+        Examples:
+            >>> note = Zettelkasten(title="Cache eviction", n_type="permanent")
+            >>> note.tags
+            []
         """
         if not isinstance(title, str) or not title.strip():
             raise ValueError("Title must be a non-empty string.")

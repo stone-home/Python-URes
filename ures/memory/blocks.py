@@ -467,8 +467,6 @@ class MemoryBlock(NonCircularBiLink):
                 segment_id (int): The ID of the segment this block belongs to.
                 capture_trace (bool): Whether to capture creation trace.
 
-        Returns:
-                None
         """
         # device or -1 causes the issue as 0 is treated as False
         self.device = device if device is not None else -1
@@ -1092,8 +1090,8 @@ class BlockPool:
         filter for blocks that are not part of a split (releaseable blocks).
 
         Args:
-                search_key: MemoryBlock to search for
-                releaseable: If True, only return blocks that are not split
+                search_key (MemoryBlock): Block used as the search bound.
+                releaseable (bool): If True, skip blocks that are part of a split.
 
         Returns:
                 First MemoryBlock >= search_key, or None if not found

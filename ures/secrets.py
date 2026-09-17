@@ -34,9 +34,16 @@ class StorageMethod(enum.Enum):
 
 
 class SecureKeyManager:
-    """
-    Secure API key management supporting multiple storage methods.
-    This is a standalone SDK that can be used by any application.
+    """Store and retrieve API keys from encrypted files, env, 1Password, or a keychain.
+
+    Examples:
+        >>> from pathlib import Path
+        >>> from ures.secrets import SecureKeyManager, StorageMethod
+        >>> manager = SecureKeyManager(app_name="docs-demo", config_dir=Path("/tmp/ures-keys"))
+        >>> manager.store_key("ieee", "secret-token", method=StorageMethod.ENCRYPTED)
+        True
+        >>> manager.get_key("ieee")
+        'secret-token'
     """
 
     def __init__(
@@ -183,7 +190,13 @@ class SecureKeyManager:
             method: Storage method ('encrypted', 'env', '1password', 'keychain')
 
         Returns:
-            bool: Success status
+            bool: True when the key was stored.
+
+        Examples:
+            >>> from pathlib import Path
+            >>> manager = SecureKeyManager(app_name="docs-demo", config_dir=Path("/tmp/ures-keys"))
+            >>> manager.store_key("ieee", "secret-token")
+            True
         """
         try:
             if method == StorageMethod.ENCRYPTED:
@@ -276,7 +289,12 @@ class SecureKeyManager:
             service: Service name
 
         Returns:
-            str or None: The API key if found and accessible
+            str | None: The API key if found and accessible.
+
+        Examples:
+            >>> manager = SecureKeyManager(app_name="docs-demo")
+            >>> manager.get_key("missing-service") is None
+            True
         """
         # For 1Password, we need to handle async
         encrypted_keys = self._load_encrypted_keys()
@@ -332,7 +350,7 @@ class SecureKeyManager:
             service: Service name
 
         Returns:
-            str or None: The API key if found and accessible
+            str | None: The API key if found and accessible.
         """
         try:
             encrypted_keys = self._load_encrypted_keys()

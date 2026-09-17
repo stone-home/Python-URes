@@ -16,10 +16,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Args:
             value (Any): The value to store in the node.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> node = BiDirection("A")
             >>> node.value
             'A'
@@ -41,7 +38,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             BiDirection: The previous node.
 
-        Example:
+        Examples:
             >>> node = BiDirection("A")
             >>> node.prev is node
             True
@@ -56,7 +53,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             BiDirection: The next node.
 
-        Example:
+        Examples:
             >>> node = BiDirection("A")
             >>> node.next is node
             True
@@ -71,7 +68,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             Any: The node's value.
 
-        Example:
+        Examples:
             >>> node = BiDirection(123)
             >>> node.value
             123
@@ -86,7 +83,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             str: A hexadecimal string representing the node's unique ID.
 
-        Example:
+        Examples:
             >>> node = BiDirection("A")
             >>> isinstance(node.id, str)
             True
@@ -102,10 +99,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Args:
             node (BiDirection): The node to be inserted after the current node.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> node1 = BiDirection("A")
             >>> node2 = BiDirection("B")
             >>> node1.insert_after(node2)
@@ -128,10 +122,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Args:
             node (BiDirection): The node to be inserted before the current node.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> node1 = BiDirection("A")
             >>> node2 = BiDirection("B")
             >>> node1.insert_before(node2)
@@ -152,10 +143,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Adjusts the previous and next nodes to bypass the current node and resets the current node's
         pointers to point to itself.
 
-        Returns:
-            None
-
-        Example:
+        Examples:
             >>> node1 = BiDirection("A")
             >>> node2 = BiDirection("B")
             >>> node1.insert_after(node2)
@@ -181,7 +169,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             Optional[BiDirection]: The node with the matching value, or None if not found.
 
-        Example:
+        Examples:
             >>> node1 = BiDirection("A")
             >>> node2 = BiDirection("B")
             >>> node3 = BiDirection("C")
@@ -209,7 +197,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             bool: True if both nodes have the same unique ID, False otherwise.
 
-        Example:
+        Examples:
             >>> node1 = BiDirection("A")
             >>> node2 = BiDirection("A")
             >>> node1 == node1
@@ -226,7 +214,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             str: A string representing the node's value.
 
-        Example:
+        Examples:
             >>> node = BiDirection("Hello")
             >>> str(node)
             'Hello'
@@ -240,7 +228,7 @@ class BiDirection(Generic[_BiDirectionT]):
         Returns:
             str: A string in the format "BiDirection(<value>)" representing the node.
 
-        Example:
+        Examples:
             >>> node = BiDirection("World")
             >>> repr(node)
             'BiDirection(World)'
@@ -275,8 +263,6 @@ class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
         Args:
                 node (NonCircularDoublyLinkedNode): The node to be inserted.
 
-        Returns:
-                None
         """
         node._prev = self
         node._next = self._next
@@ -290,8 +276,6 @@ class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
         Args:
                 node (NonCircularDoublyLinkedNode): The node to be inserted.
 
-        Returns:
-                None
         """
         node._next = self
         node._prev = self._prev
@@ -302,8 +286,6 @@ class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
     def remove(self):
         """Remove the current node from the list.
 
-        Returns:
-                None
         """
         if self._prev:
             self._prev._next = self._next
@@ -340,11 +322,11 @@ class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
             node = node.next
         return None
 
-    def total_nodes(self):
+    def total_nodes(self) -> int:
         """Count the total number of nodes in the list starting from the current node.
 
         Returns:
-                int: The total number of nodes in the list.
+            The number of nodes reachable from this node.
         """
         count = 0
         node = self.get_head()

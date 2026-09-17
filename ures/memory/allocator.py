@@ -885,7 +885,17 @@ class BuddySystemAllocator(MemoryAllocator):
 
 
 class DeviceMemorySimulator:
-    """Simulates a device with configurable memory allocation algorithms"""
+    """Simulate a device heap and swap among allocation algorithms.
+
+    Examples:
+        >>> from ures.memory import DeviceMemorySimulator
+        >>> sim = DeviceMemorySimulator(device_id=0, total_memory=1024)
+        >>> result = sim.allocate(size=64)
+        >>> result.success
+        True
+        >>> sim.free(result.address).success
+        True
+    """
 
     def __init__(
         self, device_id: int, total_memory: int, base_address: int = 0x10000000

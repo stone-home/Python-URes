@@ -24,6 +24,15 @@ logger = logging.getLogger(__name__)
 
 
 class CitationManager:
+    """Load bibliography files and import citations from TeX or BBL sources.
+
+    Examples:
+        >>> from ures.literature import CitationManager
+        >>> manager = CitationManager(bibliography_style="acm")
+        >>> manager.citations
+        []
+    """
+
     def __init__(
         self,
         bibliography_files: Optional[
