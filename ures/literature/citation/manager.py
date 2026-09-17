@@ -13,7 +13,6 @@ from .middlewares import (
     PublisherNormalizationMiddleware,
     DateSpiltToYearMonthDayMiddleware,
     LanguageAsciiNormalizationMiddleware,
-    OutputOnlyDesiredFieldsMiddleware,
     OutputCleanupNoneResultMiddleware,
     OutputLimitMaxAuthors,
 )
@@ -27,8 +26,19 @@ class BibManager:
         self,
         bib_file_path: Optional[Union[str, Path]] = None,
         bibliography_style: str = "default",
+        profile: str = "library",
+        rules: Optional[BibRuleRegister] = None,
+        load_local_style: bool = False,
     ):
-        self._rules = BibRuleRegister(style=bibliography_style)
+        if rules is not None:
+            self._rules = rules
+        elif bibliography_style in ("default", "acm", "ieee"):
+            style_name = "acm" if bibliography_style in ("default", "acm") else "ieee"
+            self._rules = BibRuleRegister.from_json_style(
+                style=style_name, profile=profile, load_cwd=load_local_style
+            )
+        else:
+            self._rules = BibRuleRegister(style=bibliography_style, profile=profile)
         self._bibliography: bibtexparser.Library = (
             self.load_from_file(bib_file_path)
             if bib_file_path is not None
@@ -123,7 +133,6 @@ class BibManager:
         ] = None,
     ) -> None:
         _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
-            OutputOnlyDesiredFieldsMiddleware(rule_register=self.rules),
             OutputLimitMaxAuthors(rule_register=self.rules),
         ]
         for m in middlewares or []:

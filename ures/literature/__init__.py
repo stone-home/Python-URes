@@ -10,6 +10,7 @@ __all__ = [
     "BibTypeRule",
     "FormattingRules",
     "OutputRules",
+    "StyleConfigError",
     "CitationInfo",
     "CitationMiddleware",
     "OutputOnlyDesiredFieldsMiddleware",

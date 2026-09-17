@@ -1,0 +1,55 @@
+{
+  "name": "ieee",
+  "max_authors": 0,
+  "proceedings_style": "proc",
+  "entry_types": {
+    "misc": {
+      "required": ["author", "title", "year"],
+      "suggested": []
+    },
+    "article": {
+      "required": ["author", "title", "year", "journal"],
+      "suggested": ["volume", "pages", "url"]
+    },
+    "inproceedings": {
+      "required": ["author", "title", "year", "booktitle"],
+      "suggested": ["pages", "address", "url"]
+    },
+    "book": {
+      "required": ["author", "title", "year", "publisher"],
+      "suggested": ["address", "url"]
+    },
+    "patent": {
+      "required": ["author", "title", "year"],
+      "suggested": ["note", "url"]
+    },
+    "techreport": {
+      "required": ["author", "title", "year", "institution"],
+      "suggested": ["address", "url"]
+    },
+    "thesis": {
+      "required": ["author", "title", "year", "school"],
+      "suggested": ["address", "url"]
+    },
+    "preprint": {
+      "required": ["author", "title", "year"],
+      "suggested": ["url"]
+    },
+    "online": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["urldate"]
+    },
+    "video": {
+      "required": ["author", "title", "year"],
+      "suggested": ["note"]
+    },
+    "software": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["version", "note", "urldate"]
+    },
+    "dataset": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["urldate", "publisher", "version", "note"]
+    }
+  }
+}

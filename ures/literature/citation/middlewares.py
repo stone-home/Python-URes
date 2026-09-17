@@ -11,6 +11,21 @@ from .rules import BibRuleRegister
 logger = logging.getLogger(__name__)
 
 
+def field_value_present(entry: Entry, key: str) -> bool:
+    field = entry.get(key, None)
+    if field is None:
+        return False
+    return field.value not in (None, "", [])
+
+
+def field_group_present(entry: Entry, spec: str) -> bool:
+    for alternative in spec.split("|"):
+        parts = alternative.split("+")
+        if all(field_value_present(entry, part) for part in parts):
+            return True
+    return False
+
+
 class CitationMiddleware(BlockMiddleware):
     def __init__(self, rule_register: Optional[BibRuleRegister] = None):
         super().__init__()
@@ -158,6 +173,7 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
             r"\bProc\.\s+of\s+the\s+",
             r"\bProc\.\s+of\s+",
             r"\bIn\s+(?=\d|\w+\s+(International|Annual|ACM|IEEE))",
+            r"\bProc\.\s+",
         ]
         proceedings_str = proceedings_str.strip()
         for pattern in patterns:
@@ -173,6 +189,7 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
             "short": "In Proc. of the ",
             "proceedings": "Proceedings of the ",
             "minimal": "In ",
+            "proc": "Proc. ",
         }
 
         style = self.rule_register.get_rule(
@@ -206,20 +223,28 @@ class RuleBasedValidationMiddleware(CitationMiddleware):
         rule = self.rule_register.get_rule(entry.entry_type)
         missing_required = []
         for req_field in rule.required_fields:
-            field_value = entry.get(req_field, None)
-            if field_value is None:
+            if not field_group_present(entry, req_field):
                 missing_required.append(req_field)
-            else:
-                if field_value.value in (None, "", []):
-                    missing_required.append(req_field)
 
         if len(missing_required) > 0:
             is_valid = False
 
+        suggested_fields = getattr(rule, "suggested_fields", [])
+        if not isinstance(suggested_fields, list):
+            suggested_fields = []
+        missing_suggested = []
+        for spec in suggested_fields:
+            if not field_group_present(entry, spec):
+                missing_suggested.append(spec)
+
         is_valid_field = Field(key="is_valid", value=is_valid)
         missing_fields = Field(key="missing_fields", value=missing_required)
+        missing_suggested_field = Field(
+            key="missing_suggested", value=missing_suggested
+        )
         entry.set_field(is_valid_field)
         entry.set_field(missing_fields)
+        entry.set_field(missing_suggested_field)
 
         return entry
 
@@ -232,6 +257,9 @@ class OutputCleanupNoneResultMiddleware(CitationMiddleware):
         for field in entry.fields:
             if field.value in [None, "", [], "none"]:
                 need_to_removed.append(field)
+        for key in ("is_valid", "missing_fields", "missing_suggested"):
+            if entry.get(key, None) is not None:
+                entry.pop(key, None)
         for field in need_to_removed:
             entry.pop(field.key, None)
         return entry
@@ -248,7 +276,11 @@ class OutputOnlyDesiredFieldsMiddleware(CitationMiddleware):
         rules = self.rule_register.get_rule(entry.entry_type)
 
         # remove all fields not in required or optional
-        forbidden_fields = rules.forbidden_fields + ["is_valid", "missing_fields"]
+        forbidden_fields = rules.forbidden_fields + [
+            "is_valid",
+            "missing_fields",
+            "missing_suggested",
+        ]
         for field in forbidden_fields:
             entry.pop(field, None)
 
@@ -275,12 +307,16 @@ class OutputLimitMaxAuthors(CitationMiddleware):
 
     def transform_entry(self, entry: Entry, *args, **kwargs) -> Optional[Entry]:
         rules = self.rule_register.get_rule(entry.entry_type)
+        max_authors = rules.output.max_authors
+        register_max = getattr(self.rule_register, "max_authors", None)
+        if isinstance(register_max, int):
+            max_authors = register_max
+        if max_authors is None or max_authors <= 0:
+            return entry
         for field in entry.fields:
             if field.key == "author" and isinstance(field.value, list):
-                is_over_limitation = len(field.value) > rules.output.max_authors
-                max_author_name_parts: list[NameParts] = field.value[
-                    : rules.output.max_authors
-                ]
+                is_over_limitation = len(field.value) > max_authors
+                max_author_name_parts: list[NameParts] = field.value[:max_authors]
                 if is_over_limitation:
                     max_author_name_parts.append(NameParts(first=["others"], last=[]))
                 field.value = max_author_name_parts

@@ -18,7 +18,7 @@ The tool should behave like a bib formatter/linter: local rewrite, CI check, one
 ## Goals
 
 1. Configure required/suggested fields via JSON.
-2. Ship ACM and IEEE baselines. Local `bibstyle.json` is either a full dump from `init` or an `extends` overlay with add/remove.
+2. Ship ACM and IEEE baselines. Local `.bibstyle.json` is either a full dump from `init` or an `extends` overlay with add/remove.
 3. Keep field-level standardization (proceedings is one of those fields).
 4. Author-count limit is configurable in JSON.
 5. `format` writes a normalized `.bib`; `check` does not. Both print clear errors and set exit codes for CI.
@@ -109,25 +109,37 @@ Existing type mappings (`conference` → `inproceedings`, …) and field mapping
 Equivalence (either field satisfies the requirement):
 
 - `pages` or `articleno`
-- `doi` or `url` (`submission` and identifier suggested). Camera-ready ACM still accepts `url` if `doi` is absent; do not fail an entry that has a resolvable `url` but no `doi`.
+- `doi` or `url` for ACM `submission` / identifier suggested. IEEE `submission` and camera-ready only require `url` (IEEEtran has no `doi` field). ACM camera-ready still accepts `url` without `doi`.
 
 `month` is never required. Current Python `BasicRequiredFields` that include `month` must not remain the library default once JSON styles are loaded.
 
+### Sources (verified 2026-09-17)
+
+acm.org HTML is behind Cloudflare from this environment and must not be used as a fetch target. Camera-ready fields come from the style files that LaTeX actually runs, pulled with a 20s `curl` timeout:
+
+- ACM: `ACM-Reference-Format.bst` v2.2, acmart 2.19, dated 2026-08-12, from `https://raw.githubusercontent.com/borisveytsman/acmart/primary/ACM-Reference-Format.bst`. Required means `output.check` / `bibinfo.output.check`. Year empty is a bst warning (`output.year.check`) and is still required in our JSON. `doi`/`url`/`eprint` print if present; they are not `output.check`.
+- IEEE: `IEEEtran.bst` 1.14 (2015/08/26) from `https://mirrors.mit.edu/CTAN/macros/latex/contrib/IEEEtran/bibtex/IEEEtran.bst`. Required means `output.warn`. The ENTRY list has `url` and **no `doi` key**; DOI in a `.bib` is kept as an extra field but is never an IEEE camera-ready error. Conference `booktitle` convention (`Proc. {IEEE} ...`) is from the IEEEtran HOWTO examples; the bst itself only prepends “in” and emphasizes `booktitle`.
+
 ### ACM vs IEEE packaged data
 
-Shared required set for the types below: `author`, `title`, `year`, plus the venue field.
+Shared **library** required set: `author`, `title`, `year`, plus the venue field. Camera-ready promotes the suggested column (and ACM bst-required publisher/address).
 
-| Type | Required extra | ACM suggested | IEEE suggested |
-|------|----------------|---------------|----------------|
-| `article` | `journal` | `volume`, `number`, `pages`, `doi` | same |
-| `inproceedings` | `booktitle` | `pages`, `doi`, `publisher`, `address` | `pages`, `doi`, `address` |
-| `preprint` | (none beyond the three) | `eprint`+`archivePrefix`, or `doi`/`url` | same |
-| `book` | `publisher` | `isbn`, `address` | same |
-| `techreport` | `institution` | `address`, `url` | same |
-| `thesis` | `school` **or** `publisher` (either satisfies) | `address`, `url` | same |
-| other existing types (`misc`, `online`, `software`, …) | keep current type in the register; required = `author`/`title`/`year` plus the current distinguishing field if it is a true locator (`url` for `online`) | current optional fields become suggested | same |
+| Type | Library required extra | ACM suggested (camera-ready → error) | IEEE suggested (camera-ready → error) |
+|------|------------------------|--------------------------------------|---------------------------------------|
+| `article` | `journal` | `volume`, `number`, `pages` **or** `articleno`, `doi` **or** `url` | `volume`, `pages`, `url` |
+| `inproceedings` | `booktitle` | `publisher`, `address`, `pages` **or** `articleno`, `doi` **or** `url` | `pages`, `address`, `url` |
+| `preprint` | (none beyond the three) | `eprint`+`archivePrefix` **or** `doi`/`url` (ACM bst aliases `@preprint` to `manual` but still recognizes `eprint`/`archiveprefix`) | `url` (keep `eprint`/`doi` if present; not IEEE-required) |
+| `book` | ACM: `publisher` **and** `address`. IEEE: `publisher` | `isbn` | `address`, `url` |
+| `techreport` | `institution` | `address`, `doi` **or** `url` | `address`, `url` |
+| `thesis` | ACM: `school`. IEEE: `school` | `address`, `doi` **or** `url` | `address`, `url` |
+| other existing types | `author`/`title`/`year`; `online` also `url` | current optional fields become suggested | same |
 
-`proceedings_style`: ACM `"proceedings"` (already `"Proceedings of the "`); IEEE `"proc"` (new prefix `"Proc. "`).
+ACM `@conference` is an alias of `@inproceedings`. Map it as we already do.
+
+`proceedings_style` normalizes the **value of `booktitle`**, not the bst wrapper:
+
+- ACM `"proceedings"`: store `Proceedings of the …` (ACM bst then prints `In` + emphasized booktitle).
+- IEEE `"proc"`: store `Proc. …` (IEEEtran HOWTO convention; bst does not insert `Proc.`).
 
 Default when no `bibstyle.json`: ACM.
 

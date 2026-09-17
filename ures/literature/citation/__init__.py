@@ -4,7 +4,7 @@ import bibtexparser
 from pathlib import Path
 from typing import Optional, Union, List, Type
 from .manager import BibManager
-from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules
+from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules, StyleConfigError
 from .extractors import BBLCitationExtractor, TexCitationExtractor, CitationInfo
 from .middlewares import (
     OutputOnlyDesiredFieldsMiddleware,
@@ -176,6 +176,7 @@ __all__ = [
     "BibTypeRule",
     "FormattingRules",
     "OutputRules",
+    "StyleConfigError",
     "CitationInfo",
     "CitationMiddleware",
     "OutputOnlyDesiredFieldsMiddleware",

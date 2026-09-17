@@ -43,6 +43,7 @@ class BibTypeRule:
     entry_type: str  # e.g., "article", "inproceedings"
     standard_name: str = "default"
     required_fields: List[str] = field(default_factory=list)
+    suggested_fields: List[str] = field(default_factory=list)
     optional_fields: List[str] = field(default_factory=list)
     forbidden_fields: List[str] = field(default_factory=list)
     field_mappings: Dict[str, str] = field(default_factory=dict)

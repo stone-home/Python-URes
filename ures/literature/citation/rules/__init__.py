@@ -1,8 +1,15 @@
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional
+from pathlib import Path
 from .data_type import BibTypeRule, OutputRules, FormattingRules
 from .basic import DefaultRules
 from .acm import ACMBibStyle
+from .style_config import (
+    StyleConfigError,
+    apply_profile,
+    resolve_style_document,
+    style_to_rules,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -12,12 +19,38 @@ ExtraRuleSet = {
 
 
 class BibRuleRegister:
-    def __init__(self, style: str = "default"):
+    def __init__(self, style: str = "default", profile: str = "library"):
+        self.profile = profile
+        self.style_name = style
+        self.max_authors: Optional[int] = None
         self._rules: set[BibTypeRule] = set(DefaultRules)
         if style != "default" and ExtraRuleSet.get(style, None) is not None:
             logger.warning(f"Loading extra rules for style: {style}")
             for rule in ExtraRuleSet[style]:
                 self.register_rule(rule, force=True)
+
+    @classmethod
+    def from_json_style(
+        cls,
+        style: str = "acm",
+        profile: str = "library",
+        local_path: Optional[Path] = None,
+        load_cwd: bool = False,
+    ) -> "BibRuleRegister":
+        document = resolve_style_document(
+            local_path=Path.cwd() / "bibstyle.json" if load_cwd else local_path,
+            style_name=style,
+        )
+        document = apply_profile(document, profile)
+        rules, max_authors, name, _proceedings = style_to_rules(document)
+        register = cls.__new__(cls)
+        register.profile = profile
+        register.style_name = name
+        register.max_authors = max_authors
+        register._rules = set()
+        for rule in rules:
+            register.register_rule(rule, force=True)
+        return register
 
     def get_default_field_mapping(self) -> Dict[str, str]:
         return {
@@ -87,4 +120,10 @@ class BibRuleRegister:
             raise ValueError(f"Rule for {bib_type} ({standard_name}) not found")
 
 
-__all__ = ["BibRuleRegister", "BibTypeRule", "OutputRules", "FormattingRules"]
+__all__ = [
+    "BibRuleRegister",
+    "BibTypeRule",
+    "OutputRules",
+    "FormattingRules",
+    "StyleConfigError",
+]
