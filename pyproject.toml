@@ -56,6 +56,9 @@ beautifulsoup4 = "^4.15.0"
 bibtexparser = "^2.0.1"
 unidecode = "^1.4.0"
 pycountry = "^26.2.16"
+urllib3 = ">=2.7.0"
+soupsieve = ">=2.9"
+idna = ">=3.15"
 
 
 [tool.poetry.group.test.dependencies]
@@ -70,6 +73,7 @@ pytest-time = "^0.5.0"
 pytest-xdist = "^3.8.0"
 coverage = "^7.16.1"
 rich = "^15.0.0"
+pymdown-extensions = ">=11.0.1"
 
 [tool.poetry.scripts]
 ures-bib = "ures.literature.citation.bib_cli:main"
