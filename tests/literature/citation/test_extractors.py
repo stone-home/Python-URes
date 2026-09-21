@@ -468,7 +468,9 @@ class TestAuxCitationExtractor:
 
     def test_extract_citations_comma_separated_keys(self, tmp_path):
         aux = tmp_path / "paper.aux"
-        aux.write_text("\\citation{author2023, smith2024, jones2022}\n", encoding="utf-8")
+        aux.write_text(
+            "\\citation{author2023, smith2024, jones2022}\n", encoding="utf-8"
+        )
 
         citations = self.extractor.extract_citations(aux)
 

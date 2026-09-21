@@ -273,9 +273,7 @@ class TestProfilePromotion:
 
 class TestIdentifierAndPagesEquivalence:
     def _validate(self, tmp_path, extra_fields, *, style="acm", profile="camera-ready"):
-        return _load_article(
-            tmp_path, extra_fields, style=style, profile=profile
-        )
+        return _load_article(tmp_path, extra_fields, style=style, profile=profile)
 
     def test_acm_url_without_doi_satisfies_identifier(self, tmp_path):
         extra = [
@@ -336,9 +334,7 @@ class TestIdentifierAndPagesEquivalence:
             "pages = {1--10},",
             "doi = {10.1109/example},",
         ]
-        entry = self._validate(
-            tmp_path, extra, style="ieee", profile="camera-ready"
-        )
+        entry = self._validate(tmp_path, extra, style="ieee", profile="camera-ready")
         assert "url" in _field_list(entry, "missing_fields")
         assert "doi" not in _field_list(entry, "missing_fields")
 
@@ -348,9 +344,7 @@ class TestIdentifierAndPagesEquivalence:
             "pages = {1--10},",
             "url = {https://ieeexplore.ieee.org/document/1},",
         ]
-        entry = self._validate(
-            tmp_path, extra, style="ieee", profile="camera-ready"
-        )
+        entry = self._validate(tmp_path, extra, style="ieee", profile="camera-ready")
         assert _field_list(entry, "missing_fields") == []
         assert entry.get("is_valid").value is True
 

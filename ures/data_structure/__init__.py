@@ -6,6 +6,7 @@ Examples:
     >>> root.value
     'root'
 """
+
 from .tree import TreeNode
 from .bi_directional_links import BiDirection, NonCircularBiLink
 

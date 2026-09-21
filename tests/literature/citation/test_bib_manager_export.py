@@ -4,9 +4,7 @@ from ures.literature.citation.manager import BibManager
 from ures.literature.citation.rules import BibRuleRegister
 
 
-MANY_AUTHORS = (
-    "Alice A and Bob B and Carol C and Dan D and Eve E and Frank F"
-)
+MANY_AUTHORS = "Alice A and Bob B and Carol C and Dan D and Eve E and Frank F"
 
 
 def _article_bib(authors=MANY_AUTHORS, extra=""):

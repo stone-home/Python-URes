@@ -284,9 +284,7 @@ class NonCircularBiLink(BiDirection["NonCircularBiLink"]):
         self._prev = node
 
     def remove(self):
-        """Remove the current node from the list.
-
-        """
+        """Remove the current node from the list."""
         if self._prev:
             self._prev._next = self._next
         if self._next:

@@ -1,12 +1,11 @@
 {
-    "name": "template-easy-setup-devops",
-    "version": "0.0.0-development",
-    "private": true,
-    "description": "Template for DevOps setup",
-    "devDependencies": {
-    },
-    "scripts": {
-      "devops:sync": "git -C .devops pull --ff-only || git clone --depth 1 -b trunk https://github.com/stone-home/Action-Stone-DevOps .devops",
-      "semantic-release": "semantic-release"
-    }
+  "description": "Template for DevOps setup",
+  "devDependencies": {},
+  "name": "template-easy-setup-devops",
+  "private": true,
+  "scripts": {
+    "devops:sync": "git -C .devops pull --ff-only || git clone --depth 1 -b trunk https://github.com/stone-home/Action-Stone-DevOps .devops",
+    "semantic-release": "semantic-release"
+  },
+  "version": "0.0.0-development"
 }

@@ -128,9 +128,7 @@ def cmd_init(style: str) -> int:
 
 
 def formatted_bib_path(bib_path: Path) -> Path:
-    return bib_path.with_name(
-        f"{bib_path.stem}{FORMATTED_NAME_INFIX}{bib_path.suffix}"
-    )
+    return bib_path.with_name(f"{bib_path.stem}{FORMATTED_NAME_INFIX}{bib_path.suffix}")
 
 
 def _cited_keys_from_aux(aux_path: Path) -> Optional[Set[str]]:
@@ -153,9 +151,7 @@ def _subset_library(library, keys: Optional[Set[str]]):
 
 
 def _load_manager(bib_path: Path, profile: str) -> BibManager:
-    rules = BibRuleRegister.from_json_style(
-        style="acm", profile=profile, load_cwd=True
-    )
+    rules = BibRuleRegister.from_json_style(style="acm", profile=profile, load_cwd=True)
     return BibManager(bib_file_path=bib_path, rules=rules, profile=profile)
 
 
@@ -225,9 +221,7 @@ def cmd_process(
         if cited_keys is not None and key not in cited_keys:
             continue
         failed_keys.add(key)
-        parse_failures.append(
-            {"key": key, "reason": block.__class__.__name__}
-        )
+        parse_failures.append({"key": key, "reason": block.__class__.__name__})
         _print_error(
             f"{source_name}: {key} failed to parse ({block.__class__.__name__})"
         )
@@ -270,7 +264,9 @@ def cmd_process(
         dest_path.parent.mkdir(parents=True, exist_ok=True)
         dest_path.write_text(normalized, encoding="utf-8")
 
-    report_path = str(dest_path) if write_back and dest_path is not None else source_name
+    report_path = (
+        str(dest_path) if write_back and dest_path is not None else source_name
+    )
     _print_error_summary = (
         f"{source_name}: {errors} error{'s' if errors != 1 else ''}, "
         f"{warnings} warning{'s' if warnings != 1 else ''}"

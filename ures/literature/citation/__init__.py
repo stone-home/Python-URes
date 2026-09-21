@@ -4,7 +4,13 @@ import bibtexparser
 from pathlib import Path
 from typing import Optional, Union, List, Type
 from .manager import BibManager
-from .rules import BibRuleRegister, BibTypeRule, FormattingRules, OutputRules, StyleConfigError
+from .rules import (
+    BibRuleRegister,
+    BibTypeRule,
+    FormattingRules,
+    OutputRules,
+    StyleConfigError,
+)
 from .extractors import BBLCitationExtractor, TexCitationExtractor, CitationInfo
 from .middlewares import (
     OutputOnlyDesiredFieldsMiddleware,

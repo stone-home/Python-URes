@@ -6,6 +6,7 @@ Examples:
     >>> sim.allocate(32).success
     True
 """
+
 from .blocks import TraceInfo, MemoryBlock, MemoryInfo, Segment, BlockPool
 from .allocator import (
     AllocationRequest,

@@ -1,8 +1,8 @@
 # Bib standardizer for `BibManager`
 
-Date: 2026-09-17  
-Amended: 2026-09-21 (`--aux`, `format --output`)  
-Status: approved for spec review  
+Date: 2026-09-17
+Amended: 2026-09-21 (`--aux`, `format --output`)
+Status: approved for spec review
 Scope: overlay JSON style data, profiles, a small CLI, and a lint report on top of the existing citation pipeline. Do not replace `BibManager`, middlewares, or `BibRuleRegister`.
 
 ## Problem

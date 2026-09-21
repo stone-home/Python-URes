@@ -411,7 +411,7 @@
 	abstract = {Transformer-based large language models (LLMs) have demonstrated outstanding performance across diverse domains, particularly in the emerging
               pretrain-then-finetune
               paradigm. LoRA, a parameter-efficient fine-tuning method, is commonly used to adapt a base LLM to multiple downstream tasks. Further, LLM platforms enable developers to fine-tune multiple models and develop various domain-specific applications simultaneously. However, existing model parallelism schemes suffer from high communication overhead and inefficient GPU utilization.
-            
+
             In this paper, we present mLoRA, a parallelism-efficient fine-tuning system designed for training multiple LoRA across GPUs and machines. mLoRA introduces a novel LoRA-aware pipeline parallelism scheme that efficiently pipelines LoRA adapters and their distinct fine-tuning stages across GPUs and machines, along with a new LoRA-efficient operator to enhance GPU utilization. Our extensive evaluation shows that mLoRA can significantly reduce average fine-tuning task completion time, e.g., by 30\%, compared to state-of-the-art methods like FSDP. More importantly, mLoRA enables simultaneous fine-tuning of larger models, e.g., two Llama-2-13B models on four NVIDIA RTX A6000 48GB GPUs, which is not feasible for FSDP due to high memory requirements. Hence, mLoRA not only increases fine-tuning efficiency but also makes it more accessible on cost-effective GPUs.},
 	language = {en},
 	number = {6},

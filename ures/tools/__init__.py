@@ -8,6 +8,7 @@ Examples:
     >>> EnumManipulator(Color).fetch_keys() == ["RED"]
     True
 """
+
 import os
 import importlib
 import pkgutil

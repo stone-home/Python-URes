@@ -135,9 +135,7 @@ class TestCheckAndFormat:
             monkeypatch, tmp_path, capsys, ["check", str(formatted)]
         )
         assert check_code == 0, check_err
-        assert not any(
-            line.startswith("error:") for line in check_err.splitlines()
-        )
+        assert not any(line.startswith("error:") for line in check_err.splitlines())
 
     def test_unknown_profile_prints_error_and_exits_2(
         self, monkeypatch, tmp_path, capsys
@@ -185,9 +183,7 @@ class TestCheckAndFormat:
         assert "Smith2024" in formatted.read_text(encoding="utf-8")
         assert formatted.name == "references - formatted.bib"
 
-    def test_format_output_same_as_input_exits_2(
-        self, monkeypatch, tmp_path, capsys
-    ):
+    def test_format_output_same_as_input_exits_2(self, monkeypatch, tmp_path, capsys):
         original = COMPLETE_ARTICLE
         bib = _write_bib(tmp_path / "refs.bib", original)
         code, _out, err = _run(
@@ -202,9 +198,7 @@ class TestCheckAndFormat:
         assert bib.read_text(encoding="utf-8") == original
         assert not (tmp_path / "refs - formatted.bib").exists()
 
-    def test_format_aux_writes_only_cited_keys(
-        self, monkeypatch, tmp_path, capsys
-    ):
+    def test_format_aux_writes_only_cited_keys(self, monkeypatch, tmp_path, capsys):
         original = COMPLETE_ARTICLE + SECOND_COMPLETE_ARTICLE
         bib = _write_bib(tmp_path / "refs.bib", original)
         aux = tmp_path / "paper.aux"
@@ -288,9 +282,7 @@ class TestCheckAndFormat:
         )
         assert with_aux == 0, with_err
         assert "Incomplete2020" not in with_err
-        assert not any(
-            "formatting differs" in line for line in with_err.splitlines()
-        )
+        assert not any("formatting differs" in line for line in with_err.splitlines())
         assert bib.read_text(encoding="utf-8") == mixed
         assert not (tmp_path / "refs - formatted.bib").exists()
 

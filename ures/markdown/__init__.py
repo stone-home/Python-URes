@@ -6,6 +6,7 @@ Examples:
     >>> "title" in doc.metadata
     True
 """
+
 from .manipulator import MarkdownDocument, Content, ContentSection
 from .zettelkasten import Zettelkasten
 

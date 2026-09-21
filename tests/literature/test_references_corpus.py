@@ -90,9 +90,10 @@ class TestCorpusCliCheck:
         assert parsed
         assert failures
         assert len(parsed) + len(failures) == len(references_inventory)
-        assert acm_library_check["bib_path"].read_bytes() == acm_library_check[
-            "original_bytes"
-        ]
+        assert (
+            acm_library_check["bib_path"].read_bytes()
+            == acm_library_check["original_bytes"]
+        )
 
     def test_report_entries_have_stable_fields_for_known_keys(self, acm_library_check):
         by_key = _entries_by_key(acm_library_check["report"])
@@ -188,9 +189,7 @@ class TestCorpusCliFormat:
 
 
 class TestCorpusCliSubprocess:
-    def test_ures_bib_console_script_check_writes_report(
-        self, tmp_path, corpus_bib
-    ):
+    def test_ures_bib_console_script_check_writes_report(self, tmp_path, corpus_bib):
         script = Path(sys.executable).parent / "ures-bib"
         if not script.is_file():
             raise AssertionError(f"ures-bib console script missing: {script}")
@@ -222,9 +221,8 @@ class TestCorpusBibManager:
             bib_file_path=references_bib_path, bibliography_style="acm"
         )
         parsed_keys = {entry.key for entry in manager.bibliography_entity}
-        assert (
-            len(parsed_keys) + len(manager.failed_blocks)
-            == len(references_inventory)
+        assert len(parsed_keys) + len(manager.failed_blocks) == len(
+            references_inventory
         )
         assert "chenATPAchievingThroughput2025" in parsed_keys
         article = manager.get_entity("chenATPAchievingThroughput2025")
@@ -244,9 +242,7 @@ class TestCorpusBibManager:
 
 
 class TestCorpusCitationManager:
-    def test_import_from_tex_and_save_cited_subset(
-        self, tmp_path, references_bib_path
-    ):
+    def test_import_from_tex_and_save_cited_subset(self, tmp_path, references_bib_path):
         tex = tmp_path / "paper.tex"
         tex.write_text(
             "Related work includes "

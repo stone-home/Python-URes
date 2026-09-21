@@ -1,27 +1,40 @@
 {
-  "name": "acm",
-  "max_authors": 0,
-  "proceedings_style": "proceedings",
   "entry_types": {
-    "misc": {
-      "required": ["author", "title", "year"],
-      "suggested": []
-    },
     "article": {
       "required": ["author", "title", "year", "journal"],
       "suggested": ["volume", "number", "pages|articleno", "doi|url"]
-    },
-    "inproceedings": {
-      "required": ["author", "title", "year", "booktitle"],
-      "suggested": ["publisher", "address", "pages|articleno", "doi|url"]
     },
     "book": {
       "required": ["author", "title", "year", "publisher", "address"],
       "suggested": ["isbn"]
     },
+    "dataset": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["urldate", "publisher", "version", "note"]
+    },
+    "inproceedings": {
+      "required": ["author", "title", "year", "booktitle"],
+      "suggested": ["publisher", "address", "pages|articleno", "doi|url"]
+    },
+    "misc": {
+      "required": ["author", "title", "year"],
+      "suggested": []
+    },
+    "online": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["urldate"]
+    },
     "patent": {
       "required": ["author", "title", "year"],
       "suggested": ["note", "url"]
+    },
+    "preprint": {
+      "required": ["author", "title", "year"],
+      "suggested": ["eprint+archivePrefix|doi|url"]
+    },
+    "software": {
+      "required": ["author", "title", "year", "url"],
+      "suggested": ["version", "note", "urldate"]
     },
     "techreport": {
       "required": ["author", "title", "year", "institution"],
@@ -31,25 +44,12 @@
       "required": ["author", "title", "year", "school"],
       "suggested": ["address", "doi|url"]
     },
-    "preprint": {
-      "required": ["author", "title", "year"],
-      "suggested": ["eprint+archivePrefix|doi|url"]
-    },
-    "online": {
-      "required": ["author", "title", "year", "url"],
-      "suggested": ["urldate"]
-    },
     "video": {
       "required": ["author", "title", "year"],
       "suggested": ["note"]
-    },
-    "software": {
-      "required": ["author", "title", "year", "url"],
-      "suggested": ["version", "note", "urldate"]
-    },
-    "dataset": {
-      "required": ["author", "title", "year", "url"],
-      "suggested": ["urldate", "publisher", "version", "note"]
     }
-  }
+  },
+  "max_authors": 0,
+  "name": "acm",
+  "proceedings_style": "proceedings"
 }

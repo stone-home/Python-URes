@@ -100,9 +100,7 @@ def _apply_overlay(base: Dict[str, Any], overlay: Dict[str, Any]) -> Dict[str, A
     merged_types = _entry_types(merged)
     for entry_type, spec in overlay_types.items():
         if not isinstance(spec, dict):
-            raise StyleConfigError(
-                f"entry_types.{entry_type} must be an object"
-            )
+            raise StyleConfigError(f"entry_types.{entry_type} must be an object")
         if any(key in spec for key in ("required", "suggested")):
             raise StyleConfigError(
                 "bibstyle.json: cannot mix extends with complete required/suggested lists"
