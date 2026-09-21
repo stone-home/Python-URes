@@ -1,11 +1,13 @@
 import argparse
+import copy
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 import bibtexparser
 
+from ures.literature.citation.extractors import AuxCitationExtractor
 from ures.literature.citation.manager import BibManager
 from ures.literature.citation.rules import BibRuleRegister, StyleConfigError
 from ures.literature.citation.rules.style_config import (
@@ -16,6 +18,7 @@ from ures.literature.citation.rules.style_config import (
 )
 
 REPORT_FILENAME = "bib-lint-report.json"
+FORMATTED_NAME_INFIX = " - formatted"
 
 
 def _print_error(message: str) -> None:
@@ -124,6 +127,31 @@ def cmd_init(style: str) -> int:
     return 0
 
 
+def formatted_bib_path(bib_path: Path) -> Path:
+    return bib_path.with_name(
+        f"{bib_path.stem}{FORMATTED_NAME_INFIX}{bib_path.suffix}"
+    )
+
+
+def _cited_keys_from_aux(aux_path: Path) -> Optional[Set[str]]:
+    keys = {item.key for item in AuxCitationExtractor().extract_citations(aux_path)}
+    if "*" in keys:
+        return None
+    return keys
+
+
+def _subset_library(library, keys: Optional[Set[str]]):
+    if keys is None:
+        return library
+    subset = bibtexparser.Library()
+    for string in library.strings:
+        subset.add(copy.deepcopy(string))
+    for entry in library.entries:
+        if entry.key in keys:
+            subset.add(copy.deepcopy(entry))
+    return subset
+
+
 def _load_manager(bib_path: Path, profile: str) -> BibManager:
     rules = BibRuleRegister.from_json_style(
         style="acm", profile=profile, load_cwd=True
@@ -137,7 +165,13 @@ def _write_report(payload: Dict[str, Any]) -> None:
     )
 
 
-def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
+def cmd_process(
+    bib_path: Path,
+    profile: str,
+    write_back: bool,
+    aux_path: Optional[Path] = None,
+    output_path: Optional[Path] = None,
+) -> int:
     if profile not in PROFILES:
         _print_error(
             f"unknown profile '{profile}' (use library, submission, or camera-ready)"
@@ -150,6 +184,30 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
         _print_error(f"{bib_path} is not a .bib file")
         return 2
 
+    dest_path: Optional[Path] = None
+    if write_back:
+        dest_path = output_path or formatted_bib_path(bib_path)
+        if dest_path.suffix != ".bib":
+            _print_error(f"{dest_path} is not a .bib file")
+            return 2
+        if dest_path.resolve() == bib_path.resolve():
+            _print_error(f"refusing to overwrite input {bib_path}")
+            return 2
+
+    cited_keys: Optional[Set[str]] = None
+    if aux_path is not None:
+        if not aux_path.exists():
+            _print_error(f"{aux_path} not found")
+            return 2
+        if aux_path.suffix != ".aux":
+            _print_error(f"{aux_path} is not an .aux file")
+            return 2
+        try:
+            cited_keys = _cited_keys_from_aux(aux_path)
+        except FileNotFoundError as exc:
+            _print_error(f"{exc} not found")
+            return 2
+
     try:
         manager = _load_manager(bib_path, profile)
     except StyleConfigError as exc:
@@ -161,8 +219,12 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
     errors = 0
     warnings = 0
     parse_failures = []
+    failed_keys = set()
     for block in manager.failed_blocks:
         key = _failed_block_key(block)
+        if cited_keys is not None and key not in cited_keys:
+            continue
+        failed_keys.add(key)
         parse_failures.append(
             {"key": key, "reason": block.__class__.__name__}
         )
@@ -171,8 +233,16 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
         )
         errors += 1
 
+    entries = manager.bibliography_entity
+    if cited_keys is not None:
+        entries = [entry for entry in entries if entry.key in cited_keys]
+        present = {entry.key for entry in entries} | failed_keys
+        for key in sorted(cited_keys - present):
+            _print_error(f"{source_name}: {key} not found in bibliography")
+            errors += 1
+
     entry_reports, entry_errors, entry_warnings = _collect_entry_issues(
-        manager.bibliography_entity, source_name, manager.rules.max_authors
+        entries, source_name, manager.rules.max_authors
     )
     errors += entry_errors
     warnings += entry_warnings
@@ -182,7 +252,7 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
         OutputLimitMaxAuthors,
     )
 
-    library = manager.bibliograph_library
+    library = _subset_library(manager.bibliograph_library, cited_keys)
     middlewares = [
         OutputLimitMaxAuthors(rule_register=manager.rules),
         OutputCleanupNoneResultMiddleware(rule_register=manager.rules),
@@ -192,13 +262,15 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
         bibtexparser.middlewares.SortBlocksByTypeAndKeyMiddleware(),
     ]
     normalized = bibtexparser.write_string(library, append_middleware=middlewares)
-    drift = normalized != original
+    drift = cited_keys is None and normalized != original
     if not write_back and drift:
         _print_error(f"{source_name}: formatting differs from normalized output")
         errors += 1
-    if write_back:
-        bib_path.write_text(normalized, encoding="utf-8")
+    if write_back and dest_path is not None:
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+        dest_path.write_text(normalized, encoding="utf-8")
 
+    report_path = str(dest_path) if write_back and dest_path is not None else source_name
     _print_error_summary = (
         f"{source_name}: {errors} error{'s' if errors != 1 else ''}, "
         f"{warnings} warning{'s' if warnings != 1 else ''}"
@@ -210,7 +282,7 @@ def cmd_process(bib_path: Path, profile: str, write_back: bool) -> int:
             "style": manager.rules.style_name,
             "files": [
                 {
-                    "path": source_name,
+                    "path": report_path,
                     "drift": drift,
                     "parse_failures": parse_failures,
                     "entries": entry_reports,
@@ -233,10 +305,13 @@ def build_parser() -> argparse.ArgumentParser:
     format_cmd = sub.add_parser("format")
     format_cmd.add_argument("bib_file")
     format_cmd.add_argument("--profile", default="library")
+    format_cmd.add_argument("--aux")
+    format_cmd.add_argument("--output")
 
     check_cmd = sub.add_parser("check")
     check_cmd.add_argument("bib_file")
     check_cmd.add_argument("--profile", default="library")
+    check_cmd.add_argument("--aux")
     return parser
 
 
@@ -251,8 +326,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         if args.command == "init":
             return cmd_init(args.style)
         bib_path = Path(args.bib_file)
+        aux_path = Path(args.aux) if args.aux else None
+        output_path = Path(args.output) if getattr(args, "output", None) else None
         return cmd_process(
-            bib_path, args.profile, write_back=args.command == "format"
+            bib_path,
+            args.profile,
+            write_back=args.command == "format",
+            aux_path=aux_path,
+            output_path=output_path,
         )
     except StyleConfigError as exc:
         _print_error(exc.message)

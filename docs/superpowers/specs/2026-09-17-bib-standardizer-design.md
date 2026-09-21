@@ -1,6 +1,7 @@
 # Bib standardizer for `BibManager`
 
 Date: 2026-09-17  
+Amended: 2026-09-21 (`--aux`, `format --output`)  
 Status: approved for spec review  
 Scope: overlay JSON style data, profiles, a small CLI, and a lint report on top of the existing citation pipeline. Do not replace `BibManager`, middlewares, or `BibRuleRegister`.
 
@@ -13,7 +14,7 @@ Scope: overlay JSON style data, profiles, a small CLI, and a lint report on top 
 - Export drops fields that are not required/optional.
 - There is no `format` / `check` CLI, no overlay config, and no human-readable failure output.
 
-The tool should behave like a bib formatter/linter: local rewrite, CI check, one JSON file to customize ACM or IEEE.
+The tool should behave like a bib formatter/linter: write a normalized copy, CI check, one JSON file to customize ACM or IEEE. `format` never overwrites the input `.bib`.
 
 ## Goals
 
@@ -21,7 +22,7 @@ The tool should behave like a bib formatter/linter: local rewrite, CI check, one
 2. Ship ACM and IEEE baselines. Local `.bibstyle.json` is either a full dump from `init` or an `extends` overlay with add/remove.
 3. Keep field-level standardization (proceedings is one of those fields).
 4. Author-count limit is configurable in JSON.
-5. `format` writes a normalized `.bib`; `check` does not. Both print clear errors and set exit codes for CI.
+5. `format` writes a normalized copy (default `{stem} - formatted.bib` beside the input); `check` writes neither the input nor that copy. Both print clear errors and set exit codes for CI. Optional `--aux` limits both commands to keys recorded in the LaTeX `.aux` file.
 6. Extra fields are always kept. Missing fields go to stderr and a report file.
 7. Strictness is a profile. Only camera-ready promotes all suggested fields to errors.
 8. Change existing Python by loading data and adding a thin CLI, not by rewriting the pipeline.
@@ -29,7 +30,7 @@ The tool should behave like a bib formatter/linter: local rewrite, CI check, one
 ## Non-goals
 
 - New GitHub Actions workflow in this repository.
-- Recursing directories, multiple input files per invocation, or extra CLI flags (`--config`, `--report`, `--max-authors`, `show-config`).
+- Recursing directories, multiple input `.bib` files per invocation, or extra CLI flags (`--config`, `--report`, `--max-authors`, `show-config`). `--aux` and `format --output` are in scope.
 - Dropping unknown fields.
 - A third venue style (USENIX uses ACM's bst; treat it as ACM).
 - Replacing bibtexparser, middlewares, or `CitationManager` (cited-only export stays as-is).
@@ -40,11 +41,14 @@ Keep the current engine. Add a style-data layer and a CLI that calls it.
 
 ```text
 FILE.bib + packaged style + optional cwd bibstyle.json + --profile
+    + optional --aux (cite keys from \citation / nested \@input)
     → BibRuleRegister (existing rules filled/overlaid from JSON)
     → BibManager.load_from_file (existing normalize middlewares)
-    → validate required / suggested for the profile
-    → format: write FILE.bib + report + stderr
-    → check:  compare in-memory normalized bib to FILE.bib; no write of FILE.bib
+    → if --aux: keep only cited keys; missing cited keys are errors
+    → validate required / suggested for the (possibly filtered) entries
+    → format: write --output (default `{stem} - formatted.bib` beside FILE.bib)
+    → check without --aux: compare in-memory normalized bib to FILE.bib; no write
+    → check with --aux: no whole-file drift; validate cited keys only; no write
 ```
 
 Resolution order for style data:
@@ -178,13 +182,14 @@ Poetry script: `ures-bib`.
 
 ```text
 ures-bib init [--style acm|ieee]
-ures-bib format FILE.bib [--profile library|submission|camera-ready]
-ures-bib check  FILE.bib [--profile library|submission|camera-ready]
+ures-bib format FILE.bib [--aux FILE.aux] [--output PATH] [--profile library|submission|camera-ready]
+ures-bib check  FILE.bib [--aux FILE.aux] [--profile library|submission|camera-ready]
 ```
 
 - `init`: write packaged baseline JSON to `./bibstyle.json`. Default `--style acm`. If the file exists, print an error and exit 2 unless the user deletes it first. No `--force` flag (keep the CLI small; overwrite is a manual delete).
-- `format`: normalize and write `FILE.bib`. Always write `./bib-lint-report.json`. Print issues. Exit 1 if any error remains after write.
-- `check`: do not write `FILE.bib`. Normalize in memory. If the serialized result differs from the file, that is an error (`formatting differs from normalized output`). Write the same report path. Exit 1 on any error including drift.
+- `format`: never overwrite `FILE.bib`. Normalize and write `--output`. Default `--output` is `{stem} - formatted{suffix}` in the same directory as `FILE.bib` (so `references.bib` → `references - formatted.bib`). If that destination already exists, overwrite it. If `--output` resolves to the same path as `FILE.bib`, exit 2. Always write `./bib-lint-report.json`. Print issues. Exit 1 if any error remains after write.
+- `check`: do not write `FILE.bib` or a formatted copy. `--output` is not a `check` flag. Without `--aux`, if the serialized result differs from `FILE.bib`, that is an error (`formatting differs from normalized output`). With `--aux`, skip whole-file drift. Write the same report path. Exit 1 on any error including (no-aux) drift.
+- `--aux`: optional. If omitted, process every entry in `FILE.bib`. If present, read BibTeX `.aux` `\citation{...}` keys (comma-separated) and follow `\@input{...}` nested aux files relative to the aux that named them. Only those keys are validated (`check`) or written (`format`). A cited key missing from the bibliography is an error. `\citation{*}` means the whole library (same as omitting `--aux` for filtering). Missing `--aux` path, non-`.aux` suffix, or missing nested `\@input` target: exit 2. Do not parse `.bcf`. `\bibdata` is not used to locate `.bib` files.
 
 One positional `.bib` file for `format`/`check`. Missing or non-`.bib` path is exit 2.
 
@@ -207,6 +212,8 @@ Config/usage failures also use `error:` and exit 2:
 error: unknown style 'foo' (use acm or ieee)
 error: bibstyle.json: cannot remove required field author
 error: refs.bib not found
+error: paper.aux not found
+error: refusing to overwrite input refs.bib
 error: failed to parse bibstyle.json: ...
 ```
 
@@ -223,9 +230,10 @@ Do not dump a Python traceback unless the failure is an unexpected exception; th
 ## Error handling
 
 - Invalid JSON, unknown `extends`/`--style`/`--profile`: exit 2, one `error:` line.
-- BibTeX failed blocks: each is an error in stderr and `parse_failures`. Other entries still process. Failed blocks are not rewritten into fake entries.
-- `check` drift: file-level error, not per-key.
-- `format` always attempts write of entries that parsed; failed blocks remain a problem the user must fix in the source (do not silently drop them without reporting).
+- BibTeX failed blocks: each is an error in stderr and `parse_failures`, except with `--aux` only blocks whose key is a cited key. Other entries still process. Failed blocks are not rewritten into fake entries.
+- `check` drift without `--aux`: file-level error, not per-key. With `--aux`, do not compare the whole `.bib` to a cited subset.
+- `format` always attempts write of entries that parsed (the cited subset when `--aux` is set) to `--output`; failed blocks remain a problem the user must fix in the source (do not silently drop them without reporting).
+- Cited key absent from `FILE.bib`: `error: FILE.bib: {key} not found in bibliography`.
 - Warnings never change the exit code by themselves.
 
 ## Testing
@@ -236,7 +244,7 @@ Do not weaken or rewrite existing middleware/rule tests. Add:
 - Profile promotion (`library` vs `submission` vs `camera-ready`).
 - `doi`/`url` and `pages`/`articleno` equivalence.
 - Export keeps extra fields; `max_authors=0` does not truncate.
-- CLI: `init` writes JSON that loads again as that style; existing `bibstyle.json` makes `init` exit 2; `check` on an unnormalized file exits 1 and prints `error:`; `format` then `check` on a clean file exits 0; unknown profile prints `error:` and exits 2.
+- CLI: `init` writes JSON that loads again as that style; existing `bibstyle.json` makes `init` exit 2; `check` on an unnormalized file exits 1 and prints `error:`; `format` writes `{stem} - formatted.bib` and leaves the input bytes unchanged; `check` of that formatted copy on a complete entry can exit 0; `format --aux` writes only cited keys; `check --aux` does not fail on unused incomplete entries; unknown profile prints `error:` and exits 2.
 
 Use temporary directories. No coverage gate. This spec does not authorize editing tests in the same developer conversation as production code.
 
@@ -248,6 +256,6 @@ Use temporary directories. No coverage gate. This spec does not authorize editin
 
 ## Implementation constraints
 
-- Diff stays in citation rules, export middleware selection, packaged JSON, and a new CLI module.
-- No second parser, no new validation framework, no rewrite of proceedings regexes beyond adding the `proc` prefix key.
+- Diff stays in citation rules, export middleware selection, packaged JSON, the CLI module, and an aux citation extractor.
+- No second bib parser, no new validation framework, no rewrite of proceedings regexes beyond adding the `proc` prefix key. Aux parsing is `\citation` / `\@input` only.
 - No dependency beyond the existing Poetry set (`bibtexparser`, stdlib JSON).

@@ -161,14 +161,17 @@ class TestCorpusCliProfilesAndStyles:
 
 
 class TestCorpusCliFormat:
-    def test_format_rewrites_file_and_keeps_entries_loadable(
+    def test_format_writes_sidecar_and_keeps_entries_loadable(
         self, monkeypatch, tmp_path, corpus_bib, references_bib_path
     ):
         original = corpus_bib.read_bytes()
         code = _run(monkeypatch, tmp_path, ["format", str(corpus_bib)])
         assert code == 1
-        assert corpus_bib.read_bytes() != original
+        assert corpus_bib.read_bytes() == original
         assert references_bib_path.read_bytes() == original
+
+        formatted = tmp_path / "references - formatted.bib"
+        assert formatted.is_file()
 
         report = _load_report(tmp_path)
         file_report = report["files"][0]
@@ -177,9 +180,9 @@ class TestCorpusCliFormat:
         assert "chenATPAchievingThroughput2025" in formatted_keys
         assert "yang2025gated" in formatted_keys
 
-        reloaded = BibManager(bib_file_path=corpus_bib, bibliography_style="acm")
+        reloaded = BibManager(bib_file_path=formatted, bibliography_style="acm")
         assert {entry.key for entry in reloaded.bibliography_entity} == formatted_keys
-        text = corpus_bib.read_text(encoding="utf-8")
+        text = formatted.read_text(encoding="utf-8")
         assert "chenATPAchievingThroughput2025" in text
         assert "ATP" in text
 

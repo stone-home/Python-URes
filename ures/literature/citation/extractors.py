@@ -152,3 +152,57 @@ class BBLCitationExtractor(AbcCitationExtractor):
         except FileNotFoundError:
             pass
         return cited
+
+
+class AuxCitationExtractor(AbcCitationExtractor):
+    """Read cite keys from a BibTeX `.aux` file produced by LaTeX.
+
+    Records come from `\\citation{...}` (including comma-separated keys) and
+    nested `\\@input{other.aux}` files. `\\citation{*}` is kept as the key `*`.
+    """
+
+    _citation_pattern = re.compile(r"\\citation\{([^}]*)\}")
+    _input_pattern = re.compile(r"\\@input\{([^}]*)\}")
+
+    def extract_citations(self, aux_file: Union[str, Path]) -> list[CitationInfo]:
+        cited: dict[str, CitationInfo] = {}
+        self._extract_from(Path(aux_file), cited, visited=set())
+        return list(cited.values())
+
+    def _extract_from(
+        self,
+        aux_file: Path,
+        cited: dict[str, CitationInfo],
+        visited: set[Path],
+    ) -> None:
+        resolved = aux_file.resolve()
+        if resolved in visited:
+            return
+        if not aux_file.is_file():
+            raise FileNotFoundError(str(aux_file))
+        visited.add(resolved)
+
+        content = aux_file.read_text(encoding="utf-8")
+        for match in self._citation_pattern.finditer(content):
+            line_no = content.count("\n", 0, match.start()) + 1
+            for key in (part.strip() for part in match.group(1).split(",")):
+                if not key:
+                    continue
+                source = CitationSource(
+                    source_file=aux_file.name,
+                    line_number=line_no,
+                    source_type="aux",
+                )
+                if key not in cited:
+                    cited[key] = CitationInfo(key=key, sources=[source])
+                else:
+                    cited[key].sources.append(source)
+
+        for match in self._input_pattern.finditer(content):
+            nested_name = match.group(1).strip()
+            if not nested_name:
+                continue
+            nested = Path(nested_name)
+            if not nested.is_absolute():
+                nested = aux_file.parent / nested_name
+            self._extract_from(nested, cited, visited)

@@ -8,6 +8,7 @@ from ures.literature.citation.extractors import (
     AbcCitationExtractor,
     TexCitationExtractor,
     BBLCitationExtractor,
+    AuxCitationExtractor,
 )
 
 
@@ -443,6 +444,80 @@ Line 5
         citation_dict = {c.key: c for c in citations}
         assert citation_dict["key_on_line_3"].sources[0].line_number == 3
         assert citation_dict["key_on_line_6"].sources[0].line_number == 6
+
+
+class TestAuxCitationExtractor:
+    """Test class for AuxCitationExtractor."""
+
+    def setup_method(self):
+        """Setup method called before each test method."""
+        self.extractor = AuxCitationExtractor()
+
+    def test_extract_citations_simple_citation(self, tmp_path):
+        aux = tmp_path / "paper.aux"
+        aux.write_text("\\citation{author2023}\n", encoding="utf-8")
+
+        citations = self.extractor.extract_citations(aux)
+
+        assert len(citations) == 1
+        assert citations[0].key == "author2023"
+        assert len(citations[0].sources) == 1
+        assert citations[0].sources[0].source_type == "aux"
+        assert citations[0].sources[0].source_file == "paper.aux"
+        assert citations[0].sources[0].line_number == 1
+
+    def test_extract_citations_comma_separated_keys(self, tmp_path):
+        aux = tmp_path / "paper.aux"
+        aux.write_text("\\citation{author2023, smith2024, jones2022}\n", encoding="utf-8")
+
+        citations = self.extractor.extract_citations(aux)
+
+        citation_keys = {c.key for c in citations}
+        assert citation_keys == {"author2023", "smith2024", "jones2022"}
+        assert all(c.sources[0].source_type == "aux" for c in citations)
+
+    def test_extract_citations_nested_input(self, tmp_path):
+        nested_dir = tmp_path / "nested"
+        nested_dir.mkdir()
+        child = nested_dir / "child.aux"
+        child.write_text("\\citation{fromchild}\n", encoding="utf-8")
+        parent = tmp_path / "paper.aux"
+        parent.write_text(
+            "\\citation{fromparent}\n\\@input{nested/child.aux}\n",
+            encoding="utf-8",
+        )
+
+        citations = self.extractor.extract_citations(parent)
+
+        citation_dict = {c.key: c for c in citations}
+        assert set(citation_dict) == {"fromparent", "fromchild"}
+        assert citation_dict["fromparent"].sources[0].source_file == "paper.aux"
+        assert citation_dict["fromchild"].sources[0].source_file == "child.aux"
+        assert citation_dict["fromchild"].sources[0].source_type == "aux"
+
+    def test_extract_citations_star_key(self, tmp_path):
+        aux = tmp_path / "paper.aux"
+        aux.write_text("\\citation{*}\n", encoding="utf-8")
+
+        citations = self.extractor.extract_citations(aux)
+
+        assert len(citations) == 1
+        assert citations[0].key == "*"
+        assert citations[0].sources[0].source_type == "aux"
+
+    def test_extract_citations_missing_file_raises(self, tmp_path):
+        missing = tmp_path / "missing.aux"
+        with pytest.raises(FileNotFoundError):
+            self.extractor.extract_citations(missing)
+
+    def test_extract_citations_missing_nested_input_raises(self, tmp_path):
+        parent = tmp_path / "paper.aux"
+        parent.write_text(
+            "\\citation{fromparent}\n\\@input{missing.aux}\n",
+            encoding="utf-8",
+        )
+        with pytest.raises(FileNotFoundError):
+            self.extractor.extract_citations(parent)
 
 
 class TestIntegration:
