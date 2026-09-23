@@ -2,170 +2,170 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://stone-home.github.io/Python-URes/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/data_structure/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/data_structure/bi_directional_links/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/data_structure/tree/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/cleanup/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/conf/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/container/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/containers/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/image/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/docker/runtime/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/files/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/bib_cli/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/extractors/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/manager/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/middlewares/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/rules/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/rules/acm/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/rules/basic/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/rules/data_type/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/citation/rules/style_config/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/search/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/search/adapters/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/search/paper/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/search/search/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/literature/search_cli/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/markdown/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/markdown/manipulator/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/markdown/zettelkasten/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/memory/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/memory/allocator/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/memory/blocks/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/network/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/secrets/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/string/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/timedate/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/tools/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/tools/decorator/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
     <url>
          <loc>https://stone-home.github.io/Python-URes/reference/ures/tools/enum/</loc>
-         <lastmod>2026-09-21</lastmod>
+         <lastmod>2026-09-23</lastmod>
     </url>
 </urlset>

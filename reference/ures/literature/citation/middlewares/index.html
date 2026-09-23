@@ -1172,6 +1172,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ures.literature.citation.middlewares.AcmConferenceVenueMiddleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AcmConferenceVenueMiddleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ures.literature.citation.middlewares.TypeNormalizationMiddleware" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2274,6 +2285,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ures.literature.citation.middlewares.AcmConferenceVenueMiddleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AcmConferenceVenueMiddleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ures.literature.citation.middlewares.TypeNormalizationMiddleware" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2796,6 +2818,71 @@
 
 
 
+<h2 id="ures.literature.citation.middlewares.AcmConferenceVenueMiddleware" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">AcmConferenceVenueMiddleware</span>
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">AcmConferenceVenueMiddleware</span><span class="p">(</span><span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="ures.literature.citation.middlewares.CitationMiddleware">CitationMiddleware</span></code></p>
+
+
+
+        <p>Put the conference city on the field ACM actually prints.</p>
+<p>ACM-Reference-Format appends <code>location</code> or <code>city</code> to the booktitle
+and prints <code>address</code> after the publisher. Zotero's BibTeX export has
+only <code>address</code> for Place, and that Place is the venue city. BibLaTeX
+<code>venue</code> is the event location.     For ACM and the default style, move the venue city onto <code>location</code>
+when <code>location</code> and <code>city</code> are empty. A publisher <code>address</code> is
+left in place when <code>venue</code> already holds the city. Books and IEEE
+entries are unchanged.</p>
+
+
+
+
+
+
+
+
+                  <details class="mkdocstrings-source">
+                    <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="ures.literature.citation.middlewares.TypeNormalizationMiddleware" class="doc doc-heading">
             <span class="doc doc-object-name doc-class-name">TypeNormalizationMiddleware</span>
 
@@ -2879,9 +2966,9 @@
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -2918,36 +3005,36 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">transform_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">transform_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate entry using dataclass rules.&quot;&quot;&quot;</span>
     <span class="n">is_valid</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span><span class="o">.</span><span class="n">get_rule</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_type</span><span class="p">)</span>
@@ -3078,9 +3165,9 @@
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3136,9 +3223,9 @@
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
