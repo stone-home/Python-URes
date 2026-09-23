@@ -3,6 +3,7 @@ from bibtexparser.model import Entry, Field
 from bibtexparser.middlewares import NameParts
 
 from ures.literature.citation.middlewares import (
+    AcmConferenceVenueMiddleware,
     FieldNormalizationMiddleware,
     LanguageAsciiNormalizationMiddleware,
     DateSpiltToYearMonthDayMiddleware,
@@ -128,6 +129,121 @@ class TestFieldNormalizationMiddleware:
         field_keys = [field.key for field in result.fields]
         assert "standardfield" in field_keys
         assert "customfield" not in field_keys
+
+    def test_location_and_venue_are_not_renamed(self):
+        """Conference location keys stay as written in the .bib file."""
+        middleware = FieldNormalizationMiddleware(BibRuleRegister())
+        entry = Entry(
+            key="conf",
+            entry_type="inproceedings",
+            fields=[
+                Field(key="location", value="Montreal"),
+                Field(key="venue", value="ICML"),
+                Field(key="address", value="New York"),
+                Field(key="journaltitle", value="Nature"),
+            ],
+        )
+
+        result = middleware.transform_entry(entry)
+        field_keys = [field.key for field in result.fields]
+        assert field_keys.count("location") == 1
+        assert field_keys.count("venue") == 1
+        assert field_keys.count("address") == 1
+        assert "booktitle" not in field_keys
+        assert "journal" in field_keys
+        assert "journaltitle" not in field_keys
+
+
+class TestAcmConferenceVenueMiddleware:
+    """ACM prints the conference city from location or city, and address as the publisher."""
+
+    def _transform(self, entry_type, fields, style="acm"):
+        register = BibRuleRegister.from_json_style(style=style)
+        middleware = AcmConferenceVenueMiddleware(register)
+        entry = Entry(key="conf", entry_type=entry_type, fields=fields)
+        result = middleware.transform_entry(entry)
+        return {field.key: field.value for field in result.fields}
+
+    def test_zotero_address_becomes_location_for_acm_conference(self):
+        fields = self._transform(
+            "inproceedings",
+            [Field(key="address", value="Montreal")],
+        )
+        assert fields["location"] == "Montreal"
+        assert "address" not in fields
+
+    def test_existing_location_is_kept_and_address_stays_publisher(self):
+        fields = self._transform(
+            "inproceedings",
+            [
+                Field(key="location", value="Montreal"),
+                Field(key="address", value="New York"),
+            ],
+        )
+        assert fields["location"] == "Montreal"
+        assert fields["address"] == "New York"
+
+    def test_venue_becomes_location_and_address_stays(self):
+        fields = self._transform(
+            "inproceedings",
+            [
+                Field(key="venue", value="Montreal"),
+                Field(key="address", value="New York"),
+            ],
+        )
+        assert fields["location"] == "Montreal"
+        assert "venue" not in fields
+        assert fields["address"] == "New York"
+
+    def test_city_already_present_blocks_the_move(self):
+        fields = self._transform(
+            "conference",
+            [
+                Field(key="city", value="Montreal"),
+                Field(key="address", value="New York"),
+            ],
+        )
+        assert fields["city"] == "Montreal"
+        assert fields["address"] == "New York"
+        assert "location" not in fields
+
+    def test_default_register_moves_conference_address_to_location(self):
+        register = BibRuleRegister()
+        middleware = AcmConferenceVenueMiddleware(register)
+        entry = Entry(
+            key="conf",
+            entry_type="inproceedings",
+            fields=[Field(key="address", value="Montreal")],
+        )
+        result = middleware.transform_entry(entry)
+        fields = {field.key: field.value for field in result.fields}
+        assert fields["location"] == "Montreal"
+        assert "address" not in fields
+
+    def test_ieee_conference_keeps_address(self):
+        fields = self._transform(
+            "inproceedings",
+            [Field(key="address", value="Montreal")],
+            style="ieee",
+        )
+        assert fields["address"] == "Montreal"
+        assert "location" not in fields
+
+    def test_acm_book_keeps_publisher_address(self):
+        fields = self._transform(
+            "book",
+            [Field(key="address", value="New York")],
+        )
+        assert fields["address"] == "New York"
+        assert "location" not in fields
+
+    def test_incollection_keeps_publisher_address(self):
+        fields = self._transform(
+            "incollection",
+            [Field(key="address", value="New York")],
+        )
+        assert fields["address"] == "New York"
+        assert "location" not in fields
 
 
 class TestLanguageNormalizationMiddleware:

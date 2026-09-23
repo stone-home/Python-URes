@@ -53,12 +53,13 @@ class BibRuleRegister:
         return register
 
     def get_default_field_mapping(self) -> Dict[str, str]:
+        # BibLaTeX names that are aliases of one classic BibTeX field.
+        # location, venue, and address name different places. ACM conference
+        # entries move the venue city in AcmConferenceVenueMiddleware.
         return {
             "rights": "copyright",
-            "location": "address",
             "journaltitle": "journal",
             "titleaddon": "journal",
-            "venue": "booktitle",  # Sometimes used for conference venue
             "langid": "language",
         }
 

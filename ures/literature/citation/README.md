@@ -30,7 +30,8 @@ The module operates on several core components that work together:
       * This is the core normalization and validation engine used by `BibManager`. When a `.bib` file is loaded, every entry is passed through this pipeline.
       * **Normalization:** A series of middlewares clean the data:
           * `TypeNormalizationMiddleware`: Standardizes entry types (e.g., maps `conference` to `inproceedings`).
-          * `FieldNormalizationMiddleware`: Maps non-standard field keys to standard ones (e.g., `location` to `address`) and normalizes page dashes.
+          * `FieldNormalizationMiddleware`: Maps BibLaTeX alias keys onto the classic BibTeX field (e.g., `journaltitle` to `journal`) and normalizes page dashes. `location`, `venue`, and `address` are not aliased onto each other.
+          * `AcmConferenceVenueMiddleware`: For the default style and ACM, `@inproceedings` and `@conference` move the venue city onto `location` when `location` and `city` are empty. Zotero writes that city in `address`; BibLaTeX writes it in `venue`. If `venue` is present, `address` stays the publisher's place. Books and IEEE entries are left as written.
           * `DateSpiltToYearMonthDayMiddleware`: Parses `date` fields into separate `year`, `month`, and `day` fields.
           * `ProceedingsNormalizationMiddleware`: Automatically reformats `booktitle` fields based on the loaded rule (e.g., stripping "In Proceedings of the" and reapplying the correct prefix like "Proceedings of the" or just "In").
           * `PublisherNormalizationMiddleware`: Standardizes publisher names (e.g., ensuring "IEEE" becomes "IEEE Inc.").

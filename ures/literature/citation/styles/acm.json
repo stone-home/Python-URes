@@ -14,7 +14,7 @@
     },
     "inproceedings": {
       "required": ["author", "title", "year", "booktitle"],
-      "suggested": ["publisher", "address", "pages|articleno", "doi|url"]
+      "suggested": ["publisher", "location|city", "pages|articleno", "doi|url"]
     },
     "misc": {
       "required": ["author", "title", "year"],

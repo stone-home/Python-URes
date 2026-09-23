@@ -199,6 +199,35 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
         return f"{prefix}{proceedings_str}".strip()
 
 
+class AcmConferenceVenueMiddleware(CitationMiddleware):
+    """Put the conference city on the field ACM actually prints.
+
+    ACM-Reference-Format appends ``location`` or ``city`` to the booktitle
+    and prints ``address`` after the publisher. Zotero's BibTeX export has
+    only ``address`` for Place, and that Place is the venue city. BibLaTeX
+    ``venue`` is the event location.     For ACM and the default style, move the venue city onto ``location``
+    when ``location`` and ``city`` are empty. A publisher ``address`` is
+    left in place when ``venue`` already holds the city. Books and IEEE
+    entries are unchanged.
+    """
+
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        if getattr(self.rule_register, "style_name", "") not in {"acm", "default"}:
+            return entry
+        if entry.entry_type.lower() not in {"inproceedings", "conference"}:
+            return entry
+        if field_value_present(entry, "location") or field_value_present(entry, "city"):
+            return entry
+        venue = entry.get("venue", None)
+        if venue is not None and venue.value not in (None, "", []):
+            venue.key = "location"
+            return entry
+        address = entry.get("address", None)
+        if address is not None and address.value not in (None, "", []):
+            address.key = "location"
+        return entry
+
+
 class TypeNormalizationMiddleware(CitationMiddleware):
     """Normalize entry types (conference -> inproceedings, etc.)"""
 

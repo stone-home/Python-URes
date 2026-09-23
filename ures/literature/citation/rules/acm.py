@@ -23,7 +23,7 @@ ACMBibStyle: List[BibTypeRule] = [
         entry_type="inproceedings",
         standard_name="acm",
         required_fields=BasicRequiredFields
-        + ["booktitle", "publisher", "doi", "address", "url", "pages"],
+        + ["booktitle", "publisher", "doi", "location", "url", "pages"],
         optional_fields=[],
         forbidden_fields=[],
         formatting=FormattingRules(proceedings_style="proceedings"),

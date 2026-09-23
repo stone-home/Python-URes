@@ -23,7 +23,7 @@ DefaultRules: List[BibTypeRule] = [
         entry_type="inproceedings",
         standard_name="default",
         required_fields=BasicRequiredFields
-        + ["booktitle", "publisher", "doi", "address", "url", "pages"],
+        + ["booktitle", "publisher", "doi", "location", "url", "pages"],
         optional_fields=[],
         forbidden_fields=[],
     ),

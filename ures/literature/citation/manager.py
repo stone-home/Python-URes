@@ -7,6 +7,7 @@ from pathlib import Path
 from .middlewares import (
     CitationMiddleware,
     FieldNormalizationMiddleware,
+    AcmConferenceVenueMiddleware,
     TypeNormalizationMiddleware,
     RuleBasedValidationMiddleware,
     ProceedingsNormalizationMiddleware,
@@ -80,6 +81,7 @@ class BibManager:
             ProceedingsNormalizationMiddleware,
             PublisherNormalizationMiddleware,
             FieldNormalizationMiddleware,
+            AcmConferenceVenueMiddleware,
             TypeNormalizationMiddleware,
             RuleBasedValidationMiddleware,
         ]

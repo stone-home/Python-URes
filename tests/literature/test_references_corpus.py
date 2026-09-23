@@ -27,7 +27,7 @@ KNOWN_LIBRARY_ACM_ENTRIES = {
         "type": "inproceedings",
         "severity": "warning",
         "missing_required": [],
-        "missing_suggested": ["publisher", "address", "pages|articleno"],
+        "missing_suggested": ["publisher", "location|city", "pages|articleno"],
         "author_count": 3,
     },
     "bishopNeuralNetworksPattern1995": {

@@ -63,6 +63,9 @@ class TestStyleLoad:
         book = register.get_rule("book")
         assert "publisher" in book.required_fields
         assert "address" in book.required_fields
+        inproc = style["entry_types"]["inproceedings"]
+        assert "location|city" in inproc["suggested"]
+        assert "address" not in inproc["suggested"]
 
     def test_packaged_ieee_loads_distinct_baseline(self):
         style = resolve_style_document(style_name="ieee")

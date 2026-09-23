@@ -1,6 +1,8 @@
 {
   "description": "Template for DevOps setup",
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "3.9.9"
+  },
   "name": "template-easy-setup-devops",
   "private": true,
   "scripts": {

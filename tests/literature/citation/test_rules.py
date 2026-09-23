@@ -111,6 +111,16 @@ class TestACMConfiguration:
         entry_types = [rule.entry_type for rule in ACMBibStyle]
         assert len(entry_types) == len(set(entry_types))
 
+    def test_default_inproceedings_uses_location_not_address(self):
+        rule = next(item for item in DefaultRules if item.entry_type == "inproceedings")
+        assert "location" in rule.required_fields
+        assert "address" not in rule.required_fields
+
+    def test_acm_inproceedings_uses_location_not_address(self):
+        rule = next(item for item in ACMBibStyle if item.entry_type == "inproceedings")
+        assert "location" in rule.required_fields
+        assert "address" not in rule.required_fields
+
     def test_acm_bib_style_required_fields_include_basic(self):
         """Test that ACM rules include BasicRequiredFields in their required fields"""
         for rule in ACMBibStyle:
