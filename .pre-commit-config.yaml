@@ -21,7 +21,7 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=lf"]
       - id: pretty-format-json
-        args: ["--autofix"]
+        args: ["--autofix", "--indent", "2", "--no-sort-keys"]
   - repo: local
     hooks:
       - id: prettier
