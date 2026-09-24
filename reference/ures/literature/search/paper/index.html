@@ -2573,7 +2573,7 @@ Handles data models, database operations, and caching for literature search.</p>
   </span>
 
 </h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Paper</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">authors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">abstract</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">venue</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">doi</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">arxiv_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">citations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">database_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pdf_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">publication_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">issue</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">volume</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">publisher</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Paper</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">authors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">abstract</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">venue</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">doi</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">arxiv_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">citations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">database_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">pdf_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">publication_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">issue</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">volume</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">pages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">publisher</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2585,9 +2585,9 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.literature</span><span class="w"> </span><span class="kn">import</span> <span class="n">Paper</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;CXL memory&quot;</span><span class="p">,</span> <span class="n">authors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Doe, J.&quot;</span><span class="p">],</span> <span class="n">year</span><span class="o">=</span><span class="mi">2024</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"CXL memory"</span><span class="p">,</span> <span class="n">authors</span><span class="o">=</span><span class="p">[</span><span class="s2">"Doe, J."</span><span class="p">],</span> <span class="n">year</span><span class="o">=</span><span class="mi">2024</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">paper</span><span class="o">.</span><span class="n">title</span>
-<span class="go">&#39;CXL memory&#39;</span>
+<span class="go">'CXL memory'</span>
 </code></pre></div>
 
 
@@ -2640,16 +2640,16 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_canonical_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a canonical identifier for deduplication.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Generate a canonical identifier for deduplication."""</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">doi</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;doi:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doi</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"doi:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doi</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">arxiv_id</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;arxiv:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">arxiv_id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"arxiv:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">arxiv_id</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">title_norm</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\w\s]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">first_author</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title_norm</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="n">first_author</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;hash:</span><span class="si">{</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">title_norm</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\w\s]"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">first_author</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span> <span class="k">else</span> <span class="s2">""</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">title_norm</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="n">first_author</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"hash:</span><span class="si">{</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2677,7 +2677,7 @@ Handles data models, database operations, and caching for literature search.</p>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert to dictionary representation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Convert to dictionary representation."""</span>
     <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2731,26 +2731,26 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Paper&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create Paper instance from dictionary.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Paper"</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Create Paper instance from dictionary."""</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;authors&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;venue&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;doi&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;arxiv_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;database_source&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pdf_url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;publication_type&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;issue&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;volume&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pages&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;publisher&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"authors"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"abstract"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"year"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"venue"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"doi"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"arxiv_id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"citations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"keywords"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"database_source"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"pdf_url"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"publication_type"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"issue"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"volume"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"pages"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"publisher"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">paper_data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">}</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">paper_data</span><span class="p">)</span>
@@ -2816,8 +2816,8 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">similarity_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Paper&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate similarity score with another paper (0-1).&quot;&quot;&quot;</span>
+<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">similarity_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">"Paper"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Calculate similarity score with another paper (0-1)."""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Paper</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">0.0</span>
 
@@ -2825,8 +2825,8 @@ Handles data models, database operations, and caching for literature search.</p>
 
     <span class="c1"># Title similarity (highest weight)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
-        <span class="n">title1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\w\s]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-        <span class="n">title2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\w\s]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">title1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\w\s]"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">title2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\w\s]"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">title1</span> <span class="o">==</span> <span class="n">title2</span><span class="p">:</span>
             <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.5</span>
         <span class="k">elif</span> <span class="n">title1</span> <span class="ow">in</span> <span class="n">title2</span> <span class="ow">or</span> <span class="n">title2</span> <span class="ow">in</span> <span class="n">title1</span><span class="p">:</span>
@@ -2878,7 +2878,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
 
 </h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">CacheManager</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;./lit_cache&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">CacheManager</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'./lit_cache'</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2901,10 +2901,10 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">195</span>
 <span class="normal">196</span>
 <span class="normal">197</span>
-<span class="normal">198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./lit_cache&quot;</span><span class="p">):</span>
+<span class="normal">198</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"./lit_cache"</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">db_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">/</span> <span class="s2">&quot;papers.db&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">db_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_dir</span> <span class="o">/</span> <span class="s2">"papers.db"</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_init_database</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3016,7 +3016,7 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">339</span>
 <span class="normal">340</span>
 <span class="normal">341</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cache_paper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paper</span><span class="p">:</span> <span class="n">Paper</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Cache a paper in the database.</span>
 
 <span class="sd">    Args:</span>
@@ -3024,17 +3024,17 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">            bool: Success status</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">paper_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_paper_id</span><span class="p">(</span><span class="n">paper</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
             <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                </span><span class="sd">"""</span>
 <span class="sd">                INSERT OR REPLACE INTO papers</span>
 <span class="sd">                (id, title, authors, abstract, year, venue, doi, arxiv_id, url, citations,</span>
 <span class="sd">                 keywords, database_source, pdf_url, publication_type, issue, volume, pages, publisher, updated_at)</span>
 <span class="sd">                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">            """</span><span class="p">,</span>
                 <span class="p">(</span>
                     <span class="n">paper_id</span><span class="p">,</span>
                     <span class="n">paper</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
@@ -3058,7 +3058,7 @@ Handles data models, database operations, and caching for literature search.</p>
             <span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to cache paper: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to cache paper: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3229,7 +3229,7 @@ Handles data models, database operations, and caching for literature search.</p>
         <span class="n">database_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve cached papers with optional filtering.</span>
 
 <span class="sd">        Args:</span>
@@ -3240,64 +3240,64 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">        Returns:</span>
 <span class="sd">                List[Paper]: List of matching papers</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
-                <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+                <span class="n">sql</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">                      SELECT id, </span><span class="se">\</span>
 <span class="s2">                             title, </span><span class="se">\</span>
 <span class="s2">                             authors, </span><span class="se">\</span>
 <span class="s2">                             abstract, year, venue, doi, arxiv_id, url, citations, keywords, database_source, pdf_url, publication_type, issue, volume, pages, publisher</span>
 <span class="s2">                      FROM papers </span><span class="se">\</span>
 <span class="s2">                      WHERE 1=1 </span><span class="se">\</span>
-<span class="s2">				      &quot;&quot;&quot;</span>
+<span class="s2">				      """</span>
                 <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
 
                 <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
-                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; AND (title LIKE ? OR abstract LIKE ?)&quot;</span>
-                    <span class="n">params</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;%</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;%</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">])</span>
+                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">" AND (title LIKE ? OR abstract LIKE ?)"</span>
+                    <span class="n">params</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">"%</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"%</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">%"</span><span class="p">])</span>
 
                 <span class="k">if</span> <span class="n">year_min</span><span class="p">:</span>
-                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; AND year &gt;= ?&quot;</span>
+                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">" AND year &gt;= ?"</span>
                     <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">year_min</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">database_source</span><span class="p">:</span>
-                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; AND database_source = ?&quot;</span>
+                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">" AND database_source = ?"</span>
                     <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">database_source</span><span class="p">)</span>
 
-                <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; ORDER BY year DESC, citations DESC&quot;</span>
+                <span class="n">sql</span> <span class="o">+=</span> <span class="s2">" ORDER BY year DESC, citations DESC"</span>
 
                 <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>
-                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">&quot; LIMIT ?&quot;</span>
+                    <span class="n">sql</span> <span class="o">+=</span> <span class="s2">" LIMIT ?"</span>
                     <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
 
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
                 <span class="n">papers</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
                     <span class="n">paper_data</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;authors&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
-                        <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;venue&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;doi&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;arxiv_id&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
-                        <span class="s2">&quot;database_source&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;pdf_url&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;publication_type&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;issue&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;volume&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;pages&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;publisher&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="s2">"title"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"authors"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
+                        <span class="s2">"abstract"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"year"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"venue"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"doi"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"arxiv_id"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"url"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"citations"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"keywords"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
+                        <span class="s2">"database_source"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"pdf_url"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"publication_type"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"issue"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"volume"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"pages"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"publisher"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
                     <span class="p">}</span>
                     <span class="n">papers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Paper</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">paper_data</span><span class="p">))</span>
 
                 <span class="k">return</span> <span class="n">papers</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to retrieve cached papers: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to retrieve cached papers: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[]</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3428,7 +3428,7 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">477</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">cache_search_results</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">databases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Cache search results with metadata.</span>
 
 <span class="sd">        Args:</span>
@@ -3438,7 +3438,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">        Returns:</span>
 <span class="sd">                bool: Success status</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query_hash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_query_hash</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">databases</span><span class="p">)</span>
 
@@ -3449,10 +3449,10 @@ Handles data models, database operations, and caching for literature search.</p>
 
                 <span class="c1"># Insert or update search record</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                    </span><span class="sd">"""</span>
 <span class="sd">                    INSERT OR REPLACE INTO searches (query_hash, query, databases, total_results)</span>
 <span class="sd">                    VALUES (?, ?, ?, ?)</span>
-<span class="sd">                &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">                """</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">query_hash</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">databases</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)),</span>
                 <span class="p">)</span>
 
@@ -3460,7 +3460,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
                 <span class="c1"># Clear existing search results</span>
                 <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-                    <span class="s2">&quot;DELETE FROM search_results WHERE search_id = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">search_id</span><span class="p">,)</span>
+                    <span class="s2">"DELETE FROM search_results WHERE search_id = ?"</span><span class="p">,</span> <span class="p">(</span><span class="n">search_id</span><span class="p">,)</span>
                 <span class="p">)</span>
 
                 <span class="c1"># Insert search results</span>
@@ -3471,16 +3471,16 @@ Handles data models, database operations, and caching for literature search.</p>
                     <span class="p">)</span>  <span class="c1"># Simple relevance based on order</span>
 
                     <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                        </span><span class="sd">"""</span>
 <span class="sd">                                 INSERT INTO search_results (search_id, paper_id, relevance_score)</span>
 <span class="sd">                                 VALUES (?, ?, ?)</span>
-<span class="sd">					             &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">					             """</span><span class="p">,</span>
                         <span class="p">(</span><span class="n">search_id</span><span class="p">,</span> <span class="n">paper_id</span><span class="p">,</span> <span class="n">relevance_score</span><span class="p">),</span>
                     <span class="p">)</span>
 
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to cache search results: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to cache search results: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3648,7 +3648,7 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">570</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cached_search</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">databases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">max_age_hours</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">24</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get cached search results if recent enough.</span>
 
 <span class="sd">        Args:</span>
@@ -3658,18 +3658,18 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">        Returns:</span>
 <span class="sd">                Optional[List[Paper]]: Cached results or None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query_hash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_query_hash</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">databases</span><span class="p">)</span>
 
             <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
                 <span class="c1"># Find recent search</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                    </span><span class="sd">"""</span>
 <span class="sd">                    SELECT id FROM searches</span>
-<span class="sd">                    WHERE query_hash = ? AND searched_at &gt; datetime(&#39;now&#39;, &#39;-{} hours&#39;)</span>
+<span class="sd">                    WHERE query_hash = ? AND searched_at &gt; datetime('now', '-{} hours')</span>
 <span class="sd">                    ORDER BY searched_at DESC LIMIT 1</span>
-<span class="sd">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">                """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">max_age_hours</span>
                     <span class="p">),</span>
                     <span class="p">(</span><span class="n">query_hash</span><span class="p">,),</span>
@@ -3683,7 +3683,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
                 <span class="c1"># Get papers from search results</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                    </span><span class="sd">"""</span>
 <span class="sd">                                      SELECT p.id,</span>
 <span class="sd">                                             p.title,</span>
 <span class="sd">                                             p.authors,</span>
@@ -3706,36 +3706,36 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="sd">                                               JOIN search_results sr ON p.id = sr.paper_id</span>
 <span class="sd">                                      WHERE sr.search_id = ?</span>
 <span class="sd">                                      ORDER BY sr.relevance_score DESC</span>
-<span class="sd">				                      &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="sd">				                      """</span><span class="p">,</span>
                     <span class="p">(</span><span class="n">search_id</span><span class="p">,),</span>
                 <span class="p">)</span>
 
                 <span class="n">papers</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
                     <span class="n">paper_data</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;authors&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
-                        <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;venue&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;doi&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;arxiv_id&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
-                        <span class="s2">&quot;database_source&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;pdf_url&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;publication_type&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;issue&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;volume&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;pages&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;publisher&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="s2">"title"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"authors"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
+                        <span class="s2">"abstract"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"year"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"venue"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"doi"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"arxiv_id"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"url"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"citations"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">"keywords"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">else</span> <span class="p">[],</span>
+                        <span class="s2">"database_source"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"pdf_url"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"publication_type"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"issue"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"volume"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"pages"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"publisher"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
                     <span class="p">}</span>
                     <span class="n">papers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Paper</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">paper_data</span><span class="p">))</span>
 
                 <span class="k">return</span> <span class="n">papers</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get cached search: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to get cached search: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3811,54 +3811,54 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">619</span>
 <span class="normal">620</span>
 <span class="normal">621</span></pre></div></td><td class="code"><div><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">get_cache_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get cache statistics.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get cache statistics."""</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
                 <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
 
                 <span class="c1"># Paper stats</span>
-                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM papers&quot;</span><span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;total_papers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM papers"</span><span class="p">)</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"total_papers"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-                    <span class="s2">&quot;SELECT COUNT(DISTINCT database_source) FROM papers&quot;</span>
+                    <span class="s2">"SELECT COUNT(DISTINCT database_source) FROM papers"</span>
                 <span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;unique_sources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"unique_sources"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-                    <span class="s2">&quot;SELECT database_source, COUNT(*) FROM papers GROUP BY database_source&quot;</span>
+                    <span class="s2">"SELECT database_source, COUNT(*) FROM papers GROUP BY database_source"</span>
                 <span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;papers_by_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"papers_by_source"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 
                 <span class="c1"># Search stats</span>
-                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM searches&quot;</span><span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;total_searches&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM searches"</span><span class="p">)</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"total_searches"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                    </span><span class="sd">"""</span>
 <span class="sd">                                      SELECT COUNT(*)</span>
 <span class="sd">                                      FROM searches</span>
-<span class="sd">                                      WHERE searched_at &gt; datetime(&#39;now&#39;, &#39;-24 hours&#39;)</span>
-<span class="sd">				                      &quot;&quot;&quot;</span>
+<span class="sd">                                      WHERE searched_at &gt; datetime('now', '-24 hours')</span>
+<span class="sd">				                      """</span>
                 <span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;recent_searches&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"recent_searches"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="c1"># Year distribution</span>
                 <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                    </span><span class="sd">"""</span>
 <span class="sd">                                      SELECT year, COUNT (*)</span>
 <span class="sd">                                      FROM papers</span>
 <span class="sd">                                      WHERE year &gt; 0</span>
 <span class="sd">                                      GROUP BY year</span>
 <span class="sd">                                      ORDER BY year DESC</span>
 <span class="sd">                                          LIMIT 10</span>
-<span class="sd">				                      &quot;&quot;&quot;</span>
+<span class="sd">				                      """</span>
                 <span class="p">)</span>
-                <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;recent_years&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+                <span class="n">stats</span><span class="p">[</span><span class="s2">"recent_years"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 
                 <span class="k">return</span> <span class="n">stats</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get cache stats: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to get cache stats: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{}</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3963,7 +3963,7 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">672</span>
 <span class="normal">673</span>
 <span class="normal">674</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days_old</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Clean up old cache entries.</span>
 
 <span class="sd">    Args:</span>
@@ -3971,15 +3971,15 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">            bool: Success status</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
             <span class="c1"># Remove old searches (cascade will remove search_results)</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                </span><span class="sd">"""</span>
 <span class="sd">                DELETE FROM searches</span>
-<span class="sd">                WHERE searched_at &lt; datetime(&#39;now&#39;, &#39;-{} days&#39;)</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">                WHERE searched_at &lt; datetime('now', '-{} days')</span>
+<span class="sd">            """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">days_old</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -3988,16 +3988,16 @@ Handles data models, database operations, and caching for literature search.</p>
 
             <span class="c1"># Remove orphaned papers (not referenced by any recent search)</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">                </span><span class="sd">"""</span>
 <span class="sd">                DELETE FROM papers</span>
 <span class="sd">                WHERE id NOT IN (</span>
 <span class="sd">                    SELECT DISTINCT sr.paper_id</span>
 <span class="sd">                    FROM search_results sr</span>
 <span class="sd">                    JOIN searches s ON sr.search_id = s.id</span>
-<span class="sd">                    WHERE s.searched_at &gt; datetime(&#39;now&#39;, &#39;-{} days&#39;)</span>
+<span class="sd">                    WHERE s.searched_at &gt; datetime('now', '-{} days')</span>
 <span class="sd">                )</span>
-<span class="sd">                AND cached_at &lt; datetime(&#39;now&#39;, &#39;-{} days&#39;)</span>
-<span class="sd">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="sd">                AND cached_at &lt; datetime('now', '-{} days')</span>
+<span class="sd">            """</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">days_old</span><span class="p">,</span> <span class="n">days_old</span>
                 <span class="p">)</span>
             <span class="p">)</span>
@@ -4005,14 +4005,14 @@ Handles data models, database operations, and caching for literature search.</p>
             <span class="n">papers_removed</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span>
 
             <span class="c1"># Vacuum database to reclaim space</span>
-            <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;VACUUM&quot;</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"VACUUM"</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Cache cleanup: removed </span><span class="si">{</span><span class="n">searches_removed</span><span class="si">}</span><span class="s2"> searches, </span><span class="si">{</span><span class="n">papers_removed</span><span class="si">}</span><span class="s2"> papers&quot;</span>
+                <span class="sa">f</span><span class="s2">"Cache cleanup: removed </span><span class="si">{</span><span class="n">searches_removed</span><span class="si">}</span><span class="s2"> searches, </span><span class="si">{</span><span class="n">papers_removed</span><span class="si">}</span><span class="s2"> papers"</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to cleanup cache: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to cleanup cache: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4108,7 +4108,7 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">711</span>
 <span class="normal">712</span>
 <span class="normal">713</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">find_duplicates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Find potential duplicate papers in cache.</span>
 
 <span class="sd">    Args:</span>
@@ -4116,7 +4116,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">            List[List[Paper]]: Groups of similar papers</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">papers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cached_papers</span><span class="p">()</span>
         <span class="n">duplicates</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4143,7 +4143,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
         <span class="k">return</span> <span class="n">duplicates</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to find duplicates: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to find duplicates: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[]</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4159,7 +4159,7 @@ Handles data models, database operations, and caching for literature search.</p>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">export_papers</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">export_papers</span><span class="p">(</span><span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'json'</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -4273,46 +4273,46 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">779</span>
 <span class="normal">780</span>
 <span class="normal">781</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_papers</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Export all cached papers to file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">            format: Export format (&#39;json&#39;, &#39;csv&#39;)</span>
+<span class="sd">            format: Export format ('json', 'csv')</span>
 <span class="sd">            filename: Output filename</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">            Optional[str]: Filename if successful</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">papers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cached_papers</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
-            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cached_papers_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S"</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"cached_papers_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span>
 
-        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">paper</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">]</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;csv&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"csv"</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
 
             <span class="k">if</span> <span class="n">papers</span><span class="p">:</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">fieldnames</span> <span class="o">=</span> <span class="p">[</span>
-                        <span class="s2">&quot;title&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;authors&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;year&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;venue&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;abstract&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;doi&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;url&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;citations&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;database_source&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;publication_type&quot;</span><span class="p">,</span>
+                        <span class="s2">"title"</span><span class="p">,</span>
+                        <span class="s2">"authors"</span><span class="p">,</span>
+                        <span class="s2">"year"</span><span class="p">,</span>
+                        <span class="s2">"venue"</span><span class="p">,</span>
+                        <span class="s2">"abstract"</span><span class="p">,</span>
+                        <span class="s2">"doi"</span><span class="p">,</span>
+                        <span class="s2">"url"</span><span class="p">,</span>
+                        <span class="s2">"citations"</span><span class="p">,</span>
+                        <span class="s2">"database_source"</span><span class="p">,</span>
+                        <span class="s2">"publication_type"</span><span class="p">,</span>
                     <span class="p">]</span>
                     <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="n">fieldnames</span><span class="p">)</span>
                     <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
@@ -4320,24 +4320,24 @@ Handles data models, database operations, and caching for literature search.</p>
                     <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">:</span>
                         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
                             <span class="p">{</span>
-                                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-                                <span class="s2">&quot;authors&quot;</span><span class="p">:</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">authors</span><span class="p">),</span>
-                                <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
-                                <span class="s2">&quot;venue&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">venue</span><span class="p">,</span>
-                                <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>
-                                <span class="s2">&quot;doi&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">doi</span><span class="p">,</span>
-                                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
-                                <span class="s2">&quot;citations&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">citations</span><span class="p">,</span>
-                                <span class="s2">&quot;database_source&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">database_source</span><span class="p">,</span>
-                                <span class="s2">&quot;publication_type&quot;</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">publication_type</span><span class="p">,</span>
+                                <span class="s2">"title"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                                <span class="s2">"authors"</span><span class="p">:</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">authors</span><span class="p">),</span>
+                                <span class="s2">"year"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+                                <span class="s2">"venue"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">venue</span><span class="p">,</span>
+                                <span class="s2">"abstract"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>
+                                <span class="s2">"doi"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">doi</span><span class="p">,</span>
+                                <span class="s2">"url"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                                <span class="s2">"citations"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">citations</span><span class="p">,</span>
+                                <span class="s2">"database_source"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">database_source</span><span class="p">,</span>
+                                <span class="s2">"publication_type"</span><span class="p">:</span> <span class="n">paper</span><span class="o">.</span><span class="n">publication_type</span><span class="p">,</span>
                             <span class="p">}</span>
                         <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">filename</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to export papers: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to export papers: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4455,27 +4455,27 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">826</span>
 <span class="normal">827</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">format_arxiv_paper</span><span class="p">(</span><span class="n">entry_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Paper</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format arXiv entry data into standardized Paper object.&quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Format arXiv entry data into standardized Paper object."""</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
 
     <span class="n">authors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;authors&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+    <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"authors"</span><span class="p">,</span> <span class="p">[]):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
             <span class="n">authors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 
-    <span class="n">abstract</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">abstract</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">abstract</span><span class="p">)</span>
+    <span class="n">abstract</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"summary"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
+    <span class="n">abstract</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">abstract</span><span class="p">)</span>
 
-    <span class="n">arxiv_id</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">arxiv_id</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">PaperFormatter</span><span class="o">.</span><span class="n">_extract_arxiv_year</span><span class="p">(</span><span class="n">arxiv_id</span><span class="p">)</span>
 
     <span class="n">keywords</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">categories</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"categories"</span><span class="p">,</span> <span class="p">[])</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">categories</span><span class="p">]</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -4486,13 +4486,13 @@ Handles data models, database operations, and caching for literature search.</p>
         <span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span>
         <span class="n">abstract</span><span class="o">=</span><span class="n">abstract</span><span class="p">,</span>
         <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-        <span class="n">venue</span><span class="o">=</span><span class="s2">&quot;arXiv&quot;</span><span class="p">,</span>
+        <span class="n">venue</span><span class="o">=</span><span class="s2">"arXiv"</span><span class="p">,</span>
         <span class="n">arxiv_id</span><span class="o">=</span><span class="n">arxiv_id</span><span class="p">,</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">keywords</span><span class="o">=</span><span class="n">keywords</span><span class="p">,</span>
-        <span class="n">database_source</span><span class="o">=</span><span class="s2">&quot;arxiv&quot;</span><span class="p">,</span>
-        <span class="n">pdf_url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pdf_url&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">publication_type</span><span class="o">=</span><span class="s2">&quot;preprint&quot;</span><span class="p">,</span>
+        <span class="n">database_source</span><span class="o">=</span><span class="s2">"arxiv"</span><span class="p">,</span>
+        <span class="n">pdf_url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pdf_url"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">publication_type</span><span class="o">=</span><span class="s2">"preprint"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4556,36 +4556,36 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">860</span>
 <span class="normal">861</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">format_ieee_paper</span><span class="p">(</span><span class="n">entry_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Paper</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format IEEE entry data into standardized Paper object.&quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Format IEEE entry data into standardized Paper object."""</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="n">authors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="s2">&quot;authors&quot;</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">"authors"</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">authors</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;full_name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">]</span>
+                <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"full_name"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">]</span>
             <span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">authors</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;full_name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">authors</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"full_name"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)]</span>
 
     <span class="k">return</span> <span class="n">Paper</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span>
-        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">year</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publication_year&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publication_title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pdf_url&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">citations</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;citing_paper_count&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-        <span class="n">database_source</span><span class="o">=</span><span class="s2">&quot;ieee&quot;</span><span class="p">,</span>
-        <span class="n">pdf_url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pdf_url&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">publication_type</span><span class="o">=</span><span class="s2">&quot;article&quot;</span><span class="p">,</span>
-        <span class="n">volume</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;volume&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">issue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;issue&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"abstract"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">year</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publication_year"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publication_title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"doi"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pdf_url"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">citations</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"citing_paper_count"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">database_source</span><span class="o">=</span><span class="s2">"ieee"</span><span class="p">,</span>
+        <span class="n">pdf_url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pdf_url"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">publication_type</span><span class="o">=</span><span class="s2">"article"</span><span class="p">,</span>
+        <span class="n">volume</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"volume"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">issue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"issue"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">pages</span><span class="o">=</span><span class="n">PaperFormatter</span><span class="o">.</span><span class="n">_format_pages</span><span class="p">(</span>
-            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_page&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end_page&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"start_page"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"end_page"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="p">),</span>
-        <span class="n">publisher</span><span class="o">=</span><span class="s2">&quot;IEEE&quot;</span><span class="p">,</span>
+        <span class="n">publisher</span><span class="o">=</span><span class="s2">"IEEE"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4656,43 +4656,43 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">901</span>
 <span class="normal">902</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">format_elsevier_paper</span><span class="p">(</span><span class="n">entry_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Paper</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format Elsevier/ScienceDirect entry data.&quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dc:title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Format Elsevier/ScienceDirect entry data."""</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dc:title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="n">authors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="s2">&quot;authors&quot;</span> <span class="ow">in</span> <span class="n">entry_data</span> <span class="ow">and</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">]:</span>
-        <span class="n">author_list</span> <span class="o">=</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;authors&quot;</span><span class="p">][</span><span class="s2">&quot;author&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">"authors"</span> <span class="ow">in</span> <span class="n">entry_data</span> <span class="ow">and</span> <span class="s2">"author"</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">]:</span>
+        <span class="n">author_list</span> <span class="o">=</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">"authors"</span><span class="p">][</span><span class="s2">"author"</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">author_list</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                    <span class="n">given</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ce:given-name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-                    <span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ce:surname&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-                    <span class="n">full_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">given</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">surname</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">given</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ce:given-name"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+                    <span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ce:surname"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+                    <span class="n">full_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">given</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">surname</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">full_name</span><span class="p">:</span>
                         <span class="n">authors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">Paper</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span>
-        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dc:description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dc:description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">year</span><span class="o">=</span><span class="p">(</span>
-            <span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:coverDate&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:coverDate&quot;</span><span class="p">)</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:coverDate"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:coverDate"</span><span class="p">)</span>
             <span class="k">else</span> <span class="mi">0</span>
         <span class="p">),</span>
-        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:publicationName&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:doi&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:publicationName"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:doi"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">url</span><span class="o">=</span><span class="p">(</span>
-            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;@href&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;link&quot;</span><span class="p">)</span>
-            <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"@href"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"link"</span><span class="p">)</span>
+            <span class="k">else</span> <span class="s2">""</span>
         <span class="p">),</span>
-        <span class="n">database_source</span><span class="o">=</span><span class="s2">&quot;elsevier&quot;</span><span class="p">,</span>
-        <span class="n">publication_type</span><span class="o">=</span><span class="s2">&quot;article&quot;</span><span class="p">,</span>
-        <span class="n">volume</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:volume&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">issue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:issueIdentifier&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">pages</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prism:pageRange&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">publisher</span><span class="o">=</span><span class="s2">&quot;Elsevier&quot;</span><span class="p">,</span>
+        <span class="n">database_source</span><span class="o">=</span><span class="s2">"elsevier"</span><span class="p">,</span>
+        <span class="n">publication_type</span><span class="o">=</span><span class="s2">"article"</span><span class="p">,</span>
+        <span class="n">volume</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:volume"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">issue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:issueIdentifier"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">pages</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"prism:pageRange"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">publisher</span><span class="o">=</span><span class="s2">"Elsevier"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4758,14 +4758,14 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">937</span>
 <span class="normal">938</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">format_springer_paper</span><span class="p">(</span><span class="n">entry_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Paper</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format Springer entry data.&quot;&quot;&quot;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Format Springer entry data."""</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
 
     <span class="n">authors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="s2">&quot;creators&quot;</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">creator</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">&quot;creators&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="s2">"creators"</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">creator</span> <span class="ow">in</span> <span class="n">entry_data</span><span class="p">[</span><span class="s2">"creators"</span><span class="p">]:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">creator</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;creator&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">creator</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"creator"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">creator</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
@@ -4774,22 +4774,22 @@ Handles data models, database operations, and caching for literature search.</p>
     <span class="k">return</span> <span class="n">Paper</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span>
-        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"abstract"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">year</span><span class="o">=</span><span class="p">(</span>
-            <span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicationDate&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicationDate&quot;</span><span class="p">)</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publicationDate"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publicationDate"</span><span class="p">)</span>
             <span class="k">else</span> <span class="mi">0</span>
         <span class="p">),</span>
-        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicationName&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publicationName"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"doi"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
         <span class="n">url</span><span class="o">=</span><span class="p">(</span>
-            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span>
-            <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">,</span> <span class="p">[{}])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"value"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"url"</span><span class="p">)</span>
+            <span class="k">else</span> <span class="s2">""</span>
         <span class="p">),</span>
-        <span class="n">database_source</span><span class="o">=</span><span class="s2">&quot;springer&quot;</span><span class="p">,</span>
-        <span class="n">publication_type</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;contentType&quot;</span><span class="p">,</span> <span class="s2">&quot;article&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-        <span class="n">publisher</span><span class="o">=</span><span class="s2">&quot;Springer&quot;</span><span class="p">,</span>
+        <span class="n">database_source</span><span class="o">=</span><span class="s2">"springer"</span><span class="p">,</span>
+        <span class="n">publication_type</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"contentType"</span><span class="p">,</span> <span class="s2">"article"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+        <span class="n">publisher</span><span class="o">=</span><span class="s2">"Springer"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4835,18 +4835,18 @@ Handles data models, database operations, and caching for literature search.</p>
 <span class="normal">953</span>
 <span class="normal">954</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">format_wiley_paper</span><span class="p">(</span><span class="n">entry_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Paper</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format Wiley entry data.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Format Wiley entry data."""</span>
     <span class="k">return</span> <span class="n">Paper</span><span class="p">(</span>
-        <span class="n">title</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">authors</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;authors&quot;</span><span class="p">,</span> <span class="p">[]),</span>
-        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">year</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicationYear&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;onlineLibraryUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">database_source</span><span class="o">=</span><span class="s2">&quot;wiley&quot;</span><span class="p">,</span>
-        <span class="n">publication_type</span><span class="o">=</span><span class="s2">&quot;article&quot;</span><span class="p">,</span>
-        <span class="n">publisher</span><span class="o">=</span><span class="s2">&quot;Wiley&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">authors</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"authors"</span><span class="p">,</span> <span class="p">[]),</span>
+        <span class="n">abstract</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"abstract"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">year</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"publicationYear"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">venue</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"source"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">doi</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"doi"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">entry_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"onlineLibraryUrl"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">database_source</span><span class="o">=</span><span class="s2">"wiley"</span><span class="p">,</span>
+        <span class="n">publication_type</span><span class="o">=</span><span class="s2">"article"</span><span class="p">,</span>
+        <span class="n">publisher</span><span class="o">=</span><span class="s2">"Wiley"</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>

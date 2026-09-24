@@ -2180,11 +2180,11 @@
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> <span class="o">=</span> <span class="n">Zettelkasten</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Cache eviction&quot;</span><span class="p">,</span> <span class="n">n_type</span><span class="o">=</span><span class="s2">&quot;atom&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;memory&quot;</span><span class="p">])</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> <span class="o">=</span> <span class="n">Zettelkasten</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Cache eviction"</span><span class="p">,</span> <span class="n">n_type</span><span class="o">=</span><span class="s2">"atom"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"memory"</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">note</span><span class="o">.</span><span class="n">title</span>
-<span class="go">&#39;Cache eviction&#39;</span>
+<span class="go">'Cache eviction'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">note</span><span class="o">.</span><span class="n">type</span>
-<span class="go">&#39;atom&#39;</span>
+<span class="go">'atom'</span>
 </code></pre></div>
 
         <p>Initialize a Zettelkasten object.</p>
@@ -2242,7 +2242,7 @@
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> <span class="o">=</span> <span class="n">Zettelkasten</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Cache eviction&quot;</span><span class="p">,</span> <span class="n">n_type</span><span class="o">=</span><span class="s2">&quot;permanent&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> <span class="o">=</span> <span class="n">Zettelkasten</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Cache eviction"</span><span class="p">,</span> <span class="n">n_type</span><span class="o">=</span><span class="s2">"permanent"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">note</span><span class="o">.</span><span class="n">tags</span>
 <span class="go">[]</span>
 </code></pre></div>
@@ -2313,42 +2313,42 @@
     <span class="n">aliases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initialize a Zettelkasten object.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        title (str): The title of the note.</span>
-<span class="sd">        n_type (str): The type of the note, only support &#39;fleeting&#39;, &#39;literature&#39;, &#39;permanent&#39; and &#39;atom&#39;.</span>
+<span class="sd">        n_type (str): The type of the note, only support 'fleeting', 'literature', 'permanent' and 'atom'.</span>
 <span class="sd">        url (str): The url of the note.</span>
 <span class="sd">        tags (list): The tags of the note.</span>
 <span class="sd">        aliases (list): Alternate titles for the note.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; note = Zettelkasten(title=&quot;Cache eviction&quot;, n_type=&quot;permanent&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; note = Zettelkasten(title="Cache eviction", n_type="permanent")</span>
 <span class="sd">        &gt;&gt;&gt; note.tags</span>
 <span class="sd">        []</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">title</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Title must be a non-empty string.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Title must be a non-empty string."</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ALLOWED_TYPES</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="n">n_type</span><span class="si">}</span><span class="s2">&#39;. Allowed types are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALLOWED_TYPES</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="sa">f</span><span class="s2">"Invalid type '</span><span class="si">{</span><span class="n">n_type</span><span class="si">}</span><span class="s2">'. Allowed types are: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ALLOWED_TYPES</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;URL must be a string.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"URL must be a string."</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tags must be a list.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Tags must be a list."</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">aliases</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Aliases must be a list.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Aliases must be a list."</span><span class="p">)</span>
 
     <span class="n">_metadata</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">n_type</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">tags</span> <span class="ow">or</span> <span class="p">[],</span>
-        <span class="s2">&quot;aliases&quot;</span><span class="p">:</span> <span class="n">aliases</span> <span class="ow">or</span> <span class="p">[],</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">zettelkasten_id</span><span class="p">(),</span>
-        <span class="s2">&quot;create&quot;</span><span class="p">:</span> <span class="n">time_now</span><span class="p">(),</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="n">n_type</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="p">:</span> <span class="n">url</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="n">tags</span> <span class="ow">or</span> <span class="p">[],</span>
+        <span class="s2">"aliases"</span><span class="p">:</span> <span class="n">aliases</span> <span class="ow">or</span> <span class="p">[],</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="n">zettelkasten_id</span><span class="p">(),</span>
+        <span class="s2">"create"</span><span class="p">:</span> <span class="n">time_now</span><span class="p">(),</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">_metadata</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -2474,8 +2474,8 @@
 <span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;MarkdownDocument&quot;</span><span class="p">,</span> <span class="s2">&quot;Zettelkasten&quot;</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">"MarkdownDocument"</span><span class="p">,</span> <span class="s2">"Zettelkasten"</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Creates a MarkdownDocument instance by loading a Markdown file.</span>
 
 <span class="sd">    Args:</span>
@@ -2487,20 +2487,20 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        FileNotFoundError: If the specified file does not exist.</span>
 <span class="sd">        frontmatter.InvalidFrontMatterError: If the front matter is malformed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The file &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&#39; does not exist.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The file '</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">' does not exist."</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">post</span> <span class="o">=</span> <span class="n">frontmatter</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
     <span class="n">_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-    <span class="n">n_type</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">n_type</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"type"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
-    <span class="n">_params</span><span class="p">[</span><span class="s2">&quot;n_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_type</span>
+        <span class="k">del</span> <span class="n">_params</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
+    <span class="n">_params</span><span class="p">[</span><span class="s2">"n_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_type</span>
 
-    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;n_type&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="s2">&quot;aliases&quot;</span><span class="p">]</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">"n_type"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">,</span> <span class="s2">"tags"</span><span class="p">,</span> <span class="s2">"aliases"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_params</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">_params</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2508,8 +2508,8 @@
     <span class="n">zk</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
         <span class="o">**</span><span class="n">_params</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="c1"># zk.metadata[&quot;id&quot;] = post.metadata.get(&quot;id&quot;, zk.metadata[&quot;id&quot;])</span>
-    <span class="c1"># zk.metadata[&quot;create&quot;] = post.metadata.get(&quot;create&quot;, zk.metadata[&quot;create&quot;])</span>
+    <span class="c1"># zk.metadata["id"] = post.metadata.get("id", zk.metadata["id"])</span>
+    <span class="c1"># zk.metadata["create"] = post.metadata.get("create", zk.metadata["create"])</span>
     <span class="n">zk</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">zk</span>
 </code></pre></div></td></tr></table></div>
@@ -2659,48 +2659,48 @@ Defaults to None.</p>
 <span class="normal">249</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">to_llm_friendly_content</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">prop_ignores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Content</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Content</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates an LLM-friendly representation of the note, filtering metadata and merging context.</span>
+<span class="w">    </span><span class="sd">"""Generates an LLM-friendly representation of the note, filtering metadata and merging context.</span>
 
 <span class="sd">    This method creates a structured content object designed for LLM consumption. It first</span>
-<span class="sd">    adds a &#39;Metadata&#39; section (filtering out specified keys), then appends the note&#39;s</span>
+<span class="sd">    adds a 'Metadata' section (filtering out specified keys), then appends the note's</span>
 <span class="sd">    main body, and finally merges any external context provided.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        prop_ignores (Optional[List[str]]): A list of metadata keys to exclude from the output.</span>
-<span class="sd">            Defaults to None. The keys &quot;aliases&quot;, &quot;url&quot;, &quot;id&quot;, and &quot;title&quot; are always ignored</span>
+<span class="sd">            Defaults to None. The keys "aliases", "url", "id", and "title" are always ignored</span>
 <span class="sd">            by default.</span>
 <span class="sd">        context (Optional[Content]): Additional contextual content to append to the note.</span>
 <span class="sd">            Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Content: A new Content object organized into &#39;Metadata&#39;, &#39;Main Content&#39;, and</span>
-<span class="sd">        optionally &#39;Context&#39; sections.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Content: A new Content object organized into 'Metadata', 'Main Content', and</span>
+<span class="sd">        optionally 'Context' sections.</span>
+<span class="sd">    """</span>
     <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">Content</span><span class="p">()</span>
     <span class="c1"># Create a new section for metadata</span>
-    <span class="n">properties_ignore_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">]</span>
+    <span class="n">properties_ignore_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"aliases"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">prop_ignores</span><span class="p">:</span>
         <span class="n">properties_ignore_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">prop_ignores</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">properties_ignore_list</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
             <span class="n">content</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span>
-                <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-                <span class="n">section_title</span><span class="o">=</span><span class="s2">&quot;Metadata&quot;</span><span class="p">,</span>
+                <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">section_title</span><span class="o">=</span><span class="s2">"Metadata"</span><span class="p">,</span>
                 <span class="n">section_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="c1"># Merge all existing sections into the main body</span>
-    <span class="n">body_title</span> <span class="o">=</span> <span class="s2">&quot;Main Content&quot;</span>
+    <span class="n">body_title</span> <span class="o">=</span> <span class="s2">"Main Content"</span>
     <span class="n">body_level</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_content</span><span class="p">()</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">content</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span>
-            <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**:&quot;</span><span class="p">,</span>
+            <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**:"</span><span class="p">,</span>
             <span class="n">section_title</span><span class="o">=</span><span class="n">body_title</span><span class="p">,</span>
             <span class="n">section_level</span><span class="o">=</span><span class="n">body_level</span><span class="p">,</span>
         <span class="p">)</span>
@@ -2712,11 +2712,11 @@ Defaults to None.</p>
 
     <span class="c1"># If context is provided, merge it</span>
     <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
-        <span class="n">context_title</span> <span class="o">=</span> <span class="s2">&quot;Context&quot;</span>
+        <span class="n">context_title</span> <span class="o">=</span> <span class="s2">"Context"</span>
         <span class="n">context_level</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">content</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span>
-                <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**:&quot;</span><span class="p">,</span>
+                <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**:"</span><span class="p">,</span>
                 <span class="n">section_title</span><span class="o">=</span><span class="n">context_title</span><span class="p">,</span>
                 <span class="n">section_level</span><span class="o">=</span><span class="n">context_level</span><span class="p">,</span>
             <span class="p">)</span>

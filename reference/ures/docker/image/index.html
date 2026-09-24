@@ -2659,7 +2659,7 @@ configuration and provides methods to save the generated Dockerfile.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.docker.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">BuildConfig</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">(</span><span class="n">base_image</span><span class="o">=</span><span class="s2">&quot;python:3.10-slim&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;appuser&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">(</span><span class="n">base_image</span><span class="o">=</span><span class="s2">"python:3.10-slim"</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">"appuser"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span> <span class="o">=</span> <span class="n">ImageConstructor</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 </code></pre></div>
 
@@ -2687,7 +2687,7 @@ configuration and provides methods to save the generated Dockerfile.</p>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initializes the ImageConstructor with the given build configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -2695,9 +2695,9 @@ configuration and provides methods to save the generated Dockerfile.</p>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from ures.docker.conf import BuildConfig</span>
-<span class="sd">        &gt;&gt;&gt; config = BuildConfig(base_image=&quot;python:3.10-slim&quot;, user=&quot;appuser&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; config = BuildConfig(base_image="python:3.10-slim", user="appuser")</span>
 <span class="sd">        &gt;&gt;&gt; constructor = ImageConstructor(config)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dockerfile_content</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_build_dockerfile</span><span class="p">()</span>
@@ -2749,10 +2749,10 @@ configuration and provides methods to save the generated Dockerfile.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.docker.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">BuildConfig</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;appuser&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">"appuser"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span> <span class="o">=</span> <span class="n">ImageConstructor</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span><span class="o">.</span><span class="n">home_dir</span>
-<span class="go">PosixPath(&#39;/home/appuser&#39;)</span>
+<span class="go">PosixPath('/home/appuser')</span>
 </code></pre></div>
 
     </div>
@@ -2794,7 +2794,7 @@ configuration and provides methods to save the generated Dockerfile.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span> <span class="o">=</span> <span class="n">ImageConstructor</span><span class="p">(</span><span class="n">BuildConfig</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span><span class="o">.</span><span class="n">content</span>  <span class="c1"># Might include commands like &#39;FROM python:3.10-slim&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span><span class="o">.</span><span class="n">content</span>  <span class="c1"># Might include commands like 'FROM python:3.10-slim'</span>
 </code></pre></div>
 
     </div>
@@ -2848,9 +2848,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span> <span class="o">=</span> <span class="n">ImageConstructor</span><span class="p">(</span><span class="n">BuildConfig</span><span class="p">(</span><span class="n">docker_filename</span><span class="o">=</span><span class="s2">&quot;Dockerfile&quot;</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">saved_path</span> <span class="o">=</span> <span class="n">constructor</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;/tmp&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">saved_path</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># Should be &#39;Dockerfile&#39;</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">constructor</span> <span class="o">=</span> <span class="n">ImageConstructor</span><span class="p">(</span><span class="n">BuildConfig</span><span class="p">(</span><span class="n">docker_filename</span><span class="o">=</span><span class="s2">"Dockerfile"</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">saved_path</span> <span class="o">=</span> <span class="n">constructor</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"/tmp"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">saved_path</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># Should be 'Dockerfile'</span>
 </code></pre></div>
 
 
@@ -2882,10 +2882,10 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">110</span>
 <span class="normal">111</span>
 <span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Saves the generated Dockerfile to the specified destination.</span>
 
-<span class="sd">    If the destination is a directory, the Dockerfile will be named using the configuration&#39;s</span>
+<span class="sd">    If the destination is a directory, the Dockerfile will be named using the configuration's</span>
 <span class="sd">    docker_filename and placed inside that directory.</span>
 
 <span class="sd">    Args:</span>
@@ -2895,17 +2895,17 @@ docker_filename and placed inside that directory.</p>
 <span class="sd">        Path: The full path where the Dockerfile was saved.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; constructor = ImageConstructor(BuildConfig(docker_filename=&quot;Dockerfile&quot;))</span>
-<span class="sd">        &gt;&gt;&gt; saved_path = constructor.save(&quot;/tmp&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; saved_path.name  # Should be &#39;Dockerfile&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; constructor = ImageConstructor(BuildConfig(docker_filename="Dockerfile"))</span>
+<span class="sd">        &gt;&gt;&gt; saved_path = constructor.save("/tmp")</span>
+<span class="sd">        &gt;&gt;&gt; saved_path.name  # Should be 'Dockerfile'</span>
+<span class="sd">    """</span>
     <span class="n">dest_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">dest</span>
     <span class="k">if</span> <span class="n">dest_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
         <span class="n">dest_path</span> <span class="o">=</span> <span class="n">dest_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">docker_filename</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving Dockerfile to: </span><span class="si">{</span><span class="n">dest_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saving Dockerfile to: </span><span class="si">{</span><span class="n">dest_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="n">dest_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dockerfile_content</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dockerfile_content</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">dest_path</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3013,7 +3013,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">"v1"</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -3051,19 +3051,19 @@ docker_filename and placed inside that directory.</p>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">client</span><span class="p">:</span> <span class="n">docker</span><span class="o">.</span><span class="n">DockerClient</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initializes an Image instance.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        image_name (str): The name of the Docker image.</span>
-<span class="sd">        tag (Optional[str], optional): The image tag. Defaults to &quot;latest&quot; if not provided.</span>
+<span class="sd">        tag (Optional[str], optional): The image tag. Defaults to "latest" if not provided.</span>
 <span class="sd">        client (Optional[docker.DockerClient], optional): The Docker client to use. Defaults to docker.from_env().</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;, tag=&quot;v1&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp", tag="v1")</span>
+<span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span> <span class="o">=</span> <span class="n">image_name</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="s2">&quot;latest&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="s2">"latest"</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span> <span class="ow">or</span> <span class="n">docker</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerImage</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
@@ -3113,9 +3113,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">name</span>
-<span class="go">&#39;myapp&#39;</span>
+<span class="go">'myapp'</span>
 </code></pre></div>
 
     </div>
@@ -3156,9 +3156,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">"v1"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">tag</span>
-<span class="go">&#39;v1&#39;</span>
+<span class="go">'v1'</span>
 </code></pre></div>
 
     </div>
@@ -3199,7 +3199,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">exist</span>  <span class="c1"># Depends on local Docker images</span>
 </code></pre></div>
 
@@ -3241,7 +3241,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">image</span>  <span class="c1"># Might return a DockerImage object if available</span>
 </code></pre></div>
 
@@ -3283,9 +3283,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">id</span>
-<span class="go">&#39;sha256:...&#39;</span>
+<span class="go">'sha256:...'</span>
 </code></pre></div>
 
     </div>
@@ -3326,9 +3326,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">architecture</span>
-<span class="go">&#39;amd64&#39;</span>
+<span class="go">'amd64'</span>
 </code></pre></div>
 
     </div>
@@ -3369,7 +3369,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">image_size</span>
 <span class="go">12345678</span>
 </code></pre></div>
@@ -3412,9 +3412,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">labels</span>
-<span class="go">{&#39;version&#39;: &#39;1.0&#39;}</span>
+<span class="go">{'version': '1.0'}</span>
 </code></pre></div>
 
     </div>
@@ -3468,9 +3468,9 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">"v1"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>
-<span class="go">&#39;myapp:v1&#39;</span>
+<span class="go">'myapp:v1'</span>
 </code></pre></div>
 
 
@@ -3494,23 +3494,23 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">471</span>
 <span class="normal">472</span>
 <span class="normal">473</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_fullname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Constructs the full image name including the tag.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tag (Optional[str], optional): The tag to use; if not provided, the instance&#39;s tag is used.</span>
+<span class="sd">        tag (Optional[str], optional): The tag to use; if not provided, the instance's tag is used.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: The full image name in the format &quot;name:tag&quot;.</span>
+<span class="sd">        str: The full image name in the format "name:tag".</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;, tag=&quot;v1&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp", tag="v1")</span>
 <span class="sd">        &gt;&gt;&gt; img.get_fullname()</span>
-<span class="sd">        &#39;myapp:v1&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        'myapp:v1'</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3561,7 +3561,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">image_obj</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_image</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">image_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>  <span class="c1"># Depends on local Docker images</span>
 </code></pre></div>
@@ -3596,22 +3596,22 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">499</span>
 <span class="normal">500</span>
 <span class="normal">501</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerImage</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieves the Docker image from the local repository.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tag (Optional[str], optional): The tag to use when retrieving the image. Defaults to the instance&#39;s tag.</span>
+<span class="sd">        tag (Optional[str], optional): The tag to use when retrieving the image. Defaults to the instance's tag.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Optional[DockerImage]: The Docker image if found; otherwise, None.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
 <span class="sd">        &gt;&gt;&gt; image_obj = img.get_image()</span>
 <span class="sd">        &gt;&gt;&gt; image_obj is not None  # Depends on local Docker images</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Getting image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">tag</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span><span class="p">:</span>
@@ -3620,7 +3620,7 @@ docker_filename and placed inside that directory.</p>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">ImageNotFound</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error accessing Docker API: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error accessing Docker API: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3672,7 +3672,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pulled</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">pull_image</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pulled</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </code></pre></div>
@@ -3704,26 +3704,26 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">524</span>
 <span class="normal">525</span>
 <span class="normal">526</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pull_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DockerImage</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Pulls the Docker image from a remote repository.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tag (Optional[str], optional): The tag to pull; defaults to the instance&#39;s tag if not provided.</span>
+<span class="sd">        tag (Optional[str], optional): The tag to pull; defaults to the instance's tag if not provided.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Optional[DockerImage]: The pulled Docker image if successful; otherwise, None.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
 <span class="sd">        &gt;&gt;&gt; pulled = img.pull_image()</span>
 <span class="sd">        &gt;&gt;&gt; pulled is not None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tag</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pulling image </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pulling image </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error pulling image </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error pulling image </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">image</span>
         <span class="k">return</span> <span class="n">image</span>
@@ -3794,8 +3794,8 @@ docker_filename and placed inside that directory.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">build_config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">built_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">build_image</span><span class="p">(</span><span class="n">build_config</span><span class="p">,</span> <span class="s2">&quot;/tmp/dockerfile_dir&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">built_img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">build_image</span><span class="p">(</span><span class="n">build_config</span><span class="p">,</span> <span class="s2">"/tmp/dockerfile_dir"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">built_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -3862,7 +3862,7 @@ docker_filename and placed inside that directory.</p>
     <span class="n">dest</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
     <span class="n">build_context</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DockerImage</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Builds a Docker image using the specified build configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -3875,11 +3875,11 @@ docker_filename and placed inside that directory.</p>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; build_config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; built_img = img.build_image(build_config, &quot;/tmp/dockerfile_dir&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
+<span class="sd">        &gt;&gt;&gt; built_img = img.build_image(build_config, "/tmp/dockerfile_dir")</span>
 <span class="sd">        &gt;&gt;&gt; built_img is not None</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">build_context</span> <span class="o">=</span> <span class="n">build_context</span> <span class="ow">or</span> <span class="n">build_config</span><span class="o">.</span><span class="n">context_dir</span>
     <span class="n">build_context</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">build_context</span><span class="p">)</span>
     <span class="n">dest</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
@@ -3889,23 +3889,23 @@ docker_filename and placed inside that directory.</p>
     <span class="n">docker_path</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
     <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">build_context</span><span class="p">),</span>
-        <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span>
-        <span class="s2">&quot;dockerfile&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">docker_path</span><span class="p">),</span>
-        <span class="s2">&quot;nocache&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"path"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">build_context</span><span class="p">),</span>
+        <span class="s2">"tag"</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span>
+        <span class="s2">"dockerfile"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">docker_path</span><span class="p">),</span>
+        <span class="s2">"nocache"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Building image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with dockerfile </span><span class="si">{</span><span class="n">docker_path</span><span class="si">}</span><span class="s2"> in context </span><span class="si">{</span><span class="n">build_context</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">"Building image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with dockerfile </span><span class="si">{</span><span class="n">docker_path</span><span class="si">}</span><span class="s2"> in context </span><span class="si">{</span><span class="n">build_context</span><span class="si">}</span><span class="s2">"</span>
     <span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">image</span><span class="p">,</span> <span class="n">build_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">BuildError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to build image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to build image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">log</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">build_log</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">e</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> built successfully!&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> built successfully!"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">image</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">build_log</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
@@ -3968,7 +3968,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 </code></pre></div>
 
@@ -4004,30 +4004,30 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">609</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">noprune</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Removes the Docker image from the local repository.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tag (Optional[str], optional): The tag to remove. Defaults to the instance&#39;s tag.</span>
+<span class="sd">        tag (Optional[str], optional): The tag to remove. Defaults to the instance's tag.</span>
 <span class="sd">        force (bool, optional): Force removal. Defaults to False.</span>
 <span class="sd">        noprune (bool, optional): Do not remove untagged parent images. Defaults to False.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
 <span class="sd">        &gt;&gt;&gt; img.remove()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">image_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">:</span> <span class="n">force</span><span class="p">,</span> <span class="s2">&quot;noprune&quot;</span><span class="p">:</span> <span class="n">noprune</span><span class="p">}</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"image"</span><span class="p">:</span> <span class="n">image_name</span><span class="p">,</span> <span class="s2">"force"</span><span class="p">:</span> <span class="n">force</span><span class="p">,</span> <span class="s2">"noprune"</span><span class="p">:</span> <span class="n">noprune</span><span class="p">}</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to remove image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">. Msg: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to remove image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">. Msg: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exist</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> failed&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> failed"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> succeeded&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removing image </span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2"> succeeded"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4051,7 +4051,7 @@ docker_filename and placed inside that directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </code></pre></div>
 
@@ -4074,21 +4074,21 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">624</span>
 <span class="normal">625</span>
 <span class="normal">626</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Prints detailed information about the Docker image.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
 <span class="sd">        &gt;&gt;&gt; img.info()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="nb">print</span><span class="p">(</span>
-        <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1;33m====================================== Image Info ===============================================</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+        <span class="s2">"</span><span class="se">\033</span><span class="s2">[1;33m====================================== Image Info ===============================================</span><span class="se">\033</span><span class="s2">[0m"</span>
     <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Architecture: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">architecture</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image Size: </span><span class="si">{</span><span class="n">format_memory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Labels: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Image ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Architecture: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">architecture</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Image Size: </span><span class="si">{</span><span class="n">format_memory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Labels: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -4187,7 +4187,7 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">649</span>
 <span class="normal">650</span>
 <span class="normal">651</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">docker</span><span class="o">.</span><span class="n">DockerClient</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initializes the ImageOrchestrator.</span>
 
 <span class="sd">    Args:</span>
@@ -4195,7 +4195,7 @@ docker_filename and placed inside that directory.</p>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; orchestrator = ImageOrchestrator()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span> <span class="ow">or</span> <span class="n">docker</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">],</span> <span class="n">BuildConfig</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">(</span>
         <span class="p">{}</span>
@@ -4319,7 +4319,7 @@ docker_filename and placed inside that directory.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">orch</span> <span class="o">=</span> <span class="n">ImageOrchestrator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">orch</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 <span class="go">True</span>
@@ -4365,7 +4365,7 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">701</span>
 <span class="normal">702</span>
 <span class="normal">703</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Image</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Adds an image and its build configuration to the orchestrator.</span>
 
 <span class="sd">    Args:</span>
@@ -4378,27 +4378,27 @@ docker_filename and placed inside that directory.</p>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; orch = ImageOrchestrator()</span>
-<span class="sd">        &gt;&gt;&gt; img = Image(&quot;myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; img = Image("myapp")</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
 <span class="sd">        &gt;&gt;&gt; orch.add_image(img, config)</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">BuildConfig</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">image</span><span class="o">.</span><span class="n">get_image</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> to orchestrator&quot;</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> image config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> to orchestrator"</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> image config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">base</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">Image</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;The image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> depends on base image </span><span class="si">{</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">"The image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2"> depends on base image </span><span class="si">{</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span>
         <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span>
-        <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
-        <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">base</span><span class="p">,</span>
-        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;init&quot;</span><span class="p">,</span>
+        <span class="s2">"image"</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span>
+        <span class="s2">"config"</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+        <span class="s2">"base"</span><span class="p">:</span> <span class="n">base</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"init"</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -4466,41 +4466,41 @@ docker_filename and placed inside that directory.</p>
 <span class="normal">777</span>
 <span class="normal">778</span>
 <span class="normal">779</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Builds all registered images in the correct order based on dependencies.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; orchestrator.build_all()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">build_sorted_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_topological_sort</span><span class="p">()</span>
     <span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
-        <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bulk-Image-Build-</span><span class="si">{</span><span class="n">unique_id</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bulk-Image-Build-</span><span class="si">{</span><span class="n">unique_id</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building images in temporary directory: </span><span class="si">{</span><span class="n">tmp_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Building images in temporary directory: </span><span class="si">{</span><span class="n">tmp_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">image_key</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">build_sorted_list</span><span class="p">):</span>
-        <span class="n">image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;image&quot;</span><span class="p">]</span>
-        <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
-        <span class="n">base</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;base&quot;</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;starting build for </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">"image"</span><span class="p">]</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">"config"</span><span class="p">]</span>
+        <span class="n">base</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">"base"</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"starting build for </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">base_config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()][</span><span class="s2">&quot;config&quot;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original config: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">base_config</span><span class="p">:</span> <span class="n">BuildConfig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()][</span><span class="s2">"config"</span><span class="p">]</span>
             <span class="n">config</span><span class="o">.</span><span class="n">base_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span>
             <span class="n">config</span><span class="o">.</span><span class="n">python_deps_manager</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">python_deps_manager</span>
             <span class="n">config</span><span class="o">.</span><span class="n">sys_deps_manager</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">sys_deps_manager</span>
             <span class="n">config</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">user</span>
             <span class="n">config</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">base_config</span><span class="o">.</span><span class="n">uid</span>
-            <span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">&quot;BaseImage&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">())</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config after inheritance: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">"BaseImage"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">())</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Config after inheritance: </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-        <span class="n">target_dir</span> <span class="o">=</span> <span class="n">tmp_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">))</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The Dockerfile will be saved to </span><span class="si">{</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">target_dir</span> <span class="o">=</span> <span class="n">tmp_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">":"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The Dockerfile will be saved to </span><span class="si">{</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">image</span><span class="o">.</span><span class="n">build_image</span><span class="p">(</span><span class="n">build_config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">target_dir</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">exist</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;failed&quot;</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to build image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"failed"</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to build image </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">get_fullname</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;success&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_images</span><span class="p">[</span><span class="n">image_key</span><span class="p">][</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"success"</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

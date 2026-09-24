@@ -2506,31 +2506,31 @@
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">extract_citations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tex_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">CitationInfo</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a .tex file to find all cited bibliography keys.</span>
+<span class="w">    </span><span class="sd">"""Parse a .tex file to find all cited bibliography keys.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">            tex_file (str, Path): Path to the .tex file.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">            Set of CitationInfo objects representing cited keys and their locations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cited</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">CitationInfo</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">tex_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tex_file</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tex_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tex_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
     <span class="n">clean_lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
         <span class="c1"># ensure the % is not escaped</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">idx</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"%"</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="n">clean_lines</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">line</span><span class="p">[</span><span class="n">pos</span><span class="p">:],</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="k">break</span>
-            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">line</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">"</span><span class="p">:</span>
                 <span class="n">clean_lines</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">line</span><span class="p">[:</span><span class="n">idx</span><span class="p">],</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="k">break</span>
             <span class="n">pos</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
@@ -2542,7 +2542,7 @@
                 <span class="c1"># fetch the last group (the one containing citation keys)</span>
                 <span class="n">keys_str</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="c1"># split by comma and strip whitespace</span>
-                <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+                <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)]</span>
                 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cited</span><span class="p">:</span>
                         <span class="n">cited</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">CitationInfo</span><span class="p">(</span>
@@ -2551,7 +2551,7 @@
                                 <span class="n">CitationSource</span><span class="p">(</span>
                                     <span class="n">source_file</span><span class="o">=</span><span class="n">tex_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                     <span class="n">line_number</span><span class="o">=</span><span class="n">line_no</span><span class="p">,</span>
-                                    <span class="n">source_type</span><span class="o">=</span><span class="s2">&quot;tex&quot;</span><span class="p">,</span>
+                                    <span class="n">source_type</span><span class="o">=</span><span class="s2">"tex"</span><span class="p">,</span>
                                 <span class="p">)</span>
                             <span class="p">],</span>
                         <span class="p">)</span>
@@ -2560,7 +2560,7 @@
                             <span class="n">CitationSource</span><span class="p">(</span>
                                 <span class="n">source_file</span><span class="o">=</span><span class="n">tex_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                 <span class="n">line_number</span><span class="o">=</span><span class="n">line_no</span><span class="p">,</span>
-                                <span class="n">source_type</span><span class="o">=</span><span class="s2">&quot;tex&quot;</span><span class="p">,</span>
+                                <span class="n">source_type</span><span class="o">=</span><span class="s2">"tex"</span><span class="p">,</span>
                             <span class="p">)</span>
                         <span class="p">)</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">cited</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
@@ -2685,27 +2685,27 @@
 <span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">extract_citations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbl_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CitationInfo</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a .bbl file to extract all bibliography entries.</span>
+<span class="w">    </span><span class="sd">"""Parse a .bbl file to extract all bibliography entries.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">            bbl_file (str, Path): Path to the .bbl file.</span>
 
 <span class="sd">    Returns:</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cited</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">bbl_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">bbl_file</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bbl_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bbl_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
             <span class="n">bibitem_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">bibitem(?:\[[^\]]*\])?.*?\{(.+?)\}&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+                <span class="sa">r</span><span class="s2">"</span><span class="se">\\</span><span class="s2">bibitem(?:\[[^\]]*\])?.*?\{(.+?)\}"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">bibitem_pattern</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
                 <span class="n">key</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
                 <span class="c1"># Find the line number of the match for better context</span>
-                <span class="n">line_num</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">line_num</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">())</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="n">cited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">CitationInfo</span><span class="p">(</span>
                         <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
@@ -2713,7 +2713,7 @@
                             <span class="n">CitationSource</span><span class="p">(</span>
                                 <span class="n">source_file</span><span class="o">=</span><span class="n">bbl_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                 <span class="n">line_number</span><span class="o">=</span><span class="n">line_num</span><span class="p">,</span>
-                                <span class="n">source_type</span><span class="o">=</span><span class="s2">&quot;bbl&quot;</span><span class="p">,</span>
+                                <span class="n">source_type</span><span class="o">=</span><span class="s2">"bbl"</span><span class="p">,</span>
                             <span class="p">)</span>
                         <span class="p">],</span>
                     <span class="p">)</span>

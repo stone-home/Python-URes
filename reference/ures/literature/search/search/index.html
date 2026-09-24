@@ -2510,7 +2510,7 @@
 
 
 </h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">DatabaseConfig</span><span class="p">(</span><span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;literature-search&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">DatabaseConfig</span><span class="p">(</span><span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'literature-search'</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2537,9 +2537,9 @@
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;literature-search&quot;</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"literature-search"</span>
 <span class="p">):</span>
-    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="ow">or</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;.ures_lit_search&quot;</span>
+    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="ow">or</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">".ures_lit_search"</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">config_dir</span> <span class="o">=</span> <span class="n">config_dir</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">app_name</span> <span class="o">=</span> <span class="n">app_name</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -2582,8 +2582,8 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_database_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get configuration for a specific database.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;databases&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">db_name</span><span class="p">,</span> <span class="p">{})</span>
+<span class="w">    </span><span class="sd">"""Get configuration for a specific database."""</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"databases"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">db_name</span><span class="p">,</span> <span class="p">{})</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2611,8 +2611,8 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_database_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a database is enabled.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database_config</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Check if a database is enabled."""</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database_config</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"enabled"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2646,11 +2646,11 @@
 <span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_api_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get API key for a database using secure storage.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get API key for a database using secure storage."""</span>
     <span class="n">db_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_database_config</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="s2">&quot;api_key&quot;</span> <span class="ow">in</span> <span class="n">db_config</span> <span class="ow">and</span> <span class="n">db_config</span><span class="p">[</span><span class="s2">&quot;api_key&quot;</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">db_config</span><span class="p">[</span><span class="s2">&quot;api_key&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">"api_key"</span> <span class="ow">in</span> <span class="n">db_config</span> <span class="ow">and</span> <span class="n">db_config</span><span class="p">[</span><span class="s2">"api_key"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">db_config</span><span class="p">[</span><span class="s2">"api_key"</span><span class="p">]</span>
 
     <span class="c1"># Use secure key manager</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_manager</span><span class="o">.</span><span class="n">get_key</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
@@ -2759,29 +2759,29 @@
     <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">StorageMethod</span> <span class="o">=</span> <span class="n">StorageMethod</span><span class="o">.</span><span class="n">ENCRYPTED</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Set API key for a database using secure storage.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">                    db_name: Database name</span>
 <span class="sd">                    api_key: API key or reference (depends on method)</span>
-<span class="sd">                    method: Storage method (&#39;encrypted&#39;, &#39;env&#39;, &#39;1password&#39;, &#39;keychain&#39;)</span>
+<span class="sd">                    method: Storage method ('encrypted', 'env', '1password', 'keychain')</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">                    bool: Success status</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Store the key securely</span>
     <span class="n">success</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_manager</span><span class="o">.</span><span class="n">store_key</span><span class="p">(</span><span class="n">db_name</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
         <span class="c1"># Update config to reflect the storage method</span>
-        <span class="k">if</span> <span class="s2">&quot;databases&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="n">db_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s2">"databases"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">db_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">&quot;api_key_method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">"api_key_method"</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">"enabled"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
@@ -2813,7 +2813,7 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_api_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List all stored API keys (without revealing actual keys).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""List all stored API keys (without revealing actual keys)."""</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_manager</span><span class="o">.</span><span class="n">list_keys</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2850,13 +2850,13 @@
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">delete_api_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete API key for a database.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Delete API key for a database."""</span>
     <span class="n">success</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_manager</span><span class="o">.</span><span class="n">delete_key</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
         <span class="c1"># Update config</span>
-        <span class="k">if</span> <span class="n">db_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;databases&quot;</span><span class="p">,</span> <span class="p">{}):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;databases&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">db_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"databases"</span><span class="p">,</span> <span class="p">{}):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"databases"</span><span class="p">][</span><span class="n">db_name</span><span class="p">][</span><span class="s2">"enabled"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">success</span>
@@ -2896,7 +2896,7 @@
 <span class="normal">198</span>
 <span class="normal">199</span>
 <span class="normal">200</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update a configuration value.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Update a configuration value."""</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">section</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2905,7 +2905,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to update config: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to update config: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2934,7 +2934,7 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_config_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a configuration value.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get a configuration value."""</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2959,7 +2959,7 @@
 
 
 </h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LiteratureSearchEngine</span><span class="p">(</span><span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;literature-search&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">LiteratureSearchEngine</span><span class="p">(</span><span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'literature-search'</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2972,7 +2972,7 @@
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.literature</span><span class="w"> </span><span class="kn">import</span> <span class="n">LiteratureSearchEngine</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span> <span class="o">=</span> <span class="n">LiteratureSearchEngine</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">papers</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;CXL memory&quot;</span><span class="p">,</span> <span class="n">databases</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;arxiv&quot;</span><span class="p">],</span> <span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">papers</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"CXL memory"</span><span class="p">,</span> <span class="n">databases</span><span class="o">=</span><span class="p">[</span><span class="s2">"arxiv"</span><span class="p">],</span> <span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">papers</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -3038,27 +3038,27 @@
 <span class="normal">240</span>
 <span class="normal">241</span>
 <span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;literature-search&quot;</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">config_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"literature-search"</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initialize the Literature Search Engine.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">                    config_dir: Path to a directory used to store configuration file</span>
 <span class="sd">                    app_name: Application name for key management</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">DatabaseConfig</span><span class="p">(</span><span class="n">config_dir</span><span class="p">,</span> <span class="n">app_name</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CacheManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cache&quot;</span><span class="p">][</span><span class="s2">&quot;directory&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">CacheManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"cache"</span><span class="p">][</span><span class="s2">"directory"</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DatabaseAdapter</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
     <span class="c1"># Statistics</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;total_searches&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;cached_searches&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;total_papers_found&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;databases_used&quot;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
-        <span class="s2">&quot;last_search_time&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"total_searches"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"cached_searches"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"total_papers_found"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"databases_used"</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+        <span class="s2">"last_search_time"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_init_adapters</span><span class="p">()</span>
@@ -3289,7 +3289,7 @@
     <span class="n">year_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Search multiple databases with Boolean query support.</span>
 
 <span class="sd">    Args:</span>
@@ -3302,7 +3302,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">                    List of Paper objects, deduplicated and unified</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
         <span class="k">return</span> <span class="p">[]</span>
 
@@ -3310,49 +3310,49 @@
         <span class="n">databases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="k">if</span> <span class="n">max_results</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">max_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">][</span><span class="s2">&quot;max_results&quot;</span><span class="p">]</span>
+        <span class="n">max_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"search"</span><span class="p">][</span><span class="s2">"max_results"</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">year_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">year_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">][</span><span class="s2">&quot;min_year&quot;</span><span class="p">]</span>
+        <span class="n">year_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"search"</span><span class="p">][</span><span class="s2">"min_year"</span><span class="p">]</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching with Boolean query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Target databases: </span><span class="si">{</span><span class="n">databases</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Searching with Boolean query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target databases: </span><span class="si">{</span><span class="n">databases</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="c1"># Update statistics</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;total_searches&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;last_search_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">"total_searches"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">"last_search_time"</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
 
     <span class="c1"># Check cache first</span>
     <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
-        <span class="n">max_age_hours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cache&quot;</span><span class="p">][</span><span class="s2">&quot;max_age_hours&quot;</span><span class="p">]</span>
+        <span class="n">max_age_hours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"cache"</span><span class="p">][</span><span class="s2">"max_age_hours"</span><span class="p">]</span>
         <span class="n">cached_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get_cached_search</span><span class="p">(</span>
             <span class="n">query</span><span class="p">,</span> <span class="n">databases</span><span class="p">,</span> <span class="n">max_age_hours</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">cached_results</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cached_results</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers from cache&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;cached_searches&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cached_results</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers from cache"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">"cached_searches"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_by_year</span><span class="p">(</span><span class="n">cached_results</span><span class="p">,</span> <span class="n">year_min</span><span class="p">)</span>
 
     <span class="c1"># Perform searches across all databases</span>
     <span class="n">all_papers</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">db_name</span> <span class="ow">in</span> <span class="n">databases</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">db_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Database </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2"> not available&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Database </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2"> not available"</span><span class="p">)</span>
             <span class="k">continue</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Searching </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">adapter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="p">[</span><span class="n">db_name</span><span class="p">]</span>
 
             <span class="c1"># Database-specific parameters</span>
             <span class="n">search_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">if</span> <span class="n">db_name</span> <span class="o">==</span> <span class="s2">&quot;arxiv&quot;</span><span class="p">:</span>
-                <span class="n">categories</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_database_config</span><span class="p">(</span><span class="s2">&quot;arxiv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">db_name</span> <span class="o">==</span> <span class="s2">"arxiv"</span><span class="p">:</span>
+                <span class="n">categories</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_database_config</span><span class="p">(</span><span class="s2">"arxiv"</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">"categories"</span><span class="p">,</span> <span class="p">[]</span>
                 <span class="p">)</span>
-                <span class="n">search_kwargs</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">categories</span>
+                <span class="n">search_kwargs</span><span class="p">[</span><span class="s2">"categories"</span><span class="p">]</span> <span class="o">=</span> <span class="n">categories</span>
             <span class="k">if</span> <span class="n">year_min</span><span class="p">:</span>
-                <span class="n">search_kwargs</span><span class="p">[</span><span class="s2">&quot;year_min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_min</span>
+                <span class="n">search_kwargs</span><span class="p">[</span><span class="s2">"year_min"</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_min</span>
 
             <span class="n">papers</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">max_results</span><span class="p">,</span> <span class="o">**</span><span class="n">search_kwargs</span><span class="p">)</span>
 
@@ -3361,18 +3361,18 @@
                 <span class="n">papers</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">papers</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;=</span> <span class="n">year_min</span><span class="p">]</span>
 
             <span class="n">all_papers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers from </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;databases_used&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span><span class="si">}</span><span class="s2"> papers from </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">"databases_used"</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
 
             <span class="c1"># Cache individual papers</span>
             <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">cache_paper</span><span class="p">(</span><span class="n">paper</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error searching </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error searching </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="c1"># Deduplicate results using canonical IDs</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">][</span><span class="s2">&quot;deduplication&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"search"</span><span class="p">][</span><span class="s2">"deduplication"</span><span class="p">]:</span>
         <span class="n">all_papers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deduplicate_papers</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
 
     <span class="c1"># Cache search results</span>
@@ -3382,8 +3382,8 @@
     <span class="c1"># Sort by relevance (citations and year)</span>
     <span class="n">all_papers</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">citations</span><span class="p">,</span> <span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">year</span><span class="p">))</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;total_papers_found&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total unique papers found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">"total_papers_found"</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total unique papers found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">all_papers</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3424,7 +3424,7 @@
     <span class="n">database_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve papers from local cache.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Retrieve papers from local cache."""</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get_cached_papers</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">year_min</span><span class="p">,</span> <span class="n">database_source</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3567,49 +3567,49 @@
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">include_abstracts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Export search results to various formats.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">                    papers: List of papers to export</span>
-<span class="sd">                    format: Export format (&#39;json&#39;, &#39;csv&#39;, &#39;bibtex&#39;)</span>
+<span class="sd">                    format: Export format ('json', 'csv', 'bibtex')</span>
 <span class="sd">                    filename: Output filename</span>
 <span class="sd">                    include_abstracts: Whether to include abstracts</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">                    str: Path to exported file or None if failed</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">papers</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No papers to export&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"No papers to export"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">][</span><span class="s2">&quot;default_format&quot;</span><span class="p">]</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"export"</span><span class="p">][</span><span class="s2">"default_format"</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">include_abstracts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">include_abstracts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">][</span><span class="s2">&quot;include_abstracts&quot;</span><span class="p">]</span>
+        <span class="n">include_abstracts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"export"</span><span class="p">][</span><span class="s2">"include_abstracts"</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
-        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;literature_search_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S"</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"literature_search_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">max_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">][</span><span class="s2">&quot;max_export_size&quot;</span><span class="p">]</span>
+        <span class="n">max_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"export"</span><span class="p">][</span><span class="s2">"max_export_size"</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_size</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Limiting export to </span><span class="si">{</span><span class="n">max_size</span><span class="si">}</span><span class="s2"> papers&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Limiting export to </span><span class="si">{</span><span class="n">max_size</span><span class="si">}</span><span class="s2"> papers"</span><span class="p">)</span>
             <span class="n">papers</span> <span class="o">=</span> <span class="n">papers</span><span class="p">[:</span><span class="n">max_size</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_json</span><span class="p">(</span><span class="n">papers</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">include_abstracts</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;bibtex&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"bibtex"</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_bibtex</span><span class="p">(</span><span class="n">papers</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;csv&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"csv"</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_csv</span><span class="p">(</span><span class="n">papers</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">include_abstracts</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported export format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported export format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Export failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Export failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3688,18 +3688,18 @@
 <span class="normal">619</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">analyze_search_coverage</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">databases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze search coverage across databases.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Analyze search coverage across databases."""</span>
     <span class="k">if</span> <span class="n">databases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">databases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="n">coverage_report</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
-        <span class="s2">&quot;databases_searched&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;results_per_database&quot;</span><span class="p">:</span> <span class="p">{},</span>
-        <span class="s2">&quot;total_papers&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;unique_papers&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">&quot;overlap_analysis&quot;</span><span class="p">:</span> <span class="p">{},</span>
-        <span class="s2">&quot;adapter_stats&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">"query"</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+        <span class="s2">"databases_searched"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"results_per_database"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">"total_papers"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"unique_papers"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"overlap_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">"adapter_stats"</span><span class="p">:</span> <span class="p">{},</span>
     <span class="p">}</span>
 
     <span class="n">all_papers</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3715,25 +3715,25 @@
             <span class="n">db_papers</span><span class="p">[</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">papers</span>
             <span class="n">all_papers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span>
 
-            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;databases_searched&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
-            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;results_per_database&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span>
-            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;adapter_stats&quot;</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"databases_searched"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">db_name</span><span class="p">)</span>
+            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"results_per_database"</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span>
+            <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"adapter_stats"</span><span class="p">][</span><span class="n">db_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in coverage analysis for </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in coverage analysis for </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;total_papers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
+    <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"total_papers"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
 
     <span class="c1"># Calculate unique papers</span>
     <span class="n">unique_papers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deduplicate_papers</span><span class="p">(</span><span class="n">all_papers</span><span class="p">)</span>
-    <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;unique_papers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_papers</span><span class="p">)</span>
+    <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"unique_papers"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_papers</span><span class="p">)</span>
 
     <span class="c1"># Calculate overlap between databases</span>
     <span class="k">for</span> <span class="n">db1</span> <span class="ow">in</span> <span class="n">db_papers</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">db2</span> <span class="ow">in</span> <span class="n">db_papers</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">db1</span> <span class="o">&lt;</span> <span class="n">db2</span><span class="p">:</span>  <span class="c1"># Avoid duplicate pairs</span>
                 <span class="n">overlap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_overlap</span><span class="p">(</span><span class="n">db_papers</span><span class="p">[</span><span class="n">db1</span><span class="p">],</span> <span class="n">db_papers</span><span class="p">[</span><span class="n">db2</span><span class="p">])</span>
-                <span class="n">coverage_report</span><span class="p">[</span><span class="s2">&quot;overlap_analysis&quot;</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">db1</span><span class="si">}</span><span class="s2">_vs_</span><span class="si">{</span><span class="n">db2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">overlap</span>
+                <span class="n">coverage_report</span><span class="p">[</span><span class="s2">"overlap_analysis"</span><span class="p">][</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">db1</span><span class="si">}</span><span class="s2">_vs_</span><span class="si">{</span><span class="n">db2</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">overlap</span>
 
     <span class="k">return</span> <span class="n">coverage_report</span>
 </code></pre></div></td></tr></table></div>
@@ -3774,17 +3774,17 @@
 <span class="normal">638</span>
 <span class="normal">639</span>
 <span class="normal">640</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_engine_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get comprehensive engine statistics.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get comprehensive engine statistics."""</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;databases_used&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;databases_used&quot;</span><span class="p">])</span>
-    <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;available_adapters&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;cache_stats&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get_cache_stats</span><span class="p">()</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s2">"databases_used"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s2">"databases_used"</span><span class="p">])</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s2">"available_adapters"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s2">"cache_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get_cache_stats</span><span class="p">()</span>
 
     <span class="c1"># Add adapter statistics</span>
     <span class="n">adapter_stats</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">adapter_stats</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-    <span class="n">stats</span><span class="p">[</span><span class="s2">&quot;adapter_stats&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter_stats</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s2">"adapter_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter_stats</span>
 
     <span class="k">return</span> <span class="n">stats</span>
 </code></pre></div></td></tr></table></div>
@@ -3817,9 +3817,9 @@
 <span class="normal">645</span>
 <span class="normal">646</span>
 <span class="normal">647</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cleanup_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days_old</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean up old cache entries.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Clean up old cache entries."""</span>
     <span class="k">if</span> <span class="n">days_old</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">days_old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cache&quot;</span><span class="p">][</span><span class="s2">&quot;expire_days&quot;</span><span class="p">]</span>
+        <span class="n">days_old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"cache"</span><span class="p">][</span><span class="s2">"expire_days"</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">cleanup_cache</span><span class="p">(</span><span class="n">days_old</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -3852,9 +3852,9 @@
 <span class="normal">652</span>
 <span class="normal">653</span>
 <span class="normal">654</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">find_duplicates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">similarity_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find potential duplicate papers in cache.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Find potential duplicate papers in cache."""</span>
     <span class="k">if</span> <span class="n">similarity_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">similarity_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;search&quot;</span><span class="p">][</span><span class="s2">&quot;similarity_threshold&quot;</span><span class="p">]</span>
+        <span class="n">similarity_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"search"</span><span class="p">][</span><span class="s2">"similarity_threshold"</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">find_duplicates</span><span class="p">(</span><span class="n">similarity_threshold</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -3886,10 +3886,10 @@
 <span class="normal">658</span>
 <span class="normal">659</span>
 <span class="normal">660</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reload_adapters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reload all database adapters (useful after config changes).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Reload all database adapters (useful after config changes)."""</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_init_adapters</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reloaded database adapters&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Reloaded database adapters"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

@@ -2425,11 +2425,11 @@ and returns the updated container records.</p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.docker.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.docker.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Containers</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.docker.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">RuntimeConfig</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;latest&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">"latest"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span> <span class="o">=</span> <span class="n">Containers</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">img</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">container</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;myapp-instance&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">container</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"myapp-instance"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s2">&quot;/tmp/container_logs&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s2">"/tmp/container_logs"</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -2516,7 +2516,7 @@ and returns the updated container records.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">image</span>
-<span class="go">&#39;myapp:latest&#39;</span>
+<span class="go">'myapp:latest'</span>
 </code></pre></div>
 
     </div>
@@ -2558,7 +2558,7 @@ and returns the updated container records.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">name</span>
-<span class="go">&#39;myapp-instance-abc123def4&#39;</span>
+<span class="go">'myapp-instance-abc123def4'</span>
 </code></pre></div>
 
     </div>
@@ -2600,7 +2600,7 @@ and returns the updated container records.</p>
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">containers_manager</span><span class="o">.</span><span class="n">history</span>
-<span class="go">{&#39;myapp-instance-abc123def4&#39;: {&#39;container&#39;: &lt;Container object&gt;, &#39;config&#39;: &lt;RuntimeConfig&gt;}}</span>
+<span class="go">{'myapp-instance-abc123def4': {'container': &lt;Container object&gt;, 'config': &lt;RuntimeConfig&gt;}}</span>
 </code></pre></div>
 
     </div>
@@ -2697,24 +2697,24 @@ Defaults to False.</p>
 <span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_container</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Container</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieve container records from the history.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        new (bool, optional): If True, only return container records whose container status is &quot;created&quot;.</span>
+<span class="sd">        new (bool, optional): If True, only return container records whose container status is "created".</span>
 <span class="sd">            Defaults to False.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        List[Tuple[str, Dict[str, Union[Container, str]]]]: A list of tuples containing the container&#39;s unique name</span>
+<span class="sd">        List[Tuple[str, Dict[str, Union[Container, str]]]]: A list of tuples containing the container's unique name</span>
 <span class="sd">        and its record.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; records = containers_manager.get_container(new=True)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">new</span><span class="p">:</span>
         <span class="n">containers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
             <span class="nb">filter</span><span class="p">(</span>
-                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;created&quot;</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"container"</span><span class="p">]</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">"created"</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_history</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -2771,7 +2771,7 @@ Defaults to False.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">container</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;instance1&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">container</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"instance1"</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -2795,7 +2795,7 @@ Defaults to False.</p>
 <span class="normal">211</span>
 <span class="normal">212</span>
 <span class="normal">213</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Container</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Create a new container instance using the specified configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -2805,8 +2805,8 @@ Defaults to False.</p>
 <span class="sd">        Container: The newly created container instance.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; container = containers_manager.create(name=&quot;instance1&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; container = containers_manager.create(name="instance1")</span>
+<span class="sd">    """</span>
     <span class="n">_container</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_image</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">)</span>
     <span class="n">_conf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">_container</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">_conf</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -2868,7 +2868,7 @@ Defaults to False.</p>
 <span class="normal">227</span>
 <span class="normal">228</span>
 <span class="normal">229</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Container</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run all newly created containers using the specified runtime.</span>
 
 <span class="sd">    Returns:</span>
@@ -2876,9 +2876,9 @@ Defaults to False.</p>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; records = containers_manager.run()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">new_containers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">new</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_c</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_c</span> <span class="ow">in</span> <span class="n">new_containers</span><span class="p">]</span>
+    <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_c</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"container"</span><span class="p">]</span> <span class="k">for</span> <span class="n">_c</span> <span class="ow">in</span> <span class="n">new_containers</span><span class="p">]</span>
     <span class="n">_runtime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">(</span><span class="n">containers</span><span class="o">=</span><span class="n">containers</span><span class="p">)</span>
     <span class="n">_runtime</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">new_containers</span>
@@ -2933,7 +2933,7 @@ If not provided, a default temporary directory is used.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">records</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s2">&quot;/tmp/container_logs&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">records</span> <span class="o">=</span> <span class="n">containers_manager</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="s2">"/tmp/container_logs"</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -2965,7 +2965,7 @@ If not provided, a default temporary directory is used.</p>
 <span class="normal">254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">log_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Container</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Stop all managed containers, collect their logs (saving them to the specified directory), and remove them.</span>
 
 <span class="sd">    Args:</span>
@@ -2976,11 +2976,11 @@ If not provided, a default temporary directory is used.</p>
 <span class="sd">        List[Tuple[str, Dict[str, Union[Container, str]]]]: The updated container records after stopping and removal.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; records = containers_manager.stop(&quot;/tmp/container_logs&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">log_dir</span> <span class="o">=</span> <span class="n">log_dir</span> <span class="ow">or</span> <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="s2">&quot;container-logs&quot;</span><span class="p">)</span>
+<span class="sd">        &gt;&gt;&gt; records = containers_manager.stop("/tmp/container_logs")</span>
+<span class="sd">    """</span>
+    <span class="n">log_dir</span> <span class="o">=</span> <span class="n">log_dir</span> <span class="ow">or</span> <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="s2">"container-logs"</span><span class="p">)</span>
     <span class="n">log_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">log_dir</span><span class="p">)</span>
-    <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_c</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;container&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_container</span><span class="p">()]</span>
+    <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_c</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"container"</span><span class="p">]</span> <span class="k">for</span> <span class="n">_c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_container</span><span class="p">()]</span>
     <span class="n">_runtime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">(</span><span class="n">containers</span><span class="o">=</span><span class="n">containers</span><span class="p">)</span>
     <span class="n">_runtime</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="n">_runtime</span><span class="o">.</span><span class="n">logs</span><span class="p">(</span><span class="n">output_dir</span><span class="o">=</span><span class="n">log_dir</span><span class="p">)</span>

@@ -3064,7 +3064,7 @@
 <span class="normal">86</span>
 <span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">BlockPool</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">AllocationRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AllocationResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allocate memory according to the algorithm&#39;s strategy&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Allocate memory according to the algorithm's strategy"""</span>
     <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3099,7 +3099,7 @@
 <span class="normal">91</span>
 <span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">BlockPool</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">FreeRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FreeResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Free memory according to the algorithm&#39;s strategy&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Free memory according to the algorithm's strategy"""</span>
     <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3134,7 +3134,7 @@
 <span class="normal">96</span>
 <span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">can_allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">BlockPool</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">AllocationRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if allocation is possible without actually allocating&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Check if allocation is possible without actually allocating"""</span>
     <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3163,7 +3163,7 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">can_free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">:</span> <span class="n">BlockPool</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">FreeRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if deallocation is possible&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Check if deallocation is possible"""</span>
     <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocated_blocks</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3213,7 +3213,7 @@
 <span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get allocator statistics&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get allocator statistics"""</span>
     <span class="n">avg_alloc_time</span> <span class="o">=</span> <span class="p">(</span>
         <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocation_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocation_times</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_times</span>
@@ -3224,17 +3224,17 @@
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="s2">&quot;allocation_count&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_count</span><span class="p">,</span>
-        <span class="s2">&quot;free_count&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_count</span><span class="p">,</span>
-        <span class="s2">&quot;total_allocated&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_allocated</span><span class="p">,</span>
-        <span class="s2">&quot;total_freed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_freed</span><span class="p">,</span>
-        <span class="s2">&quot;currently_allocated&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_allocated</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_freed</span><span class="p">,</span>
-        <span class="s2">&quot;active_blocks&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocated_blocks</span><span class="p">),</span>
-        <span class="s2">&quot;average_allocation_time_ns&quot;</span><span class="p">:</span> <span class="n">avg_alloc_time</span><span class="p">,</span>
-        <span class="s2">&quot;average_free_time_ns&quot;</span><span class="p">:</span> <span class="n">avg_free_time</span><span class="p">,</span>
-        <span class="s2">&quot;allocation_times&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_times</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
-        <span class="s2">&quot;free_times&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_times</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">"allocation_count"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_count</span><span class="p">,</span>
+        <span class="s2">"free_count"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_count</span><span class="p">,</span>
+        <span class="s2">"total_allocated"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_allocated</span><span class="p">,</span>
+        <span class="s2">"total_freed"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_freed</span><span class="p">,</span>
+        <span class="s2">"currently_allocated"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_allocated</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_freed</span><span class="p">,</span>
+        <span class="s2">"active_blocks"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocated_blocks</span><span class="p">),</span>
+        <span class="s2">"average_allocation_time_ns"</span><span class="p">:</span> <span class="n">avg_alloc_time</span><span class="p">,</span>
+        <span class="s2">"average_free_time_ns"</span><span class="p">:</span> <span class="n">avg_free_time</span><span class="p">,</span>
+        <span class="s2">"allocation_times"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_times</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="s2">"free_times"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_times</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
     <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3281,7 +3281,7 @@
                     <summary>Source code in <code>ures/memory/allocator.py</code></summary>
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
 <span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;First Fit&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"First Fit"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -3337,7 +3337,7 @@
                     <summary>Source code in <code>ures/memory/allocator.py</code></summary>
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">254</span>
 <span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Best Fit&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"Best Fit"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -3393,7 +3393,7 @@
                     <summary>Source code in <code>ures/memory/allocator.py</code></summary>
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">382</span>
 <span class="normal">383</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Worst Fit&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"Worst Fit"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -3450,7 +3450,7 @@
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">510</span>
 <span class="normal">511</span>
 <span class="normal">512</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Next Fit&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"Next Fit"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_allocated_block</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Remember where we last allocated</span>
 </code></pre></div></td></tr></table></div>
                   </details>
@@ -3508,7 +3508,7 @@
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">675</span>
 <span class="normal">676</span>
 <span class="normal">677</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Buddy System&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">"Buddy System"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">min_block_size</span> <span class="o">=</span> <span class="mi">64</span>  <span class="c1"># Minimum block size (can be configured)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
@@ -3622,7 +3622,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">register_allocator</span><span class="p">(</span><span class="n">BuddySystemAllocator</span><span class="p">())</span>
 
     <span class="c1"># Set default allocator</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">set_allocator</span><span class="p">(</span><span class="s2">&quot;First Fit&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_allocator</span><span class="p">(</span><span class="s2">"First Fit"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -3660,7 +3660,7 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">927</span>
 <span class="normal">928</span>
 <span class="normal">929</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">register_allocator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allocator</span><span class="p">:</span> <span class="n">MemoryAllocator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Register a new allocation algorithm&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Register a new allocation algorithm"""</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">allocators</span><span class="p">[</span><span class="n">allocator</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">allocator</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3692,7 +3692,7 @@
 <span class="normal">934</span>
 <span class="normal">935</span>
 <span class="normal">936</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_allocator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allocator_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set the active allocation algorithm&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Set the active allocation algorithm"""</span>
     <span class="k">if</span> <span class="n">allocator_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocators</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocators</span><span class="p">[</span><span class="n">allocator_name</span><span class="p">]</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -3724,7 +3724,7 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">938</span>
 <span class="normal">939</span>
 <span class="normal">940</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_available_allocators</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get list of available allocator names&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get list of available allocator names"""</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocators</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3781,9 +3781,9 @@
     <span class="n">priority</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AllocationResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allocate memory using the current algorithm&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Allocate memory using the current algorithm"""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">AllocationResult</span><span class="p">(</span><span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">error_message</span><span class="o">=</span><span class="s2">&quot;No allocator set&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AllocationResult</span><span class="p">(</span><span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">error_message</span><span class="o">=</span><span class="s2">"No allocator set"</span><span class="p">)</span>
 
     <span class="n">request</span> <span class="o">=</span> <span class="n">AllocationRequest</span><span class="p">(</span>
         <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
@@ -3834,10 +3834,10 @@
 <span class="normal">977</span>
 <span class="normal">978</span>
 <span class="normal">979</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">expected_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FreeResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Free memory at the given address using the current allocator&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Free memory at the given address using the current allocator"""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FreeResult</span><span class="p">(</span>
-            <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span> <span class="n">error_message</span><span class="o">=</span><span class="s2">&quot;No allocator set&quot;</span>
+            <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span> <span class="n">error_message</span><span class="o">=</span><span class="s2">"No allocator set"</span>
         <span class="p">)</span>
 
     <span class="n">request</span> <span class="o">=</span> <span class="n">FreeRequest</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span> <span class="n">expected_size</span><span class="o">=</span><span class="n">expected_size</span><span class="p">)</span>
@@ -3877,7 +3877,7 @@
 <span class="normal">985</span>
 <span class="normal">986</span>
 <span class="normal">987</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">can_allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if allocation is possible without actually allocating&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Check if allocation is possible without actually allocating"""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
@@ -3924,21 +3924,21 @@
 <span class="normal">1003</span>
 <span class="normal">1004</span>
 <span class="normal">1005</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_memory_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get current memory status information&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get current memory status information"""</span>
     <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">get_memory_summary</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">,</span>
-        <span class="s2">&quot;total_memory&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_memory</span><span class="p">,</span>
-        <span class="s2">&quot;base_address&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_address</span><span class="p">,</span>
-        <span class="s2">&quot;base_address_hex&quot;</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_address</span><span class="p">),</span>
-        <span class="s2">&quot;current_allocator&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">"device_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">,</span>
+        <span class="s2">"total_memory"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_memory</span><span class="p">,</span>
+        <span class="s2">"base_address"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_address</span><span class="p">,</span>
+        <span class="s2">"base_address_hex"</span><span class="p">:</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_address</span><span class="p">),</span>
+        <span class="s2">"current_allocator"</span><span class="p">:</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_allocator</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">),</span>
-        <span class="s2">&quot;memory_summary&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
-        <span class="s2">&quot;allocation_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocation_history</span><span class="p">),</span>
-        <span class="s2">&quot;free_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">free_history</span><span class="p">),</span>
-        <span class="s2">&quot;segments&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">list_all_segments</span><span class="p">(),</span>
+        <span class="s2">"memory_summary"</span><span class="p">:</span> <span class="n">summary</span><span class="p">,</span>
+        <span class="s2">"allocation_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocation_history</span><span class="p">),</span>
+        <span class="s2">"free_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">free_history</span><span class="p">),</span>
+        <span class="s2">"segments"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">list_all_segments</span><span class="p">(),</span>
     <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3970,7 +3970,7 @@
 <span class="normal">1010</span>
 <span class="normal">1011</span>
 <span class="normal">1012</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_allocator_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get statistics for all allocators&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get statistics for all allocators"""</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">allocator</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocators</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">stats</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">()</span>
@@ -4020,7 +4020,7 @@
 <span class="normal">1032</span>
 <span class="normal">1033</span>
 <span class="normal">1034</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reset_device</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset device to initial state&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Reset device to initial state"""</span>
     <span class="c1"># Clear all data</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">BlockPool</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">allocation_history</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -4113,7 +4113,7 @@
     <span class="n">size_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">4096</span><span class="p">),</span>
     <span class="n">free_probability</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate a random workload&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Simulate a random workload"""</span>
     <span class="n">operations</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">allocated_blocks</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -4124,9 +4124,9 @@
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">block_to_free</span><span class="p">)</span>
             <span class="n">operations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;free&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">block_to_free</span><span class="p">,</span>
-                    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">,</span>
+                    <span class="s2">"operation"</span><span class="p">:</span> <span class="s2">"free"</span><span class="p">,</span>
+                    <span class="s2">"address"</span><span class="p">:</span> <span class="n">block_to_free</span><span class="p">,</span>
+                    <span class="s2">"success"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
@@ -4137,19 +4137,19 @@
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
             <span class="n">operations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;operation&quot;</span><span class="p">:</span> <span class="s2">&quot;allocate&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
-                    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">,</span>
-                    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                    <span class="s2">"operation"</span><span class="p">:</span> <span class="s2">"allocate"</span><span class="p">,</span>
+                    <span class="s2">"size"</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+                    <span class="s2">"success"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">,</span>
+                    <span class="s2">"address"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
                 <span class="n">allocated_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;operations&quot;</span><span class="p">:</span> <span class="n">operations</span><span class="p">,</span>
-        <span class="s2">&quot;final_memory_info&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_memory_info</span><span class="p">(),</span>
-        <span class="s2">&quot;allocator_stats&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_allocator_statistics</span><span class="p">(),</span>
+        <span class="s2">"operations"</span><span class="p">:</span> <span class="n">operations</span><span class="p">,</span>
+        <span class="s2">"final_memory_info"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_memory_info</span><span class="p">(),</span>
+        <span class="s2">"allocator_stats"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_allocator_statistics</span><span class="p">(),</span>
     <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -4193,21 +4193,21 @@
 <span class="normal">1096</span>
 <span class="normal">1097</span>
 <span class="normal">1098</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">print_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print current device status&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Device </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="si">}</span><span class="s2"> Memory Status ===&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">"""Print current device status"""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"=== Device </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="si">}</span><span class="s2"> Memory Status ==="</span><span class="p">)</span>
     <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_memory_info</span><span class="p">()</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;memory_summary&quot;</span><span class="p">]</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">"memory_summary"</span><span class="p">]</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Memory: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_memory</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Base Address: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;base_address_hex&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current Allocator: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;current_allocator&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Memory: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_memory</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Base Address: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">'base_address_hex'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Current Allocator: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">'current_allocator'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Allocated: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total_allocated_bytes&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> bytes (</span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;overall_utilization&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="sa">f</span><span class="s2">"Allocated: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">'total_allocated_bytes'</span><span class="p">]</span><span class="si">}</span><span class="s2"> bytes (</span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">'overall_utilization'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)"</span>
     <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Free: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total_free_bytes&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fragmentation: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;average_fragmentation&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Allocations: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;allocation_count&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Frees: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;free_count&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Free: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">'total_free_bytes'</span><span class="p">]</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fragmentation: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">'average_fragmentation'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Allocations: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">'allocation_count'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Frees: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">'free_count'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">print_memory_status</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>

@@ -2155,9 +2155,9 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Worker</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="gp">... </span>    <span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">&quot;client&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nd">@check_instance_variable</span><span class="p">(</span><span class="s2">"client"</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="s2">&quot;ok&quot;</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s2">"ok"</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Worker</span><span class="p">()</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -2218,7 +2218,7 @@
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_instance_variable</span><span class="p">(</span><span class="n">variable_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Skip a method when an instance attribute is missing or ``None``.</span>
+<span class="w">    </span><span class="sd">"""Skip a method when an instance attribute is missing or ``None``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        variable_name (str): Name of the instance attribute to require.</span>
@@ -2232,12 +2232,12 @@
 <span class="sd">        &gt;&gt;&gt; class Worker:</span>
 <span class="sd">        ...     def __init__(self):</span>
 <span class="sd">        ...         self.client = None</span>
-<span class="sd">        ...     @check_instance_variable(&quot;client&quot;)</span>
+<span class="sd">        ...     @check_instance_variable("client")</span>
 <span class="sd">        ...     def ping(self):</span>
-<span class="sd">        ...         return &quot;ok&quot;</span>
+<span class="sd">        ...         return "ok"</span>
 <span class="sd">        &gt;&gt;&gt; Worker().ping() is None</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
@@ -2252,17 +2252,17 @@
                     <span class="k">return</span> <span class="kc">None</span>
 
                     <span class="c1"># Option 2: Raise an exception (recommended)</span>
-                    <span class="c1"># raise ValueError(f&quot;Instance variable &#39;{variable_name}&#39; cannot be None.&quot;)</span>
+                    <span class="c1"># raise ValueError(f"Instance variable '{variable_name}' cannot be None.")</span>
 
                 <span class="k">elif</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span>
                     <span class="bp">self</span><span class="p">,</span> <span class="n">variable_name</span>
-                <span class="p">):</span>  <span class="c1"># Handle the case where the attribute doesn&#39;t exist at all</span>
+                <span class="p">):</span>  <span class="c1"># Handle the case where the attribute doesn't exist at all</span>
                     <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Instance variable &#39;</span><span class="si">{</span><span class="n">variable_name</span><span class="si">}</span><span class="s2">&#39; does not exist.&quot;</span>
+                        <span class="sa">f</span><span class="s2">"Instance variable '</span><span class="si">{</span><span class="n">variable_name</span><span class="si">}</span><span class="s2">' does not exist."</span>
                     <span class="p">)</span>
 
             <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># Catch both exceptions</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in check_instance_variable decorator: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error in check_instance_variable decorator: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># Or re-raise the exception: raise</span>
 
             <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

@@ -2581,7 +2581,7 @@
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">base_image</span>
-<span class="go">&#39;python:3.10-slim&#39;</span>
+<span class="go">'python:3.10-slim'</span>
 </code></pre></div>
 
 
@@ -2644,9 +2644,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="s2">"version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">labels</span>
-<span class="go">[(&quot;version&quot;, &quot;1.0&quot;)]</span>
+<span class="go">[("version", "1.0")]</span>
 </code></pre></div>
 
 
@@ -2670,7 +2670,7 @@
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a label to the build configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -2679,11 +2679,11 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_label(&quot;version&quot;, &quot;1.0&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; config.add_label("version", "1.0")</span>
 <span class="sd">        &gt;&gt;&gt; config.labels</span>
-<span class="sd">        [(&quot;version&quot;, &quot;1.0&quot;)]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding label </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        [("version", "1.0")]</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding label </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
@@ -2732,9 +2732,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_copy</span><span class="p">(</span><span class="s2">&quot;app.py&quot;</span><span class="p">,</span> <span class="s2">&quot;/app/app.py&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_copy</span><span class="p">(</span><span class="s2">"app.py"</span><span class="p">,</span> <span class="s2">"/app/app.py"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">copies</span>
-<span class="go">[{&quot;src&quot;: &quot;app.py&quot;, &quot;dest&quot;: &quot;/app/app.py&quot;}]</span>
+<span class="go">[{"src": "app.py", "dest": "/app/app.py"}]</span>
 </code></pre></div>
 
 
@@ -2758,7 +2758,7 @@
 <span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a file copy instruction to the build configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -2767,14 +2767,14 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_copy(&quot;app.py&quot;, &quot;/app/app.py&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; config.add_copy("app.py", "/app/app.py")</span>
 <span class="sd">        &gt;&gt;&gt; config.copies</span>
-<span class="sd">        [{&quot;src&quot;: &quot;app.py&quot;, &quot;dest&quot;: &quot;/app/app.py&quot;}]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding copy </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        [{"src": "app.py", "dest": "/app/app.py"}]</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding copy </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;src&quot;</span><span class="p">:</span> <span class="n">src</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">:</span> <span class="n">dest</span><span class="p">})</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"src"</span><span class="p">:</span> <span class="n">src</span><span class="p">,</span> <span class="s2">"dest"</span><span class="p">:</span> <span class="n">dest</span><span class="p">})</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2820,9 +2820,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_environment</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">environment</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">]</span>
-<span class="go">&#39;true&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_environment</span><span class="p">(</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="s2">"true"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">environment</span><span class="p">[</span><span class="s2">"DEBUG"</span><span class="p">]</span>
+<span class="go">'true'</span>
 </code></pre></div>
 
 
@@ -2846,7 +2846,7 @@
 <span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_environment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add an environment variable to the build configuration.</span>
 
 <span class="sd">    Args:</span>
@@ -2855,11 +2855,11 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_environment(&quot;DEBUG&quot;, &quot;true&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; config.environment[&quot;DEBUG&quot;]</span>
-<span class="sd">        &#39;true&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding environment variable </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        &gt;&gt;&gt; config.add_environment("DEBUG", "true")</span>
+<span class="sd">        &gt;&gt;&gt; config.environment["DEBUG"]</span>
+<span class="sd">        'true'</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding environment variable </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -2913,7 +2913,7 @@
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/tmp&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"/tmp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">set_context_dir</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">context_dir</span> <span class="o">==</span> <span class="n">temp_dir</span>
 <span class="go">True</span>
@@ -2946,7 +2946,7 @@
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_context_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Set the build context directory.</span>
 
 <span class="sd">    Args:</span>
@@ -2958,16 +2958,16 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from pathlib import Path</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; temp_dir = Path(&quot;/tmp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; temp_dir = Path("/tmp")</span>
 <span class="sd">        &gt;&gt;&gt; config.set_context_dir(temp_dir)</span>
 <span class="sd">        &gt;&gt;&gt; config.context_dir == temp_dir</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting context directory to </span><span class="si">{</span><span class="n">context_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Setting context directory to </span><span class="si">{</span><span class="n">context_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">context_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">context_dir</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">context_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Context directory </span><span class="si">{</span><span class="n">context_dir</span><span class="si">}</span><span class="s2"> is not a directory&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Context directory </span><span class="si">{</span><span class="n">context_dir</span><span class="si">}</span><span class="s2"> is not a directory"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">context_dir</span> <span class="o">=</span> <span class="n">context_dir</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3006,8 +3006,8 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_python_dependency</span><span class="p">(</span><span class="s2">&quot;flask&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;flask&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">python_dependencies</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_python_dependency</span><span class="p">(</span><span class="s2">"flask"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">"flask"</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">python_dependencies</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -3031,19 +3031,19 @@
 <span class="normal">203</span>
 <span class="normal">204</span>
 <span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_python_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dependency</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a Python dependency to be installed in the image.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        dependency (str): The Python package dependency (e.g., &quot;flask==2.0.1&quot;).</span>
+<span class="sd">        dependency (str): The Python package dependency (e.g., "flask==2.0.1").</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_python_dependency(&quot;flask&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; &quot;flask&quot; in config.python_dependencies</span>
+<span class="sd">        &gt;&gt;&gt; config.add_python_dependency("flask")</span>
+<span class="sd">        &gt;&gt;&gt; "flask" in config.python_dependencies</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding Python dependency: &#39;</span><span class="si">{</span><span class="n">dependency</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding Python dependency: '</span><span class="si">{</span><span class="n">dependency</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_dependencies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">python_dependencies</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">python_dependencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dependency</span><span class="p">)</span>
@@ -3084,8 +3084,8 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_system_dependency</span><span class="p">(</span><span class="s2">&quot;curl&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;curl&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">sys_dependencies</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_system_dependency</span><span class="p">(</span><span class="s2">"curl"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">"curl"</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">sys_dependencies</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -3109,19 +3109,19 @@
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_system_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dependency</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a system dependency to be installed in the image.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        dependency (str): The system package dependency (e.g., &quot;curl&quot;).</span>
+<span class="sd">        dependency (str): The system package dependency (e.g., "curl").</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_system_dependency(&quot;curl&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; &quot;curl&quot; in config.sys_dependencies</span>
+<span class="sd">        &gt;&gt;&gt; config.add_system_dependency("curl")</span>
+<span class="sd">        &gt;&gt;&gt; "curl" in config.sys_dependencies</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding system dependency: &#39;</span><span class="si">{</span><span class="n">dependency</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding system dependency: '</span><span class="si">{</span><span class="n">dependency</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_dependencies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sys_dependencies</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sys_dependencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dependency</span><span class="p">)</span>
@@ -3162,8 +3162,8 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_run_command</span><span class="p">(</span><span class="s2">&quot;apt-get update&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;apt-get update&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">run_commands</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_run_command</span><span class="p">(</span><span class="s2">"apt-get update"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">"apt-get update"</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">run_commands</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -3187,19 +3187,19 @@
 <span class="normal">239</span>
 <span class="normal">240</span>
 <span class="normal">241</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a command to be run during the build process.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        command (str): The command to run (e.g., &quot;apt-get update&quot;).</span>
+<span class="sd">        command (str): The command to run (e.g., "apt-get update").</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_run_command(&quot;apt-get update&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; &quot;apt-get update&quot; in config.run_commands</span>
+<span class="sd">        &gt;&gt;&gt; config.add_run_command("apt-get update")</span>
+<span class="sd">        &gt;&gt;&gt; "apt-get update" in config.run_commands</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding run command: &#39;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding run command: '</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_commands</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_commands</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">run_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
@@ -3241,9 +3241,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">set_entrypoint</span><span class="p">(</span><span class="s2">&quot;python app.py&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">set_entrypoint</span><span class="p">(</span><span class="s2">"python app.py"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">entrypoint</span>
-<span class="go">[&quot;python app.py&quot;]</span>
+<span class="go">["python app.py"]</span>
 </code></pre></div>
 
 
@@ -3267,7 +3267,7 @@
 <span class="normal">258</span>
 <span class="normal">259</span>
 <span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_entrypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entrypoint</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Set the entrypoint for the container.</span>
 
 <span class="sd">    Args:</span>
@@ -3276,13 +3276,13 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.set_entrypoint(&quot;python app.py&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; config.set_entrypoint("python app.py")</span>
 <span class="sd">        &gt;&gt;&gt; config.entrypoint</span>
-<span class="sd">        [&quot;python app.py&quot;]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        ["python app.py"]</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entrypoint</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">entrypoint</span> <span class="o">=</span> <span class="p">[</span><span class="n">entrypoint</span><span class="p">]</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting entrypoint to: &#39;</span><span class="si">{</span><span class="n">entrypoint</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Setting entrypoint to: '</span><span class="si">{</span><span class="n">entrypoint</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span> <span class="o">=</span> <span class="n">entrypoint</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3322,9 +3322,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">BuildConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">set_cmd</span><span class="p">(</span><span class="s2">&quot;python -m myapp&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">set_cmd</span><span class="p">(</span><span class="s2">"python -m myapp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">cmd</span>
-<span class="go">[&quot;python -m myapp&quot;]</span>
+<span class="go">["python -m myapp"]</span>
 </code></pre></div>
 
 
@@ -3348,7 +3348,7 @@
 <span class="normal">277</span>
 <span class="normal">278</span>
 <span class="normal">279</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_cmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Set the command for the container.</span>
 
 <span class="sd">    Args:</span>
@@ -3357,13 +3357,13 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = BuildConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.set_cmd(&quot;python -m myapp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; config.set_cmd("python -m myapp")</span>
 <span class="sd">        &gt;&gt;&gt; config.cmd</span>
-<span class="sd">        [&quot;python -m myapp&quot;]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        ["python -m myapp"]</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmd</span><span class="p">]</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting command to: &#39;</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Setting command to: '</span><span class="si">{</span><span class="n">cmd</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -3567,7 +3567,7 @@
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">RuntimeConfig</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">image_name</span>
-<span class="go">&#39;model-runner&#39;</span>
+<span class="go">'model-runner'</span>
 </code></pre></div>
 
 
@@ -3687,7 +3687,7 @@
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_volume</span><span class="p">(</span><span class="n">host_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">container_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;rw&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_volume</span><span class="p">(</span><span class="n">host_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">container_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'rw'</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3728,8 +3728,8 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">RuntimeConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_volume</span><span class="p">(</span><span class="s2">&quot;/host/data&quot;</span><span class="p">,</span> <span class="s2">&quot;/container/data&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rw&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;/host/data&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">volumes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_volume</span><span class="p">(</span><span class="s2">"/host/data"</span><span class="p">,</span> <span class="s2">"/container/data"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"rw"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">"/host/data"</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">volumes</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -3763,26 +3763,26 @@
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">host_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
     <span class="n">container_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rw&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"rw"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add a volume mapping for the container.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        host_path (Union[str, Path]): The path on the host machine.</span>
 <span class="sd">        container_path (Union[str, Path]): The destination path inside the container.</span>
-<span class="sd">        mode (str, optional): The mode for the volume mapping (e.g., &quot;rw&quot; or &quot;ro&quot;). Defaults to &quot;rw&quot;.</span>
+<span class="sd">        mode (str, optional): The mode for the volume mapping (e.g., "rw" or "ro"). Defaults to "rw".</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = RuntimeConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_volume(&quot;/host/data&quot;, &quot;/container/data&quot;, mode=&quot;rw&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; &quot;/host/data&quot; in config.volumes</span>
+<span class="sd">        &gt;&gt;&gt; config.add_volume("/host/data", "/container/data", mode="rw")</span>
+<span class="sd">        &gt;&gt;&gt; "/host/data" in config.volumes</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding volume </span><span class="si">{</span><span class="n">host_path</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">container_path</span><span class="si">}</span><span class="s2"> with mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding volume </span><span class="si">{</span><span class="n">host_path</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">container_path</span><span class="si">}</span><span class="s2"> with mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">host_path</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bind&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">container_path</span><span class="p">),</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="n">mode</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">host_path</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"bind"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">container_path</span><span class="p">),</span> <span class="s2">"mode"</span><span class="p">:</span> <span class="n">mode</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3828,9 +3828,9 @@
 
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">RuntimeConfig</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_env</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">]</span>
-<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">add_env</span><span class="p">(</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s2">"DEBUG"</span><span class="p">]</span>
+<span class="go">'1'</span>
 </code></pre></div>
 
 
@@ -3854,7 +3854,7 @@
 <span class="normal">473</span>
 <span class="normal">474</span>
 <span class="normal">475</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Add an environment variable for the container.</span>
 
 <span class="sd">    Args:</span>
@@ -3863,11 +3863,11 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; config = RuntimeConfig()</span>
-<span class="sd">        &gt;&gt;&gt; config.add_env(&quot;DEBUG&quot;, &quot;1&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; config.env[&quot;DEBUG&quot;]</span>
-<span class="sd">        &#39;1&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding environment variable </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        &gt;&gt;&gt; config.add_env("DEBUG", "1")</span>
+<span class="sd">        &gt;&gt;&gt; config.env["DEBUG"]</span>
+<span class="sd">        '1'</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding environment variable </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> with value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>

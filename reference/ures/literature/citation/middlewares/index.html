@@ -1233,6 +1233,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ures.literature.citation.middlewares.OutputDropForbiddenFieldsMiddleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OutputDropForbiddenFieldsMiddleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ures.literature.citation.middlewares.OutputOnlyDesiredFieldsMiddleware" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2346,6 +2357,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ures.literature.citation.middlewares.OutputDropForbiddenFieldsMiddleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OutputDropForbiddenFieldsMiddleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ures.literature.citation.middlewares.OutputOnlyDesiredFieldsMiddleware" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2503,12 +2525,12 @@
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">transform_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Entry</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform entry fields.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Transform entry fields."""</span>
     <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
         <span class="c1"># Handle special cases</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">key</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">value</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;pages&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">"pages"</span><span class="p">:</span>
             <span class="c1"># Normalize page ranges</span>
             <span class="n">field</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_pages</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2626,27 +2648,27 @@
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">normalize_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize language string to ISO 639-1 code.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Normalize language string to ISO 639-1 code."""</span>
     <span class="n">special_cases</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;pinyin&quot;</span><span class="p">:</span> <span class="s2">&quot;zh&quot;</span><span class="p">,</span>
+        <span class="s2">"pinyin"</span><span class="p">:</span> <span class="s2">"zh"</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">language_str</span> <span class="ow">in</span> <span class="n">special_cases</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">special_cases</span><span class="p">[</span><span class="n">language_str</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">language_str</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to normalize language &#39;</span><span class="si">{</span><span class="n">language_str</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to normalize language '</span><span class="si">{</span><span class="n">language_str</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">language_str</span>
     <span class="n">language_str</span> <span class="o">=</span> <span class="n">language_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">lang</span> <span class="o">=</span> <span class="n">pycountry</span><span class="o">.</span><span class="n">languages</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">language_str</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">lang</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="s2">&quot;alpha_2&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">lang</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="s2">"alpha_2"</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">lang</span><span class="o">.</span><span class="n">alpha_2</span>
         <span class="c1"># Try searching by common name</span>
         <span class="k">for</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">pycountry</span><span class="o">.</span><span class="n">languages</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">language_str</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">lang</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="s2">&quot;alpha_2&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="s2">"alpha_2"</span><span class="p">):</span>
                     <span class="k">return</span> <span class="n">lang</span><span class="o">.</span><span class="n">alpha_2</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to normalize language &#39;</span><span class="si">{</span><span class="n">language_str</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to normalize language '</span><span class="si">{</span><span class="n">language_str</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">language_str</span>
     <span class="k">return</span> <span class="n">language_str</span>
 </code></pre></div></td></tr></table></div>
@@ -2765,41 +2787,41 @@
 <span class="normal">197</span>
 <span class="normal">198</span>
 <span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">normailize_proceedings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize proceedings string to standard format.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Normalize proceedings string to standard format."""</span>
     <span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="sa">r</span><span class="s2">&quot;\bIn\s+Proceedings\s+of\s+the\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bIn\s+Proceedings\s+of\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bIn\s+Proc\.\s+of\s+the\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bIn\s+Proc\.\s+of\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bProceedings\s+of\s+the\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bProceedings\s+of\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bProc\.\s+of\s+the\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bProc\.\s+of\s+&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bIn\s+(?=\d|\w+\s+(International|Annual|ACM|IEEE))&quot;</span><span class="p">,</span>
-        <span class="sa">r</span><span class="s2">&quot;\bProc\.\s+&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bIn\s+Proceedings\s+of\s+the\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bIn\s+Proceedings\s+of\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bIn\s+Proc\.\s+of\s+the\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bIn\s+Proc\.\s+of\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bProceedings\s+of\s+the\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bProceedings\s+of\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bProc\.\s+of\s+the\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bProc\.\s+of\s+"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bIn\s+(?=\d|\w+\s+(International|Annual|ACM|IEEE))"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">"\bProc\.\s+"</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="n">proceedings_str</span> <span class="o">=</span> <span class="n">proceedings_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">proceedings_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shorten_venue_year</span><span class="p">(</span><span class="n">proceedings_str</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
             <span class="n">proceedings_str</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                <span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
+                <span class="n">pattern</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
             <span class="p">)</span>
-            <span class="n">proceedings_str</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">proceedings_str</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">proceedings_str</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">break</span>
     <span class="n">prefix_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;remove&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="s2">&quot;In Proceedings of the &quot;</span><span class="p">,</span>
-        <span class="s2">&quot;short&quot;</span><span class="p">:</span> <span class="s2">&quot;In Proc. of the &quot;</span><span class="p">,</span>
-        <span class="s2">&quot;proceedings&quot;</span><span class="p">:</span> <span class="s2">&quot;Proceedings of the &quot;</span><span class="p">,</span>
-        <span class="s2">&quot;minimal&quot;</span><span class="p">:</span> <span class="s2">&quot;In &quot;</span><span class="p">,</span>
-        <span class="s2">&quot;proc&quot;</span><span class="p">:</span> <span class="s2">&quot;Proc. &quot;</span><span class="p">,</span>
+        <span class="s2">"remove"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"full"</span><span class="p">:</span> <span class="s2">"In Proceedings of the "</span><span class="p">,</span>
+        <span class="s2">"short"</span><span class="p">:</span> <span class="s2">"In Proc. of the "</span><span class="p">,</span>
+        <span class="s2">"proceedings"</span><span class="p">:</span> <span class="s2">"Proceedings of the "</span><span class="p">,</span>
+        <span class="s2">"minimal"</span><span class="p">:</span> <span class="s2">"In "</span><span class="p">,</span>
+        <span class="s2">"proc"</span><span class="p">:</span> <span class="s2">"Proc. "</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span><span class="o">.</span><span class="n">get_rule</span><span class="p">(</span>
-        <span class="s2">&quot;inproceedings&quot;</span>
+        <span class="s2">"inproceedings"</span>
     <span class="p">)</span><span class="o">.</span><span class="n">formatting</span><span class="o">.</span><span class="n">proceedings_style</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">proceedings_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">"full"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">proceedings_str</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2966,9 +2988,9 @@ entries are unchanged.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3005,26 +3027,7 @@ entries are unchanged.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">268</span>
 <span class="normal">269</span>
 <span class="normal">270</span>
 <span class="normal">271</span>
@@ -3034,8 +3037,27 @@ entries are unchanged.</p>
 <span class="normal">275</span>
 <span class="normal">276</span>
 <span class="normal">277</span>
-<span class="normal">278</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">transform_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate entry using dataclass rules.&quot;&quot;&quot;</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">transform_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="n">Entry</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Validate entry using dataclass rules."""</span>
     <span class="n">is_valid</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">rule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span><span class="o">.</span><span class="n">get_rule</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_type</span><span class="p">)</span>
     <span class="n">missing_required</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3046,7 +3068,7 @@ entries are unchanged.</p>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">is_valid</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="n">suggested_fields</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="s2">&quot;suggested_fields&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">suggested_fields</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="s2">"suggested_fields"</span><span class="p">,</span> <span class="p">[])</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">suggested_fields</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">suggested_fields</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">missing_suggested</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3054,10 +3076,10 @@ entries are unchanged.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">field_group_present</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">spec</span><span class="p">):</span>
             <span class="n">missing_suggested</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
 
-    <span class="n">is_valid_field</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;is_valid&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">is_valid</span><span class="p">)</span>
-    <span class="n">missing_fields</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;missing_fields&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">missing_required</span><span class="p">)</span>
+    <span class="n">is_valid_field</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"is_valid"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">is_valid</span><span class="p">)</span>
+    <span class="n">missing_fields</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"missing_fields"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">missing_required</span><span class="p">)</span>
     <span class="n">missing_suggested_field</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;missing_suggested&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">missing_suggested</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">"missing_suggested"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">missing_suggested</span>
     <span class="p">)</span>
     <span class="n">entry</span><span class="o">.</span><span class="n">set_field</span><span class="p">(</span><span class="n">is_valid_field</span><span class="p">)</span>
     <span class="n">entry</span><span class="o">.</span><span class="n">set_field</span><span class="p">(</span><span class="n">missing_fields</span><span class="p">)</span>
@@ -3140,6 +3162,64 @@ entries are unchanged.</p>
 
 
 
+<h2 id="ures.literature.citation.middlewares.OutputDropForbiddenFieldsMiddleware" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">OutputDropForbiddenFieldsMiddleware</span>
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">OutputDropForbiddenFieldsMiddleware</span><span class="p">(</span><span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="ures.literature.citation.middlewares.CitationMiddleware">CitationMiddleware</span></code></p>
+
+
+
+        <p>Drop fields the style overlay explicitly removed.</p>
+
+
+
+
+
+
+
+
+                  <details class="mkdocstrings-source">
+                    <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="ures.literature.citation.middlewares.OutputOnlyDesiredFieldsMiddleware" class="doc doc-heading">
             <span class="doc doc-object-name doc-class-name">OutputOnlyDesiredFieldsMiddleware</span>
 
@@ -3165,9 +3245,9 @@ entries are unchanged.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -3223,9 +3303,9 @@ entries are unchanged.</p>
 
                   <details class="mkdocstrings-source">
                     <summary>Source code in <code>ures/literature/citation/middlewares.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_register</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BibRuleRegister</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">rule_register</span> <span class="o">=</span> <span class="n">rule_register</span> <span class="ow">or</span> <span class="n">BibRuleRegister</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>

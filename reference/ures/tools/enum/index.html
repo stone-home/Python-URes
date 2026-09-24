@@ -2267,7 +2267,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ures.tools.enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnumManipulator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">&quot;RED&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">"RED"</span><span class="p">)</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -2319,7 +2319,7 @@
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_enum</span><span class="p">:</span> <span class="n">EnumMeta</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Initialize the EnumManipulator instance with a given Enum.</span>
 
 <span class="sd">    Args:</span>
@@ -2331,7 +2331,7 @@
 <span class="sd">        ...     RED = 1</span>
 <span class="sd">        ...     GREEN = 2</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Color)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_enum</span> <span class="o">=</span> <span class="n">input_enum</span>
 </code></pre></div></td></tr></table></div>
                   </details>
@@ -2432,7 +2432,7 @@
 <span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span> <span class="o">=</span> <span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">fetch_keys</span><span class="p">()</span>
-<span class="go">[&#39;RED&#39;, &#39;BLUE&#39;]</span>
+<span class="go">['RED', 'BLUE']</span>
 </code></pre></div>
 
 
@@ -2455,7 +2455,7 @@
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fetch_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get a list of all key names (member names) from the Enum.</span>
 
 <span class="sd">    Returns:</span>
@@ -2468,8 +2468,8 @@
 <span class="sd">        ...     BLUE = 3</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Color)</span>
 <span class="sd">        &gt;&gt;&gt; manipulator.fetch_keys()</span>
-<span class="sd">        [&#39;RED&#39;, &#39;BLUE&#39;]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        ['RED', 'BLUE']</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_enums</span><span class="o">.</span><span class="n">_member_names_</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2524,7 +2524,7 @@
 <span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">... </span>    <span class="n">GREEN</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span> <span class="o">=</span> <span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">member</span> <span class="o">=</span> <span class="n">manipulator</span><span class="o">.</span><span class="n">fetch_enum</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">member</span> <span class="o">=</span> <span class="n">manipulator</span><span class="o">.</span><span class="n">fetch_enum</span><span class="p">(</span><span class="s2">"red"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">member</span><span class="o">.</span><span class="n">value</span>
 <span class="go">1</span>
 </code></pre></div>
@@ -2556,7 +2556,7 @@
 <span class="normal">92</span>
 <span class="normal">93</span>
 <span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fetch_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Enum</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieve an Enum member by its key name (case-insensitive).</span>
 
 <span class="sd">    Args:</span>
@@ -2571,10 +2571,10 @@
 <span class="sd">        ...     RED = 1</span>
 <span class="sd">        ...     GREEN = 2</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Color)</span>
-<span class="sd">        &gt;&gt;&gt; member = manipulator.fetch_enum(&quot;red&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; member = manipulator.fetch_enum("red")</span>
 <span class="sd">        &gt;&gt;&gt; member.value</span>
 <span class="sd">        1</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">for</span> <span class="n">_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">_key</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_enums</span><span class="p">[</span><span class="n">_key</span><span class="p">]</span>
@@ -2632,9 +2632,9 @@
 <span class="gp">... </span>    <span class="n">RED</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">... </span>    <span class="n">BLUE</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span> <span class="o">=</span> <span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">&quot;RED&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">"RED"</span><span class="p">)</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">&quot;GREEN&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">check_key</span><span class="p">(</span><span class="s2">"GREEN"</span><span class="p">)</span>
 <span class="go">False</span>
 </code></pre></div>
 
@@ -2663,7 +2663,7 @@
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Check whether a given key exists in the Enum.</span>
 
 <span class="sd">    Args:</span>
@@ -2678,11 +2678,11 @@
 <span class="sd">        ...     RED = 1</span>
 <span class="sd">        ...     BLUE = 3</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Color)</span>
-<span class="sd">        &gt;&gt;&gt; manipulator.check_key(&quot;RED&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; manipulator.check_key("RED")</span>
 <span class="sd">        True</span>
-<span class="sd">        &gt;&gt;&gt; manipulator.check_key(&quot;GREEN&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; manipulator.check_key("GREEN")</span>
 <span class="sd">        False</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_enum</span><span class="p">(</span><span class="n">key_name</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2734,11 +2734,11 @@
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Status</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s2">&quot;ok&quot;</span>
-<span class="gp">... </span>    <span class="n">FAILURE</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span>
+<span class="gp">... </span>    <span class="n">SUCCESS</span> <span class="o">=</span> <span class="s2">"ok"</span>
+<span class="gp">... </span>    <span class="n">FAILURE</span> <span class="o">=</span> <span class="s2">"error"</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span> <span class="o">=</span> <span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Status</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">fetch_value</span><span class="p">(</span><span class="s2">&quot;FAILURE&quot;</span><span class="p">)</span>
-<span class="go">&#39;error&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">fetch_value</span><span class="p">(</span><span class="s2">"FAILURE"</span><span class="p">)</span>
+<span class="go">'error'</span>
 </code></pre></div>
 
 
@@ -2767,7 +2767,7 @@
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fetch_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieve the value associated with a given key in the Enum.</span>
 
 <span class="sd">    Args:</span>
@@ -2779,12 +2779,12 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from enum import Enum</span>
 <span class="sd">        &gt;&gt;&gt; class Status(Enum):</span>
-<span class="sd">        ...     SUCCESS = &quot;ok&quot;</span>
-<span class="sd">        ...     FAILURE = &quot;error&quot;</span>
+<span class="sd">        ...     SUCCESS = "ok"</span>
+<span class="sd">        ...     FAILURE = "error"</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Status)</span>
-<span class="sd">        &gt;&gt;&gt; manipulator.fetch_value(&quot;FAILURE&quot;)</span>
-<span class="sd">        &#39;error&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; manipulator.fetch_value("FAILURE")</span>
+<span class="sd">        'error'</span>
+<span class="sd">    """</span>
     <span class="n">member</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_enum</span><span class="p">(</span><span class="n">key_name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">member</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="n">value</span>
@@ -2853,12 +2853,12 @@ Defaults to None.</p>
 <p><span class="doc-section-title">Examples:</span></p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">Fruit</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">APPLE</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
-<span class="gp">... </span>    <span class="n">BANANA</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
-<span class="gp">... </span>    <span class="n">GRAPE</span> <span class="o">=</span> <span class="s2">&quot;purple&quot;</span>
+<span class="gp">... </span>    <span class="n">APPLE</span> <span class="o">=</span> <span class="s2">"red"</span>
+<span class="gp">... </span>    <span class="n">BANANA</span> <span class="o">=</span> <span class="s2">"yellow"</span>
+<span class="gp">... </span>    <span class="n">GRAPE</span> <span class="o">=</span> <span class="s2">"purple"</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span> <span class="o">=</span> <span class="n">EnumManipulator</span><span class="p">(</span><span class="n">Fruit</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-<span class="go">[&#39;APPLE&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">manipulator</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="s2">"red"</span><span class="p">)</span>
+<span class="go">['APPLE']</span>
 </code></pre></div>
 
 
@@ -2906,16 +2906,16 @@ Defaults to None.</p>
 <span class="normal">182</span>
 <span class="normal">183</span>
 <span class="normal">184</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">filter_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Filter and return keys from the Enum where the specified keyword matches.</span>
 
 <span class="sd">    If no field is provided, the keyword is compared to the string representation</span>
-<span class="sd">    of the Enum member&#39;s value. Otherwise, the specified attribute (field) of the member&#39;s</span>
+<span class="sd">    of the Enum member's value. Otherwise, the specified attribute (field) of the member's</span>
 <span class="sd">    value is used for comparison.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        keyword (str): The keyword to search for.</span>
-<span class="sd">        field (str, optional): The attribute of the Enum member&#39;s value to search within.</span>
+<span class="sd">        field (str, optional): The attribute of the Enum member's value to search within.</span>
 <span class="sd">            Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
@@ -2924,13 +2924,13 @@ Defaults to None.</p>
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from enum import Enum</span>
 <span class="sd">        &gt;&gt;&gt; class Fruit(Enum):</span>
-<span class="sd">        ...     APPLE = &quot;red&quot;</span>
-<span class="sd">        ...     BANANA = &quot;yellow&quot;</span>
-<span class="sd">        ...     GRAPE = &quot;purple&quot;</span>
+<span class="sd">        ...     APPLE = "red"</span>
+<span class="sd">        ...     BANANA = "yellow"</span>
+<span class="sd">        ...     GRAPE = "purple"</span>
 <span class="sd">        &gt;&gt;&gt; manipulator = EnumManipulator(Fruit)</span>
-<span class="sd">        &gt;&gt;&gt; manipulator.filter_by(&quot;red&quot;)</span>
-<span class="sd">        [&#39;APPLE&#39;]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; manipulator.filter_by("red")</span>
+<span class="sd">        ['APPLE']</span>
+<span class="sd">    """</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_keys</span><span class="p">():</span>
         <span class="n">member_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_enums</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>

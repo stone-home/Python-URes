@@ -2242,7 +2242,7 @@ absolute file paths for every file found.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="n">get_file_paths</span><span class="p">(</span><span class="s2">&quot;/path/to/directory&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="n">get_file_paths</span><span class="p">(</span><span class="s2">"/path/to/directory"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -2276,7 +2276,7 @@ absolute file paths for every file found.</p>
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_file_paths</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieve all file paths within the specified directory and its subdirectories.</span>
 
 <span class="sd">    This function walks through the given directory recursively and returns a list of</span>
@@ -2289,10 +2289,10 @@ absolute file paths for every file found.</p>
 <span class="sd">        list[str]: A list containing the absolute paths of all files found.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; paths = get_file_paths(&quot;/path/to/directory&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; paths = get_file_paths("/path/to/directory")</span>
 <span class="sd">        &gt;&gt;&gt; isinstance(paths, list)</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">file_paths</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1"># Walk through the directory and its subdirectories.</span>
     <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
@@ -2371,7 +2371,7 @@ returns only files with an exact name match. Defaults to True.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">matched</span> <span class="o">=</span> <span class="n">filter_files</span><span class="p">(</span><span class="s2">&quot;exam&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp/test&quot;</span><span class="p">,</span> <span class="n">fuzz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">matched</span> <span class="o">=</span> <span class="n">filter_files</span><span class="p">(</span><span class="s2">"exam"</span><span class="p">,</span> <span class="s2">"/tmp/test"</span><span class="p">,</span> <span class="n">fuzz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matched</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -2415,11 +2415,11 @@ returns only files with an exact name match. Defaults to True.</p>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">filter_files</span><span class="p">(</span><span class="n">part_file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fuzz</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Retrieve file paths in the specified directory that match a given file name pattern.</span>
 
 <span class="sd">    This function filters file paths within a directory by checking if the file name contains</span>
-<span class="sd">    the provided keyword. When &#39;fuzz&#39; is True, it returns all files that contain the keyword;</span>
+<span class="sd">    the provided keyword. When 'fuzz' is True, it returns all files that contain the keyword;</span>
 <span class="sd">    otherwise, it returns only the files whose name exactly matches the keyword.</span>
 
 <span class="sd">    Args:</span>
@@ -2432,10 +2432,10 @@ returns only files with an exact name match. Defaults to True.</p>
 <span class="sd">        list[str]: A list of file paths that match the search criteria.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; matched = filter_files(&quot;exam&quot;, &quot;/tmp/test&quot;, fuzz=True)</span>
+<span class="sd">        &gt;&gt;&gt; matched = filter_files("exam", "/tmp/test", fuzz=True)</span>
 <span class="sd">        &gt;&gt;&gt; isinstance(matched, list)</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Note: Using get_file_paths instead of a non-existent fetch_file_paths.</span>
     <span class="n">file_paths</span> <span class="o">=</span> <span class="n">get_file_paths</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">fuzz</span><span class="p">:</span>
@@ -2500,7 +2500,7 @@ each entry in the path that is a directory.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">dirs</span> <span class="o">=</span> <span class="n">list_directories</span><span class="p">(</span><span class="s2">&quot;/tmp&quot;</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">dirs</span> <span class="o">=</span> <span class="n">list_directories</span><span class="p">(</span><span class="s2">"/tmp"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">dirs</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dirs</span> <span class="ow">is</span> <span class="kc">None</span>
 <span class="go">True</span>
 </code></pre></div>
@@ -2536,7 +2536,7 @@ each entry in the path that is a directory.</p>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_directories</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    List all subdirectories in the specified path.</span>
 
 <span class="sd">    This function checks whether the given path exists and then returns a list of names for</span>
@@ -2549,12 +2549,12 @@ each entry in the path that is a directory.</p>
 <span class="sd">        list[str] | None: A list of directory names if the path exists; otherwise, None.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; dirs = list_directories(&quot;/tmp&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; dirs = list_directories("/tmp")</span>
 <span class="sd">        &gt;&gt;&gt; isinstance(dirs, list) or dirs is None</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The specified path does not exist: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"The specified path does not exist: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="c1"># List all entries in the path.</span>
@@ -2624,10 +2624,10 @@ its path.</p>
 <span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_temp_folder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Obtain the path of a new temporary folder.</span>
 
-<span class="sd">    This function creates a temporary directory using Python&#39;s tempfile module and returns</span>
+<span class="sd">    This function creates a temporary directory using Python's tempfile module and returns</span>
 <span class="sd">    its path.</span>
 
 <span class="sd">    Returns:</span>
@@ -2637,7 +2637,7 @@ its path.</p>
 <span class="sd">        &gt;&gt;&gt; temp_folder = get_temp_folder()</span>
 <span class="sd">        &gt;&gt;&gt; os.path.isdir(temp_folder)</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2691,8 +2691,8 @@ arguments. If the directory does not already exist, it is created.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="s2">&quot;cache&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span> <span class="s2">&quot;cache&quot;</span><span class="p">))</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span> <span class="o">=</span> <span class="n">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temp_dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"myapp"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">))</span>
 <span class="go">True</span>
 </code></pre></div>
 
@@ -2722,10 +2722,10 @@ arguments. If the directory does not already exist, it is created.</p>
 <span class="normal">151</span>
 <span class="normal">152</span>
 <span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_temp_dir_with_specific_path</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Create (if necessary) and return a temporary directory with a specified subpath.</span>
 
-<span class="sd">    This function constructs a path within the system&#39;s temporary directory using the provided</span>
+<span class="sd">    This function constructs a path within the system's temporary directory using the provided</span>
 <span class="sd">    arguments. If the directory does not already exist, it is created.</span>
 
 <span class="sd">    Args:</span>
@@ -2735,10 +2735,10 @@ arguments. If the directory does not already exist, it is created.</p>
 <span class="sd">        str: The full path of the temporary directory created or existing.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; temp_dir = get_temp_dir_with_specific_path(&quot;myapp&quot;, &quot;cache&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; temp_dir.endswith(os.path.join(&quot;myapp&quot;, &quot;cache&quot;))</span>
+<span class="sd">        &gt;&gt;&gt; temp_dir = get_temp_dir_with_specific_path("myapp", "cache")</span>
+<span class="sd">        &gt;&gt;&gt; temp_dir.endswith(os.path.join("myapp", "cache"))</span>
 <span class="sd">        True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">temp_dir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span>
     <span class="n">flame_temp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">flame_temp</span><span class="p">):</span>
