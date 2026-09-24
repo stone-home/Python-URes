@@ -243,12 +243,14 @@ def cmd_process(
 
     from ures.literature.citation.middlewares import (
         OutputCleanupNoneResultMiddleware,
+        OutputDropForbiddenFieldsMiddleware,
         OutputLimitMaxAuthors,
     )
 
     library = _subset_library(manager.bibliograph_library, cited_keys)
     middlewares = [
         OutputLimitMaxAuthors(rule_register=manager.rules),
+        OutputDropForbiddenFieldsMiddleware(rule_register=manager.rules),
         OutputCleanupNoneResultMiddleware(rule_register=manager.rules),
         bibtexparser.middlewares.MergeNameParts(),
         bibtexparser.middlewares.MergeCoAuthors(),

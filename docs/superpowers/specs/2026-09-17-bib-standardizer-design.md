@@ -65,7 +65,7 @@ Code touch list (small):
 
 - `BibRuleRegister`: load packaged JSON, apply overlay, expose required vs suggested for a profile.
 - `BibTypeRule` / `OutputRules` / `FormattingRules`: use existing fields; suggested lists may live on the rule or beside it. Do not invent a second rule engine.
-- `export_to_file`: do not run `OutputOnlyDesiredFieldsMiddleware` by default, so extra fields survive.
+- `export_to_file`: do not run `OutputOnlyDesiredFieldsMiddleware` by default, so extra fields survive. Fields named by `required_remove` or `suggested_remove` are dropped on export and `format`.
 - `OutputLimitMaxAuthors`: apply only when `max_authors > 0`.
 - `ProceedingsNormalizationMiddleware` prefix map: add `"proc"` → `"Proc. "` for IEEE. Do not rewrite matching logic.
 - New packaged JSON under `ures/literature/citation/styles/`.
@@ -170,6 +170,8 @@ Default when no `bibstyle.json`: ACM.
 
 Allowed keys: `extends`, `max_authors`, `proceedings_style`, `entry_types.<type>.required_add|required_remove|suggested_add|suggested_remove`.
 
+`required_remove` and `suggested_remove` edit the check lists and also name fields that `format` and `export_to_file` must omit. A spec such as `location|city` drops both `location` and `city`. `author`, `title`, and `year` cannot be removed. A field that a later `*_add` puts back is kept. Fields never named by a remove stay in the written `.bib`. When `location` or `city` is removed, ACM conference entries do not copy `address` or `venue` onto `location`.
+
 Unknown `entry_type` in overlay creates that type with required `author`/`title`/`year` then applies add/remove.
 
 `required_remove` of `author`, `title`, or `year` is a configuration error (exit 2).
@@ -243,7 +245,7 @@ Do not weaken or rewrite existing middleware/rule tests. Add:
 - Style load, overlay add/remove, rejected `required_remove` of the three core fields.
 - Profile promotion (`library` vs `submission` vs `camera-ready`).
 - `doi`/`url` and `pages`/`articleno` equivalence.
-- Export keeps extra fields; `max_authors=0` does not truncate.
+- Export keeps extra fields that were not named by `required_remove` or `suggested_remove`; `max_authors=0` does not truncate. Removed fields are absent from the written `.bib`.
 - CLI: `init` writes JSON that loads again as that style; existing `bibstyle.json` makes `init` exit 2; `check` on an unnormalized file exits 1 and prints `error:`; `format` writes `{stem} - formatted.bib` and leaves the input bytes unchanged; `check` of that formatted copy on a complete entry can exit 0; `format --aux` writes only cited keys; `check --aux` does not fail on unused incomplete entries; unknown profile prints `error:` and exits 2.
 
 Use temporary directories. No coverage gate. This spec does not authorize editing tests in the same developer conversation as production code.

@@ -127,6 +127,7 @@ class TestOverlay:
         assert "pages" in inproc["required"]
         assert "doi" in inproc["suggested"]
         assert "address" not in inproc["suggested"]
+        assert inproc["dropped"] == ["address"]
         article = merged["entry_types"]["article"]
         assert article["required"] == ["author", "title", "year", "journal"]
 
@@ -146,6 +147,7 @@ class TestOverlay:
         suggested = merged["entry_types"]["article"]["suggested"]
         assert "volume" not in suggested
         assert "issn" in suggested
+        assert merged["entry_types"]["article"]["dropped"] == ["volume"]
 
     def test_unknown_overlay_type_starts_from_core_required(self, tmp_path):
         overlay = {
@@ -211,6 +213,7 @@ class TestProtectedRequiredRemove:
             "title",
             "year",
         ]
+        assert merged["entry_types"]["article"]["dropped"] == ["journal"]
 
 
 class TestProfilePromotion:

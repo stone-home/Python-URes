@@ -89,6 +89,17 @@ def _dedupe(values: List[str]) -> List[str]:
     return result
 
 
+def expand_field_spec(spec: str) -> List[str]:
+    """Split a required/suggested spec into concrete BibTeX field names."""
+    keys: List[str] = []
+    for alternative in str(spec).split("|"):
+        for part in alternative.split("+"):
+            name = part.strip()
+            if name and name not in keys:
+                keys.append(name)
+    return keys
+
+
 def _apply_overlay(base: Dict[str, Any], overlay: Dict[str, Any]) -> Dict[str, Any]:
     merged = copy.deepcopy(base)
     if "max_authors" in overlay:
@@ -124,9 +135,27 @@ def _apply_overlay(base: Dict[str, Any], overlay: Dict[str, Any]) -> Dict[str, A
             suggested = [item for item in suggested if item != field_name]
         required.extend(spec.get("required_add", []))
         suggested.extend(spec.get("suggested_add", []))
+        required = _dedupe(required)
+        suggested = _dedupe(suggested)
+        removed_specs = list(spec.get("required_remove", [])) + list(
+            spec.get("suggested_remove", [])
+        )
+        dropped: List[str] = []
+        for field_spec in removed_specs:
+            for key in expand_field_spec(field_spec):
+                if key in PROTECTED_FIELDS:
+                    raise StyleConfigError(
+                        f"bibstyle.json: cannot remove required field {key}"
+                    )
+                dropped.append(key)
+        kept = []
+        for item in required + suggested:
+            kept.extend(expand_field_spec(item))
+        kept_names = set(kept)
         merged_types[entry_type] = {
-            "required": _dedupe(required),
-            "suggested": _dedupe(suggested),
+            "required": required,
+            "suggested": suggested,
+            "dropped": [key for key in _dedupe(dropped) if key not in kept_names],
         }
     merged["entry_types"] = merged_types
     return merged
@@ -210,6 +239,7 @@ def style_to_rules(style: Dict[str, Any]) -> Tuple[List[BibTypeRule], int, str, 
                 required_fields=list(spec.get("required", [])),
                 suggested_fields=list(spec.get("suggested", [])),
                 optional_fields=[],
+                forbidden_fields=list(spec.get("dropped", [])),
                 formatting=FormattingRules(proceedings_style=proceedings_style),
                 output=OutputRules(max_authors=max_authors),
             )

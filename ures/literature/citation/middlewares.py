@@ -175,7 +175,7 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
             r"\bIn\s+(?=\d|\w+\s+(International|Annual|ACM|IEEE))",
             r"\bProc\.\s+",
         ]
-        proceedings_str = proceedings_str.strip()
+        proceedings_str = self._shorten_venue_year(proceedings_str.strip())
         for pattern in patterns:
             if re.search(pattern, proceedings_str, re.IGNORECASE):
                 proceedings_str = re.sub(
@@ -198,6 +198,19 @@ class ProceedingsNormalizationMiddleware(CitationMiddleware):
         prefix = prefix_map.get(style, "full")
         return f"{prefix}{proceedings_str}".strip()
 
+    @staticmethod
+    def _shorten_venue_year(proceedings_str: str) -> str:
+        """Turn ``NSDI 2026`` and ``{NSDI} 26`` into ``NSDI '26``."""
+
+        def repl(match: re.Match) -> str:
+            return f"{match.group(1)} '{match.group(2)}"
+
+        return re.sub(
+            r"(\{[A-Z][A-Za-z0-9]*\}|[A-Z][A-Za-z0-9]*)\s+(?:20)?(\d{2})(?!\d)",
+            repl,
+            proceedings_str,
+        )
+
 
 class AcmConferenceVenueMiddleware(CitationMiddleware):
     """Put the conference city on the field ACM actually prints.
@@ -215,6 +228,12 @@ class AcmConferenceVenueMiddleware(CitationMiddleware):
         if getattr(self.rule_register, "style_name", "") not in {"acm", "default"}:
             return entry
         if entry.entry_type.lower() not in {"inproceedings", "conference"}:
+            return entry
+        mapped = self.rule_register.get_default_bib_type_mapping().get(
+            entry.entry_type.lower(), entry.entry_type.lower()
+        )
+        forbidden = set(self.rule_register.get_rule(mapped).forbidden_fields)
+        if "location" in forbidden or "city" in forbidden:
             return entry
         if field_value_present(entry, "location") or field_value_present(entry, "city"):
             return entry
@@ -291,6 +310,16 @@ class OutputCleanupNoneResultMiddleware(CitationMiddleware):
                 entry.pop(key, None)
         for field in need_to_removed:
             entry.pop(field.key, None)
+        return entry
+
+
+class OutputDropForbiddenFieldsMiddleware(CitationMiddleware):
+    """Drop fields the style overlay explicitly removed."""
+
+    def transform_entry(self, entry: Entry, *args, **kwargs) -> Entry:
+        rules = self.rule_register.get_rule(entry.entry_type)
+        for field_name in rules.forbidden_fields:
+            entry.pop(field_name, None)
         return entry
 
 

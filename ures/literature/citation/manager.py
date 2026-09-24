@@ -15,6 +15,7 @@ from .middlewares import (
     DateSpiltToYearMonthDayMiddleware,
     LanguageAsciiNormalizationMiddleware,
     OutputCleanupNoneResultMiddleware,
+    OutputDropForbiddenFieldsMiddleware,
     OutputLimitMaxAuthors,
 )
 from .rules import BibRuleRegister
@@ -136,6 +137,7 @@ class BibManager:
     ) -> None:
         _middlewares: List[bibtexparser.middlewares.BlockMiddleware] = [
             OutputLimitMaxAuthors(rule_register=self.rules),
+            OutputDropForbiddenFieldsMiddleware(rule_register=self.rules),
         ]
         for m in middlewares or []:
             if inspect.isclass(m) and issubclass(m, CitationMiddleware):

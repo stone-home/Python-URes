@@ -179,3 +179,5 @@ site/
 playground/
 .devops/
 .skills_hub
+/.claude/rules/skills-hub/
+/ai-tmp/

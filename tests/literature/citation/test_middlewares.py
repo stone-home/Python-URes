@@ -1,3 +1,4 @@
+import json
 from unittest.mock import Mock, patch
 from bibtexparser.model import Entry, Field
 from bibtexparser.middlewares import NameParts
@@ -219,6 +220,31 @@ class TestAcmConferenceVenueMiddleware:
         fields = {field.key: field.value for field in result.fields}
         assert fields["location"] == "Montreal"
         assert "address" not in fields
+
+    def test_excluded_location_is_not_filled_from_address(self, tmp_path):
+        overlay = tmp_path / "bibstyle.json"
+        overlay.write_text(
+            json.dumps(
+                {
+                    "extends": "acm",
+                    "entry_types": {
+                        "inproceedings": {"suggested_remove": ["location|city"]}
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        register = BibRuleRegister.from_json_style(local_path=overlay)
+        middleware = AcmConferenceVenueMiddleware(register)
+        entry = Entry(
+            key="conf",
+            entry_type="inproceedings",
+            fields=[Field(key="address", value="La Jolla, CA, USA")],
+        )
+        result = middleware.transform_entry(entry)
+        fields = {field.key: field.value for field in result.fields}
+        assert fields["address"] == "La Jolla, CA, USA"
+        assert "location" not in fields
 
     def test_ieee_conference_keeps_address(self):
         fields = self._transform(
@@ -458,6 +484,29 @@ class TestProceedingsNormalizationMiddleware:
             field for field in result.fields if field.key == "booktitle"
         )
         assert booktitle_field.value == "Proceedings of the Conference"
+
+    def test_venue_year_shortens_to_apostrophe_form(self):
+        mock_rule = Mock()
+        mock_rule.formatting.proceedings_style = "proceedings"
+        self.rule_register.get_rule.return_value = mock_rule
+        entry = Entry(
+            key="nsdi",
+            entry_type="inproceedings",
+            fields=[
+                Field(
+                    key="booktitle",
+                    value="23rd {USENIX} Symposium on Networked Systems Design and Implementation ({NSDI} 2026)",
+                )
+            ],
+        )
+        result = self.middleware.transform_entry(entry)
+        booktitle_field = next(
+            field for field in result.fields if field.key == "booktitle"
+        )
+        assert booktitle_field.value == (
+            "Proceedings of the 23rd {USENIX} Symposium on Networked Systems "
+            "Design and Implementation ({NSDI} '26)"
+        )
 
     def test_proceedings_style_minimal(self):
         """Test minimal proceedings style formatting."""

@@ -7,7 +7,10 @@
   "private": true,
   "scripts": {
     "devops:sync": "git -C .devops pull --ff-only || git clone --depth 1 -b trunk https://github.com/stone-home/Action-Stone-DevOps .devops",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "skills:install": "npm run skills:sync && bash .skills-hub/scripts/skill-manager.sh install --skip-sync --project .",
+    "skills:sync": "if [ -d .skills-hub ]; then git -C .skills-hub pull --ff-only; else git clone --depth 1 -b trunk https://github.com/stone-home/AI-HomeLab-Skills.git .skills-hub; fi",
+    "skills:update": "bash .skills-hub/scripts/skill-manager.sh update --project ."
   },
   "version": "0.0.0-development"
 }
