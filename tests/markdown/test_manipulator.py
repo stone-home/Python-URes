@@ -237,6 +237,39 @@ def test_set_frontmatter_append_to_list():
     assert doc.get_frontmatter("keywords") == ["test", "unit-test"]
 
 
+def test_set_frontmatter_extend_list_with_list():
+    doc = MarkdownDocument(metadata={"tags": ["a"]})
+    doc.set_frontmatter("tags", ["b", "c"], overwrite=False)
+    assert doc.get_frontmatter("tags") == ["a", "b", "c"]
+
+    empty = MarkdownDocument(metadata={"tags": []})
+    empty.set_frontmatter("tags", ["source/audio", "type/todo"], overwrite=False)
+    assert empty.get_frontmatter("tags") == ["source/audio", "type/todo"]
+
+
+def test_set_frontmatter_extend_indexed_list_with_list():
+    doc = MarkdownDocument(metadata={"groups": [["a"]]})
+    doc.set_frontmatter("groups.0", ["b", "c"], overwrite=False)
+    assert doc.get_frontmatter("groups.0") == ["a", "b", "c"]
+
+    doc.set_frontmatter("groups.0", "d", overwrite=False)
+    assert doc.get_frontmatter("groups.0") == ["a", "b", "c", "d"]
+
+
+def test_set_frontmatter_keep_named_scalar_when_not_overwrite():
+    doc = MarkdownDocument(metadata={"url": "", "type": "fleeting"})
+    doc.set_frontmatter("url", "", overwrite=False)
+    doc.set_frontmatter("type", "atom", overwrite=False)
+    assert doc.get_frontmatter("url") == ""
+    assert doc.get_frontmatter("type") == "fleeting"
+
+
+def test_set_frontmatter_keep_indexed_scalar_when_not_overwrite():
+    doc = MarkdownDocument(metadata={"items": ["a"]})
+    doc.set_frontmatter("items.0", "b", overwrite=False)
+    assert doc.get_frontmatter("items.0") == "a"
+
+
 def test_set_frontmatter_mixed_nested():
     doc = MarkdownDocument()
     doc.set_frontmatter("authors.0.name", "Alice")
