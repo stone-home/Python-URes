@@ -261,8 +261,10 @@ class MarkdownDocument:
             key_path (str): The front matter key path. Use dot notation for nested keys
                             (e.g., "author.name" or "sections.0.title").
             value (Any): The value to set for the key.
-            overwrite (bool): If True, overwrites the existing value; otherwise, appends to lists
-                              or creates new entries in lists. Defaults to True.
+            overwrite (bool): If True, replaces the existing value. If False, appends to an
+                              existing list (extends when the new value is a list, appends
+                              when it is a single item) and leaves an existing non-list
+                              value unchanged. Defaults to True.
 
         Examples:
             >>> doc = MarkdownDocument()
@@ -301,14 +303,17 @@ class MarkdownDocument:
                     current.append({})
                 if is_last:
                     if isinstance(current[index], list) and not overwrite:
-                        current[index].append(value)
+                        if isinstance(value, list):
+                            current[index].extend(value)
+                        else:
+                            current[index].append(value)
                     elif isinstance(current[index], dict):
                         if isinstance(value, dict):
                             current[index].update(value)
                         else:
                             current[index]["value"] = value
                     elif not overwrite:
-                        current[index] = [current[index], value]
+                        pass
                     else:
                         current[index] = value
                 else:
@@ -339,14 +344,17 @@ class MarkdownDocument:
                 if is_last:
                     if key in current:
                         if isinstance(current[key], list) and not overwrite:
-                            current[key].append(value)
+                            if isinstance(value, list):
+                                current[key].extend(value)
+                            else:
+                                current[key].append(value)
                         elif isinstance(current[key], dict):
                             if isinstance(value, dict):
                                 current[key].update(value)
                             else:
                                 current[key]["value"] = value
                         elif not overwrite:
-                            current[key] = [current[key], value]
+                            pass
                         else:
                             current[key] = value
                     else:
