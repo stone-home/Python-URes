@@ -953,9 +953,10 @@ files = [
 name = "onepassword-sdk"
 version = "0.4.1"
 description = "The 1Password Python SDK offers programmatic read access to your secrets in 1Password in an interface native to Python."
-optional = false
+optional = true
 python-versions = ">=3.9"
 groups = ["main"]
+markers = "extra == \"onepassword\""
 files = [
     {file = "onepassword_sdk-0.4.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:b4101a3996197a65b1d7826bffd821feb16d159253c16bd89d6dde8105103c61"},
     {file = "onepassword_sdk-0.4.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:1d7749fd8dd36189b7021d8a7e94ce587c4e75e1a7e4faf7db613557e88f48a9"},
@@ -1779,7 +1780,10 @@ files = [
 [package.extras]
 watchmedo = ["PyYAML (>=3.10)"]
 
+[extras]
+onepassword = ["onepassword-sdk"]
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "1f1ac6e3501b4064c2277338c071b8a5a0274540a0f2420a7df423bacf4a6774"
+content-hash = "5fa5740451762f7f5ec3355a5c8ca627c7bc5f2cc6de8ffb02c4ee44d358c13d"

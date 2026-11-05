@@ -211,7 +211,7 @@ ip = generate_ip("192.168.0.0/24", 100)  # "192.168.0.100"
 
 - **get_temp_folder:** Returning `.name` of a TemporaryDirectory can leave the dir to be cleaned up by GC; prefer `get_temp_dir_with_specific_path` for longer-lived temp dirs.
 - **time_now:** Python 3.10 uses `datetime.timezone.utc`; 3.11+ uses `datetime.UTC`.
-- **SecureKeyManager:** 1Password requires `onepassword` package; keychain/platform-specific. Encrypted keys are stored in config dir — protect permissions.
+- **SecureKeyManager:** 1Password requires the optional `onepassword` extra (`pip install 'ures[onepassword]'`; no musl/Alpine wheels); keychain/platform-specific. Encrypted keys are stored in config dir — protect permissions.
 - **string2date:** Only supports the documented formats; invalid input returns all None.
 - **network:** `generate_ip` does not check bounds; large last_index can overflow.
 

@@ -146,7 +146,7 @@ class SecureKeyManager:
         """Get or create 1Password client."""
         if not ONEPASSWORD_SDK_AVAILABLE:
             self.logger.error(
-                "1Password SDK not available. Install with: pip install onepassword"
+                "1Password SDK not available. Install with: pip install 'ures[onepassword]'"
             )
             return None
 
@@ -661,7 +661,7 @@ class SecureKeyManager:
     1Password Setup Instructions:
 
     1. Install the 1Password SDK:
-       pip install onepassword
+       pip install 'ures[onepassword]'
 
     2. Create a Service Account:
        - Go to your 1Password account settings
