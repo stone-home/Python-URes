@@ -217,7 +217,7 @@ config.set_api_key('springer', 'SPRINGER_API_KEY', 'env')
 ### 3. 1Password SDK (Official)
 ```bash
 # Install the official 1Password SDK
-pip install onepassword
+pip install 'ures[onepassword]'
 
 # Create a Service Account in 1Password
 # 1. Go to your 1Password account settings
@@ -274,7 +274,7 @@ The system now uses the official 1Password SDK for better security and reliabili
 
 1. **Install 1Password SDK**:
    ```bash
-   pip install onepassword
+   pip install 'ures[onepassword]'
    ```
 
 2. **Create Service Account**:
@@ -509,7 +509,7 @@ duplicates = cache.find_duplicates(similarity_threshold=0.8)
 
 1. **SDK not installed**:
    ```bash
-   pip install onepassword
+   pip install 'ures[onepassword]'
    ```
 
 2. **Service Account Token not set**:
@@ -549,7 +549,7 @@ If you were using the 1Password CLI method, migrate to the official SDK:
 
 1. **Install SDK**:
    ```bash
-   pip install onepassword
+   pip install 'ures[onepassword]'
    ```
 
 2. **Create Service Account** (instead of personal auth)
@@ -655,7 +655,7 @@ The system is designed with minimal dependencies:
 ### Optional Dependencies
 - `onepassword` - Official 1Password SDK (recommended for 1Password integration)
   ```bash
-  pip install onepassword
+  pip install 'ures[onepassword]'
   ```
 
 ### Installation
@@ -664,7 +664,7 @@ The system is designed with minimal dependencies:
 # Just download the Python files
 
 # With 1Password support
-pip install onepassword
+pip install 'ures[onepassword]'
 
 # Development dependencies (optional)
 pip install pytest pytest-asyncio  # For testing

@@ -166,7 +166,7 @@ class InteractiveSetup:
         elif method == StorageMethod.ONEPASSWORD:
             if not SecureKeyManager.is_onepassword_available():
                 print(
-                    "❌ 1Password SDK not available. Install with: pip install onepassword"
+                    "❌ 1Password SDK not available. Install with: pip install 'ures[onepassword]'"
                 )
                 print(SecureKeyManager.get_onepassword_setup_instructions())
                 return

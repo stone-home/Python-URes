@@ -364,7 +364,7 @@ class TestKeyStorageOnePassword:
         """Test that setup instructions are provided."""
         instructions = SecureKeyManager.get_onepassword_setup_instructions()
         assert "1Password Setup Instructions" in instructions
-        assert "pip install onepassword" in instructions
+        assert "ures[onepassword]" in instructions
         assert "OP_SERVICE_ACCOUNT_TOKEN" in instructions
 
     @patch("ures.secrets.ONEPASSWORD_SDK_AVAILABLE", False)
